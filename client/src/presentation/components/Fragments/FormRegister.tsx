@@ -38,7 +38,7 @@ const FormRegister = () => {
                 className='mt-5'
                 onClick={() => {}}
             >
-                Login
+                Daftar
             </Button>
         </div>
     );

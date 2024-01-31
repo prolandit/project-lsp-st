@@ -30,7 +30,7 @@ const FormLogin = () => {
                 className='mt-5'
                 onClick={() => {}}
             >
-                Login
+                Masuk
             </Button>
         </div>
     );

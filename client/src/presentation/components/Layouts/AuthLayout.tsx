@@ -13,7 +13,7 @@ const AuthLayout = (props: Props): React.JSX.Element => {
     const { title, subtitle, navigationTitle, navigateTo, children } = props;
 
     return (
-        <div className='flex justify-center min-h-screen items-center bg-gray-50'>
+        <div className='flex justify-center min-h-screen items-center'>
             <div className='w-full max-w-md bg-white p-10 rounded-md sm:shadow-2xl'>
                 <div className='mb-10'>
                     <h1 className='text-3xl !text-left font-semibold mb-3'>
@@ -24,7 +24,7 @@ const AuthLayout = (props: Props): React.JSX.Element => {
                         <p className='text-xs'>Anda bisa </p>
                         <Link
                             to={navigateTo}
-                            className='text-xs font-semibold text-blue-500 cursor-pointer'
+                            className='text-xs font-semibold text-blue-500'
                         >
                             {navigationTitle}
                         </Link>
