@@ -1,4 +1,4 @@
-const NotFoundPage = () => {
+const NotFoundPage = (): React.JSX.Element => {
     return (
         <div className='flex justify-center items-center min-h-screen gap-3'>
             <h1 className='text-xl font-medium'>404</h1>
