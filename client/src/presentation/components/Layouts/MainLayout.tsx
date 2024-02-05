@@ -5,27 +5,56 @@ import {
     UserOutlined,
     VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Button, Layout, Menu, theme } from 'antd';
-import { useState } from 'react';
+import { Button, Flex, Layout, Menu } from 'antd';
+import { useEffect, useState } from 'react';
+import { MdClear } from 'react-icons/md';
 
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const {
-        token: { colorBgContainer, borderRadiusLG },
-    } = theme.useToken();
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mobileMediaQuery = window.matchMedia('(max-width: 767px)');
+
+        const handleMobileChange = (event: MediaQueryListEvent) => {
+            setIsMobile(event.matches);
+        };
+
+        mobileMediaQuery.addEventListener('change', handleMobileChange);
+        setIsMobile(mobileMediaQuery.matches);
+
+        return () => {
+            mobileMediaQuery.removeEventListener('change', handleMobileChange);
+        };
+    }, [collapsed, isMobile]);
 
     return (
         <Layout className='min-h-screen'>
             <Sider
-                trigger={null}
-                collapsible
-                collapsed={collapsed}
+                theme='light'
+                width={isMobile ? (collapsed ? '100%' : '0') : '250px'}
+                collapsed={isMobile ? false : collapsed}
             >
-                <div className='demo-logo-vertical' />
+                <Flex
+                    className='px-8 py-4'
+                    justify='space-between'
+                    align='center'
+                >
+                    <h1 className='text-xl font-medium'>Sistem LSP</h1>
+                    <MdClear
+                        className='text-xl md:hidden'
+                        onClick={() => {
+                            if (isMobile) {
+                                setCollapsed(false);
+                            }
+                        }}
+                    />
+                </Flex>
+
                 <Menu
-                    theme='dark'
+                    theme='light'
                     mode='inline'
                     defaultSelectedKeys={['1']}
                     items={[
@@ -48,7 +77,7 @@ const MainLayout = () => {
                 />
             </Sider>
             <Layout>
-                <Header style={{ padding: 0, background: colorBgContainer }}>
+                <Header className='p-0 bg-white'>
                     <Button
                         type='text'
                         icon={
@@ -58,23 +87,15 @@ const MainLayout = () => {
                                 <MenuFoldOutlined />
                             )
                         }
-                        onClick={() => setCollapsed(!collapsed)}
-                        style={{
-                            fontSize: '16px',
-                            width: 64,
-                            height: 64,
+                        onClick={() => {
+                            if (isMobile) {
+                                setCollapsed(true);
+                            }
                         }}
+                        className='!w-16 !h-16 !text-sm md:hidden'
                     />
                 </Header>
-                <Content
-                    style={{
-                        margin: '24px 16px',
-                        padding: 24,
-                        minHeight: 280,
-                        background: colorBgContainer,
-                        borderRadius: borderRadiusLG,
-                    }}
-                >
+                <Content className='mx-6 my-4 p-6 min-h-[280px] bg-white rounded-md'>
                     Content
                 </Content>
             </Layout>

@@ -1,25 +1,37 @@
-import Input from './Input';
+import { Flex, Input } from 'antd';
 import Label from './Label';
 
 type Props = {
-    suffixIcon?: React.ReactNode;
+    prefix?: React.ReactNode;
     name: string;
     type: string;
     placeholder: string;
     text: string;
 };
 
-const InputForm = ({ suffixIcon, name, type, placeholder, text }: Props) => {
+const InputForm = ({ prefix, name, type, placeholder, text }: Props) => {
     return (
-        <div className='flex flex-col gap-3'>
+        <Flex
+            gap={10}
+            vertical
+        >
             <Label htmlFor={name}>{text}</Label>
-            <Input
-                suffixIcon={suffixIcon}
-                name={name}
-                type={type}
-                placeholder={placeholder}
-            />
-        </div>
+            {type === 'password' ? (
+                <Input.Password
+                    size='large'
+                    placeholder={placeholder}
+                    name={name}
+                    prefix={prefix}
+                />
+            ) : (
+                <Input
+                    size='large'
+                    placeholder={placeholder}
+                    name={name}
+                    prefix={prefix}
+                />
+            )}
+        </Flex>
     );
 };
 
