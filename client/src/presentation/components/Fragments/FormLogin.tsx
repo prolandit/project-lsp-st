@@ -11,18 +11,18 @@ const FormLogin = () => {
                 name='email'
                 placeholder='Masukkan Email Anda'
                 text='Email'
-                suffixIcon={<CiMail className='text-black ms-3' />}
+                suffixIcon={<CiMail className='text-lg text-black ms-3' />}
             />
             <InputForm
                 type='password'
                 name='password'
                 placeholder='Masukkan Password Anda'
                 text='Password'
-                suffixIcon={<CiLock className='text-black ms-3' />}
+                suffixIcon={<CiLock className='text-lg text-black ms-3' />}
             />
             <Link
                 to='#'
-                className='items-end justify-end text-xs font-medium text-gray-500 text-end'
+                className='items-end justify-end text-sm font-medium text-gray-500 text-end'
             >
                 Forgot Password ?
             </Link>

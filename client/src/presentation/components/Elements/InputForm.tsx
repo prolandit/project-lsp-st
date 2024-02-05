@@ -1,4 +1,3 @@
-import React from 'react';
 import Input from './Input';
 import Label from './Label';
 
@@ -12,7 +11,7 @@ type Props = {
 
 const InputForm = ({ suffixIcon, name, type, placeholder, text }: Props) => {
     return (
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col gap-3'>
             <Label htmlFor={name}>{text}</Label>
             <Input
                 suffixIcon={suffixIcon}
