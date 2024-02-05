@@ -1,9 +1,12 @@
 import { Button, Flex } from 'antd';
 import { CiLock, CiMail } from 'react-icons/ci';
 import { IoPersonOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 import InputForm from '../Elements/InputForm';
 
 const FormRegister = () => {
+    const navigate = useNavigate();
+
     return (
         <Flex
             gap={20}
@@ -40,7 +43,7 @@ const FormRegister = () => {
             <Button
                 type='primary'
                 className='mt-5 h-[45px] bg-blue-500 hover:bg-blue-700'
-                onClick={() => {}}
+                onClick={() => navigate('/')}
             >
                 Daftar
             </Button>

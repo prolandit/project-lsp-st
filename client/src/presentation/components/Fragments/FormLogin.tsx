@@ -1,9 +1,11 @@
 import { Button, Flex } from 'antd';
 import { CiLock, CiMail } from 'react-icons/ci';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import InputForm from '../Elements/InputForm';
 
 const FormLogin = () => {
+    const navigate = useNavigate();
+
     return (
         <Flex
             gap={20}
@@ -32,7 +34,7 @@ const FormLogin = () => {
             <Button
                 type='primary'
                 className='mt-5 h-[45px] bg-blue-500 hover:bg-blue-700'
-                onClick={() => {}}
+                onClick={() => navigate('/')}
             >
                 Masuk
             </Button>

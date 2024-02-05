@@ -15,7 +15,7 @@ const MainLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
-    useEffect(() => {
+    const getMobileSize = () => {
         const mobileMediaQuery = window.matchMedia('(max-width: 767px)');
 
         const handleMobileChange = (event: MediaQueryListEvent) => {
@@ -28,7 +28,9 @@ const MainLayout = () => {
         return () => {
             mobileMediaQuery.removeEventListener('change', handleMobileChange);
         };
-    }, [collapsed, isMobile]);
+    };
+
+    useEffect(() => getMobileSize(), [collapsed, isMobile]);
 
     return (
         <Layout className='min-h-screen'>
