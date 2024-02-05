@@ -6,16 +6,21 @@ import RegisterPage from '../presentation/pages/RegisterPage';
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <h1>Hello World</h1>,
         errorElement: <NotFoundPage />,
-    },
-    {
-        path: '/login',
-        element: <LoginPage />,
-    },
-    {
-        path: '/register',
-        element: <RegisterPage />,
+        children: [
+            {
+                path: '',
+                element: <h1>Home</h1>,
+            },
+            {
+                path: 'login',
+                element: <LoginPage />,
+            },
+            {
+                path: 'register',
+                element: <RegisterPage />,
+            },
+        ],
     },
 ]);
 
