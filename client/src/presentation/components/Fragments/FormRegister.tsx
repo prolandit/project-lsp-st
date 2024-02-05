@@ -11,28 +11,30 @@ const FormRegister = () => {
                 name='email'
                 placeholder='Masukkan Email Anda'
                 text='Email'
-                suffixIcon={<CiMail className='text-black ms-3' />}
+                suffixIcon={<CiMail className='text-lg text-black ms-3' />}
             />
             <InputForm
                 type='fullname'
                 name='fullname'
                 placeholder='Masukkan Nama Lengkap Anda'
                 text='Nama Lengkap'
-                suffixIcon={<IoPersonOutline className='text-black ms-3' />}
+                suffixIcon={
+                    <IoPersonOutline className='text-lg text-black ms-3' />
+                }
             />
             <InputForm
                 type='password'
                 name='password'
-                placeholder='Masukkan Password Anda'
+                placeholder='Masukkan Password'
                 text='Password'
-                suffixIcon={<CiLock className='text-black ms-3' />}
+                suffixIcon={<CiLock className='text-lg text-black ms-3' />}
             />
             <InputForm
                 type='password_confirmation'
                 name='password_confirmation'
-                placeholder='Masukkan Konfirmasi Password'
-                text='Password'
-                suffixIcon={<CiLock className='text-black ms-3' />}
+                placeholder='Konfirmasi Password'
+                text='Konfirmasi Password'
+                suffixIcon={<CiLock className='text-lg text-black ms-3' />}
             />
             <Button
                 className='mt-5'
