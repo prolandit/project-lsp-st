@@ -10,8 +10,7 @@ type Props = {
     text: string;
 };
 
-const InputForm = (props: Props): React.JSX.Element => {
-    const { suffixIcon, name, type, placeholder, text } = props;
+const InputForm = ({ suffixIcon, name, type, placeholder, text }: Props) => {
     return (
         <div className='flex flex-col gap-2'>
             <Label htmlFor={name}>{text}</Label>

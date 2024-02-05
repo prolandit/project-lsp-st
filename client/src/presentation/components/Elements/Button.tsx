@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 type Props = {
@@ -6,12 +7,13 @@ type Props = {
     children: React.ReactNode;
 };
 
-const Button = (props: Props): React.JSX.Element => {
-    const { children, className, onClick } = props;
-
+const Button = ({ children, className, onClick }: Props) => {
     return (
         <button
-            className={`bg-blue-500 hover:bg-blue-400 text-white font-semibold py-2 px-4 rounded ${className}`}
+            className={classNames(
+                'bg-blue-500 hover:bg-blue-400 text-white font-semibold py-2 px-4 rounded',
+                className
+            )}
             onClick={onClick}
         >
             {children}

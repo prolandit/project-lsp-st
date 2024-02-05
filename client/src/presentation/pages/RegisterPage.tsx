@@ -1,7 +1,7 @@
 import FormRegister from '../components/Fragments/FormRegister';
 import AuthLayout from '../components/Layouts/AuthLayout';
 
-const RegisterPage = (): React.JSX.Element => {
+const RegisterPage = () => {
     return (
         <AuthLayout
             title='Daftar'

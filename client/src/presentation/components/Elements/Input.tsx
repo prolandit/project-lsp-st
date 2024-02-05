@@ -8,9 +8,7 @@ type Props = {
     placeholder: string;
 };
 
-const Input = (props: Props): React.JSX.Element => {
-    const { suffixIcon, type, name, placeholder } = props;
-
+const Input = ({ suffixIcon, type, name, placeholder }: Props) => {
     const [obscureText, setObscureText] = useState(true);
     const isPassword = type === 'password';
 
@@ -20,18 +18,18 @@ const Input = (props: Props): React.JSX.Element => {
             <input
                 name={name}
                 type={obscureText ? type : 'text'}
-                className='w-full bg-gray-100 px-3 py-5 rounded-md outline-none focus:border-blue-500 text-black text-xs font-medium placeholder-gray-500 h-8'
+                className='w-full h-8 px-3 py-5 text-xs font-medium text-black placeholder-gray-500 bg-gray-100 rounded-md outline-none focus:border-blue-500'
                 placeholder={placeholder}
             />
             {isPassword &&
                 (obscureText ? (
                     <IoEyeOutline
-                        className='me-3 text-gray-500'
+                        className='text-gray-500 me-3'
                         onClick={() => setObscureText(false)}
                     />
                 ) : (
                     <IoEyeOffOutline
-                        className='me-3 text-gray-500'
+                        className='text-gray-500 me-3'
                         onClick={() => setObscureText(true)}
                     />
                 ))}

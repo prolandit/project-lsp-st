@@ -1,7 +1,7 @@
 import { CiLock, CiMail } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 import Button from '../Elements/Button';
-import InputForm from '../Elements/Input';
+import InputForm from '../Elements/InputForm';
 
 const FormLogin = () => {
     return (
@@ -11,18 +11,18 @@ const FormLogin = () => {
                 name='email'
                 placeholder='Masukkan Email Anda'
                 text='Email'
-                suffixIcon={<CiMail className='ms-3 text-black' />}
+                suffixIcon={<CiMail className='text-black ms-3' />}
             />
             <InputForm
                 type='password'
                 name='password'
                 placeholder='Masukkan Password Anda'
                 text='Password'
-                suffixIcon={<CiLock className='ms-3 text-black' />}
+                suffixIcon={<CiLock className='text-black ms-3' />}
             />
             <Link
                 to='#'
-                className='text-xs text-gray-500 font-light justify-end items-end text-end'
+                className='items-end justify-end text-xs font-medium text-gray-500 text-end'
             >
                 Forgot Password ?
             </Link>

@@ -5,13 +5,11 @@ type Props = {
     children: React.ReactNode;
 };
 
-const Label = (props: Props): React.JSX.Element => {
-    const { htmlFor, children } = props;
-
+const Label = ({ htmlFor, children }: Props) => {
     return (
         <label
             htmlFor={htmlFor}
-            className='text-xs text-black font-medium'
+            className='text-xs font-medium text-black'
         >
             {children}
         </label>
