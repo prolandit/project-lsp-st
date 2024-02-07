@@ -15,7 +15,7 @@ const DropdownUser = () => {
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
-    }, []);
+    }, [user]);
 
     return (
         <div className='relative'>

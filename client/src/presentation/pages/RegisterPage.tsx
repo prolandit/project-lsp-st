@@ -11,7 +11,7 @@ const RegisterPage = () => {
             email,
             fullname,
             password,
-            role: 'Asesi',
+            role: 'Asesor',
         };
         localStorage.setItem('user', JSON.stringify(user));
         navigate('/profile');

@@ -15,7 +15,7 @@ const App = () => {
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
-    }, []);
+    }, [user]);
     return (
         <BrowserRouter basename='/'>
             <Routes>
