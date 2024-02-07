@@ -1,17 +1,14 @@
-import { Button, Flex } from 'antd';
 import { CiLock, CiMail } from 'react-icons/ci';
 import { IoPersonOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
+import Button from '../Elements/Button';
 import InputForm from '../Elements/InputForm';
 
 const FormRegister = () => {
     const navigate = useNavigate();
 
     return (
-        <Flex
-            gap={20}
-            vertical
-        >
+        <div className='flex flex-col gap-5'>
             <InputForm
                 type='email'
                 name='email'
@@ -41,13 +38,12 @@ const FormRegister = () => {
                 prefix={<CiLock className='text-lg text-black me-3' />}
             />
             <Button
-                type='primary'
                 className='mt-5 h-[45px] bg-blue-500 hover:bg-blue-700'
                 onClick={() => navigate('/profile')}
             >
                 Daftar
             </Button>
-        </Flex>
+        </div>
     );
 };
 

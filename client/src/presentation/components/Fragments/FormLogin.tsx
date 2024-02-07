@@ -1,16 +1,13 @@
-import { Button, Flex } from 'antd';
 import { CiLock, CiMail } from 'react-icons/ci';
 import { Link, useNavigate } from 'react-router-dom';
+import Button from '../Elements/Button';
 import InputForm from '../Elements/InputForm';
 
 const FormLogin = () => {
     const navigate = useNavigate();
 
     return (
-        <Flex
-            gap={20}
-            vertical
-        >
+        <div className='flex flex-col gap-5'>
             <InputForm
                 type='email'
                 name='email'
@@ -32,13 +29,12 @@ const FormLogin = () => {
                 Lupa Password ?
             </Link>
             <Button
-                type='primary'
                 className='mt-5 h-[45px] bg-blue-500 hover:bg-blue-700'
                 onClick={() => navigate('/profile')}
             >
                 Masuk
             </Button>
-        </Flex>
+        </div>
     );
 };
 

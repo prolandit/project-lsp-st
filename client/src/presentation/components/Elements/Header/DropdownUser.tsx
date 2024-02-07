@@ -1,45 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Avatar } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { BiLogOut, BiUser } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
 
 const DropdownUser = () => {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-
     const navigate = useNavigate();
 
-    const trigger = useRef<any>(null);
-    const dropdown = useRef<any>(null);
-
-    useEffect(() => {
-        const clickHandler = ({ target }: MouseEvent) => {
-            if (!dropdown.current) return;
-            if (
-                !dropdownOpen ||
-                dropdown.current.contains(target) ||
-                trigger.current.contains(target)
-            )
-                return;
-            setDropdownOpen(false);
-        };
-        document.addEventListener('click', clickHandler);
-        return () => document.removeEventListener('click', clickHandler);
-    });
-
-    useEffect(() => {
-        const keyHandler = ({ keyCode }: KeyboardEvent) => {
-            if (!dropdownOpen || keyCode !== 27) return;
-            setDropdownOpen(false);
-        };
-        document.addEventListener('keydown', keyHandler);
-        return () => document.removeEventListener('keydown', keyHandler);
-    });
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
     return (
         <div className='relative'>
             <Link
-                ref={trigger}
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className='flex items-center gap-4'
                 to='#'
@@ -51,17 +22,15 @@ const DropdownUser = () => {
                     <span className='block text-xs'>Asesi</span>
                 </span>
 
-                <Avatar
-                    size='large'
-                    icon={<BiUser />}
-                />
+                <div className='p-3 bg-gray-300 rounded-full'>
+                    <BiUser className='text-2xl' />
+                </div>
             </Link>
 
             <div
-                ref={dropdown}
                 onFocus={() => setDropdownOpen(true)}
                 onBlur={() => setDropdownOpen(false)}
-                className={`absolute right-0 mt-4 flex w-[180px] gap-4 px-6 py-5 flex-col rounded-lg border border-stroke bg-white shadow-default ${
+                className={`absolute right-0 mt-7 flex w-[180px] gap-4 px-6 py-5 flex-col rounded-lg border border-stroke bg-white shadow-default ${
                     dropdownOpen === true ? 'block' : 'hidden'
                 }`}
             >

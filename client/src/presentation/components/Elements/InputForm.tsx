@@ -1,5 +1,5 @@
-import { Flex, Input } from 'antd';
-import Label from './Label';
+import Input from './Input';
+import Label from './Input/Label';
 
 type Props = {
     prefix?: React.ReactNode;
@@ -11,27 +11,15 @@ type Props = {
 
 const InputForm = ({ prefix, name, type, placeholder, text }: Props) => {
     return (
-        <Flex
-            gap={10}
-            vertical
-        >
+        <div className='flex flex-col gap-3'>
             <Label htmlFor={name}>{text}</Label>
-            {type === 'password' ? (
-                <Input.Password
-                    size='large'
-                    placeholder={placeholder}
-                    name={name}
-                    prefix={prefix}
-                />
-            ) : (
-                <Input
-                    size='large'
-                    placeholder={placeholder}
-                    name={name}
-                    prefix={prefix}
-                />
-            )}
-        </Flex>
+            <Input
+                prefix={prefix}
+                name={name}
+                type={type}
+                placeholder={placeholder}
+            />
+        </div>
     );
 };
 
