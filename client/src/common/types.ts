@@ -35,7 +35,7 @@ export type ProfileValues = {
     phone: string;
     email: string;
     lastEducation: string;
-    signUpload: string;
+    signUpload?: File | undefined;
     tuk: string;
 };
 

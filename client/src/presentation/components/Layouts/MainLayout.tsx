@@ -19,7 +19,7 @@ const MainLayout = () => {
                         sidebarOpen={sidebarOpen}
                         setSidebarOpen={setSidebarOpen}
                     />
-                    <main className='my-8'>
+                    <main>
                         <Outlet />
                     </main>
                 </div>

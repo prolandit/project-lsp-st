@@ -8,7 +8,7 @@ type Props = {
     type: string;
     name: string;
     placeholder?: string;
-    value: string;
+    value?: string | number | readonly string[] | undefined;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 

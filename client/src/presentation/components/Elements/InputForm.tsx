@@ -10,9 +10,9 @@ type Props = {
     type: string;
     placeholder?: string;
     text: string;
-    value: string;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    value?: string | number | readonly string[] | undefined;
     horizontally?: boolean;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const InputForm = ({

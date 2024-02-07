@@ -9,6 +9,9 @@ type Props = {
     placeholder?: string;
     text: string;
     horizontally?: boolean;
+    type?: string | undefined;
+    accept?: string | undefined;
+    value?: string | number | readonly string[] | undefined;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -19,6 +22,9 @@ const FileInputForm = ({
     placeholder,
     onChange,
     text,
+    value,
+    type,
+    accept,
     horizontally = false,
 }: Props) => {
     const verticalClassName = 'flex flex-col gap-3';
@@ -47,6 +53,9 @@ const FileInputForm = ({
             <FileInput
                 className={`${horizontally ? 'lg:w-full' : ''}`}
                 name={name}
+                value={value}
+                type={type}
+                accept={accept}
                 placeholder={placeholder}
                 onChange={onChange}
             />

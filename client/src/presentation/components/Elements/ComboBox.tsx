@@ -6,11 +6,19 @@ type Props = {
     className?: string;
     name: string;
     placeholder?: string;
-    value: string;
+    value?: string | number | readonly string[] | undefined;
     items: OptionType[];
+    onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
-const ComboBox = ({ className, name, placeholder, value, items }: Props) => {
+const ComboBox = ({
+    className,
+    name,
+    placeholder,
+    value,
+    items,
+    onChange,
+}: Props) => {
     return (
         <div
             className={classNames(
@@ -21,6 +29,7 @@ const ComboBox = ({ className, name, placeholder, value, items }: Props) => {
             <select
                 name={name}
                 value={value === '' ? undefined : value}
+                onChange={onChange}
                 className='w-full px-4 py-3 text-sm font-medium text-black bg-gray-100 rounded-md outline-none appearance-none'
             >
                 {placeholder && (
