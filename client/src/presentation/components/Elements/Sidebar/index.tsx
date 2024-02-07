@@ -57,7 +57,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                         <ul className='flex flex-col gap-2'>
                             {menus.map((menu) => {
                                 return (
-                                    <SidebarLink to={menu.path}>
+                                    <SidebarLink
+                                        key={menu.name}
+                                        to={menu.path}
+                                    >
                                         {menu.icon}
                                         {menu.name}
                                     </SidebarLink>

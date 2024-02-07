@@ -1,30 +1,27 @@
 import classNames from 'classnames';
-import Input from './Input';
+import { OptionType } from '../../../common/types';
+import ComboBox from './ComboBox';
 import Label from './Input/Label';
 
 type Props = {
     className?: string;
     important?: boolean;
-    prefix?: React.ReactNode;
     name: string;
-    type: string;
-    placeholder?: string;
     text: string;
+    items: OptionType[];
     value: string;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    placeholder?: string;
     horizontally?: boolean;
 };
 
-const InputForm = ({
+const ComboBoxForm = ({
     className,
     important,
-    prefix,
     name,
-    type,
-    placeholder,
     text,
     value,
-    onChange,
+    placeholder,
+    items,
 }: Props) => {
     return (
         <div className={classNames('flex flex-col gap-3', className)}>
@@ -38,16 +35,14 @@ const InputForm = ({
                     text
                 )}
             </Label>
-            <Input
-                prefix={prefix}
-                value={value}
-                onChange={onChange}
+            <ComboBox
                 name={name}
-                type={type}
+                items={items}
+                value={value}
                 placeholder={placeholder}
             />
         </div>
     );
 };
 
-export default InputForm;
+export default ComboBoxForm;

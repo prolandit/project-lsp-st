@@ -15,7 +15,7 @@ const DropdownUser = () => {
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
-    }, [user]);
+    }, []);
 
     return (
         <div className='relative'>
@@ -24,7 +24,7 @@ const DropdownUser = () => {
                 className='flex items-center gap-4'
                 to='#'
             >
-                <span className='hidden text-right lg:block'>
+                <span className='text-right'>
                     <span className='block text-sm font-medium'>
                         {user?.fullname}
                     </span>

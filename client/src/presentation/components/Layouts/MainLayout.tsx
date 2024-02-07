@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../Elements/Header';
 import Sidebar from '../Elements/Sidebar';
+import AnimationContainer from '../Fragments/AnimationContainer';
 
 const MainLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
-        <div className='bg-gray-100'>
+        <AnimationContainer className='bg-gray-100'>
             <div className='flex flex-row h-screen overflow-hidden'>
                 <Sidebar
                     sidebarOpen={sidebarOpen}
@@ -23,7 +24,7 @@ const MainLayout = () => {
                     </main>
                 </div>
             </div>
-        </div>
+        </AnimationContainer>
     );
 };
 

@@ -1,29 +1,51 @@
-import { Field } from 'formik';
+import classNames from 'classnames';
 import { useState } from 'react';
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 
 type Props = {
+    className?: string;
     prefix?: React.ReactNode;
     type: string;
     name: string;
-    placeholder: string;
+    placeholder?: string;
+    value: string;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Input = ({ prefix, type, name, placeholder }: Props) => {
+const Input = ({
+    className,
+    prefix,
+    type,
+    name,
+    placeholder,
+    value,
+    onChange,
+}: Props) => {
     const [obscureText, setObscureText] = useState(true);
     const isPassword = type === 'password';
 
     return (
-        <div className='flex items-center justify-between rounded-md'>
+        <div
+            className={classNames(
+                'flex items-center justify-between rounded-md',
+                className
+            )}
+        >
             <div className='relative w-full'>
                 <div className='absolute -translate-y-1/2 top-1/2 ms-4'>
-                    {prefix && prefix}
+                    {prefix !== undefined ? prefix : <span></span>}
                 </div>
-                <Field
+                <input
+                    value={value}
                     name={name}
+                    onChange={onChange}
                     type={obscureText ? type : 'text'}
                     className={`w-full ${
-                        isPassword ? 'px-12' : 'ps-12 pe-3'
+                        isPassword
+                            ? 'px-12'
+                            : prefix === undefined
+                            ? 'ps-4 pe-4'
+                            : 'ps-12 pe-4'
                     } py-3 text-sm font-medium text-black placeholder-gray-500 bg-gray-100 rounded-md outline-none focus:border-blue-500`}
                     placeholder={placeholder}
                 />

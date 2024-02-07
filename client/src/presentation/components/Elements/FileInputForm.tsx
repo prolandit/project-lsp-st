@@ -1,30 +1,24 @@
 import classNames from 'classnames';
-import Input from './Input';
+import FileInput from './FileInput';
 import Label from './Input/Label';
 
 type Props = {
     className?: string;
     important?: boolean;
-    prefix?: React.ReactNode;
     name: string;
-    type: string;
     placeholder?: string;
     text: string;
-    value: string;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     horizontally?: boolean;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const InputForm = ({
+const FileInputForm = ({
     className,
     important,
-    prefix,
     name,
-    type,
     placeholder,
-    text,
-    value,
     onChange,
+    text,
 }: Props) => {
     return (
         <div className={classNames('flex flex-col gap-3', className)}>
@@ -38,16 +32,13 @@ const InputForm = ({
                     text
                 )}
             </Label>
-            <Input
-                prefix={prefix}
-                value={value}
-                onChange={onChange}
+            <FileInput
                 name={name}
-                type={type}
                 placeholder={placeholder}
+                onChange={onChange}
             />
         </div>
     );
 };
 
-export default InputForm;
+export default FileInputForm;

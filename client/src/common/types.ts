@@ -19,3 +19,26 @@ export type LoggedUser = {
     role: string;
     password: string;
 };
+
+export type ProfileValues = {
+    fullname: string;
+    noKtpOrPassport: string;
+    birthPlace: string;
+    birthDate: string;
+    genre: string;
+    nationality: string;
+    address: string;
+    province: string;
+    city: string;
+    posCode: string;
+    telp: string;
+    phone: string;
+    email: string;
+    lastEducation: string;
+    signUpload: string;
+};
+
+export type OptionType = {
+    key: string;
+    value: string;
+};

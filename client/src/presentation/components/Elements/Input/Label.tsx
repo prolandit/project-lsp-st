@@ -1,13 +1,16 @@
+import classNames from 'classnames';
+
 type Props = {
+    className?: string;
     htmlFor: string;
     children: React.ReactNode;
 };
 
-const Label = ({ htmlFor, children }: Props) => {
+const Label = ({ className, htmlFor, children }: Props) => {
     return (
         <label
             htmlFor={htmlFor}
-            className='text-sm font-medium text-black'
+            className={classNames('text-sm font-medium text-black', className)}
         >
             {children}
         </label>

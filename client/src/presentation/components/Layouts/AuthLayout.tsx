@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import AnimationContainer from '../Fragments/AnimationContainer';
 
 type Props = {
     title: string;
@@ -16,7 +17,7 @@ const AuthLayout = ({
     children,
 }: Props) => {
     return (
-        <div className='flex items-center justify-center min-h-screen duration-300 sm:bg-gray-100'>
+        <AnimationContainer className='flex items-center justify-center min-h-screen duration-300 sm:bg-gray-100'>
             <div className='w-full max-w-md p-10 bg-white rounded-md sm:shadow-lg'>
                 <div className='mb-10'>
                     <h1 className='mb-3 text-3xl font-semibold'>{title}</h1>
@@ -33,7 +34,7 @@ const AuthLayout = ({
                 </div>
                 {children}
             </div>
-        </div>
+        </AnimationContainer>
     );
 };
 
