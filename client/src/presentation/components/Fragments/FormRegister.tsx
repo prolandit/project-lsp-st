@@ -43,7 +43,7 @@ const FormRegister = () => {
             <Button
                 type='primary'
                 className='mt-5 h-[45px] bg-blue-500 hover:bg-blue-700'
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/profile')}
             >
                 Daftar
             </Button>

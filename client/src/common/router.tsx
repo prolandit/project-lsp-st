@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
-import HomePage from '../presentation/pages/HomePage';
 import LoginPage from '../presentation/pages/LoginPage';
 import NotFoundPage from '../presentation/pages/NotFoundPage';
+import ProfilePage from '../presentation/pages/ProfilePage';
 import RegisterPage from '../presentation/pages/RegisterPage';
 
 const router = createBrowserRouter([
@@ -10,8 +10,8 @@ const router = createBrowserRouter([
         errorElement: <NotFoundPage />,
         children: [
             {
-                path: '',
-                element: <HomePage />,
+                path: 'profile',
+                element: <ProfilePage />,
             },
             {
                 path: 'login',

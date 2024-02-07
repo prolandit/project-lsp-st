@@ -1,107 +1,30 @@
-import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Button, Flex, Layout, Menu } from 'antd';
-import { useEffect, useState } from 'react';
-import { MdClear } from 'react-icons/md';
+import { ReactNode, useState } from 'react';
+import Header from '../Elements/Header';
+import Sidebar from '../Elements/Sidebar';
 
-const { Header, Sider, Content } = Layout;
+type Props = {
+    children: ReactNode;
+};
 
-const MainLayout = () => {
-    const [collapsed, setCollapsed] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-
-    const getMobileSize = () => {
-        const mobileMediaQuery = window.matchMedia('(max-width: 767px)');
-
-        const handleMobileChange = (event: MediaQueryListEvent) => {
-            setIsMobile(event.matches);
-        };
-
-        mobileMediaQuery.addEventListener('change', handleMobileChange);
-        setIsMobile(mobileMediaQuery.matches);
-
-        return () => {
-            mobileMediaQuery.removeEventListener('change', handleMobileChange);
-        };
-    };
-
-    useEffect(() => getMobileSize(), [collapsed, isMobile]);
+const MainLayout = ({ children }: Props) => {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
-        <Layout className='min-h-screen'>
-            <Sider
-                theme='light'
-                width={isMobile ? (collapsed ? '100%' : '0') : '250px'}
-                collapsed={isMobile ? false : collapsed}
-            >
-                <Flex
-                    className='px-8 py-4'
-                    justify='space-between'
-                    align='center'
-                >
-                    <h1 className='text-xl font-medium'>Sistem LSP</h1>
-                    <MdClear
-                        className='text-xl md:hidden'
-                        onClick={() => {
-                            if (isMobile) {
-                                setCollapsed(false);
-                            }
-                        }}
-                    />
-                </Flex>
-
-                <Menu
-                    theme='light'
-                    mode='inline'
-                    defaultSelectedKeys={['1']}
-                    items={[
-                        {
-                            key: '1',
-                            icon: <UserOutlined />,
-                            label: 'nav 1',
-                        },
-                        {
-                            key: '2',
-                            icon: <VideoCameraOutlined />,
-                            label: 'nav 2',
-                        },
-                        {
-                            key: '3',
-                            icon: <UploadOutlined />,
-                            label: 'nav 3',
-                        },
-                    ]}
+        <div className='bg-gray-100'>
+            <div className='flex flex-row h-screen overflow-hidden'>
+                <Sidebar
+                    sidebarOpen={sidebarOpen}
+                    setSidebarOpen={setSidebarOpen}
                 />
-            </Sider>
-            <Layout>
-                <Header className='p-0 bg-white'>
-                    <Button
-                        type='text'
-                        icon={
-                            collapsed ? (
-                                <MenuUnfoldOutlined />
-                            ) : (
-                                <MenuFoldOutlined />
-                            )
-                        }
-                        onClick={() => {
-                            if (isMobile) {
-                                setCollapsed(true);
-                            }
-                        }}
-                        className='!w-16 !h-16 !text-sm md:hidden'
+                <div className='relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto'>
+                    <Header
+                        sidebarOpen={sidebarOpen}
+                        setSidebarOpen={setSidebarOpen}
                     />
-                </Header>
-                <Content className='mx-6 my-4 p-6 min-h-[280px] bg-white rounded-md'>
-                    Content
-                </Content>
-            </Layout>
-        </Layout>
+                    <main className='my-8'>{children}</main>
+                </div>
+            </div>
+        </div>
     );
 };
 

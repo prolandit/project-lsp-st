@@ -9,3 +9,13 @@
         font-family: 'Inter', system-ui, sans-serif;
     }
 }
+
+@layer utilities {
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        scrollbar-width: none;
+    }
+}
