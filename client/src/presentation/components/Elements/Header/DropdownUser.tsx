@@ -1,12 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BiLogOut, BiUser } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
+import { LoggedUser } from '../../../../common/types';
 
 const DropdownUser = () => {
     const navigate = useNavigate();
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [user, setUser] = useState<LoggedUser | null>(null);
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, [user]);
 
     return (
         <div className='relative'>
@@ -17,9 +26,9 @@ const DropdownUser = () => {
             >
                 <span className='hidden text-right lg:block'>
                     <span className='block text-sm font-medium'>
-                        Abdul Azis
+                        {user?.fullname}
                     </span>
-                    <span className='block text-xs'>Asesi</span>
+                    <span className='block text-xs'>{user?.role}</span>
                 </span>
 
                 <div className='p-3 bg-gray-300 rounded-full'>

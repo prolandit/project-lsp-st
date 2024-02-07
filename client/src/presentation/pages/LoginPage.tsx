@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { LoggedUser } from '../../common/types';
 import FormLogin from '../components/Fragments/FormLogin';
 import AuthLayout from '../components/Layouts/AuthLayout';
 
@@ -8,7 +9,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const onLogin = (email: string, password: string) => {
-        const user = JSON.parse(localStorage.getItem('user') ?? '');
+        const user: LoggedUser = JSON.parse(localStorage.getItem('user') ?? '');
 
         if (user.email === email && user.password === password) {
             navigate('/profile');

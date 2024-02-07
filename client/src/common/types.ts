@@ -12,3 +12,10 @@ export type RegisterValues = {
     password: string;
     passwordConfirmation: string;
 };
+
+export type LoggedUser = {
+    email: string;
+    fullname: string;
+    role: string;
+    password: string;
+};

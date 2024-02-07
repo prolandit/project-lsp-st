@@ -1,12 +1,9 @@
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import Header from '../Elements/Header';
 import Sidebar from '../Elements/Sidebar';
 
-type Props = {
-    children: ReactNode;
-};
-
-const MainLayout = ({ children }: Props) => {
+const MainLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
@@ -21,7 +18,9 @@ const MainLayout = ({ children }: Props) => {
                         sidebarOpen={sidebarOpen}
                         setSidebarOpen={setSidebarOpen}
                     />
-                    <main className='my-8'>{children}</main>
+                    <main className='my-8'>
+                        <Outlet />
+                    </main>
                 </div>
             </div>
         </div>
