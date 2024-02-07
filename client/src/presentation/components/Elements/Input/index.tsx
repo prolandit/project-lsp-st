@@ -1,3 +1,4 @@
+import { Field } from 'formik';
 import { useState } from 'react';
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 
@@ -18,7 +19,7 @@ const Input = ({ prefix, type, name, placeholder }: Props) => {
                 <div className='absolute -translate-y-1/2 top-1/2 ms-4'>
                     {prefix && prefix}
                 </div>
-                <input
+                <Field
                     name={name}
                     type={obscureText ? type : 'text'}
                     className={`w-full ${

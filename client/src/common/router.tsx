@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
+import AsesiProfilePage from '../presentation/pages/AsesiProfilePage';
 import LoginPage from '../presentation/pages/LoginPage';
 import NotFoundPage from '../presentation/pages/NotFoundPage';
-import ProfilePage from '../presentation/pages/ProfilePage';
 import RegisterPage from '../presentation/pages/RegisterPage';
 
 const router = createBrowserRouter([
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: 'profile',
-                element: <ProfilePage />,
+                element: <AsesiProfilePage />,
             },
             {
                 path: 'login',
