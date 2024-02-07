@@ -7,8 +7,8 @@ type Props = {
 
 const Header = ({ sidebarOpen, setSidebarOpen }: Props) => {
     return (
-        <header className='sticky top-0 flex w-full bg-white z-999 drop-shadow-1'>
-            <div className='flex items-center justify-between flex-grow px-4 py-4 shadow-2 md:px-6 2xl:px-11'>
+        <header className='sticky top-0 z-50 flex w-full h-24 bg-white drop-shadow-sm'>
+            <div className='flex items-center justify-between flex-grow px-4 py-4 shadow-sm md:px-6 2xl:px-11'>
                 <div className='flex items-center gap-2 sm:gap-4 lg:hidden'>
                     <button
                         aria-controls='sidebar'
@@ -16,7 +16,7 @@ const Header = ({ sidebarOpen, setSidebarOpen }: Props) => {
                             e.stopPropagation();
                             setSidebarOpen(!sidebarOpen);
                         }}
-                        className='z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm lg:hidden'
+                        className='z-50 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm lg:hidden'
                     >
                         <span className='relative block w-5 h-5 cursor-pointer'>
                             <span className='absolute right-0 w-full h-full'>
