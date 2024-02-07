@@ -27,6 +27,7 @@ const AsesiProfilePage = () => {
             email: '',
             lastEducation: '',
             signUpload: '',
+            tuk: '',
         },
         onSubmit: (
             values: ProfileValues,
@@ -42,7 +43,7 @@ const AsesiProfilePage = () => {
             <div className='w-full py-4 bg-white shadow-sm rounded-xs drop-shadow-sm'>
                 <span className='p-4 lg:p-6'>Data Profile</span>
                 <hr className='my-4' />
-                <div className='flex flex-col px-4 lg:flex-row lg:px-6 lg:py-4'>
+                <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
                     <form
                         className='flex flex-col w-full gap-5'
                         onSubmit={handleSubmit}
@@ -199,7 +200,30 @@ const AsesiProfilePage = () => {
                     </form>
                 </div>
             </div>
-            <div className='w-full py-4 bg-white rounded-md shadow-sm drop-shadow-sm'></div>
+            <div className='flex flex-col w-full'>
+                <div className='w-full py-4 bg-white rounded-md shadow-sm drop-shadow-sm'>
+                    <span className='p-4 lg:p-6'>
+                        Data TUK (Tempat Uji Kompetensi)
+                    </span>
+                    <hr className='my-4' />
+                    <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
+                        <form
+                            className='flex flex-col w-full gap-5'
+                            onSubmit={handleSubmit}
+                        >
+                            <ComboBoxForm
+                                name='tuk'
+                                text='TUK'
+                                value={values.tuk}
+                                items={Constants.listTuk}
+                                placeholder='Pilih TUK'
+                                horizontally
+                                important
+                            />
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

@@ -36,6 +36,7 @@ export type ProfileValues = {
     email: string;
     lastEducation: string;
     signUpload: string;
+    tuk: string;
 };
 
 export type OptionType = {

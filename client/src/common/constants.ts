@@ -51,6 +51,16 @@ const Constants = {
             value: 'S3',
         },
     ],
+    listTuk: [
+        {
+            key: 'tuk1',
+            value: 'Tuk1',
+        },
+        {
+            key: 'tuk2',
+            value: 'Tuk2',
+        },
+    ],
 };
 
 export default Constants;
