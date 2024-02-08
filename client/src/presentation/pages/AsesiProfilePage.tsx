@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Alert } from 'antd';
 import { FormikHelpers, useFormik } from 'formik';
 import Constants from '../../common/constants';
+import { asesiProfileSchema } from '../../common/formSchemas';
 import { ProfileValues } from '../../common/types';
 import Button from '../components/Elements/Button';
 import ComboBoxForm from '../components/Elements/ComboBoxForm';
@@ -9,16 +11,23 @@ import InputForm from '../components/Elements/InputForm';
 
 const AsesiProfilePage = () => {
     const onSaveProfile = (profile: ProfileValues) => {
-        console.log(`Profile: ${JSON.stringify(profile)}`);
+        console.log(profile);
     };
 
-    const { values, handleChange, handleSubmit } = useFormik({
+    const {
+        errors,
+        touched,
+        values,
+        handleChange,
+        handleSubmit,
+        setFieldValue,
+    } = useFormik({
         initialValues: {
             fullname: '',
             noKtpOrPassport: '',
             birthPlace: '',
             birthDate: '',
-            genre: '',
+            gender: '',
             nationality: '',
             address: '',
             province: '',
@@ -30,7 +39,18 @@ const AsesiProfilePage = () => {
             lastEducation: '',
             signUpload: undefined,
             tuk: '',
+            institution: '',
+            company: '',
+            fund: '',
+            job: '',
+            position: '',
+            companyAddress: '',
+            telpCompany: '',
+            companyPosCode: '',
+            fax: '',
+            companyEmail: '',
         },
+        validationSchema: asesiProfileSchema,
         onSubmit: (
             values: ProfileValues,
             { setSubmitting }: FormikHelpers<any>
@@ -41,16 +61,16 @@ const AsesiProfilePage = () => {
     });
 
     return (
-        <div className='flex flex-col mt-10'>
+        <form
+            className='flex flex-col mt-10'
+            encType='multipart/form-data'
+        >
             <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
-                <div className='w-full py-4 bg-white shadow-sm rounded-xs drop-shadow-sm'>
+                <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                     <span className='p-4 lg:p-6'>Data Profile</span>
                     <hr className='my-4' />
                     <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
-                        <form
-                            className='flex flex-col w-full gap-5'
-                            encType='multipart/form-data'
-                        >
+                        <div className='flex flex-col w-full gap-5'>
                             <InputForm
                                 type='text'
                                 name='fullname'
@@ -60,8 +80,14 @@ const AsesiProfilePage = () => {
                                 horizontally
                                 important
                             />
+                            {errors.fullname && touched.fullname ? (
+                                <Alert
+                                    message={errors.fullname}
+                                    type='error'
+                                />
+                            ) : null}
                             <InputForm
-                                type='text'
+                                type='number'
                                 name='noKtpOrPassport'
                                 text='No KTP / PASPOR'
                                 value={values.noKtpOrPassport}
@@ -69,6 +95,13 @@ const AsesiProfilePage = () => {
                                 horizontally
                                 important
                             />
+                            {errors.noKtpOrPassport &&
+                            touched.noKtpOrPassport ? (
+                                <Alert
+                                    message={errors.noKtpOrPassport}
+                                    type='error'
+                                />
+                            ) : null}
                             <InputForm
                                 type='text'
                                 name='birthPlace'
@@ -78,6 +111,12 @@ const AsesiProfilePage = () => {
                                 horizontally
                                 important
                             />
+                            {errors.birthPlace && touched.birthPlace ? (
+                                <Alert
+                                    message={errors.birthPlace}
+                                    type='error'
+                                />
+                            ) : null}
                             <InputForm
                                 type='date'
                                 name='birthDate'
@@ -87,16 +126,28 @@ const AsesiProfilePage = () => {
                                 horizontally
                                 important
                             />
+                            {errors.birthDate && touched.birthDate ? (
+                                <Alert
+                                    message={errors.birthDate}
+                                    type='error'
+                                />
+                            ) : null}
                             <ComboBoxForm
-                                name='genre'
+                                name='gender'
                                 text='Jenis Kelamin'
-                                items={Constants.genreOptions}
-                                value={values.genre}
+                                items={Constants.genderOptions}
+                                value={values.gender}
                                 placeholder='Pilih Jenis Kelamin'
                                 onChange={handleChange}
                                 horizontally
                                 important
                             />
+                            {errors.gender && touched.gender ? (
+                                <Alert
+                                    message={errors.gender}
+                                    type='error'
+                                />
+                            ) : null}
                             <InputForm
                                 type='text'
                                 name='nationality'
@@ -104,7 +155,6 @@ const AsesiProfilePage = () => {
                                 onChange={handleChange}
                                 text='Kebangsaan'
                                 horizontally
-                                important
                             />
                             <InputForm
                                 type='text'
@@ -115,6 +165,12 @@ const AsesiProfilePage = () => {
                                 horizontally
                                 important
                             />
+                            {errors.address && touched.address ? (
+                                <Alert
+                                    message={errors.address}
+                                    type='error'
+                                />
+                            ) : null}
                             <InputForm
                                 type='text'
                                 name='province'
@@ -124,6 +180,12 @@ const AsesiProfilePage = () => {
                                 horizontally
                                 important
                             />
+                            {errors.province && touched.province ? (
+                                <Alert
+                                    message={errors.province}
+                                    type='error'
+                                />
+                            ) : null}
                             <InputForm
                                 type='text'
                                 name='city'
@@ -133,6 +195,12 @@ const AsesiProfilePage = () => {
                                 horizontally
                                 important
                             />
+                            {errors.city && touched.city ? (
+                                <Alert
+                                    message={errors.city}
+                                    type='error'
+                                />
+                            ) : null}
                             <InputForm
                                 type='number'
                                 name='posCode'
@@ -140,7 +208,6 @@ const AsesiProfilePage = () => {
                                 onChange={handleChange}
                                 text='Kode Pos'
                                 horizontally
-                                important
                             />
                             <InputForm
                                 type='number'
@@ -149,7 +216,6 @@ const AsesiProfilePage = () => {
                                 onChange={handleChange}
                                 text='No. Telp Rumah'
                                 horizontally
-                                important
                             />
                             <InputForm
                                 type='number'
@@ -160,8 +226,14 @@ const AsesiProfilePage = () => {
                                 horizontally
                                 important
                             />
+                            {errors.phone && touched.phone ? (
+                                <Alert
+                                    message={errors.phone}
+                                    type='error'
+                                />
+                            ) : null}
                             <InputForm
-                                type='number'
+                                type='text'
                                 name='email'
                                 value={values.email}
                                 onChange={handleChange}
@@ -169,6 +241,12 @@ const AsesiProfilePage = () => {
                                 horizontally
                                 important
                             />
+                            {errors.email && touched.email ? (
+                                <Alert
+                                    message={errors.email}
+                                    type='error'
+                                />
+                            ) : null}
                             <ComboBoxForm
                                 name='lastEducation'
                                 text='Pendidikan Terakhir'
@@ -179,25 +257,42 @@ const AsesiProfilePage = () => {
                                 horizontally
                                 important
                             />
+                            {errors.lastEducation && touched.lastEducation ? (
+                                <Alert
+                                    message={errors.lastEducation}
+                                    type='error'
+                                />
+                            ) : null}
                             <FileInputForm
                                 name='signUpload'
-                                accept='image/*'
-                                onChange={handleChange}
+                                onChange={(e) => {
+                                    handleChange(e);
+                                    setFieldValue(
+                                        'signUpload',
+                                        e.currentTarget.files?.[0]
+                                    );
+                                }}
                                 text='Upload Tanda Tangan'
                                 horizontally
                                 important
                             />
-                        </form>
+                            {errors.signUpload ? (
+                                <Alert
+                                    message={errors.signUpload}
+                                    type='error'
+                                />
+                            ) : null}
+                        </div>
                     </div>
                 </div>
                 <div className='flex flex-col w-full'>
-                    <div className='w-full py-4 bg-white rounded-md shadow-sm drop-shadow-sm'>
+                    <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                         <span className='p-4 lg:p-6'>
                             Data TUK (Tempat Uji Kompetensi)
                         </span>
                         <hr className='my-4' />
                         <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
-                            <form className='flex flex-col w-full gap-5'>
+                            <div className='flex flex-col w-full gap-5'>
                                 <ComboBoxForm
                                     name='tuk'
                                     text='TUK'
@@ -208,7 +303,172 @@ const AsesiProfilePage = () => {
                                     horizontally
                                     important
                                 />
-                            </form>
+                                {errors.tuk && touched.tuk ? (
+                                    <Alert
+                                        message={errors.tuk}
+                                        type='error'
+                                    />
+                                ) : null}
+                            </div>
+                        </div>
+                    </div>
+                    <div className='w-full pt-4 mt-6 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
+                        <span className='p-4 lg:p-6'>Data Kantor</span>
+                        <hr className='my-4' />
+                        <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
+                            <div className='flex flex-col w-full gap-5'>
+                                <ComboBoxForm
+                                    name='institution'
+                                    text='Nama Lembaga/Badan'
+                                    value={values.institution}
+                                    items={Constants.institutions}
+                                    placeholder='Pilih Lembaga'
+                                    onChange={handleChange}
+                                    horizontally
+                                    important
+                                />
+                                {errors.institution && touched.institution ? (
+                                    <Alert
+                                        message={errors.institution}
+                                        type='error'
+                                    />
+                                ) : null}
+                                <InputForm
+                                    type='text'
+                                    name='company'
+                                    value={values.company}
+                                    onChange={handleChange}
+                                    text='Nama Perusahaan'
+                                    horizontally
+                                    important
+                                />
+                                {errors.company && touched.company ? (
+                                    <Alert
+                                        message={errors.company}
+                                        type='error'
+                                    />
+                                ) : null}
+                                <ComboBoxForm
+                                    name='fund'
+                                    text='Sumber Dana'
+                                    value={values.fund}
+                                    items={Constants.funds}
+                                    placeholder='Pilih Sumber Dana'
+                                    onChange={handleChange}
+                                    horizontally
+                                    important
+                                />
+                                {errors.fund && touched.fund ? (
+                                    <Alert
+                                        message={errors.fund}
+                                        type='error'
+                                    />
+                                ) : null}
+                                <ComboBoxForm
+                                    name='job'
+                                    text='Pekerjaan'
+                                    value={values.job}
+                                    items={Constants.jobs}
+                                    placeholder='Pilih Pekerjaan'
+                                    onChange={handleChange}
+                                    horizontally
+                                    important
+                                />
+                                {errors.job && touched.job ? (
+                                    <Alert
+                                        message={errors.job}
+                                        type='error'
+                                    />
+                                ) : null}
+                                <InputForm
+                                    type='text'
+                                    name='position'
+                                    value={values.position}
+                                    onChange={handleChange}
+                                    text='Jabatan'
+                                    horizontally
+                                    important
+                                />
+                                {errors.position && touched.position ? (
+                                    <Alert
+                                        message={errors.position}
+                                        type='error'
+                                    />
+                                ) : null}
+                                <InputForm
+                                    type='text'
+                                    name='companyAddress'
+                                    value={values.companyAddress}
+                                    onChange={handleChange}
+                                    text='Alamat Kantor'
+                                    horizontally
+                                    important
+                                />
+                                {errors.companyAddress &&
+                                touched.companyAddress ? (
+                                    <Alert
+                                        message={errors.companyAddress}
+                                        type='error'
+                                    />
+                                ) : null}
+                                <InputForm
+                                    type='number'
+                                    name='telpCompany'
+                                    value={values.telpCompany}
+                                    onChange={handleChange}
+                                    text='No Telepon Kantor'
+                                    horizontally
+                                />
+                                {errors.telpCompany && touched.telpCompany ? (
+                                    <Alert
+                                        message={errors.telpCompany}
+                                        type='error'
+                                    />
+                                ) : null}
+                                <InputForm
+                                    type='number'
+                                    name='companyPosCode'
+                                    value={values.companyPosCode}
+                                    onChange={handleChange}
+                                    text='Kode Pos'
+                                    horizontally
+                                />
+                                {errors.companyPosCode &&
+                                touched.companyPosCode ? (
+                                    <Alert
+                                        message={errors.companyPosCode}
+                                        type='error'
+                                    />
+                                ) : null}
+                                <InputForm
+                                    type='text'
+                                    name='fax'
+                                    value={values.fax}
+                                    onChange={handleChange}
+                                    text='Fax'
+                                    horizontally
+                                />
+                                {errors.fax && touched.fax ? (
+                                    <Alert
+                                        message={errors.fax}
+                                        type='error'
+                                    />
+                                ) : null}
+                                <InputForm
+                                    type='text'
+                                    name='companyEmail'
+                                    value={values.companyEmail}
+                                    onChange={handleChange}
+                                    text='Email'
+                                    horizontally
+                                />
+                                {errors.companyEmail && touched.companyEmail ? (
+                                    <Alert
+                                        message={errors.companyEmail}
+                                        type='error'
+                                    />
+                                ) : null}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -222,7 +482,7 @@ const AsesiProfilePage = () => {
                     Simpan
                 </Button>
             </div>
-        </div>
+        </form>
     );
 };
 

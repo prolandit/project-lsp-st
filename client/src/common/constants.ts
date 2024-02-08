@@ -1,5 +1,5 @@
 const Constants = {
-    genreOptions: [
+    genderOptions: [
         {
             key: 'pria',
             value: 'Pria',
@@ -59,6 +59,36 @@ const Constants = {
         {
             key: 'tuk2',
             value: 'Tuk2',
+        },
+    ],
+    institutions: [
+        {
+            key: 'kementrianAgama',
+            value: 'Kementrian Agama',
+        },
+        {
+            key: 'kementrianKeuangan',
+            value: 'Kementrian Keuangan',
+        },
+    ],
+    funds: [
+        {
+            key: 'sumberMandiri',
+            value: 'Sumber Anggaran Biaya Mandiri',
+        },
+        {
+            key: 'sumberPerusahaan',
+            value: 'Sumber Anggaran Biaya Perusahaan',
+        },
+    ],
+    jobs: [
+        {
+            key: 'tidakBekerja',
+            value: 'Tidak/Belum Bekerja',
+        },
+        {
+            key: 'pelajar',
+            value: 'Pelajar/Mahasiswa',
         },
     ],
 };

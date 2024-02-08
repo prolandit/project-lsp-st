@@ -25,7 +25,7 @@ export type ProfileValues = {
     noKtpOrPassport: string;
     birthPlace: string;
     birthDate: string;
-    genre: string;
+    gender: string;
     nationality: string;
     address: string;
     province: string;
@@ -35,8 +35,18 @@ export type ProfileValues = {
     phone: string;
     email: string;
     lastEducation: string;
-    signUpload?: File | undefined;
+    signUpload?: File;
     tuk: string;
+    institution: string;
+    company: string;
+    fund: string;
+    job: string;
+    position: string;
+    companyAddress: string;
+    telpCompany: string;
+    companyPosCode: string;
+    fax: string;
+    companyEmail: string;
 };
 
 export type OptionType = {
