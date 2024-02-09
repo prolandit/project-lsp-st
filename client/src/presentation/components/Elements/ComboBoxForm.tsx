@@ -1,29 +1,28 @@
 import classNames from 'classnames';
-import Input from './Input';
+import { OptionType } from '../../../common/types';
+import ComboBox from './ComboBox';
 import Label from './Input/Label';
 
 type Props = {
     className?: string;
     important?: boolean;
-    prefix?: React.ReactNode;
     name: string;
-    type: string;
-    placeholder?: string;
     text: string;
+    items: OptionType[];
     value?: string | number | readonly string[] | undefined;
+    placeholder?: string;
     horizontally?: boolean;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
-const InputForm = ({
+const ComboBoxForm = ({
     className,
     important,
-    prefix,
     name,
-    type,
-    placeholder,
     text,
     value,
+    placeholder,
+    items,
     onChange,
     horizontally = false,
 }: Props) => {
@@ -50,17 +49,16 @@ const InputForm = ({
                     text
                 )}
             </Label>
-            <Input
+            <ComboBox
                 className={`${horizontally ? 'lg:w-full' : ''}`}
-                prefix={prefix}
-                value={value}
-                onChange={onChange}
                 name={name}
-                type={type}
+                items={items}
+                value={value}
                 placeholder={placeholder}
+                onChange={onChange}
             />
         </div>
     );
 };
 
-export default InputForm;
+export default ComboBoxForm;
