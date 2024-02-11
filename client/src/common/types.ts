@@ -20,7 +20,7 @@ export type LoggedUser = {
     password: string;
 };
 
-export type ProfileValues = {
+export type AsesiProfileValues = {
     fullname: string;
     noKtpOrPassport: string;
     birthPlace: string;
@@ -47,6 +47,25 @@ export type ProfileValues = {
     companyPosCode: string;
     fax: string;
     companyEmail: string;
+};
+
+export type AsesorProfileValues = {
+    fullname: string;
+    noKtpOrPassport: string;
+    noMet: string;
+    birthPlace: string;
+    birthDate: string;
+    gender: string;
+    nationality: string;
+    address: string;
+    province: string;
+    city: string;
+    posCode: string;
+    telp: string;
+    phone: string;
+    email: string;
+    lastEducation: string;
+    signUpload?: File;
 };
 
 export type OptionType = {

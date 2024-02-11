@@ -34,7 +34,6 @@ const ComboBox = ({
             >
                 {placeholder && (
                     <option
-                        selected
                         disabled
                     >
                         {placeholder}

@@ -3,14 +3,14 @@ import { Alert } from 'antd';
 import { FormikHelpers, useFormik } from 'formik';
 import Constants from '../../common/constants';
 import { asesiProfileSchema } from '../../common/formSchemas';
-import { ProfileValues } from '../../common/types';
+import { AsesiProfileValues } from '../../common/types';
 import Button from '../components/Elements/Button';
 import ComboBoxForm from '../components/Elements/ComboBoxForm';
 import FileInputForm from '../components/Elements/FileInputForm';
 import InputForm from '../components/Elements/InputForm';
 
 const AsesiProfilePage = () => {
-    const onSaveProfile = (profile: ProfileValues) => {
+    const onSaveProfile = (profile: AsesiProfileValues) => {
         console.log(profile);
     };
 
@@ -52,7 +52,7 @@ const AsesiProfilePage = () => {
         },
         validationSchema: asesiProfileSchema,
         onSubmit: (
-            values: ProfileValues,
+            values: AsesiProfileValues,
             { setSubmitting }: FormikHelpers<any>
         ) => {
             onSaveProfile(values);
@@ -208,7 +208,14 @@ const AsesiProfilePage = () => {
                                 onChange={handleChange}
                                 text='Kode Pos'
                                 horizontally
+                                important
                             />
+                            {errors.posCode && touched.posCode ? (
+                                <Alert
+                                    message={errors.posCode}
+                                    type='error'
+                                />
+                            ) : null} 
                             <InputForm
                                 type='number'
                                 name='telp'

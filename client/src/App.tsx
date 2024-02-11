@@ -16,7 +16,7 @@ const App = () => {
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
-    }, [user]);
+    }, []);
 
     const profileElement =
         user?.role.toLowerCase() === 'asesi' ? (

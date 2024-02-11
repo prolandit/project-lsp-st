@@ -32,6 +32,7 @@ export const asesiProfileSchema = Yup.object().shape({
     address: Yup.string().required('Alamat tidak boleh kosong'),
     province: Yup.string().required('Provinsi tidak boleh kosong'),
     city: Yup.string().required('Kota / Kabupaten tidak boleh kosong'),
+    posCode: Yup.string().required('Kode Pos tidak boleh kosong'),
     phone: Yup.number().required('No HP tidak boleh kosong'),
     email: Yup.string().required('Email tidak boleh kosong'),
     lastEducation: Yup.string()
@@ -59,4 +60,33 @@ export const asesiProfileSchema = Yup.object().shape({
         .required('Pekerjaan tidak boleh kosong'),
     position: Yup.string().required('Posisi tidak boleh kosong'),
     companyAddress: Yup.string().required('Alamat Kantor tidak boleh kosong'),
+});
+
+export const asesorProfileSchema = Yup.object().shape({
+    fullname: Yup.string().required('Nama Lengkap tidak boleh kosong'),
+    noKtpOrPassport: Yup.number().required(
+        'No KTP / PASPOR tidak boleh kosong'
+    ),
+    noMet: Yup.string().required('No MET tidak boleh kosong'),
+    birthPlace: Yup.string().required('Tempat Lahir tidak boleh kosong'),
+    birthDate: Yup.string().required('Tanggal Lahir tidak boleh kosong'),
+    gender: Yup.string()
+        .oneOf(Constants.genderOptions.map((gender) => gender.key))
+        .required('Jenis Kelamin tidak boleh kosong'),
+    address: Yup.string().required('Alamat tidak boleh kosong'),
+    province: Yup.string().required('Provinsi tidak boleh kosong'),
+    city: Yup.string().required('Kota / Kabupaten tidak boleh kosong'), 
+    posCode: Yup.string().required('Kode Pos tidak boleh kosong'),
+    phone: Yup.number().required('No HP tidak boleh kosong'),
+    email: Yup.string().required('Email tidak boleh kosong'),
+    lastEducation: Yup.string()
+        .oneOf(Constants.educationOptions.map((education) => education.key))
+        .required('Pendidikan Terakhir tidak boleh kosong'),
+    signUpload: Yup.mixed<File>()
+        .required('Tanda Tangan tidak boleh kosong')
+        .test(
+            'fileSize',
+            'Ukuran file terlalu besar. Maksimal 5MB',
+            (value: File) => value.size <= 5242880
+        ),
 });
