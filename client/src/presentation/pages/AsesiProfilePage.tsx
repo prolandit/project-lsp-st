@@ -69,7 +69,7 @@ const AsesiProfilePage = () => {
                 <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                     <span className='p-4 lg:p-6'>Data Profile</span>
                     <hr className='my-4' />
-                    <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
+                    <div className='flex flex-col px-4 lg:flex-row lg:px-6'>
                         <div className='flex flex-col w-full gap-5'>
                             <InputForm
                                 type='text'
@@ -215,7 +215,7 @@ const AsesiProfilePage = () => {
                                     message={errors.posCode}
                                     type='error'
                                 />
-                            ) : null} 
+                            ) : null}
                             <InputForm
                                 type='number'
                                 name='telp'
@@ -480,7 +480,7 @@ const AsesiProfilePage = () => {
                     </div>
                 </div>
             </div>
-            <div className='flex flex-col w-full mt-10 bg-white shadow-sm rounded-xs drop-shadow-sm'>
+            <footer className='flex flex-col w-full mt-10 bg-white shadow-sm rounded-xs drop-shadow-sm'>
                 <Button
                     type='submit'
                     onClick={handleSubmit}
@@ -488,7 +488,7 @@ const AsesiProfilePage = () => {
                 >
                     Simpan
                 </Button>
-            </div>
+            </footer>
         </form>
     );
 };

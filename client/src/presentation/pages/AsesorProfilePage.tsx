@@ -1,12 +1,13 @@
-import Button from "../components/Elements/Button";
-import ComboBoxForm from "../components/Elements/ComboBoxForm";
-import InputForm from "../components/Elements/InputForm";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Alert } from 'antd';
+import { FormikHelpers, useFormik } from 'formik';
 import Constants from '../../common/constants';
-import FileInputForm from "../components/Elements/FileInputForm";
-import { FormikHelpers, useFormik } from "formik";
-import { AsesorProfileValues } from "../../common/types";
-import { asesorProfileSchema } from "../../common/formSchemas";
-import { Alert } from "antd";
+import { asesorProfileSchema } from '../../common/formSchemas';
+import { AsesorProfileValues } from '../../common/types';
+import Button from '../components/Elements/Button';
+import ComboBoxForm from '../components/Elements/ComboBoxForm';
+import FileInputForm from '../components/Elements/FileInputForm';
+import InputForm from '../components/Elements/InputForm';
 
 const AsesorProfilePage = () => {
     const onSaveProfile = (profile: AsesorProfileValues) => {
@@ -23,7 +24,7 @@ const AsesorProfilePage = () => {
         initialValues: {
             fullname: '',
             noKtpOrPassport: '',
-            noMet:'',
+            noMet: '',
             birthPlace: '',
             birthDate: '',
             gender: '',
@@ -48,18 +49,17 @@ const AsesorProfilePage = () => {
         },
     });
 
-
     return (
         <form
-        className='flex flex-col mt-10'
-        encType='multipart/form-data'
+            className='flex flex-col mt-10'
+            encType='multipart/form-data'
         >
-            <div className='flex flex-row gap-4 mx-12'>
-                <div className='w-full p-2 bg-white rounded-md shadow-sm drop-shadow-sm md:p-6 2xl:p-10'>
-                    <span className="font-semibold">Data Profile Asesor</span>
+            <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
+                <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
+                    <span className='p-4 lg:p-6'>Data Profile</span>
                     <hr className='my-4' />
-                    <div className="grid gap-6 mb-6 md:grid-cols-2 items-start">
-                        <div className="grid gap-6">
+                    <div className='grid items-start gap-6 px-4 md:grid-cols-2 lg:px-6'>
+                        <div className='grid gap-6'>
                             <InputForm
                                 type='text'
                                 name='fullname'
@@ -75,7 +75,7 @@ const AsesorProfilePage = () => {
                                     type='error'
                                 />
                             ) : null}
-                           <InputForm
+                            <InputForm
                                 type='number'
                                 name='noKtpOrPassport'
                                 text='No KTP / PASPOR'
@@ -84,13 +84,14 @@ const AsesorProfilePage = () => {
                                 horizontally
                                 important
                             />
-                            {errors.noKtpOrPassport && touched.noKtpOrPassport ? (
+                            {errors.noKtpOrPassport &&
+                            touched.noKtpOrPassport ? (
                                 <Alert
                                     message={errors.noKtpOrPassport}
                                     type='error'
                                 />
                             ) : null}
-                           <InputForm
+                            <InputForm
                                 type='number'
                                 name='noMet'
                                 text='No MET'
@@ -104,8 +105,8 @@ const AsesorProfilePage = () => {
                                     message={errors.noMet}
                                     type='error'
                                 />
-                            ) : null}                            
-                          <InputForm
+                            ) : null}
+                            <InputForm
                                 type='text'
                                 name='birthPlace'
                                 value={values.birthPlace}
@@ -119,7 +120,7 @@ const AsesorProfilePage = () => {
                                     message={errors.birthPlace}
                                     type='error'
                                 />
-                            ) : null} 
+                            ) : null}
                             <InputForm
                                 type='date'
                                 name='birthDate'
@@ -134,7 +135,7 @@ const AsesorProfilePage = () => {
                                     message={errors.birthDate}
                                     type='error'
                                 />
-                            ) : null} 
+                            ) : null}
                             <ComboBoxForm
                                 name='gender'
                                 text='Jenis Kelamin'
@@ -150,7 +151,7 @@ const AsesorProfilePage = () => {
                                     message={errors.gender}
                                     type='error'
                                 />
-                            ) : null} 
+                            ) : null}
                             <ComboBoxForm
                                 name='lastEducation'
                                 text='Pendidikan Terakhir'
@@ -165,8 +166,8 @@ const AsesorProfilePage = () => {
                                 <Alert
                                     message={errors.lastEducation}
                                     type='error'
-                                    />
-                                ) : null}
+                                />
+                            ) : null}
                             <InputForm
                                 type='text'
                                 name='nationality'
@@ -176,7 +177,7 @@ const AsesorProfilePage = () => {
                                 horizontally
                             />
                         </div>
-                        <div className="grid gap-6">
+                        <div className='grid gap-6'>
                             <InputForm
                                 type='text'
                                 name='address'
@@ -191,7 +192,7 @@ const AsesorProfilePage = () => {
                                     message={errors.address}
                                     type='error'
                                 />
-                            ) : null} 
+                            ) : null}
                             <InputForm
                                 type='text'
                                 name='province'
@@ -206,7 +207,7 @@ const AsesorProfilePage = () => {
                                     message={errors.province}
                                     type='error'
                                 />
-                            ) : null} 
+                            ) : null}
                             <InputForm
                                 type='text'
                                 name='city'
@@ -221,7 +222,7 @@ const AsesorProfilePage = () => {
                                     message={errors.city}
                                     type='error'
                                 />
-                            ) : null}                             
+                            ) : null}
                             <InputForm
                                 type='number'
                                 name='posCode'
@@ -236,7 +237,7 @@ const AsesorProfilePage = () => {
                                     message={errors.posCode}
                                     type='error'
                                 />
-                            ) : null} 
+                            ) : null}
                             <InputForm
                                 type='number'
                                 name='telp'
@@ -259,7 +260,7 @@ const AsesorProfilePage = () => {
                                     message={errors.phone}
                                     type='error'
                                 />
-                            ) : null} 
+                            ) : null}
                             <InputForm
                                 type='text'
                                 name='email'
@@ -274,7 +275,7 @@ const AsesorProfilePage = () => {
                                     message={errors.email}
                                     type='error'
                                 />
-                            ) : null} 
+                            ) : null}
                             <FileInputForm
                                 name='signUpload'
                                 onChange={(e) => {
@@ -299,7 +300,7 @@ const AsesorProfilePage = () => {
                 </div>
             </div>
 
-            <div className='flex flex-col w-full mt-10 bg-white shadow-sm rounded-xs drop-shadow-sm'>
+            <footer className='flex flex-col w-full mt-10 bg-white shadow-sm lg:absolute lg:bottom-0 rounded-xs drop-shadow-sm'>
                 <Button
                     type='submit'
                     onClick={handleSubmit}
@@ -307,7 +308,7 @@ const AsesorProfilePage = () => {
                 >
                     Simpan
                 </Button>
-            </div>
+            </footer>
         </form>
     );
 };
