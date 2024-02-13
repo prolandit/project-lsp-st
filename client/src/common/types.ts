@@ -1,7 +1,3 @@
-import { NotificationArgsProps } from 'antd';
-
-export type NotificationPlacement = NotificationArgsProps['placement'];
-
 export type LoginValues = {
     email: string;
     password: string;
