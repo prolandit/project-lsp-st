@@ -1,19 +1,23 @@
+import classNames from 'classnames';
 import { FaFileUpload } from 'react-icons/fa';
 
 type Props = {
     value: File | null | undefined;
+    className?: string;
 };
 
-const FileNameDisplayer = ({ value }: Props) => {
+const FileNameDisplayer = ({ value, className }: Props) => {
     return (
-        <div className='flex flex-row items-center justify-between w-full px-4 py-2 bg-blue-100 rounded-md lg:w-3/4'>
+        <div
+            className={classNames(
+                `flex flex-row items-center justify-between w-full px-4 py-2 bg-blue-100 rounded-md gap-2`,
+                className
+            )}
+        >
             <FaFileUpload className='text-blue-700' />
-            <div className='flex flex-row items-center gap-2'>
-                <span className='overflow-hidden font-medium max-w-40 lg:max-w-96 text-ellipsis'>
-                    {value ? value.name : 'No selected file'}
-                </span>
-                <span className='font-semibold'>-</span>
-            </div>
+            <span className='overflow-hidden font-medium max-w-40 lg:max-w-96 text-ellipsis'>
+                {value ? value.name : 'No selected file'}
+            </span>
         </div>
     );
 };

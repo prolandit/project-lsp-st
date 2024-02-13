@@ -42,7 +42,10 @@ const CustomFileInput = ({
                     hidden
                 />
             </div>
-            <FileNameDisplayer value={value} />
+            <FileNameDisplayer
+                value={value}
+                className='lg:w-3/4'
+            />
         </div>
     );
 };

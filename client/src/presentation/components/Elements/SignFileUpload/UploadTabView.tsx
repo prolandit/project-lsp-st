@@ -57,7 +57,7 @@ const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
                     value={values.explanation}
                     onChange={(e) => {
                         handleChange(e);
-                        onChange?.(undefined, values.explanation);
+                        onChange?.(undefined, e.target.value);
                     }}
                     horizontally
                 />

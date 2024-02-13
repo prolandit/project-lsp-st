@@ -22,8 +22,7 @@ const SignFileUploader = ({
     horizontally = false,
 }: Props) => {
     const verticalClassName = 'flex flex-col gap-3';
-    const horizontalClassName =
-        'flex flex-col lg:flex-row lg:items-center gap-3';
+    const horizontalClassName = `flex flex-col lg:flex-row lg:items-center gap-3`;
     return (
         <div
             className={classNames(
@@ -33,7 +32,7 @@ const SignFileUploader = ({
         >
             <Label
                 htmlFor={name}
-                className={`${horizontally ? 'lg:w-44' : ''}`}
+                className={`${horizontally ? 'lg:w-60' : ''}`}
             >
                 {important ? (
                     <span className='flex items-center gap-0.5'>
@@ -44,21 +43,30 @@ const SignFileUploader = ({
                     text
                 )}
             </Label>
-            {value && value instanceof File ? (
-                <FileNameDisplayer value={value} />
-            ) : (
-                <div className='flex flex-row gap-1'>
-                    <span className='text-sm font-semibold'>Keterangan:</span>
-                    <span className='text-sm'>{value}</span>
-                </div>
-            )}
-            <button
-                type='button'
-                className='h-10 px-4 py-2 text-sm font-medium text-blue-700 bg-blue-100 rounded-md hover:bg-blue-200'
-                onClick={onClick}
-            >
-                Unggah Tanda Tangan
-            </button>
+
+            <div className='flex flex-row items-center w-full gap-2'>
+                <button
+                    type='button'
+                    className='px-4 py-2 text-sm font-medium text-blue-700 bg-blue-100 rounded-md hover:bg-blue-200'
+                    onClick={onClick}
+                >
+                    Upload
+                </button>
+                {value &&
+                    (value instanceof File ? (
+                        <FileNameDisplayer
+                            value={value}
+                            className='w-auto'
+                        />
+                    ) : (
+                        <div className='flex flex-row gap-1'>
+                            <span className='text-sm font-semibold'>
+                                Keterangan:
+                            </span>
+                            <span className='text-sm'>{value}</span>
+                        </div>
+                    ))}
+            </div>
         </div>
     );
 };
