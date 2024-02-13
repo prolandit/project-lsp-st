@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Alert } from 'antd';
-import { FormikHelpers, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import Constants from '../../common/constants';
 import { asesorProfileSchema } from '../../common/formSchemas';
 import { AsesorProfileValues } from '../../common/types';
@@ -40,12 +40,8 @@ const AsesorProfilePage = () => {
             signUpload: undefined,
         },
         validationSchema: asesorProfileSchema,
-        onSubmit: (
-            values: AsesorProfileValues,
-            { setSubmitting }: FormikHelpers<any>
-        ) => {
+        onSubmit: (values: AsesorProfileValues) => {
             onSaveProfile(values);
-            setSubmitting(true);
         },
     });
 
@@ -303,7 +299,10 @@ const AsesorProfilePage = () => {
             <footer className='flex flex-col w-full mt-10 bg-white shadow-sm lg:absolute lg:bottom-0 rounded-xs drop-shadow-sm'>
                 <Button
                     type='submit'
-                    onClick={handleSubmit}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        handleSubmit();
+                    }}
                     className='self-center lg:self-end w-9/12 lg:w-40 mx-6 lg:mx-10 my-6 h-[45px] bg-blue-500 hover:bg-blue-700'
                 >
                     Simpan

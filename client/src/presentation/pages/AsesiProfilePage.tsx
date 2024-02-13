@@ -1,15 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Alert } from 'antd';
-import { FormikHelpers, useFormik } from 'formik';
+import { useFormik } from 'formik';
+import { useState } from 'react';
 import Constants from '../../common/constants';
 import { asesiProfileSchema } from '../../common/formSchemas';
 import { AsesiProfileValues } from '../../common/types';
 import Button from '../components/Elements/Button';
 import ComboBoxForm from '../components/Elements/ComboBoxForm';
-import FileInputForm from '../components/Elements/FileInputForm';
 import InputForm from '../components/Elements/InputForm';
+import SignFileUploader from '../components/Elements/SignFileUpload';
+import SignUploadModal from '../components/Elements/SignFileUpload/SignUploadModal';
 
 const AsesiProfilePage = () => {
+    const [isShowModal, setIsShowModal] = useState(false);
+
     const onSaveProfile = (profile: AsesiProfileValues) => {
         console.log(profile);
     };
@@ -38,6 +42,7 @@ const AsesiProfilePage = () => {
             email: '',
             lastEducation: '',
             signUpload: undefined,
+            signExplanation: '',
             tuk: '',
             institution: '',
             company: '',
@@ -51,12 +56,8 @@ const AsesiProfilePage = () => {
             companyEmail: '',
         },
         validationSchema: asesiProfileSchema,
-        onSubmit: (
-            values: AsesiProfileValues,
-            { setSubmitting }: FormikHelpers<any>
-        ) => {
+        onSubmit: (values: AsesiProfileValues) => {
             onSaveProfile(values);
-            setSubmitting(false);
         },
     });
 
@@ -270,25 +271,18 @@ const AsesiProfilePage = () => {
                                     type='error'
                                 />
                             ) : null}
-                            <FileInputForm
+                            <SignFileUploader
                                 name='signUpload'
-                                onChange={(e) => {
-                                    handleChange(e);
-                                    setFieldValue(
-                                        'signUpload',
-                                        e.currentTarget.files?.[0]
-                                    );
-                                }}
+                                value={
+                                    values.signUpload
+                                        ? values.signUpload
+                                        : values.signExplanation
+                                }
+                                onClick={() => setIsShowModal(true)}
                                 text='Upload Tanda Tangan'
                                 horizontally
                                 important
                             />
-                            {errors.signUpload ? (
-                                <Alert
-                                    message={errors.signUpload}
-                                    type='error'
-                                />
-                            ) : null}
                         </div>
                     </div>
                 </div>
@@ -483,12 +477,24 @@ const AsesiProfilePage = () => {
             <footer className='flex flex-col w-full mt-10 bg-white shadow-sm rounded-xs drop-shadow-sm'>
                 <Button
                     type='submit'
-                    onClick={handleSubmit}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        handleSubmit();
+                    }}
                     className='self-center lg:self-end w-9/12 lg:w-40 mx-6 lg:mx-10 my-6 h-[45px] bg-blue-500 hover:bg-blue-700'
                 >
                     Simpan
                 </Button>
             </footer>
+            {isShowModal && (
+                <SignUploadModal
+                    closeModal={() => setIsShowModal(false)}
+                    onChange={(file, exp) => {
+                        setFieldValue('signUpload', file);
+                        setFieldValue('signExplanation', exp);
+                    }}
+                />
+            )}
         </form>
     );
 };

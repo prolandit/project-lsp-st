@@ -36,6 +36,7 @@ export type AsesiProfileValues = {
     email: string;
     lastEducation: string;
     signUpload?: File;
+    signExplanation: string;
     tuk: string;
     institution: string;
     company: string;
@@ -71,4 +72,9 @@ export type AsesorProfileValues = {
 export type OptionType = {
     key: string;
     value: string;
+};
+
+export type FileUpload = {
+    fileUpload: File | null;
+    explanation: string;
 };

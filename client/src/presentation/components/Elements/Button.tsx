@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 type Props = {
     type: 'button' | 'submit' | 'reset' | undefined;
-    onClick?: () => void;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
     className?: string;
     children: React.ReactNode;
 };

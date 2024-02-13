@@ -30,10 +30,12 @@ const ComboBox = ({
                 name={name}
                 value={value === '' ? undefined : value}
                 onChange={onChange}
+                defaultValue='initial'
                 className='w-full px-4 py-3 text-sm font-medium text-black bg-gray-100 rounded-md outline-none appearance-none'
             >
                 {placeholder && (
                     <option
+                        value='initial'
                         disabled
                     >
                         {placeholder}
@@ -43,6 +45,7 @@ const ComboBox = ({
                     <option
                         key={item.key}
                         value={item.key}
+                        className='text-ellipsis'
                     >
                         {item.value}
                     </option>
