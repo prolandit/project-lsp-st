@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Alert } from 'antd';
 import { useFormik } from 'formik';
 import Constants from '../../common/constants';
 import { asesorProfileSchema } from '../../common/formSchemas';
 import { AsesorProfileValues } from '../../common/types';
+import Alert from '../components/Elements/Alert';
 import Button from '../components/Elements/Button';
 import ComboBoxForm from '../components/Elements/ComboBoxForm';
 import FileInputForm from '../components/Elements/FileInputForm';

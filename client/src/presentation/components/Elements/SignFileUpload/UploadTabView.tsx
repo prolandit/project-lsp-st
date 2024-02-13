@@ -1,8 +1,7 @@
-import { Alert } from 'antd';
 import { useFormik } from 'formik';
-import React, { useCallback } from 'react';
 import { fileInputSchema } from '../../../../common/formSchemas';
 import { FileUpload } from '../../../../common/types';
+import Alert from '../Alert';
 import Button from '../Button';
 import CustomFileInput from '../CustomFileInput';
 import InputForm from '../InputForm';
@@ -14,33 +13,17 @@ type Props = {
 };
 
 const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
-    const handleSubmit = useCallback(
-        (values: FileUpload) => {
-            console.log(values);
-            if (values.fileUpload || values.explanation) {
-                onSave();
-            }
-        },
-        [onSave]
-    );
-
-    const { errors, values, handleChange, setFieldValue } =
+    const { errors, values, handleChange, setFieldValue, handleSubmit } =
         useFormik<FileUpload>({
             initialValues: {
                 fileUpload: null,
                 explanation: '',
             },
             validationSchema: fileInputSchema,
-            onSubmit: handleSubmit,
+            onSubmit: (values: FileUpload) => {
+                console.log(values);
+            },
         });
-
-    const handleFileInputChange = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            const file = e.currentTarget.files?.[0];
-            setFieldValue('fileUpload', file);
-        },
-        [setFieldValue]
-    );
 
     return (
         <div className='flex flex-col'>
@@ -50,7 +33,10 @@ const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
                     type='file'
                     accept='image/*'
                     value={values.fileUpload}
-                    onChange={handleFileInputChange}
+                    onChange={(e) => {
+                        const file = e.currentTarget.files?.[0];
+                        setFieldValue('fileUpload', file);
+                    }}
                 />
             </div>
             {errors.fileUpload && (
@@ -68,6 +54,7 @@ const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
                     value={values.explanation}
                     onChange={(e) => {
                         handleChange(e);
+                        onChange?.(undefined, values.explanation);
                     }}
                     horizontally
                 />
@@ -96,7 +83,12 @@ const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
                             values.fileUpload ?? undefined,
                             values.explanation
                         );
-                        handleSubmit(values);
+
+                        handleSubmit();
+
+                        if (values.fileUpload || values.explanation) {
+                            onSave();
+                        }
                     }}
                 >
                     Simpan

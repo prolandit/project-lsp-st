@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Alert } from 'antd';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import Constants from '../../common/constants';
 import { asesiProfileSchema } from '../../common/formSchemas';
 import { AsesiProfileValues } from '../../common/types';
+import Alert from '../components/Elements/Alert';
 import Button from '../components/Elements/Button';
 import ComboBoxForm from '../components/Elements/ComboBoxForm';
 import InputForm from '../components/Elements/InputForm';

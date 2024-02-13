@@ -1,10 +1,10 @@
-import { Alert } from 'antd';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { IoRefresh } from 'react-icons/io5';
 import { fileInputSchema } from '../../../../common/formSchemas';
 import { useCanvas } from '../../../../common/hooks/useDraw';
 import { FileUpload } from '../../../../common/types';
+import Alert from '../Alert';
 import Button from '../Button';
 import InputForm from '../InputForm';
 
