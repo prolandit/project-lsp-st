@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { IoMdCloudUpload } from 'react-icons/io';
-import FileNameDisplayer from '../FilenameDisplayer';
+import FileNameDisplayer from './FilenameDisplayer';
 
 type Props = {
     className?: string;

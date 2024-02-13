@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import FileNameDisplayer from '../FilenameDisplayer';
+import FileNameDisplayer from '../CustomFileInput/FilenameDisplayer';
 import Label from '../Input/Label';
 
 type Props = {

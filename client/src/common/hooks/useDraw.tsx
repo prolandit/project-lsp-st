@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 
 export const useCanvas = (): [
     React.RefObject<HTMLCanvasElement>,
-    boolean,
     File | undefined
 ] => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -88,5 +87,5 @@ export const useCanvas = (): [
         };
     }, [isDrawing, prevPos]);
 
-    return [canvasRef, setIsDrawing, imageFile];
+    return [canvasRef, imageFile];
 };

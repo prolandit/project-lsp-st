@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Alert } from 'antd';
 import { useFormik } from 'formik';
+import React, { useCallback } from 'react';
 import { fileInputSchema } from '../../../../common/formSchemas';
 import { FileUpload } from '../../../../common/types';
 import Button from '../Button';
@@ -14,17 +14,33 @@ type Props = {
 };
 
 const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
-    const { errors, values, handleSubmit, handleChange, setFieldValue } =
-        useFormik({
+    const handleSubmit = useCallback(
+        (values: FileUpload) => {
+            console.log(values);
+            if (values.fileUpload || values.explanation) {
+                onSave();
+            }
+        },
+        [onSave]
+    );
+
+    const { errors, values, handleChange, setFieldValue } =
+        useFormik<FileUpload>({
             initialValues: {
                 fileUpload: null,
                 explanation: '',
             },
             validationSchema: fileInputSchema,
-            onSubmit: (values: FileUpload) => {
-                console.log(values);
-            },
+            onSubmit: handleSubmit,
         });
+
+    const handleFileInputChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            const file = e.currentTarget.files?.[0];
+            setFieldValue('fileUpload', file);
+        },
+        [setFieldValue]
+    );
 
     return (
         <div className='flex flex-col'>
@@ -34,19 +50,16 @@ const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
                     type='file'
                     accept='image/*'
                     value={values.fileUpload}
-                    onChange={(e) => {
-                        setFieldValue('fileUpload', e.currentTarget.files?.[0]);
-                        onChange?.(e.currentTarget.files?.[0], '');
-                    }}
+                    onChange={handleFileInputChange}
                 />
             </div>
-            {errors.fileUpload ? (
+            {errors.fileUpload && (
                 <Alert
                     className='mx-4 mt-2 lg:w-3/4 lg:self-center lg:mx-0'
                     message={errors.fileUpload}
                     type='error'
                 />
-            ) : null}
+            )}
             <div className='flex flex-col mx-4 mt-6 lg:w-3/4 lg:self-center lg:mx-0'>
                 <InputForm
                     type='text'
@@ -55,18 +68,17 @@ const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
                     value={values.explanation}
                     onChange={(e) => {
                         handleChange(e);
-                        onChange?.(undefined, e.target.value);
                     }}
                     horizontally
                 />
             </div>
-            {errors.explanation ? (
+            {errors.explanation && (
                 <Alert
                     className='mx-4 mt-2 lg:w-3/4 lg:self-center lg:mx-0'
                     message={errors.explanation}
                     type='error'
                 />
-            ) : null}
+            )}
             <div className='flex justify-end gap-2 mx-4 mt-8 mb-10 lg:mx-0 lg:w-3/4 lg:self-center'>
                 <Button
                     type='button'
@@ -80,10 +92,11 @@ const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
                     onClick={(e) => {
                         e.preventDefault();
 
-                        handleSubmit();
-                        if (values.fileUpload || values.explanation) {
-                            onSave();
-                        }
+                        onChange?.(
+                            values.fileUpload ?? undefined,
+                            values.explanation
+                        );
+                        handleSubmit(values);
                     }}
                 >
                     Simpan
