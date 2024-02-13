@@ -283,6 +283,12 @@ const AsesiProfilePage = () => {
                                 horizontally
                                 important
                             />
+                            {errors.signUpload && touched.signUpload ? (
+                                <Alert
+                                    message={errors.signUpload}
+                                    type='error'
+                                />
+                            ) : null}
                         </div>
                     </div>
                 </div>
