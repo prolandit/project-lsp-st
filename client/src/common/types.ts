@@ -78,3 +78,8 @@ export type FileUpload = {
     fileUpload: File | null;
     explanation: string;
 };
+
+export type Position = {
+    x: number;
+    y: number;
+};

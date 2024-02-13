@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Alert } from 'antd';
 import { useFormik } from 'formik';
 import { fileInputSchema } from '../../../../common/formSchemas';
 import { FileUpload } from '../../../../common/types';
 import Button from '../Button';
-import CustomFileInput from '../CustomFileInput';
 import InputForm from '../InputForm';
+import SignatureCanvas from './SignatureCanvas';
 
 type Props = {
     onChange?: (file: File | undefined, exp: string) => void;
@@ -13,7 +12,7 @@ type Props = {
     onSave: () => void;
 };
 
-const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
+const DrawTabView = ({ onChange, onClose, onSave }: Props) => {
     const { errors, values, handleSubmit, handleChange, setFieldValue } =
         useFormik({
             initialValues: {
@@ -29,14 +28,10 @@ const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
     return (
         <div className='flex flex-col'>
             <div className='flex items-center justify-center w-full h-full'>
-                <CustomFileInput
-                    name='fileUpload'
-                    type='file'
-                    accept='image/*'
-                    value={values.fileUpload}
-                    onChange={(e) => {
-                        setFieldValue('fileUpload', e.currentTarget.files?.[0]);
-                        onChange?.(e.currentTarget.files?.[0], '');
+                <SignatureCanvas
+                    onChange={(file) => {
+                        setFieldValue('fileUpload', file);
+                        onChange?.(file, values.explanation);
                     }}
                 />
             </div>
@@ -93,4 +88,4 @@ const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
     );
 };
 
-export default UploadTabView;
+export default DrawTabView;

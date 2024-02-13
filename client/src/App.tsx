@@ -30,7 +30,6 @@ const App = () => {
                     path='/login'
                     element={<LoginPage />}
                 />
-
                 <Route
                     key='register'
                     path='/register'

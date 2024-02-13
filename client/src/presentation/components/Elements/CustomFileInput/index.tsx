@@ -23,7 +23,7 @@ const CustomFileInput = ({
     onChange,
 }: Props) => {
     return (
-        <div className='flex flex-col items-center justify-center w-full gap-4 lg:h-[520px] mx-4 lg:mx-0'>
+        <div className='flex flex-col items-center justify-center w-full gap-4 mx-4 lg:h-80 lg:mx-0'>
             <div
                 className='flex flex-col items-center justify-center w-full p-6 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer lg:w-3/4 lg:h-full'
                 onClick={() => document.getElementById('fileUpload')?.click()}
