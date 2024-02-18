@@ -20,9 +20,9 @@ const App = () => {
 
     const profileElement =
         user?.role.toLowerCase() === 'asesi' ? (
-            <AsesiProfilePage />
-        ) : (
             <AsesorProfilePage />
+            ) : (
+            <AsesiProfilePage />
         );
 
     return (
