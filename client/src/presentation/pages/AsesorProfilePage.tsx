@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
+import { useState } from 'react';
 import Constants from '../../common/constants';
 import { asesorProfileSchema } from '../../common/formSchemas';
 import { AsesorProfileValues } from '../../common/types';
 import Alert from '../components/Elements/Alert';
 import Button from '../components/Elements/Button';
 import ComboBoxForm from '../components/Elements/ComboBoxForm';
-import FileInputForm from '../components/Elements/FileInputForm';
 import InputForm from '../components/Elements/InputForm';
+import SignFileUploader from '../components/Elements/SignFileUpload';
+import SignUploadModal from '../components/Elements/SignFileUpload/SignUploadModal';
 
 const AsesorProfilePage = () => {
+    const [isShowModal, setIsShowModal] = useState(false);
     const onSaveProfile = (profile: AsesorProfileValues) => {
         console.log(profile);
     };
@@ -38,6 +41,7 @@ const AsesorProfilePage = () => {
             email: '',
             lastEducation: '',
             signUpload: undefined,
+            signExplanation: '',
         },
         validationSchema: asesorProfileSchema,
         onSubmit: (values: AsesorProfileValues) => {
@@ -50,7 +54,7 @@ const AsesorProfilePage = () => {
             className='flex flex-col mt-10'
             encType='multipart/form-data'
         >
-            <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
+            <div className='flex flex-col gap-4 mx-3 mb-6 lg:flex-row lg:mx-8'>
                 <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                     <span className='p-4 lg:p-6'>Data Profile</span>
                     <hr className='my-4' />
@@ -164,14 +168,22 @@ const AsesorProfilePage = () => {
                                     type='error'
                                 />
                             ) : null}
-                            <InputForm
-                                type='text'
+                            <ComboBoxForm
                                 name='nationality'
-                                value={values.nationality}
-                                onChange={handleChange}
                                 text='Kebangsaan'
+                                value={values.nationality}
+                                items={Constants.nationality}
+                                placeholder='Pilih Kebangsaan'
+                                onChange={handleChange}
                                 horizontally
+                                important
                             />
+                            {errors.nationality && touched.nationality ? (
+                                <Alert
+                                    message={errors.nationality}
+                                    type='error'
+                                />
+                            ) : null}
                         </div>
                         <div className='grid gap-6'>
                             <InputForm
@@ -272,20 +284,19 @@ const AsesorProfilePage = () => {
                                     type='error'
                                 />
                             ) : null}
-                            <FileInputForm
+                            <SignFileUploader
                                 name='signUpload'
-                                onChange={(e) => {
-                                    handleChange(e);
-                                    setFieldValue(
-                                        'signUpload',
-                                        e.currentTarget.files?.[0]
-                                    );
-                                }}
+                                value={
+                                    values.signUpload
+                                        ? values.signUpload
+                                        : values.signExplanation
+                                }
+                                onClick={() => setIsShowModal(true)}
                                 text='Upload Tanda Tangan'
                                 horizontally
                                 important
                             />
-                            {errors.signUpload ? (
+                            {errors.signUpload && touched.signUpload ? (
                                 <Alert
                                     message={errors.signUpload}
                                     type='error'
@@ -293,10 +304,27 @@ const AsesorProfilePage = () => {
                             ) : null}
                         </div>
                     </div>
+                    <div className='grid items-start gap-6 px-4 lg:px-6'>
+                        <hr className='mt-4' />
+                        <div className='grid gap-6 lg:justify-self-end'>
+                            <Button
+                                type='submit'
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleSubmit();
+                                }}
+                                className='self-center lg:self-end lg:w-40 h-[45px] bg-blue-500 hover:bg-blue-700'
+                            >
+                                Simpan
+                            </Button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <footer className='flex flex-col w-full mt-10 bg-white shadow-sm lg:absolute lg:bottom-0 rounded-xs drop-shadow-sm'>
+            {/* masih bug terakhir didevice 1920x1080 masing ngambang gitu jadi pindahin aja */}
+            
+            {/* <footer className='flex flex-col w-full mt-10 bg-white shadow-sm lg:absolute lg:bottom-0 rounded-xs drop-shadow-sm'>
                 <Button
                     type='submit'
                     onClick={(e) => {
@@ -307,7 +335,18 @@ const AsesorProfilePage = () => {
                 >
                     Simpan
                 </Button>
-            </footer>
+            </footer> */}
+
+
+            {isShowModal && (
+                <SignUploadModal
+                    closeModal={() => setIsShowModal(false)}
+                    onChange={(file, exp) => {
+                        setFieldValue('signUpload', file);
+                        setFieldValue('signExplanation', exp);
+                    }}
+                />
+            )}
         </form>
     );
 };

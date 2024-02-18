@@ -63,6 +63,7 @@ export type AsesorProfileValues = {
     email: string;
     lastEducation: string;
     signUpload?: File;
+    signExplanation: string;
 };
 
 export type OptionType = {
