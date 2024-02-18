@@ -8,9 +8,8 @@ const GeneralHelper = require('../helpers/generalHelper');
 const jwtSecretToken = process.env.JWT_SECRET_TOKEN || 'super_strong_key';
 const fileName = 'server/middlewares/authMiddleware.js';
 
-// eslint-disable-next-line no-unused-vars
-const validateToken = (request, reply, next) => {
-  const { authorization } = request.headers;
+const validateToken = (req, rep, next) => {
+  const { authorization } = req.headers;
 
   try {
     if (_.isEmpty(authorization)) {
@@ -28,14 +27,12 @@ const validateToken = (request, reply, next) => {
       throw Boom.unauthorized();
     }
     
-    request.body.dataToken = verifiedUser;
-
-    console.log(verifiedUser, 'wkwk')
+    req.body.dataToken = verifiedUser;
 
     return next();
   } catch (err) {
     console.log([fileName, 'validateToken', 'ERROR'], { info: `${err}` });
-    return reply.send(GeneralHelper.errorResponse(err))
+    return rep.send(GeneralHelper.errorResponse(err))
   }
 }
 

@@ -8,22 +8,20 @@ const path = require('path');
 const app = express();
 const Port = process.env.NODEJS_PORT || 8080;
 
-// Import routes
+const Auth = require('./server/api/auth');
+const User = require('./server/api/user');
 
 dotenv.config();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Handling Invalid Input
 app.use((error, req, res, next) => {
   if (error) {
     console.log(['API Request', 'Invalid input', 'ERROR'], { info: error });
     res.statusCode = 400;
-    // Log Transaction
     const timeDiff = process.hrtime(req.startTime);
     const timeTaken = Math.round((timeDiff[0] * 1e9 + timeDiff[1]) / 1e6);
     const logData = {
@@ -42,7 +40,7 @@ app.use((error, req, res, next) => {
 app.use((req, res, next) => {
   const oldSend = res.send;
   res.send = async (data) => {
-    res.send = oldSend; // set function back to avoid the 'double-send'
+    res.send = oldSend; 
     const statusCode = (data.output && data.output.statusCode) || res.statusCode;
     let bodyResponse = data;
 
@@ -55,7 +53,6 @@ app.use((req, res, next) => {
       bodyResponse
     };
 
-    // Log Transaction
     const timeDiff = process.hrtime(req.startTime);
     const timeTaken = Math.round((timeDiff[0] * 1e9 + timeDiff[1]) / 1e6);
     const logData = {
@@ -66,19 +63,14 @@ app.use((req, res, next) => {
     };
 
     console.log(['API Request', 'info'], logData);
-    return res.status(response.statusCode).send(response.bodyResponse); // just call as normal with data
+    return res.status(response.statusCode).send(response.bodyResponse); 
   };
 
   next();
 });
 
-// Route middlewares
-
-// Sys ping api 
-app.get('/sys/ping', (req, res) => {
-  req.startTime = process.hrtime();
-  res.send('ok');
-});
+app.use('/api-em/auth', Auth);
+app.use('/api-em/user', User);
 
 app.listen(Port, () => {
   console.log(['Info'], `Server started on port ${Port}`);

@@ -1,48 +1,373 @@
-# Express ORM
+# Energi Mandiri API
 
-# Editing this README
+## URL
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+_Server_
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+```
+http://localhost:8080
+```
 
-## Name
-Choose a self-explaining name for your project.
+---
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## How to setup and run project
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+_run command bellow_
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+```
+npm install
+```
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+```
+Turn on your server (ex: XAMPP, MySQL Server etc.)
+```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+```
+npx sequelize-cli db:create
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+```
+npx sequelize-cli db:migrate
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+```
+npm run start
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+## RESTful endpoints
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### API AUTH
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### POST /api-em/auth/register
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+> Register User
 
-## License
-For open source projects, say how it is licensed.
+_Request Header_
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+```
+not needed
+```
+
+_Request Body_
+
+```
+{
+  "email" : "email",
+  "fullName" : "fullName",
+  "password" : "password",
+  "passwordConfirmation" : "passwordConfirmation",
+}
+```
+
+_Response (201)_
+
+```
+{
+    "statusCode": 201,
+    "message": "Account registration successfully!"
+}
+```
+
+_Response (400 - Validation Error)_
+
+```
+{
+    "statusCode": 400,
+    "error": "Bad Request",
+    "message": "child \"password\" fails because [\"password\" length must be at least 6 characters long]"
+}
+```
+
+_Response (400 - User already registered)_
+
+```
+{
+    "statusCode": 400,
+    "error": "Bad Request",
+    "message": "Email has been registered!"
+}
+```
+
+---
+
+### POST /api-em/auth/login
+
+> Login user
+
+_Request Header_
+
+```
+not needed
+```
+
+_Request Body_
+
+```
+{
+  "email" : "email",
+  "password" : "password"
+}
+```
+
+_Response (200)_
+
+```
+{
+    "statusCode": 200,
+    "message": "Login successfully!",
+    "token": "token"
+}
+```
+
+_Response (400 - Validation Error)_
+
+```
+{
+    "statusCode": 400,
+    "error": "Bad Request",
+    "message": "child \"password\" fails because [\"password\" length must be at least 6 characters long]"
+}
+```
+
+_Response (400 - Bad Request Invalid Password)_
+
+```
+{
+    "statusCode": 400,
+    "error": "Bad Request",
+    "message": "Wrong credentials!"
+}
+```
+### GET /api-em/user/all
+
+> Get All User
+
+_Request Header_
+
+```
+{
+  Authorization: 'Bearer <token>'
+}
+```
+
+_Response (200)_
+
+```
+{
+   "statusCode": 200,
+    "message": "Get all user successfully!",
+    "data": {
+        "id": id,
+        "email": "email",
+        "password": "password",
+        "fullName": "fullName",
+        "role": "role",
+        "ktpPassport": "ktpPassport",
+        "met": met,
+        "birthPlace": "birthPlace",
+        "birthDate": "birthDate",
+        "nationality": "nationality",
+        "address": "address",
+        "province": "province",
+        "city": "city",
+        "posCode": "posCode",
+        "telp": "telp",
+        "phone": "phone",
+        "lastEducation": "lastEducation",
+        "signUpload": "signUpload",
+        "tuk": "tuk",
+        "institution": "institution",
+        "company": "company",
+        "fund": "fund",
+        "job": "job",
+        "position": "position",
+        "companyAddress": "companyAddress",
+        "telpCompany": "telpCompany",
+        "companyPosCode": "companyPosCode",
+        "fax": "fax",
+        "companyEmail": "companyEmail",
+        "createdAt": "createdAt",
+        "updatedAt": "updatedAtZ"
+    }
+}
+```
+
+_Response Invalid Token_
+
+```
+{
+    "statusCode": 500,
+    "error": "Internal Server Error",
+    "message": "An internal server error occurred"
+}
+```
+
+### GET /api-em/user/profile
+
+> Get Profile User
+
+_Request Header_
+
+```
+{
+  Authorization: 'Bearer <token>'
+}
+```
+
+_Response (200)_
+
+```
+{
+   "statusCode": 200,
+    "message": "Get profile user successfully!",
+    "data": {
+        "id": id,
+        "email": "email",
+        "password": "password",
+        "fullName": "fullName",
+        "role": "role",
+        "ktpPassport": "ktpPassport",
+        "met": met,
+        "birthPlace": "birthPlace",
+        "birthDate": "birthDate",
+        "nationality": "nationality",
+        "address": "address",
+        "province": "province",
+        "city": "city",
+        "posCode": "posCode",
+        "telp": "telp",
+        "phone": "phone",
+        "lastEducation": "lastEducation",
+        "signUpload": "signUpload",
+        "tuk": "tuk",
+        "institution": "institution",
+        "company": "company",
+        "fund": "fund",
+        "job": "job",
+        "position": "position",
+        "companyAddress": "companyAddress",
+        "telpCompany": "telpCompany",
+        "companyPosCode": "companyPosCode",
+        "fax": "fax",
+        "companyEmail": "companyEmail",
+        "createdAt": "createdAt",
+        "updatedAt": "updatedAtZ"
+    }
+}
+```
+
+_Response Invalid Token_
+
+```
+{
+    "statusCode": 500,
+    "error": "Internal Server Error",
+    "message": "An internal server error occurred"
+}
+```
+
+### PATCH /api-em/user/update
+
+> Update Profile
+
+_Request Header_
+
+```
+{
+  Authorization: 'Bearer <token>'
+}
+```
+
+_Request Body_
+
+```
+{
+        "email": "email",
+        "fullName": "fullName",
+        "role": "role",
+        "ktpPassport": "ktpPassport",
+        "met": met,
+        "birthPlace": "birthPlace",
+        "birthDate": "birthDate",
+        "nationality": "nationality",
+        "address": "address",
+        "province": "province",
+        "city": "city",
+        "posCode": "posCode",
+        "telp": "telp",
+        "phone": "phone",
+        "lastEducation": "lastEducation",
+        "signUpload": <signUpload>,
+        "tuk": "tuk",
+        "institution": "institution",
+        "company": "company",
+        "fund": "fund",
+        "job": "job",
+        "position": "position",
+        "companyAddress": "companyAddress",
+        "telpCompany": "telpCompany",
+        "companyPosCode": "companyPosCode",
+        "fax": "fax",
+        "companyEmail": "companyEmail",
+}
+```
+
+_Response (200)_
+
+```
+{
+    "statusCode": 200,
+    "message": "Profile update successfully!"
+}
+```
+
+### PATCH /api-em/user/change-password
+
+> Change Password User
+
+_Request Header_
+
+```
+{
+  Authorization: 'Bearer <token>'
+}
+```
+
+_Request Body_
+
+```
+{
+    "oldPassword": "oldPassword",
+    "newPassword": "newPassword",
+    "newPasswordConfirmation": "newPasswordConfirmation"
+}
+```
+
+_Response (200)_
+
+```
+{
+    "statusCode": 200,
+    "message": "Password changed successfully!"
+}
+```
+
+_Response (400 - New password not different)_
+
+```
+{
+    "statusCode": 400,
+    "error": "Bad Request",
+    "message": "New Password Must be Different"
+}
+```
+
+_Response (400 - Confirm password not same)_
+
+```
+{
+    "statusCode": 400,
+    "error": "Bad Request",
+    "message": "child \"newPasswordConfirmation\" fails because [\"newPasswordConfirmation\" must be one of [ref:newPassword]]"
+}
+```
