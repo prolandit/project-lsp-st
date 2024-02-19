@@ -3,7 +3,7 @@ export type LoginValues = {
     password: string;
 };
 export type RegisterValues = {
-    fullname: string;
+    fullName: string;
     email: string;
     password: string;
     passwordConfirmation: string;
@@ -16,7 +16,7 @@ export type ErrorResponse = {
 };
 
 export type AsesiProfileValues = {
-    fullname: string;
+    fullName: string;
     noKtpOrPassport: string;
     birthPlace: string;
     birthDate: string;
@@ -46,7 +46,7 @@ export type AsesiProfileValues = {
 };
 
 export type AsesorProfileValues = {
-    fullname: string;
+    fullName: string;
     noKtpOrPassport: string;
     noMet: string;
     birthPlace: string;
@@ -78,18 +78,6 @@ export type FileUpload = {
 export type Position = {
     x: number;
     y: number;
-};
-
-export type LoginType = {
-    email: string;
-    password: string;
-};
-
-export type RegisterType = {
-    email: string;
-    fullName: string;
-    password: string;
-    role: string;
 };
 
 export type UserType = {

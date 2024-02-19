@@ -1,8 +1,29 @@
 import axios, { AxiosError } from 'axios';
-import { ErrorResponse, LoginType, UserType } from '../../common/types';
+import {
+    ErrorResponse,
+    LoginValues,
+    RegisterValues,
+    UserType,
+} from '../../common/types';
 
 const AuthRemoteDataSource = {
-    login: async (payload: LoginType): Promise<string> => {
+    register: async (payload: RegisterValues) => {
+        const url = import.meta.env.VITE_API_URL;
+        const endpoint = `${url}/api-em/auth/register`;
+
+        try {
+            await axios.post(endpoint, payload);
+        } catch (error) {
+            const axiosError = error as AxiosError<ErrorResponse>;
+
+            if (axiosError.response) {
+                throw new Error(axiosError.response.data.message);
+            } else {
+                throw new Error('Network Error: Terjadi kesalahan pada server');
+            }
+        }
+    },
+    login: async (payload: LoginValues): Promise<string> => {
         const url = import.meta.env.VITE_API_URL;
         const endpoint = `${url}/api-em/auth/login`;
 

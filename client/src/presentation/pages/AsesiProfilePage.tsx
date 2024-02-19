@@ -27,7 +27,7 @@ const AsesiProfilePage = () => {
         setFieldValue,
     } = useFormik({
         initialValues: {
-            fullname: '',
+            fullName: '',
             noKtpOrPassport: '',
             birthPlace: '',
             birthDate: '',
@@ -74,16 +74,16 @@ const AsesiProfilePage = () => {
                         <div className='flex flex-col w-full gap-5'>
                             <InputForm
                                 type='text'
-                                name='fullname'
-                                value={values.fullname}
+                                name='fullName'
+                                value={values.fullName}
                                 onChange={handleChange}
                                 text='Nama Lengkap'
                                 horizontally
                                 important
                             />
-                            {errors.fullname && touched.fullname ? (
+                            {errors.fullName && touched.fullName ? (
                                 <Alert
-                                    message={errors.fullname}
+                                    message={errors.fullName}
                                     type='error'
                                 />
                             ) : null}

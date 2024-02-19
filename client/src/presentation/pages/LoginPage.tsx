@@ -9,7 +9,6 @@ import AuthLayout from '../components/Layouts/AuthLayout';
 
 const LoginPage = () => {
     const navigate = useNavigate();
-
     const [isLoading, setIsLoading] = useState(false);
 
     const onLogin = async (email: string, password: string) => {

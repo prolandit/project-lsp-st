@@ -8,14 +8,19 @@ import Button from '../Elements/Button';
 import InputForm from '../Elements/InputForm';
 
 type Props = {
-    onRegister: (email: string, fullname: string, password: string) => void;
+    onRegister: (
+        email: string,
+        fullName: string,
+        password: string,
+        passwordConfirmation: string
+    ) => void;
 };
 
 const FormRegister = ({ onRegister }: Props) => {
     const { errors, touched, values, handleChange, handleSubmit } = useFormik({
         initialValues: {
             email: '',
-            fullname: '',
+            fullName: '',
             password: '',
             passwordConfirmation: '',
         },
@@ -24,7 +29,12 @@ const FormRegister = ({ onRegister }: Props) => {
             values: RegisterValues,
             { setSubmitting }: FormikHelpers<RegisterValues>
         ) => {
-            onRegister(values.email, values.fullname, values.password);
+            onRegister(
+                values.email,
+                values.fullName,
+                values.password,
+                values.passwordConfirmation
+            );
             setSubmitting(false);
         },
     });
@@ -50,17 +60,17 @@ const FormRegister = ({ onRegister }: Props) => {
                 />
             ) : null}
             <InputForm
-                type='fullname'
-                name='fullname'
-                value={values.fullname}
+                type='fullName'
+                name='fullName'
+                value={values.fullName}
                 onChange={handleChange}
                 placeholder='Masukkan Nama Lengkap Anda'
                 text='Nama Lengkap'
                 prefix={<IoPersonOutline className='text-lg text-black me-3' />}
             />
-            {errors.fullname && touched.fullname ? (
+            {errors.fullName && touched.fullName ? (
                 <Alert
-                    message={errors.fullname}
+                    message={errors.fullName}
                     type='error'
                 />
             ) : null}

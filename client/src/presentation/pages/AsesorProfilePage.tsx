@@ -25,7 +25,7 @@ const AsesorProfilePage = () => {
         setFieldValue,
     } = useFormik({
         initialValues: {
-            fullname: '',
+            fullName: '',
             noKtpOrPassport: '',
             noMet: '',
             birthPlace: '',
@@ -62,16 +62,16 @@ const AsesorProfilePage = () => {
                         <div className='grid gap-6'>
                             <InputForm
                                 type='text'
-                                name='fullname'
-                                value={values.fullname}
+                                name='fullName'
+                                value={values.fullName}
                                 onChange={handleChange}
                                 text='Nama Lengkap'
                                 horizontally
                                 important
                             />
-                            {errors.fullname && touched.fullname ? (
+                            {errors.fullName && touched.fullName ? (
                                 <Alert
-                                    message={errors.fullname}
+                                    message={errors.fullName}
                                     type='error'
                                 />
                             ) : null}

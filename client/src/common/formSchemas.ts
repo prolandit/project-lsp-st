@@ -15,7 +15,7 @@ export const registerSchema = Yup.object().shape({
     email: Yup.string()
         .email('Email tidak valid')
         .required('Email tidak boleh kosong'),
-    fullname: Yup.string().required('Nama Lengkap tidak boleh kosong'),
+    fullName: Yup.string().required('Nama Lengkap tidak boleh kosong'),
     password: Yup.string()
         .min(6, 'Password minimal 6 karakter')
         .required('Password tidak boleh kosong'),
@@ -26,7 +26,7 @@ export const registerSchema = Yup.object().shape({
 });
 
 export const asesiProfileSchema = Yup.object().shape({
-    fullname: Yup.string().required('Nama Lengkap tidak boleh kosong'),
+    fullName: Yup.string().required('Nama Lengkap tidak boleh kosong'),
     noKtpOrPassport: Yup.number().required(
         'No KTP / PASPOR tidak boleh kosong'
     ),
@@ -75,7 +75,7 @@ export const asesiProfileSchema = Yup.object().shape({
 });
 
 export const asesorProfileSchema = Yup.object().shape({
-    fullname: Yup.string().required('Nama Lengkap tidak boleh kosong'),
+    fullName: Yup.string().required('Nama Lengkap tidak boleh kosong'),
     noKtpOrPassport: Yup.number().required(
         'No KTP / PASPOR tidak boleh kosong'
     ),
