@@ -9,7 +9,7 @@ const ProfileLayout = () => {
 
     const profileElement = useMemo(() => {
         return user?.role?.toLowerCase() === Role.ASESI ? (
-            <AsesiProfilePage />
+            <AsesiProfilePage user={user} />
         ) : (
             <AsesorProfilePage />
         );

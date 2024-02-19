@@ -62,7 +62,8 @@ export const useCanvas = (): [
         const convertToImage = () => {
             canvas.toBlob((blob) => {
                 if (blob) {
-                    const file = new File([blob], 'canvas_image.png', {
+                    const fileName = +new Date();
+                    const file = new File([blob], `e-sign-${fileName}.png`, {
                         type: 'image/png',
                     });
                     setImageFile(file);

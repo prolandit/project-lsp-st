@@ -26,7 +26,7 @@ const AsesorProfilePage = () => {
     } = useFormik({
         initialValues: {
             fullName: '',
-            noKtpOrPassport: '',
+            ktpPassport: '',
             noMet: '',
             birthPlace: '',
             birthDate: '',
@@ -77,17 +77,16 @@ const AsesorProfilePage = () => {
                             ) : null}
                             <InputForm
                                 type='number'
-                                name='noKtpOrPassport'
+                                name='ktpPassport'
                                 text='No KTP / PASPOR'
-                                value={values.noKtpOrPassport}
+                                value={values.ktpPassport}
                                 onChange={handleChange}
                                 horizontally
                                 important
                             />
-                            {errors.noKtpOrPassport &&
-                            touched.noKtpOrPassport ? (
+                            {errors.ktpPassport && touched.ktpPassport ? (
                                 <Alert
-                                    message={errors.noKtpOrPassport}
+                                    message={errors.ktpPassport}
                                     type='error'
                                 />
                             ) : null}
@@ -172,7 +171,7 @@ const AsesorProfilePage = () => {
                                 name='nationality'
                                 text='Kebangsaan'
                                 value={values.nationality}
-                                items={Constants.nationality}
+                                items={Constants.nationalities}
                                 placeholder='Pilih Kebangsaan'
                                 onChange={handleChange}
                                 horizontally

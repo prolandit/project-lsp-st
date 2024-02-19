@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { LoginValues } from '../../common/types';
 import AuthRemoteDataSource from '../../data/datasources/AuthRemoteDataSource';
 import LoadingSpinner from '../components/Elements/LoadingSpinner';
 import FormLogin from '../components/Fragments/FormLogin';
@@ -11,11 +12,11 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
-    const onLogin = async (email: string, password: string) => {
+    const onLogin = async (payload: LoginValues) => {
         setIsLoading(true);
 
         try {
-            const token = await AuthRemoteDataSource.login({ email, password });
+            const token = await AuthRemoteDataSource.login(payload);
             localStorage.setItem('token', token);
             navigate('/profile');
         } catch (error) {
@@ -39,7 +40,6 @@ const LoginPage = () => {
                 <FormLogin onLogin={onLogin} />
             </AuthLayout>
             <LoadingSpinner show={isLoading} />
-            <ToastContainer />
         </>
     );
 };

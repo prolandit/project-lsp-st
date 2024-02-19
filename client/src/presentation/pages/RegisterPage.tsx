@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import { RegisterValues } from '../../common/types';
 import AuthRemoteDataSource from '../../data/datasources/AuthRemoteDataSource';
 import LoadingSpinner from '../components/Elements/LoadingSpinner';
 import FormRegister from '../components/Fragments/FormRegister';
@@ -10,22 +11,16 @@ const RegisterPage = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
-    const onRegister = async (
-        email: string,
-        fullName: string,
-        password: string,
-        passwordConfirmation: string
-    ) => {
+    const onRegister = async (payload: RegisterValues) => {
         setIsLoading(true);
 
         try {
-            await AuthRemoteDataSource.register({
-                email,
-                fullName,
-                password,
-                passwordConfirmation,
-            });
+            await AuthRemoteDataSource.register(payload);
             navigate('/login');
+            toast.success('Register berhasil. Silahkan masuk ke akun Anda', {
+                position: 'top-center',
+                hideProgressBar: true,
+            });
         } catch (error) {
             toast.error((error as Error).message, {
                 position: 'top-center',
@@ -47,7 +42,6 @@ const RegisterPage = () => {
                 <FormRegister onRegister={onRegister} />
             </AuthLayout>
             <LoadingSpinner show={isLoading} />
-            <ToastContainer />
         </>
     );
 };

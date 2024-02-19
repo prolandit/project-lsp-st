@@ -91,7 +91,7 @@ const Constants = {
             value: 'Pelajar/Mahasiswa',
         },
     ],
-    nationality: [
+    nationalities: [
         { key: 'Afghanistan', value: 'Afganistan' },
         { key: 'Albania', value: 'Albania' },
         { key: 'Algeria', value: 'Aljazair' },

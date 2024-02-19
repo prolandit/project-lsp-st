@@ -1,4 +1,4 @@
-import { FormikHelpers, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { CiLock, CiMail } from 'react-icons/ci';
 import { loginSchema } from '../../../common/formSchemas';
 import { LoginValues } from '../../../common/types';
@@ -7,7 +7,7 @@ import Button from '../Elements/Button';
 import InputForm from '../Elements/InputForm';
 
 type Props = {
-    onLogin: (email: string, password: string) => void;
+    onLogin: (payload: LoginValues) => void;
 };
 
 const FormLogin = ({ onLogin }: Props) => {
@@ -17,13 +17,7 @@ const FormLogin = ({ onLogin }: Props) => {
             password: '',
         },
         validationSchema: loginSchema,
-        onSubmit: (
-            values: LoginValues,
-            { setSubmitting }: FormikHelpers<LoginValues>
-        ) => {
-            onLogin(values.email, values.password);
-            setSubmitting(false);
-        },
+        onSubmit: onLogin,
     });
 
     return (

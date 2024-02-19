@@ -1,4 +1,4 @@
-import { FormikHelpers, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { CiLock, CiMail } from 'react-icons/ci';
 import { IoPersonOutline } from 'react-icons/io5';
 import { registerSchema } from '../../../common/formSchemas';
@@ -8,12 +8,7 @@ import Button from '../Elements/Button';
 import InputForm from '../Elements/InputForm';
 
 type Props = {
-    onRegister: (
-        email: string,
-        fullName: string,
-        password: string,
-        passwordConfirmation: string
-    ) => void;
+    onRegister: (payload: RegisterValues) => void;
 };
 
 const FormRegister = ({ onRegister }: Props) => {
@@ -25,18 +20,7 @@ const FormRegister = ({ onRegister }: Props) => {
             passwordConfirmation: '',
         },
         validationSchema: registerSchema,
-        onSubmit: (
-            values: RegisterValues,
-            { setSubmitting }: FormikHelpers<RegisterValues>
-        ) => {
-            onRegister(
-                values.email,
-                values.fullName,
-                values.password,
-                values.passwordConfirmation
-            );
-            setSubmitting(false);
-        },
+        onSubmit: onRegister,
     });
 
     return (

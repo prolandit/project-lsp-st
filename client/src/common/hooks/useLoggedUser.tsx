@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthRemoteDataSource from '../../data/datasources/AuthRemoteDataSource';
+import UserRemoteDataSource from '../../data/datasources/UserRemoteDataSource';
 import { UserType } from '../types';
 
 export const useLoggedUser = () => {
@@ -11,7 +11,7 @@ export const useLoggedUser = () => {
         const fetchLoggedUser = async () => {
             try {
                 const token = localStorage.getItem('token') ?? '';
-                const user = await AuthRemoteDataSource.getLoggedUser(token);
+                const user = await UserRemoteDataSource.getLoggedUser(token);
                 setUser(user);
             } catch (error) {
                 navigate('/login');

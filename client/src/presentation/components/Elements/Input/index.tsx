@@ -8,6 +8,8 @@ type Props = {
     type: string;
     name: string;
     placeholder?: string;
+    minLength?: number;
+    maxLength?: number;
     value?: string | number | readonly string[] | undefined;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -20,6 +22,8 @@ const Input = ({
     placeholder,
     value,
     onChange,
+    minLength,
+    maxLength,
 }: Props) => {
     const [obscureText, setObscureText] = useState(true);
     const isPassword = type === 'password';
@@ -40,6 +44,8 @@ const Input = ({
                     name={name}
                     onChange={onChange}
                     type={obscureText ? type : 'text'}
+                    minLength={minLength}
+                    maxLength={maxLength}
                     className={`w-full ${
                         isPassword
                             ? 'px-12'
