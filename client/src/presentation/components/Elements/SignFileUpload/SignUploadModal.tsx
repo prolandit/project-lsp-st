@@ -51,7 +51,7 @@ const SignUploadModal = ({ closeModal, onChange }: Props) => {
 
     return (
         <div className='fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50'>
-            <div className='relative w-full mx-4 bg-white rounded-lg lg:mx-0 lg:w-2/5 lg:h-3/4'>
+            <div className='relative w-full mx-4 bg-white rounded-lg lg:mx-0 lg:w-2/5'>
                 <div className='flex flex-col h-full'>
                     <div className='flex items-start justify-between mx-4 mt-4 lg:mx-8 lg:mt-8'>
                         <h1 className='text-lg font-semibold lg:text-lg'>

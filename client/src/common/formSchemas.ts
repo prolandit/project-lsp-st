@@ -29,6 +29,7 @@ export const asesiProfileSchema = Yup.object().shape({
     gender: Yup.string()
         .oneOf(Constants.genderOptions.map((gender) => gender.key))
         .required('Jenis Kelamin tidak boleh kosong'),
+    nationality: Yup.string().required('Kebangsaan tidak boleh kosong'),
     address: Yup.string().required('Alamat tidak boleh kosong'),
     province: Yup.string().required('Provinsi tidak boleh kosong'),
     city: Yup.string().required('Kota / Kabupaten tidak boleh kosong'),

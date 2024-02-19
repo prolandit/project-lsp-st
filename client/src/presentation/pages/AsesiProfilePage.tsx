@@ -149,14 +149,22 @@ const AsesiProfilePage = () => {
                                     type='error'
                                 />
                             ) : null}
-                            <InputForm
-                                type='text'
+                            <ComboBoxForm
                                 name='nationality'
-                                value={values.nationality}
-                                onChange={handleChange}
                                 text='Kebangsaan'
+                                value={values.nationality}
+                                items={Constants.nationality}
+                                placeholder='Pilih Kebangsaan'
+                                onChange={handleChange}
                                 horizontally
+                                important
                             />
+                            {errors.nationality && touched.nationality ? (
+                                <Alert
+                                    message={errors.nationality}
+                                    type='error'
+                                />
+                            ) : null}
                             <InputForm
                                 type='text'
                                 name='address'
