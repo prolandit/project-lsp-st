@@ -1,0 +1,297 @@
+{
+	"info": {
+		"_postman_id": "2eea3c4e-81e1-4b45-844b-0cf981f90955",
+		"name": "EM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30417299"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "[POST] Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test2@gmail.com\",\r\n    \"fullName\": \"test\",\r\n    \"password\": \"123456\",\r\n    \"passwordConfirmation\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api-em/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-em",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[POST] Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api-em/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-em",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "[GET] All User",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Profile User",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "[PATCH] Update Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZnVsbE5hbWUiOiJ0ZXN0Iiwicm9sZSI6IkFzZXNpIiwiaWF0IjoxNzA4MTkxNjQxLCJleHAiOjE3MDgyNzgwNDF9.-CLUeuZ7LFaxUpnuH33AuUmCjQ5AhEBYu2x3enA2Fac",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "raihanworks461@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "fullName",
+									"value": "Raihan Putro Maulana Rizky",
+									"type": "text"
+								},
+								{
+									"key": "ktpPassport",
+									"value": "3174090406010012",
+									"type": "text"
+								},
+								{
+									"key": "birthPlace",
+									"value": "Bekasi",
+									"type": "text"
+								},
+								{
+									"key": "birthDate",
+									"value": "2024-02-01 10:20:51",
+									"type": "text"
+								},
+								{
+									"key": "nationality",
+									"value": "Indonesia",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Jl. Cipedak",
+									"type": "text"
+								},
+								{
+									"key": "province",
+									"value": "DKI Jakarta",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Jakarta Selatan",
+									"type": "text"
+								},
+								{
+									"key": "posCode",
+									"value": "12640",
+									"type": "text"
+								},
+								{
+									"key": "telp",
+									"value": "021111111",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "085156637952",
+									"type": "text"
+								},
+								{
+									"key": "lastEducation",
+									"value": "SMA",
+									"type": "text"
+								},
+								{
+									"key": "signUpload",
+									"type": "file",
+									"src": "/C:/Users/raiha/Downloads/carbon (15).png"
+								},
+								{
+									"key": "tuk",
+									"value": "tes",
+									"type": "text"
+								},
+								{
+									"key": "institution",
+									"value": "tes",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "fund",
+									"value": "tes",
+									"type": "text"
+								},
+								{
+									"key": "job",
+									"value": "tes",
+									"type": "text"
+								},
+								{
+									"key": "position",
+									"value": "tes",
+									"type": "text"
+								},
+								{
+									"key": "companyAddress",
+									"value": "tes",
+									"type": "text"
+								},
+								{
+									"key": "telpCompany",
+									"value": "tes",
+									"type": "text"
+								},
+								{
+									"key": "companyPosCode",
+									"value": "tes",
+									"type": "text"
+								},
+								{
+									"key": "fax",
+									"value": "tes",
+									"type": "text"
+								},
+								{
+									"key": "companyEmail",
+									"value": "tes",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api-em/user/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-em",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[PATCH] Change Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZnVsbE5hbWUiOiJ0ZXN0Iiwicm9sZSI6IkFzZXNpIiwiaWF0IjoxNzA4MTkxNjQxLCJleHAiOjE3MDgyNzgwNDF9.-CLUeuZ7LFaxUpnuH33AuUmCjQ5AhEBYu2x3enA2Fac",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"1234567\",\r\n    \"newPassword\": \"123456\",\r\n    \"newPasswordConfirmation\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api-em/user/change-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api-em",
+								"user",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
