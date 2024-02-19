@@ -1,11 +1,22 @@
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Header from '../Elements/Header';
+import LogoutModal from '../Elements/Header/LogoutModal';
 import Sidebar from '../Elements/Sidebar';
 import AnimationContainer from '../Fragments/AnimationContainer';
 
 const MainLayout = () => {
+    const navigate = useNavigate();
+
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const onLogout = () => {
+        setModalOpen(false);
+
+        localStorage.removeItem('token');
+        navigate('/login');
+    };
 
     return (
         <AnimationContainer className='bg-gray-100'>
@@ -18,11 +29,17 @@ const MainLayout = () => {
                     <Header
                         sidebarOpen={sidebarOpen}
                         setSidebarOpen={setSidebarOpen}
+                        setLogoutModalOpen={setModalOpen}
                     />
                     <main>
                         <Outlet />
                     </main>
                 </div>
+                <LogoutModal
+                    show={modalOpen}
+                    onClose={() => setModalOpen(false)}
+                    onLogout={onLogout}
+                />
             </div>
         </AnimationContainer>
     );

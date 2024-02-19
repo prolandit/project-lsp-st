@@ -44,7 +44,7 @@ const ComboBox = ({
                 {items.map((item) => (
                     <option
                         key={item.key}
-                        value={item.key}
+                        value={item.value}
                         className='text-ellipsis'
                     >
                         {item.value}

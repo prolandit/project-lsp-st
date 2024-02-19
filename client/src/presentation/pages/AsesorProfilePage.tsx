@@ -25,8 +25,8 @@ const AsesorProfilePage = () => {
         setFieldValue,
     } = useFormik({
         initialValues: {
-            fullname: '',
-            noKtpOrPassport: '',
+            fullName: '',
+            ktpPassport: '',
             noMet: '',
             birthPlace: '',
             birthDate: '',
@@ -62,32 +62,31 @@ const AsesorProfilePage = () => {
                         <div className='grid gap-6'>
                             <InputForm
                                 type='text'
-                                name='fullname'
-                                value={values.fullname}
+                                name='fullName'
+                                value={values.fullName}
                                 onChange={handleChange}
                                 text='Nama Lengkap'
                                 horizontally
                                 important
                             />
-                            {errors.fullname && touched.fullname ? (
+                            {errors.fullName && touched.fullName ? (
                                 <Alert
-                                    message={errors.fullname}
+                                    message={errors.fullName}
                                     type='error'
                                 />
                             ) : null}
                             <InputForm
                                 type='number'
-                                name='noKtpOrPassport'
+                                name='ktpPassport'
                                 text='No KTP / PASPOR'
-                                value={values.noKtpOrPassport}
+                                value={values.ktpPassport}
                                 onChange={handleChange}
                                 horizontally
                                 important
                             />
-                            {errors.noKtpOrPassport &&
-                            touched.noKtpOrPassport ? (
+                            {errors.ktpPassport && touched.ktpPassport ? (
                                 <Alert
-                                    message={errors.noKtpOrPassport}
+                                    message={errors.ktpPassport}
                                     type='error'
                                 />
                             ) : null}
@@ -172,7 +171,7 @@ const AsesorProfilePage = () => {
                                 name='nationality'
                                 text='Kebangsaan'
                                 value={values.nationality}
-                                items={Constants.nationality}
+                                items={Constants.nationalities}
                                 placeholder='Pilih Kebangsaan'
                                 onChange={handleChange}
                                 horizontally
@@ -323,7 +322,7 @@ const AsesorProfilePage = () => {
             </div>
 
             {/* masih bug terakhir didevice 1920x1080 masing ngambang gitu jadi pindahin aja */}
-            
+
             {/* <footer className='flex flex-col w-full mt-10 bg-white shadow-sm lg:absolute lg:bottom-0 rounded-xs drop-shadow-sm'>
                 <Button
                     type='submit'
@@ -337,16 +336,14 @@ const AsesorProfilePage = () => {
                 </Button>
             </footer> */}
 
-
-            {isShowModal && (
-                <SignUploadModal
-                    closeModal={() => setIsShowModal(false)}
-                    onChange={(file, exp) => {
-                        setFieldValue('signUpload', file);
-                        setFieldValue('signExplanation', exp);
-                    }}
-                />
-            )}
+            <SignUploadModal
+                show={isShowModal}
+                closeModal={() => setIsShowModal(false)}
+                onChange={(file, exp) => {
+                    setFieldValue('signUpload', file);
+                    setFieldValue('signExplanation', exp);
+                }}
+            />
         </form>
     );
 };

@@ -3,6 +3,7 @@ import DrawTabView from './DrawTabView';
 import UploadTabView from './UploadTabView';
 
 type Props = {
+    show: boolean;
     closeModal: () => void;
     onChange?: (file: File | undefined, exp: string) => void;
 };
@@ -12,7 +13,7 @@ type TabType = {
     children: React.ReactNode;
 };
 
-const SignUploadModal = ({ closeModal, onChange }: Props) => {
+const SignUploadModal = ({ show, closeModal, onChange }: Props) => {
     const [index, setIndex] = useState(0);
 
     const tabs = [
@@ -50,7 +51,13 @@ const SignUploadModal = ({ closeModal, onChange }: Props) => {
     };
 
     return (
-        <div className='fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50'>
+        <div
+            className={
+                show
+                    ? `fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50`
+                    : 'hidden'
+            }
+        >
             <div className='relative w-full mx-4 bg-white rounded-lg lg:mx-0 lg:w-2/5'>
                 <div className='flex flex-col h-full'>
                     <div className='flex items-start justify-between mx-4 mt-4 lg:mx-8 lg:mt-8'>

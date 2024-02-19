@@ -1,21 +1,15 @@
-import { useEffect, useMemo, useState } from 'react';
-import { LoggedUser } from '../../../common/types';
+import { useMemo } from 'react';
+import { Role } from '../../../common/enum';
+import { useLoggedUser } from '../../../common/hooks/useLoggedUser';
 import AsesiProfilePage from '../../pages/AsesiProfilePage';
 import AsesorProfilePage from '../../pages/AsesorProfilePage';
 
 const ProfileLayout = () => {
-    const [user, setUser] = useState<LoggedUser | null>(null);
-
-    useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
+    const user = useLoggedUser();
 
     const profileElement = useMemo(() => {
-        return user?.role.toLowerCase() === 'asesi' ? (
-            <AsesiProfilePage />
+        return user?.role?.toLowerCase() === Role.ASESI ? (
+            <AsesiProfilePage user={user} />
         ) : (
             <AsesorProfilePage />
         );

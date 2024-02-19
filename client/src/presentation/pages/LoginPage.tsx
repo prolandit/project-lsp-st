@@ -1,23 +1,31 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { LoggedUser } from '../../common/types';
+import { LoginValues } from '../../common/types';
+import AuthRemoteDataSource from '../../data/datasources/AuthRemoteDataSource';
+import LoadingSpinner from '../components/Elements/LoadingSpinner';
 import FormLogin from '../components/Fragments/FormLogin';
 import AuthLayout from '../components/Layouts/AuthLayout';
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const onLogin = (email: string, password: string) => {
-        const user: LoggedUser = JSON.parse(localStorage.getItem('user') ?? '');
+    const onLogin = async (payload: LoginValues) => {
+        setIsLoading(true);
 
-        if (user.email === email && user.password === password) {
+        try {
+            const token = await AuthRemoteDataSource.login(payload);
+            localStorage.setItem('token', token);
             navigate('/profile');
-        } else {
-            toast.error('Email atau Password salah', {
+        } catch (error) {
+            toast.error((error as Error).message, {
                 position: 'top-center',
                 hideProgressBar: true,
             });
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -31,7 +39,7 @@ const LoginPage = () => {
             >
                 <FormLogin onLogin={onLogin} />
             </AuthLayout>
-            <ToastContainer />
+            <LoadingSpinner show={isLoading} />
         </>
     );
 };

@@ -1,6 +1,5 @@
-import { FormikHelpers, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { CiLock, CiMail } from 'react-icons/ci';
-import { Link } from 'react-router-dom';
 import { loginSchema } from '../../../common/formSchemas';
 import { LoginValues } from '../../../common/types';
 import Alert from '../Elements/Alert';
@@ -8,7 +7,7 @@ import Button from '../Elements/Button';
 import InputForm from '../Elements/InputForm';
 
 type Props = {
-    onLogin: (email: string, password: string) => void;
+    onLogin: (payload: LoginValues) => void;
 };
 
 const FormLogin = ({ onLogin }: Props) => {
@@ -18,13 +17,7 @@ const FormLogin = ({ onLogin }: Props) => {
             password: '',
         },
         validationSchema: loginSchema,
-        onSubmit: (
-            values: LoginValues,
-            { setSubmitting }: FormikHelpers<LoginValues>
-        ) => {
-            onLogin(values.email, values.password);
-            setSubmitting(false);
-        },
+        onSubmit: onLogin,
     });
 
     return (
@@ -62,12 +55,6 @@ const FormLogin = ({ onLogin }: Props) => {
                     type='error'
                 />
             ) : null}
-            <Link
-                to='#'
-                className='items-end justify-end text-sm font-medium text-gray-500 text-end'
-            >
-                Lupa Password ?
-            </Link>
             <Button
                 type='submit'
                 className='mt-5 h-[45px] bg-blue-500 hover:bg-blue-700'
