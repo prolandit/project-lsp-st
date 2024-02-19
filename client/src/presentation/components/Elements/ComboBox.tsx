@@ -28,9 +28,8 @@ const ComboBox = ({
         >
             <select
                 name={name}
-                value={value === '' ? undefined : value}
+                value={value === '' ? 'initial' : value}
                 onChange={onChange}
-                defaultValue='initial'
                 className='w-full px-4 py-3 text-sm font-medium text-black bg-gray-100 rounded-md outline-none appearance-none'
             >
                 {placeholder && (
