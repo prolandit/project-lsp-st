@@ -323,7 +323,7 @@ const AsesorProfilePage = () => {
             </div>
 
             {/* masih bug terakhir didevice 1920x1080 masing ngambang gitu jadi pindahin aja */}
-            
+
             {/* <footer className='flex flex-col w-full mt-10 bg-white shadow-sm lg:absolute lg:bottom-0 rounded-xs drop-shadow-sm'>
                 <Button
                     type='submit'
@@ -337,16 +337,14 @@ const AsesorProfilePage = () => {
                 </Button>
             </footer> */}
 
-
-            {isShowModal && (
-                <SignUploadModal
-                    closeModal={() => setIsShowModal(false)}
-                    onChange={(file, exp) => {
-                        setFieldValue('signUpload', file);
-                        setFieldValue('signExplanation', exp);
-                    }}
-                />
-            )}
+            <SignUploadModal
+                show={isShowModal}
+                closeModal={() => setIsShowModal(false)}
+                onChange={(file, exp) => {
+                    setFieldValue('signUpload', file);
+                    setFieldValue('signExplanation', exp);
+                }}
+            />
         </form>
     );
 };

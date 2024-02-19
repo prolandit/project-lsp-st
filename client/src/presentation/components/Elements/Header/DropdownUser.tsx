@@ -1,40 +1,41 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BiLogOut, BiUser } from 'react-icons/bi';
-import { Link, useNavigate } from 'react-router-dom';
-import { LoggedUser } from '../../../../common/types';
+import { Link } from 'react-router-dom';
+import { useLoggedUser } from '../../../../common/hooks/useLoggedUser';
 
-const DropdownUser = () => {
-    const navigate = useNavigate();
+type Props = {
+    setLogoutModalOpen(value: boolean): void;
+};
 
+const DropdownUser = ({ setLogoutModalOpen }: Props) => {
+    const user = useLoggedUser();
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [user, setUser] = useState<LoggedUser | null>(null);
-
-    useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
 
     return (
         <div className='relative'>
-            <Link
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                className='flex items-center gap-4'
-                to='#'
-            >
-                <span className='text-right'>
-                    <span className='block text-sm font-medium'>
-                        {user?.fullname}
+            {user ? (
+                <Link
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    className='flex items-center gap-4'
+                    to='#'
+                >
+                    <span className='text-right'>
+                        <span className='block text-sm font-medium'>
+                            {user?.fullName}
+                        </span>
+                        <span className='block text-xs'>
+                            {user?.role ? user?.role : '-'}
+                        </span>
                     </span>
-                    <span className='block text-xs'>{user?.role}</span>
-                </span>
 
-                <div className='p-3 bg-gray-300 rounded-full'>
-                    <BiUser className='text-2xl' />
-                </div>
-            </Link>
+                    <div className='p-3 bg-gray-300 rounded-full'>
+                        <BiUser className='text-2xl' />
+                    </div>
+                </Link>
+            ) : (
+                <span className='block text-xs'>-</span>
+            )}
 
             <div
                 onFocus={() => setDropdownOpen(true)}
@@ -51,7 +52,7 @@ const DropdownUser = () => {
                     My Profile
                 </Link>
                 <button
-                    onClick={() => navigate('/login')}
+                    onClick={() => setLogoutModalOpen(true)}
                     className='flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:text-blue-500 lg:text-base'
                 >
                     <BiLogOut className='text-lg text-red-600' />

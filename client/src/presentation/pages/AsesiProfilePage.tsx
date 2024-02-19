@@ -500,15 +500,14 @@ const AsesiProfilePage = () => {
                     Simpan
                 </Button>
             </footer>
-            {isShowModal && (
-                <SignUploadModal
-                    closeModal={() => setIsShowModal(false)}
-                    onChange={(file, exp) => {
-                        setFieldValue('signUpload', file);
-                        setFieldValue('signExplanation', exp);
-                    }}
-                />
-            )}
+            <SignUploadModal
+                show={isShowModal}
+                closeModal={() => setIsShowModal(false)}
+                onChange={(file, exp) => {
+                    setFieldValue('signUpload', file);
+                    setFieldValue('signExplanation', exp);
+                }}
+            />
         </form>
     );
 };

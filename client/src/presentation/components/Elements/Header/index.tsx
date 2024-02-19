@@ -2,10 +2,11 @@ import DropdownUser from './DropdownUser';
 
 type Props = {
     sidebarOpen: string | boolean | undefined;
-    setSidebarOpen: (arg0: boolean) => void;
+    setSidebarOpen: (value: boolean) => void;
+    setLogoutModalOpen(value: boolean): void;
 };
 
-const Header = ({ sidebarOpen, setSidebarOpen }: Props) => {
+const Header = ({ sidebarOpen, setSidebarOpen, setLogoutModalOpen }: Props) => {
     return (
         <header className='sticky top-0 z-40 flex w-full h-24 bg-white drop-shadow-sm'>
             <div className='flex items-center justify-between flex-grow px-4 py-4 shadow-sm md:px-6 2xl:px-11'>
@@ -53,7 +54,7 @@ const Header = ({ sidebarOpen, setSidebarOpen }: Props) => {
                 </div>
 
                 <div className='flex flex-row items-center justify-end w-full gap-3 2xsm:gap-7'>
-                    <DropdownUser />
+                    <DropdownUser setLogoutModalOpen={setLogoutModalOpen} />
                 </div>
             </div>
         </header>

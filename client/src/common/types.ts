@@ -9,13 +9,6 @@ export type RegisterValues = {
     passwordConfirmation: string;
 };
 
-export type LoggedUser = {
-    email: string;
-    fullname: string;
-    role: string;
-    password: string;
-};
-
 export type AsesiProfileValues = {
     fullname: string;
     noKtpOrPassport: string;
@@ -79,4 +72,49 @@ export type FileUpload = {
 export type Position = {
     x: number;
     y: number;
+};
+
+export type LoginType = {
+    email: string;
+    password: string;
+};
+
+export type RegisterType = {
+    email: string;
+    fullName: string;
+    password: string;
+    role: string;
+};
+
+export type UserType = {
+    id?: number;
+    email?: string;
+    fullName?: string;
+    role?: string;
+    ktpPassport?: string;
+    met?: string;
+    birthPlace?: string;
+    birthDate?: string;
+    nationality?: string;
+    address?: string;
+    province?: string;
+    city?: string;
+    posCode?: string;
+    telp?: string;
+    phone?: string;
+    lastEducation?: string;
+    signUpload?: string;
+    tuk?: string;
+    institution?: string;
+    company?: string;
+    fund?: string;
+    job?: string;
+    position?: string;
+    companyAddress?: string;
+    telpCompany?: string;
+    companyPosCode?: string;
+    fax?: string;
+    companyEmail?: string;
+    createdAt?: string;
+    updatedAt?: string;
 };
