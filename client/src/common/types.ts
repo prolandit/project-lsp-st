@@ -9,6 +9,12 @@ export type RegisterValues = {
     passwordConfirmation: string;
 };
 
+export type ErrorResponse = {
+    statusCode: number;
+    error: string;
+    message: string;
+};
+
 export type AsesiProfileValues = {
     fullname: string;
     noKtpOrPassport: string;

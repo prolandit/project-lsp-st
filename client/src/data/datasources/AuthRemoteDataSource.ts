@@ -1,35 +1,43 @@
-import axios from 'axios';
-import { LoginType, UserType } from '../../common/types';
+import axios, { AxiosError } from 'axios';
+import { ErrorResponse, LoginType, UserType } from '../../common/types';
 
 const AuthRemoteDataSource = {
     login: async (payload: LoginType): Promise<string> => {
         const url = import.meta.env.VITE_API_URL;
         const endpoint = `${url}/api-em/auth/login`;
 
-        const response = await axios.post(endpoint, payload);
+        try {
+            const response = await axios.post(endpoint, payload);
+            return response.data.token;
+        } catch (error) {
+            const axiosError = error as AxiosError<ErrorResponse>;
 
-        if (response.status === 200) {
-            const { token } = response.data;
-            return token;
-        } else {
-            throw new Error(response.data.message);
+            if (axiosError.response) {
+                throw new Error(axiosError.response.data.message);
+            } else {
+                throw new Error('Network Error: Terjadi kesalahan pada server');
+            }
         }
     },
     getLoggedUser: async (token: string): Promise<UserType> => {
         const url = import.meta.env.VITE_API_URL;
         const endpoint = `${url}/api-em/user/profile`;
 
-        const response = await axios.get(endpoint, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        try {
+            const response = await axios.get(endpoint, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data.data;
+        } catch (error) {
+            const axiosError = error as AxiosError<ErrorResponse>;
 
-        if (response.status === 200) {
-            const user = response.data.data;
-            return user;
-        } else {
-            throw new Error(response.data.message);
+            if (axiosError.response) {
+                throw new Error(axiosError.response.data.message);
+            } else {
+                throw new Error('Network Error: Terjadi kesalahan pada server');
+            }
         }
     },
 };

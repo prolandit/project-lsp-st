@@ -7,6 +7,7 @@ export const loginSchema = Yup.object().shape({
         .required('Email tidak boleh kosong'),
     password: Yup.string()
         .min(6, 'Password minimal 6 karakter')
+        .max(20, 'Password maximal 20 karakter')
         .required('Password tidak boleh kosong'),
 });
 
@@ -20,6 +21,7 @@ export const registerSchema = Yup.object().shape({
         .required('Password tidak boleh kosong'),
     passwordConfirmation: Yup.string()
         .min(6, 'Password minimal 6 karakter')
+        .max(20, 'Password maximal 20 karakter')
         .required('Konfirmasi Password tidak boleh kosong'),
 });
 

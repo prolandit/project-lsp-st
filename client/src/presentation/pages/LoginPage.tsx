@@ -12,41 +12,35 @@ const LoginPage = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const onLogin = (email: string, password: string) => {
+    const onLogin = async (email: string, password: string) => {
         setIsLoading(true);
 
-        AuthRemoteDataSource.login({ email, password })
-            .then((token) => {
-                setIsLoading(false);
-                localStorage.setItem('token', token);
-                navigate('/profile');
-            })
-            .catch((error: Error) => {
-                setIsLoading(false);
-                toast.error(error.message, {
-                    position: 'top-center',
-                    hideProgressBar: true,
-                });
+        try {
+            const token = await AuthRemoteDataSource.login({ email, password });
+            localStorage.setItem('token', token);
+            navigate('/profile');
+        } catch (error) {
+            toast.error((error as Error).message, {
+                position: 'top-center',
+                hideProgressBar: true,
             });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
         <>
-            {isLoading ? (
-                <LoadingSpinner />
-            ) : (
-                <>
-                    <AuthLayout
-                        title='Masuk'
-                        subtitle='Jika anda belum memiliki akun'
-                        navigationTitle='Daftar disini ?'
-                        navigateTo='/register'
-                    >
-                        <FormLogin onLogin={onLogin} />
-                    </AuthLayout>
-                    <ToastContainer />
-                </>
-            )}
+            <AuthLayout
+                title='Masuk'
+                subtitle='Jika anda belum memiliki akun'
+                navigationTitle='Daftar disini ?'
+                navigateTo='/register'
+            >
+                <FormLogin onLogin={onLogin} />
+            </AuthLayout>
+            <LoadingSpinner show={isLoading} />
+            <ToastContainer />
         </>
     );
 };
