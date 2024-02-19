@@ -1,30 +1,11 @@
-import { useEffect, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { LoggedUser } from './common/types';
 import MainLayout from './presentation/components/Layouts/MainLayout';
-import AsesiProfilePage from './presentation/pages/AsesiProfilePage';
-import AsesorProfilePage from './presentation/pages/AsesorProfilePage';
+import ProfileLayout from './presentation/components/Layouts/ProfileLayout';
 import LoginPage from './presentation/pages/LoginPage';
 import NotFoundPage from './presentation/pages/NotFoundPage';
 import RegisterPage from './presentation/pages/RegisterPage';
 
 const App = () => {
-    const [user, setUser] = useState<LoggedUser | null>(null);
-
-    useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, [user]);
-
-    const profileElement =
-        user?.role.toLowerCase() === 'asesi' ? (
-            <AsesorProfilePage />
-            ) : (
-            <AsesiProfilePage />
-        );
-
     return (
         <BrowserRouter basename='/'>
             <Routes>
@@ -41,7 +22,7 @@ const App = () => {
                     <Route
                         key='profile'
                         path='profile'
-                        element={profileElement}
+                        element={<ProfileLayout />}
                     />
                 </Route>
                 <Route
@@ -49,7 +30,6 @@ const App = () => {
                     path='/login'
                     element={<LoginPage />}
                 />
-
                 <Route
                     key='register'
                     path='/register'

@@ -1,9 +1,9 @@
-import { Alert } from 'antd';
 import { FormikHelpers, useFormik } from 'formik';
 import { CiLock, CiMail } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 import { loginSchema } from '../../../common/formSchemas';
 import { LoginValues } from '../../../common/types';
+import Alert from '../Elements/Alert';
 import Button from '../Elements/Button';
 import InputForm from '../Elements/InputForm';
 

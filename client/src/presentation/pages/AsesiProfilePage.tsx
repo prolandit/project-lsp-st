@@ -1,16 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Alert } from 'antd';
-import { FormikHelpers, useFormik } from 'formik';
+import { useFormik } from 'formik';
+import { useState } from 'react';
 import Constants from '../../common/constants';
 import { asesiProfileSchema } from '../../common/formSchemas';
-import { ProfileValues } from '../../common/types';
+import { AsesiProfileValues } from '../../common/types';
+import Alert from '../components/Elements/Alert';
 import Button from '../components/Elements/Button';
 import ComboBoxForm from '../components/Elements/ComboBoxForm';
-import FileInputForm from '../components/Elements/FileInputForm';
 import InputForm from '../components/Elements/InputForm';
+import SignFileUploader from '../components/Elements/SignFileUpload';
+import SignUploadModal from '../components/Elements/SignFileUpload/SignUploadModal';
 
 const AsesiProfilePage = () => {
-    const onSaveProfile = (profile: ProfileValues) => {
+    const [isShowModal, setIsShowModal] = useState(false);
+
+    const onSaveProfile = (profile: AsesiProfileValues) => {
         console.log(profile);
     };
 
@@ -38,6 +42,7 @@ const AsesiProfilePage = () => {
             email: '',
             lastEducation: '',
             signUpload: undefined,
+            signExplanation: '',
             tuk: '',
             institution: '',
             company: '',
@@ -51,12 +56,8 @@ const AsesiProfilePage = () => {
             companyEmail: '',
         },
         validationSchema: asesiProfileSchema,
-        onSubmit: (
-            values: ProfileValues,
-            { setSubmitting }: FormikHelpers<any>
-        ) => {
+        onSubmit: (values: AsesiProfileValues) => {
             onSaveProfile(values);
-            setSubmitting(false);
         },
     });
 
@@ -69,7 +70,7 @@ const AsesiProfilePage = () => {
                 <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                     <span className='p-4 lg:p-6'>Data Profile</span>
                     <hr className='my-4' />
-                    <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
+                    <div className='flex flex-col px-4 lg:flex-row lg:px-6'>
                         <div className='flex flex-col w-full gap-5'>
                             <InputForm
                                 type='text'
@@ -148,14 +149,22 @@ const AsesiProfilePage = () => {
                                     type='error'
                                 />
                             ) : null}
-                            <InputForm
-                                type='text'
+                            <ComboBoxForm
                                 name='nationality'
-                                value={values.nationality}
-                                onChange={handleChange}
                                 text='Kebangsaan'
+                                value={values.nationality}
+                                items={Constants.nationality}
+                                placeholder='Pilih Kebangsaan'
+                                onChange={handleChange}
                                 horizontally
+                                important
                             />
+                            {errors.nationality && touched.nationality ? (
+                                <Alert
+                                    message={errors.nationality}
+                                    type='error'
+                                />
+                            ) : null}
                             <InputForm
                                 type='text'
                                 name='address'
@@ -208,7 +217,14 @@ const AsesiProfilePage = () => {
                                 onChange={handleChange}
                                 text='Kode Pos'
                                 horizontally
+                                important
                             />
+                            {errors.posCode && touched.posCode ? (
+                                <Alert
+                                    message={errors.posCode}
+                                    type='error'
+                                />
+                            ) : null}
                             <InputForm
                                 type='number'
                                 name='telp'
@@ -263,20 +279,19 @@ const AsesiProfilePage = () => {
                                     type='error'
                                 />
                             ) : null}
-                            <FileInputForm
+                            <SignFileUploader
                                 name='signUpload'
-                                onChange={(e) => {
-                                    handleChange(e);
-                                    setFieldValue(
-                                        'signUpload',
-                                        e.currentTarget.files?.[0]
-                                    );
-                                }}
+                                value={
+                                    values.signUpload
+                                        ? values.signUpload
+                                        : values.signExplanation
+                                }
+                                onClick={() => setIsShowModal(true)}
                                 text='Upload Tanda Tangan'
                                 horizontally
                                 important
                             />
-                            {errors.signUpload ? (
+                            {errors.signUpload && touched.signUpload ? (
                                 <Alert
                                     message={errors.signUpload}
                                     type='error'
@@ -473,15 +488,27 @@ const AsesiProfilePage = () => {
                     </div>
                 </div>
             </div>
-            <div className='flex flex-col w-full mt-10 bg-white shadow-sm rounded-xs drop-shadow-sm'>
+            <footer className='flex flex-col w-full mt-10 bg-white shadow-sm rounded-xs drop-shadow-sm'>
                 <Button
                     type='submit'
-                    onClick={handleSubmit}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        handleSubmit();
+                    }}
                     className='self-center lg:self-end w-9/12 lg:w-40 mx-6 lg:mx-10 my-6 h-[45px] bg-blue-500 hover:bg-blue-700'
                 >
                     Simpan
                 </Button>
-            </div>
+            </footer>
+            {isShowModal && (
+                <SignUploadModal
+                    closeModal={() => setIsShowModal(false)}
+                    onChange={(file, exp) => {
+                        setFieldValue('signUpload', file);
+                        setFieldValue('signExplanation', exp);
+                    }}
+                />
+            )}
         </form>
     );
 };

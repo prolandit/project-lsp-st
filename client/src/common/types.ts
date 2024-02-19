@@ -1,7 +1,3 @@
-import { NotificationArgsProps } from 'antd';
-
-export type NotificationPlacement = NotificationArgsProps['placement'];
-
 export type LoginValues = {
     email: string;
     password: string;
@@ -20,7 +16,7 @@ export type LoggedUser = {
     password: string;
 };
 
-export type ProfileValues = {
+export type AsesiProfileValues = {
     fullname: string;
     noKtpOrPassport: string;
     birthPlace: string;
@@ -36,6 +32,7 @@ export type ProfileValues = {
     email: string;
     lastEducation: string;
     signUpload?: File;
+    signExplanation: string;
     tuk: string;
     institution: string;
     company: string;
@@ -49,7 +46,37 @@ export type ProfileValues = {
     companyEmail: string;
 };
 
+export type AsesorProfileValues = {
+    fullname: string;
+    noKtpOrPassport: string;
+    noMet: string;
+    birthPlace: string;
+    birthDate: string;
+    gender: string;
+    nationality: string;
+    address: string;
+    province: string;
+    city: string;
+    posCode: string;
+    telp: string;
+    phone: string;
+    email: string;
+    lastEducation: string;
+    signUpload?: File;
+    signExplanation: string;
+};
+
 export type OptionType = {
     key: string;
     value: string;
+};
+
+export type FileUpload = {
+    fileUpload: File | null;
+    explanation: string;
+};
+
+export type Position = {
+    x: number;
+    y: number;
 };
