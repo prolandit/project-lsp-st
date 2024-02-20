@@ -24,7 +24,7 @@ const registerUser = async (dataObject) => {
 
         const hashedPass = bcrPassword.__hashPassword(password);
 
-        await db.tb_user.create({ email, password: hashedPass, fullName, role });
+        await db.tb_user.create({ email, password: hashedPass, fullName, role: 'Asesi' });
 
         return Promise.resolve({
             statusCode: 201,
@@ -47,7 +47,7 @@ const loginUser = async (dataObject) => {
         });
 
         if (_.isEmpty(isUser)) {
-            return Promise.reject(Boom.badRequest('User not found!'));
+            return Promise.reject(Boom.badRequest('Email not registered!'));
         };
 
         const isPassMatched = bcrPassword.__comparePassword(password, isUser.password);

@@ -5,17 +5,21 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+dotenv.config();
+
+const dirname = path.resolve();
+
+
 const app = express();
-const Port = process.env.NODEJS_PORT || 8080;
+const Port = process.env.NODEJS_PORT;
 
 const Auth = require('./server/api/auth');
 const User = require('./server/api/user');
 
-dotenv.config();
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((error, req, res, next) => {

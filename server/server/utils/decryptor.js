@@ -8,21 +8,21 @@ const decryptObject = (dataObject) => {
         if (encryptedData) {
             const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
             const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-            return decryptedData
+            return decryptedData;
         }
-        else return dataObject
+        else return dataObject;
     } catch (error) {
         console.error(err);
         return Promise.reject("Authentication Error");
     }
-};
+}
 
 const decryptTextPayload = (token) => {
     try {
-        const bytes = CryptoJS.AES.decrypt(token, secretKey)
-        return bytes.toString(CryptoJS.enc.Utf8)
+        const bytes = CryptoJS.AES.decrypt(token, secretKey);
+        return bytes.toString(CryptoJS.enc.Utf8);
     } catch (error) {
-        return null
+        return null;
     }
 }
 

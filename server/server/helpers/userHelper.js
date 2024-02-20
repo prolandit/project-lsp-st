@@ -1,11 +1,15 @@
 const Boom = require('boom');
 const _ = require('lodash');
+const dotenv = require('dotenv');
 
 const db = require('../../models');
 const GeneralHelper = require('./generalHelper');
 const bcrPassword = require('../utils/bycryptPassword');
+const mailer = require('../utils/mailer');
 
 const fileName = 'server/helpers/userHelper.js';
+
+dotenv.config();
 
 const getAllUser = async (role) => {
     try {
@@ -188,4 +192,48 @@ const changePassword = async (dataObject) => {
     }
 }
 
-module.exports = { getAllUser, getProfileUser, updateProfileUser, changePassword }
+const forgotPassword = async (dataObject) => {
+    const { email } = dataObject;
+
+    try {
+        const isUser = await db.tb_user.findOne({
+            where: {
+                email: email
+            }
+        });
+
+        if (_.isEmpty(isUser)) {
+            return Promise.reject(Boom.notFound('User not found!'));
+        };
+
+        const codeOtp = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
+        const expiryTime = new Date();
+        expiryTime.setDate(expiryTime.getDate() + 1);
+
+        await db.tb_token.create({
+            email_user: email,
+            token: codeOtp,
+            expiryTime: expiryTime
+        });
+
+        const mailOptions = {
+            from: 'raihanputromaulana477@gmail.com',
+            to: email,
+            subject: 'Password Reset ENERGI MANDIRI',
+            text: `Your password code otp is ${codeOtp}`
+        };
+
+        await mailer.transporter.sendMail(mailOptions);
+
+        return Promise.resolve({
+            statusCode: 200,
+            message: "Code otp sended!"
+        });
+    } catch (error) {
+        console.log([fileName, 'forgotPassword', 'ERROR'], { info: `${error}` });
+        return Promise.reject(GeneralHelper.errorResponse(error));
+    }
+}
+
+module.exports = { getAllUser, getProfileUser, updateProfileUser, changePassword, forgotPassword }
+        

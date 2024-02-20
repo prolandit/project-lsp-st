@@ -73,9 +73,23 @@ const changePassword = async ( req, rep ) => {
     }
 }
 
+const forgotPassword = async ( req, rep ) => {
+    try {
+        const { email } = req.body;
+
+        const response = await UserHelper.forgotPassword({ email });
+
+        return rep.send(response);
+    } catch (error) {
+        console.log([fileName, 'forgotPassword', 'ERROR'], { info: `${error}` });
+        return rep.send(GeneralHelper.errorResponse(error));    
+    }
+}
+ 
 Router.get('/all', AuthMiddleware.validateToken, allUser);
 Router.get('/profile', AuthMiddleware.validateToken, profile);
 Router.patch('/update', uploadImg.fields([{name: 'signUpload', maxCount: 1}]), AuthMiddleware.validateToken, updateProfile)
 Router.patch('/change-password', AuthMiddleware.validateToken, changePassword);
+Router.post('/forgot-password', forgotPassword);
 
 module.exports = Router;
