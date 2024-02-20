@@ -9,6 +9,7 @@ type Props = {
     name: string;
     type: string;
     placeholder?: string;
+    maxLength?: number;
     text: string;
     value?: string | number | readonly string[] | undefined;
     horizontally?: boolean;
@@ -25,6 +26,7 @@ const InputForm = ({
     text,
     value,
     onChange,
+    maxLength,
     horizontally = false,
 }: Props) => {
     const verticalClassName = 'flex flex-col gap-3';
@@ -55,6 +57,7 @@ const InputForm = ({
                 prefix={prefix}
                 value={value}
                 onChange={onChange}
+                maxLength={maxLength}
                 name={name}
                 type={type}
                 placeholder={placeholder}

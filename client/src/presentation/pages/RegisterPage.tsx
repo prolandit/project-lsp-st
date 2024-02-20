@@ -1,31 +1,48 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LoggedUser } from '../../common/types';
+import { toast } from 'react-toastify';
+import { RegisterValues } from '../../common/types';
+import AuthRemoteDataSource from '../../data/datasources/AuthRemoteDataSource';
+import LoadingSpinner from '../components/Elements/LoadingSpinner';
 import FormRegister from '../components/Fragments/FormRegister';
 import AuthLayout from '../components/Layouts/AuthLayout';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const onRegister = (email: string, fullname: string, password: string) => {
-        const user: LoggedUser = {
-            email,
-            fullname,
-            password,
-            role: 'Asesi',
-        };
-        localStorage.setItem('user', JSON.stringify(user));
-        navigate('/profile');
+    const onRegister = async (payload: RegisterValues) => {
+        setIsLoading(true);
+
+        try {
+            await AuthRemoteDataSource.register(payload);
+            navigate('/login');
+            toast.success('Register berhasil. Silahkan masuk ke akun Anda', {
+                position: 'top-center',
+                hideProgressBar: true,
+            });
+        } catch (error) {
+            toast.error((error as Error).message, {
+                position: 'top-center',
+                hideProgressBar: true,
+            });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
-        <AuthLayout
-            title='Daftar'
-            subtitle='Jika anda telah memiliki akun'
-            navigationTitle='Masuk disini ?'
-            navigateTo='/login'
-        >
-            <FormRegister onRegister={onRegister} />
-        </AuthLayout>
+        <>
+            <AuthLayout
+                title='Daftar'
+                subtitle='Jika anda telah memiliki akun'
+                navigationTitle='Masuk disini ?'
+                navigateTo='/login'
+            >
+                <FormRegister onRegister={onRegister} />
+            </AuthLayout>
+            <LoadingSpinner show={isLoading} />
+        </>
     );
 };
 

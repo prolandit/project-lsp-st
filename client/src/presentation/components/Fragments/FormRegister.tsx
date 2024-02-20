@@ -1,32 +1,26 @@
-import { Alert } from 'antd';
-import { FormikHelpers, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { CiLock, CiMail } from 'react-icons/ci';
 import { IoPersonOutline } from 'react-icons/io5';
 import { registerSchema } from '../../../common/formSchemas';
 import { RegisterValues } from '../../../common/types';
+import Alert from '../Elements/Alert';
 import Button from '../Elements/Button';
 import InputForm from '../Elements/InputForm';
 
 type Props = {
-    onRegister: (email: string, fullname: string, password: string) => void;
+    onRegister: (payload: RegisterValues) => void;
 };
 
 const FormRegister = ({ onRegister }: Props) => {
     const { errors, touched, values, handleChange, handleSubmit } = useFormik({
         initialValues: {
             email: '',
-            fullname: '',
+            fullName: '',
             password: '',
             passwordConfirmation: '',
         },
         validationSchema: registerSchema,
-        onSubmit: (
-            values: RegisterValues,
-            { setSubmitting }: FormikHelpers<RegisterValues>
-        ) => {
-            onRegister(values.email, values.fullname, values.password);
-            setSubmitting(false);
-        },
+        onSubmit: onRegister,
     });
 
     return (
@@ -50,17 +44,17 @@ const FormRegister = ({ onRegister }: Props) => {
                 />
             ) : null}
             <InputForm
-                type='fullname'
-                name='fullname'
-                value={values.fullname}
+                type='fullName'
+                name='fullName'
+                value={values.fullName}
                 onChange={handleChange}
                 placeholder='Masukkan Nama Lengkap Anda'
                 text='Nama Lengkap'
                 prefix={<IoPersonOutline className='text-lg text-black me-3' />}
             />
-            {errors.fullname && touched.fullname ? (
+            {errors.fullName && touched.fullName ? (
                 <Alert
-                    message={errors.fullname}
+                    message={errors.fullName}
                     type='error'
                 />
             ) : null}
