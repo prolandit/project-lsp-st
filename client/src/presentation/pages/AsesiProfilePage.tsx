@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Constants from '../../common/constants';
 import { asesiProfileSchema } from '../../common/formSchemas';
 import { AsesiProfileValues, UserType } from '../../common/types';
-import { formattedDate } from '../../common/utils';
+import { downloadFile, formattedDate } from '../../common/utils';
 import UserRemoteDataSource from '../../data/datasources/UserRemoteDataSource';
 import Alert from '../components/Elements/Alert';
 import Button from '../components/Elements/Button';
@@ -22,15 +22,6 @@ type Props = {
 const AsesiProfilePage = ({ user }: Props) => {
     const [isShowModal, setIsShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    // const [file, setFile] = useState<File | null>(null);
-
-    // useEffect(() => {
-    //     const signUploadFile = async () => {
-    //         setFile(await downloadFile(user?.signUpload ?? ''));
-    //     };
-
-    //     signUploadFile();
-    // });
 
     const onSaveProfile = async (profile: AsesiProfileValues) => {
         setIsLoading(true);
@@ -93,6 +84,17 @@ const AsesiProfilePage = ({ user }: Props) => {
         validationSchema: asesiProfileSchema,
         onSubmit: onSaveProfile,
     });
+
+    const signUploadFile = useCallback(async () => {
+        if (user?.signUpload) {
+            const file = await downloadFile(user.signUpload);
+            setFieldValue('signUpload', file);
+        }
+    }, [user?.signUpload, setFieldValue]);
+
+    useEffect(() => {
+        signUploadFile();
+    }, [signUploadFile]);
 
     return (
         <>
