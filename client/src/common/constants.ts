@@ -1,4 +1,6 @@
 const Constants = {
+    registerSuccessMessage: 'Register berhasil. Silahkan masuk ke akun Anda',
+    reLoginMessage: 'Silahkan Masuk ulang dengan Password Baru Anda',
     genderOptions: [
         {
             key: 'pria',

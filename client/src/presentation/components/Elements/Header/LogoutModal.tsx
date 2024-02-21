@@ -15,7 +15,7 @@ const LogoutModal = ({ show, onClose, onLogout }: Props) => {
                     : 'hidden'
             }
         >
-            <div className='flex flex-col w-full gap-2 p-4 mx-4 bg-white rounded-lg lg:mx-0 lg:w-72'>
+            <div className='flex flex-col w-full gap-3 p-4 mx-4 bg-white rounded-lg lg:mx-0 lg:w-72'>
                 <span className='text-lg font-semibold text-red-500'>
                     Peringatan
                 </span>
@@ -23,7 +23,7 @@ const LogoutModal = ({ show, onClose, onLogout }: Props) => {
                 <span className='text-base font-medium'>
                     Apakah anda yakin ingin keluar?
                 </span>
-                <div className='flex flex-row justify-end gap-2 mt-4 lg:mx-0'>
+                <div className='flex flex-row justify-end gap-2 mt-6 lg:mx-0'>
                     <Button
                         type='button'
                         onClick={onClose}
