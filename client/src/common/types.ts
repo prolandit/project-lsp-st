@@ -67,6 +67,12 @@ export type AsesorProfileValues = {
     signExplanation: string;
 };
 
+export type ChangePasswordValues = {
+    oldPassword: string;
+    newPassword: string;
+    newPasswordConfirmation: string;
+};
+
 export type OptionType = {
     key: string;
     value: string;

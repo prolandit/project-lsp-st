@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 
 type Props = {
-    className: string;
+    className?: string;
     children: React.ReactNode;
 };
 

@@ -7,7 +7,7 @@ export const loginSchema = Yup.object().shape({
         .required('Email tidak boleh kosong'),
     password: Yup.string()
         .min(6, 'Password minimal 6 karakter')
-        .max(20, 'Password maximal 20 karakter')
+        .max(20, 'Password maksimal 20 karakter')
         .required('Password tidak boleh kosong'),
 });
 
@@ -20,8 +20,7 @@ export const registerSchema = Yup.object().shape({
         .min(6, 'Password minimal 6 karakter')
         .required('Password tidak boleh kosong'),
     passwordConfirmation: Yup.string()
-        .min(6, 'Password minimal 6 karakter')
-        .max(20, 'Password maximal 20 karakter')
+        .oneOf([Yup.ref('password')], 'Password tidak sama')
         .required('Konfirmasi Password tidak boleh kosong'),
 });
 
@@ -122,4 +121,18 @@ export const fileInputSchema = Yup.object().shape({
         is: (fileUpload: File | undefined) => !fileUpload,
         then: (schema) => schema.required('Keterangan harus diisi'),
     }),
+});
+
+export const changePasswordSchema = Yup.object().shape({
+    oldPassword: Yup.string()
+        .min(6, 'Password minimal 6 karakter')
+        .max(20, 'Password maksimal 20 karakter')
+        .required('Password lama tidak boleh kosong'),
+    newPassword: Yup.string()
+        .min(6, 'Password minimal 6 karakter')
+        .max(20, 'Password maksimal 20 karakter')
+        .required('Password baru tidak boleh kosong'),
+    newPasswordConfirmation: Yup.string()
+        .oneOf([Yup.ref('newPassword')], 'Password tidak sama')
+        .required('Konfirmasi Password tidak boleh kosong'),
 });

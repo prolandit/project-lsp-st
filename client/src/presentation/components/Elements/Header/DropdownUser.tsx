@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
-import { BiLogOut, BiUser } from 'react-icons/bi';
+import { BiLock, BiLogOut, BiUser } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { useLoggedUser } from '../../../../common/hooks/useLoggedUser';
 
@@ -40,7 +40,7 @@ const DropdownUser = ({ setLogoutModalOpen }: Props) => {
             <div
                 onFocus={() => setDropdownOpen(true)}
                 onBlur={() => setDropdownOpen(false)}
-                className={`absolute right-0 mt-7 flex w-[180px] gap-4 px-6 py-5 flex-col rounded-lg border border-stroke bg-white shadow-default ${
+                className={`absolute right-0 mt-7 flex w-56 gap-6 px-6 py-5 flex-col rounded-lg border border-stroke bg-white shadow-default ${
                     dropdownOpen === true ? 'block' : 'hidden'
                 }`}
             >
@@ -50,6 +50,13 @@ const DropdownUser = ({ setLogoutModalOpen }: Props) => {
                 >
                     <BiUser className='text-lg' />
                     My Profile
+                </Link>
+                <Link
+                    to='/change-password'
+                    className='flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:text-blue-500 lg:text-base'
+                >
+                    <BiLock className='text-lg' />
+                    Ubah Password
                 </Link>
                 <button
                     onClick={() => setLogoutModalOpen(true)}
