@@ -48,6 +48,7 @@ export type AsesiProfileValues = {
 };
 
 export type AsesorProfileValues = {
+    [key: string]: any;
     fullName: string;
     ktpPassport: string;
     noMet: string;
@@ -95,6 +96,7 @@ export type UserType = {
     role?: string;
     ktpPassport?: string;
     met?: string;
+    gender?: string;
     birthPlace?: string;
     birthDate?: string;
     nationality?: string;

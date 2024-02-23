@@ -11,7 +11,7 @@ const ProfileLayout = () => {
         return user?.role?.toLowerCase() === Role.ASESI ? (
             <AsesiProfilePage user={user} />
         ) : (
-            <AsesorProfilePage />
+            <AsesorProfilePage user={user} />
         );
     }, [user]);
 
