@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { BiLock, BiLogOut, BiUser } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-import { useLoggedUser } from '../../../../common/hooks/useLoggedUser';
+import useLoggedUser from '../../../../common/hooks/useLoggedUser';
 
 type Props = {
     setLogoutModalOpen(value: boolean): void;

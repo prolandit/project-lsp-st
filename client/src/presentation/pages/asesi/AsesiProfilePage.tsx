@@ -2,31 +2,35 @@
 import { useFormik } from 'formik';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import Constants from '../../common/constants';
-import { asesorProfileSchema } from '../../common/formSchemas';
-import { AsesorProfileValues, UserType } from '../../common/types';
-import { downloadFile, formattedDate } from '../../common/utils';
-import UserRemoteDataSource from '../../data/datasources/UserRemoteDataSource';
-import Alert from '../components/Elements/Alert';
-import Button from '../components/Elements/Button';
-import ComboBoxForm from '../components/Elements/ComboBoxForm';
-import InputForm from '../components/Elements/InputForm';
-import LoadingSpinner from '../components/Elements/LoadingSpinner';
-import SignFileUploader from '../components/Elements/SignFileUpload';
-import SignUploadModal from '../components/Elements/SignFileUpload/SignUploadModal';
+import Constants from '../../../common/constants';
+import { asesiProfileSchema } from '../../../common/formSchemas';
+import { AsesiProfileValues, UserType } from '../../../common/types';
+import { downloadFile, formattedDate } from '../../../common/utils';
+import UserRemoteDataSource from '../../../data/datasources/UserRemoteDataSource';
+import Alert from '../../components/Elements/Alert';
+import Button from '../../components/Elements/Button';
+import ComboBoxForm from '../../components/Elements/ComboBoxForm';
+import InputForm from '../../components/Elements/InputForm';
+import LoadingSpinner from '../../components/Elements/LoadingSpinner';
+import SignFileUploader from '../../components/Elements/SignFileUpload';
+import SignUploadModal from '../../components/Elements/SignFileUpload/SignUploadModal';
 
-const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
+type Props = {
+    user?: UserType;
+};
+
+const AsesiProfilePage = ({ user }: Props) => {
     const [isShowModal, setIsShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const onSaveProfile = async (profile: AsesorProfileValues) => {
+    const onSaveProfile = async (profile: AsesiProfileValues) => {
         setIsLoading(true);
-        // console.log(profile)
+
         try {
             const token = localStorage.getItem('token') ?? '';
 
             await UserRemoteDataSource.changeProfile(token, profile);
-            toast.success('Profile Asesor berhasil diubah', {
+            toast.success('Profile berhasil diubah', {
                 position: 'top-center',
                 hideProgressBar: true,
             });
@@ -51,10 +55,9 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
         initialValues: {
             fullName: user?.fullName ?? '',
             ktpPassport: user?.ktpPassport ?? '',
-            noMet: user?.met ?? '',
             birthPlace: user?.birthPlace ?? '',
             birthDate: user?.birthDate ?? '',
-            gender: user?.gender ?? '',
+            gender: user?.met ?? '',
             nationality: user?.nationality ?? '',
             address: user?.address ?? '',
             province: user?.province ?? '',
@@ -66,8 +69,19 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
             lastEducation: user?.lastEducation ?? '',
             signUpload: undefined,
             signExplanation: '',
+            tuk: user?.tuk ?? '',
+            institution: user?.institution ?? '',
+            company: user?.company ?? '',
+            fund: user?.fund ?? '',
+            job: user?.job ?? '',
+            position: user?.position ?? '',
+            companyAddress: user?.companyAddress ?? '',
+            telpCompany: user?.telpCompany ?? '',
+            companyPosCode: user?.companyPosCode ?? '',
+            fax: user?.fax ?? '',
+            companyEmail: user?.companyEmail ?? '',
         },
-        validationSchema: asesorProfileSchema,
+        validationSchema: asesiProfileSchema,
         onSubmit: onSaveProfile,
     });
 
@@ -87,13 +101,14 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
             <form
                 className='flex flex-col mt-10'
                 encType='multipart/form-data'
+                onSubmit={handleSubmit}
             >
-                <div className='flex flex-col gap-4 mx-3 mb-6 lg:flex-row lg:mx-8'>
+                <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                         <span className='p-4 lg:p-6'>Data Profile</span>
                         <hr className='my-4' />
-                        <div className='grid items-start gap-6 px-4 md:grid-cols-2 lg:px-6'>
-                            <div className='grid gap-6'>
+                        <div className='flex flex-col px-4 lg:flex-row lg:px-6'>
+                            <div className='flex flex-col w-full gap-5'>
                                 <InputForm
                                     type='text'
                                     name='fullName'
@@ -110,9 +125,10 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
                                     />
                                 ) : null}
                                 <InputForm
-                                    type='number'
+                                    type='string'
                                     name='ktpPassport'
                                     text='No KTP / PASPOR'
+                                    maxLength={16}
                                     value={values.ktpPassport}
                                     onChange={handleChange}
                                     horizontally
@@ -121,21 +137,6 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
                                 {errors.ktpPassport && touched.ktpPassport ? (
                                     <Alert
                                         message={errors.ktpPassport}
-                                        type='error'
-                                    />
-                                ) : null}
-                                <InputForm
-                                    type='number'
-                                    name='noMet'
-                                    text='No MET'
-                                    value={values.noMet}
-                                    onChange={handleChange}
-                                    horizontally
-                                    important
-                                />
-                                {errors.noMet && touched.noMet ? (
-                                    <Alert
-                                        message={errors.noMet}
                                         type='error'
                                     />
                                 ) : null}
@@ -172,8 +173,8 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
                                 <ComboBoxForm
                                     name='gender'
                                     text='Jenis Kelamin'
-                                    value={values.gender}
                                     items={Constants.genderOptions}
+                                    value={values.gender}
                                     placeholder='Pilih Jenis Kelamin'
                                     onChange={handleChange}
                                     horizontally
@@ -182,23 +183,6 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
                                 {errors.gender && touched.gender ? (
                                     <Alert
                                         message={errors.gender}
-                                        type='error'
-                                    />
-                                ) : null}
-                                <ComboBoxForm
-                                    name='lastEducation'
-                                    text='Pendidikan Terakhir'
-                                    value={values.lastEducation}
-                                    items={Constants.educationOptions}
-                                    placeholder='Pilih Pendidikan Terakhir'
-                                    onChange={handleChange}
-                                    horizontally
-                                    important
-                                />
-                                {errors.lastEducation &&
-                                touched.lastEducation ? (
-                                    <Alert
-                                        message={errors.lastEducation}
                                         type='error'
                                     />
                                 ) : null}
@@ -218,8 +202,6 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
                                         type='error'
                                     />
                                 ) : null}
-                            </div>
-                            <div className='grid gap-6'>
                                 <InputForm
                                     type='text'
                                     name='address'
@@ -318,6 +300,23 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
                                         type='error'
                                     />
                                 ) : null}
+                                <ComboBoxForm
+                                    name='lastEducation'
+                                    text='Pendidikan Terakhir'
+                                    value={values.lastEducation}
+                                    items={Constants.educationOptions}
+                                    placeholder='Pilih Pendidikan Terakhir'
+                                    onChange={handleChange}
+                                    horizontally
+                                    important
+                                />
+                                {errors.lastEducation &&
+                                touched.lastEducation ? (
+                                    <Alert
+                                        message={errors.lastEducation}
+                                        type='error'
+                                    />
+                                ) : null}
                                 <SignFileUploader
                                     name='signUpload'
                                     value={
@@ -338,39 +337,180 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
                                 ) : null}
                             </div>
                         </div>
-                        <div className='grid items-start gap-6 px-4 lg:px-6'>
-                            <hr className='mt-4' />
-                            <div className='grid gap-6 lg:justify-self-end'>
-                                <Button
-                                    type='submit'
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        handleSubmit();
-                                    }}
-                                    className='self-center lg:self-end lg:w-40 h-[45px] bg-blue-500 hover:bg-blue-700'
-                                >
-                                    Simpan
-                                </Button>
+                    </div>
+                    <div className='flex flex-col w-full'>
+                        <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
+                            <span className='p-4 lg:p-6'>Data Kantor</span>
+                            <hr className='my-4' />
+                            <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
+                                <div className='flex flex-col w-full gap-5'>
+                                    <ComboBoxForm
+                                        name='institution'
+                                        text='Nama Lembaga/Badan'
+                                        value={values.institution}
+                                        items={Constants.institutions}
+                                        placeholder='Pilih Lembaga'
+                                        onChange={handleChange}
+                                        horizontally
+                                        important
+                                    />
+                                    {errors.institution &&
+                                    touched.institution ? (
+                                        <Alert
+                                            message={errors.institution}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                    <InputForm
+                                        type='text'
+                                        name='company'
+                                        value={values.company}
+                                        onChange={handleChange}
+                                        text='Nama Perusahaan'
+                                        horizontally
+                                        important
+                                    />
+                                    {errors.company && touched.company ? (
+                                        <Alert
+                                            message={errors.company}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                    <ComboBoxForm
+                                        name='fund'
+                                        text='Sumber Dana'
+                                        value={values.fund}
+                                        items={Constants.funds}
+                                        placeholder='Pilih Sumber Dana'
+                                        onChange={handleChange}
+                                        horizontally
+                                        important
+                                    />
+                                    {errors.fund && touched.fund ? (
+                                        <Alert
+                                            message={errors.fund}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                    <ComboBoxForm
+                                        name='job'
+                                        text='Pekerjaan'
+                                        value={values.job}
+                                        items={Constants.jobs}
+                                        placeholder='Pilih Pekerjaan'
+                                        onChange={handleChange}
+                                        horizontally
+                                        important
+                                    />
+                                    {errors.job && touched.job ? (
+                                        <Alert
+                                            message={errors.job}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                    <InputForm
+                                        type='text'
+                                        name='position'
+                                        value={values.position}
+                                        onChange={handleChange}
+                                        text='Jabatan'
+                                        horizontally
+                                        important
+                                    />
+                                    {errors.position && touched.position ? (
+                                        <Alert
+                                            message={errors.position}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                    <InputForm
+                                        type='text'
+                                        name='companyAddress'
+                                        value={values.companyAddress}
+                                        onChange={handleChange}
+                                        text='Alamat Kantor'
+                                        horizontally
+                                        important
+                                    />
+                                    {errors.companyAddress &&
+                                    touched.companyAddress ? (
+                                        <Alert
+                                            message={errors.companyAddress}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                    <InputForm
+                                        type='number'
+                                        name='telpCompany'
+                                        value={values.telpCompany}
+                                        onChange={handleChange}
+                                        text='No Telepon Kantor'
+                                        horizontally
+                                    />
+                                    {errors.telpCompany &&
+                                    touched.telpCompany ? (
+                                        <Alert
+                                            message={errors.telpCompany}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                    <InputForm
+                                        type='number'
+                                        name='companyPosCode'
+                                        value={values.companyPosCode}
+                                        onChange={handleChange}
+                                        text='Kode Pos'
+                                        horizontally
+                                    />
+                                    {errors.companyPosCode &&
+                                    touched.companyPosCode ? (
+                                        <Alert
+                                            message={errors.companyPosCode}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                    <InputForm
+                                        type='text'
+                                        name='fax'
+                                        value={values.fax}
+                                        onChange={handleChange}
+                                        text='Fax'
+                                        horizontally
+                                    />
+                                    {errors.fax && touched.fax ? (
+                                        <Alert
+                                            message={errors.fax}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                    <InputForm
+                                        type='text'
+                                        name='companyEmail'
+                                        value={values.companyEmail}
+                                        onChange={handleChange}
+                                        text='Email'
+                                        horizontally
+                                    />
+                                    {errors.companyEmail &&
+                                    touched.companyEmail ? (
+                                        <Alert
+                                            message={errors.companyEmail}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                {/* masih bug terakhir didevice 1920x1080 masing ngambang gitu jadi pindahin aja */}
-
-                {/* <footer className='flex flex-col w-full mt-10 bg-white shadow-sm lg:absolute lg:bottom-0 rounded-xs drop-shadow-sm'>
+                <footer className='flex flex-col w-full mt-10 bg-white shadow-sm rounded-xs drop-shadow-sm'>
                     <Button
                         type='submit'
-                        onClick={(e) => {
-                            e.preventDefault();
-                            handleSubmit();
-                        }}
                         className='self-center lg:self-end w-9/12 lg:w-40 mx-6 lg:mx-10 my-6 h-[45px] bg-blue-500 hover:bg-blue-700'
                     >
                         Simpan
                     </Button>
-                </footer> */}
-
+                </footer>
                 <SignUploadModal
                     show={isShowModal}
                     closeModal={() => setIsShowModal(false)}
@@ -385,4 +525,4 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
     );
 };
 
-export default AsesorProfilePage;
+export default AsesiProfilePage;

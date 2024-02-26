@@ -2,18 +2,32 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '.';
+import UserRemoteDataSource from '../../data/datasources/UserRemoteDataSource';
+import { setUser } from '../../presentation/redux/slices/userSlice';
 
-export const useLoggedUser = () => {
+const useLoggedUser = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const user = useAppSelector((state) => state.user.user);
+    const loggedUser = useAppSelector((state) => state.user.user);
 
     useEffect(() => {
-        if (!user) {
-            navigate('/login');
-        }
-    }, [user, navigate, dispatch]);
+        const fetchLoggedUser = async () => {
+            try {
+                const token = localStorage.getItem('token') ?? '';
+                const user = await UserRemoteDataSource.getLoggedUser(token);
+                dispatch(setUser(user));
+            } catch (error) {
+                navigate('/login');
+            }
+        };
 
-    return user;
+        if (!loggedUser) {
+            fetchLoggedUser();
+        }
+    }, [loggedUser, navigate, dispatch]);
+
+    return loggedUser;
 };
+
+export default useLoggedUser;

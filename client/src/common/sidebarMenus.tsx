@@ -1,4 +1,4 @@
-import { BiUser } from 'react-icons/bi';
+import { BiGroup, BiUser } from 'react-icons/bi';
 import { FaWpforms } from 'react-icons/fa';
 
 export const asesiAsesorMenus = [
@@ -18,6 +18,6 @@ export const adminLspMenus = [
     {
         name: 'Data Asesi',
         path: 'admin/lsp/asessions',
-        icon: <BiUser />,
+        icon: <BiGroup />,
     },
 ];

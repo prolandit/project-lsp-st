@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Role } from '../../../common/enum';
-import { useLoggedUser } from '../../../common/hooks/useLoggedUser';
+import useLoggedUser from '../../../common/hooks/useLoggedUser';
 
 const IndexLayout = () => {
     const user = useLoggedUser();
