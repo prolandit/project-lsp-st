@@ -340,32 +340,6 @@ const AsesiProfilePage = ({ user }: Props) => {
                     </div>
                     <div className='flex flex-col w-full'>
                         <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
-                            <span className='p-4 lg:p-6'>
-                                Data TUK (Tempat Uji Kompetensi)
-                            </span>
-                            <hr className='my-4' />
-                            <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
-                                <div className='flex flex-col w-full gap-5'>
-                                    <ComboBoxForm
-                                        name='tuk'
-                                        text='TUK'
-                                        value={values.tuk}
-                                        items={Constants.listTuk}
-                                        placeholder='Pilih TUK'
-                                        onChange={handleChange}
-                                        horizontally
-                                        important
-                                    />
-                                    {errors.tuk && touched.tuk ? (
-                                        <Alert
-                                            message={errors.tuk}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                            </div>
-                        </div>
-                        <div className='w-full pt-4 mt-6 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                             <span className='p-4 lg:p-6'>Data Kantor</span>
                             <hr className='my-4' />
                             <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
