@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useRef } from 'react';
-import { BiArrowBack, BiUser } from 'react-icons/bi';
-import { FaWpforms } from 'react-icons/fa';
+import { useMemo, useRef } from 'react';
+import { BiArrowBack } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
+import { Role } from '../../../../common/enum';
+import { useAppSelector } from '../../../../common/hooks';
+import {
+    adminLspMenus,
+    asesiAsesorMenus,
+} from '../../../../common/sidebarMenus';
 import SidebarLink from './SidebarLink';
 
 type Props = {
@@ -11,20 +16,14 @@ type Props = {
 };
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
+    const user = useAppSelector((state) => state.user.user);
     const sidebar = useRef<any>(null);
 
-    const menus = [
-        {
-            name: 'Profile',
-            path: '/profile',
-            icon: <BiUser />,
-        },
-        {
-            name: 'Permohonan Sertifikasi',
-            path: '/permohonan-sertifikasi',
-            icon: <FaWpforms />,
-        },
-    ];
+    const menus = useMemo(() => {
+        return user?.role?.toLowerCase() === Role.ADMIN_LSP
+            ? adminLspMenus
+            : asesiAsesorMenus;
+    }, [user]);
 
     return (
         <aside
@@ -34,7 +33,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
             }`}
         >
             <div className='flex items-center justify-between gap-2 px-6 py-5 lg:py-6'>
-                <NavLink to='/profile'>
+                <NavLink to='/'>
                     <span className='text-xl font-semibold text-white'>
                         Sistem LSP
                     </span>

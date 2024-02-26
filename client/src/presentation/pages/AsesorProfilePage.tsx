@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Constants from '../../common/constants';
 import { asesorProfileSchema } from '../../common/formSchemas';
-import { AsesorProfileValues, UserType  } from '../../common/types';
+import { AsesorProfileValues, UserType } from '../../common/types';
 import { downloadFile, formattedDate } from '../../common/utils';
 import UserRemoteDataSource from '../../data/datasources/UserRemoteDataSource';
 import Alert from '../components/Elements/Alert';
@@ -15,8 +15,7 @@ import LoadingSpinner from '../components/Elements/LoadingSpinner';
 import SignFileUploader from '../components/Elements/SignFileUpload';
 import SignUploadModal from '../components/Elements/SignFileUpload/SignUploadModal';
 
-
-const AsesorProfilePage: React.FC<{ user?: UserType }> = ({ user }) => {
+const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
     const [isShowModal, setIsShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -40,7 +39,7 @@ const AsesorProfilePage: React.FC<{ user?: UserType }> = ({ user }) => {
             setIsLoading(false);
         }
     };
-    
+
     const {
         errors,
         touched,
@@ -196,7 +195,8 @@ const AsesorProfilePage: React.FC<{ user?: UserType }> = ({ user }) => {
                                     horizontally
                                     important
                                 />
-                                {errors.lastEducation && touched.lastEducation ? (
+                                {errors.lastEducation &&
+                                touched.lastEducation ? (
                                     <Alert
                                         message={errors.lastEducation}
                                         type='error'

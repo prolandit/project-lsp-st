@@ -18,7 +18,8 @@ const LoginPage = () => {
         try {
             const token = await AuthRemoteDataSource.login(payload);
             localStorage.setItem('token', token);
-            navigate('/profile');
+
+            navigate('/');
         } catch (error) {
             toast.error((error as Error).message, {
                 position: 'top-center',

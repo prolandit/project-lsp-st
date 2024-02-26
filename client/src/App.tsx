@@ -1,4 +1,5 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import IndexLayout from './presentation/components/Layouts/IndexLayout';
 import MainLayout from './presentation/components/Layouts/MainLayout';
 import ProfileLayout from './presentation/components/Layouts/ProfileLayout';
 import ChangePasswordPage from './presentation/pages/ChangePasswordPage';
@@ -17,12 +18,16 @@ const App = () => {
                     <Route
                         index
                         key='index'
-                        element={<Navigate to='/profile' />}
-                        errorElement={<NotFoundPage />}
+                        element={<IndexLayout />}
                     />
                     <Route
                         key='profile'
                         path='profile'
+                        element={<ProfileLayout />}
+                    />
+                    <Route
+                        key='admin-lsp-asesi'
+                        path='admin/lsp/asessions'
                         element={<ProfileLayout />}
                     />
                 </Route>
