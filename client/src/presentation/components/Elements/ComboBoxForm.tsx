@@ -8,10 +8,11 @@ type Props = {
     important?: boolean;
     name: string;
     text: string;
-    items: OptionType[];
+    items?: OptionType[];
     value?: string | number | readonly string[] | undefined;
     placeholder?: string;
     horizontally?: boolean;
+    disabled?: boolean;
     onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
@@ -24,6 +25,7 @@ const ComboBoxForm = ({
     placeholder,
     items,
     onChange,
+    disabled,
     horizontally = false,
 }: Props) => {
     const verticalClassName = 'flex flex-col gap-3';
@@ -56,6 +58,7 @@ const ComboBoxForm = ({
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
+                disabled={disabled}
             />
         </div>
     );

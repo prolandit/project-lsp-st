@@ -1,7 +1,5 @@
 import { BiGroup, BiUser } from 'react-icons/bi';
 import { FaWpforms } from 'react-icons/fa';
-import { RiUserAddLine } from 'react-icons/ri';
-import { PageRoutes } from './enum';
 
 export const asesiAsesorMenus = [
     {
@@ -11,7 +9,7 @@ export const asesiAsesorMenus = [
     },
     {
         name: 'Permohonan Sertifikasi',
-        path: PageRoutes.PERMOHONAN_SERTIFIKASI,
+        path: '/permohonan-sertifikasi',
         icon: <FaWpforms />,
     },
 ];
@@ -19,12 +17,12 @@ export const asesiAsesorMenus = [
 export const adminLspMenus = [
     {
         name: 'Data Asesi',
-        path: PageRoutes.ADMIN_LSP_ASESI,
+        path: '/admin/lsp/data-asesi',
         icon: <BiGroup />,
     },
     {
-        name: 'Buat Akun',
-        path: PageRoutes.ADMIN_LSP_CREATE_ACCCOUNT,
-        icon: <RiUserAddLine />,
+        name: 'Akun Asesi',
+        path: '/admin/lsp/akun-asesi',
+        icon: <BiUser />,
     },
 ];

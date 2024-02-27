@@ -12,7 +12,10 @@ type Props = {
     minLength?: number;
     maxLength?: number;
     value?: string | number | readonly string[] | undefined;
+    defaultValue?: string | number | readonly string[] | undefined;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    disabled?: boolean;
+    checked?: boolean;
 };
 
 const Input = ({
@@ -23,21 +26,25 @@ const Input = ({
     name,
     placeholder,
     value,
+    defaultValue,
     onChange,
     minLength,
     maxLength,
+    disabled,
+    checked,
 }: Props) => {
     const [obscureText, setObscureText] = useState(true);
     const isPassword = type === 'password';
 
     return (
-        <div className='flex items-center justify-between rounded-md'>
+        <div className='flex items-center justify-between w-full rounded-md'>
             <div className='relative w-full'>
                 <div className='absolute -translate-y-1/2 top-1/2 ms-4'>
                     {prefix !== undefined ? prefix : <span></span>}
                 </div>
                 <input
                     value={value}
+                    defaultValue={defaultValue}
                     name={name}
                     onChange={onChange}
                     type={obscureText ? type : 'text'}
@@ -54,6 +61,8 @@ const Input = ({
                         className
                     )}
                     placeholder={placeholder}
+                    disabled={disabled}
+                    checked={checked}
                 />
                 <div className='absolute right-0 -translate-y-1/2 top-1/2 me-4'>
                     {suffix !== undefined ? suffix : <span></span>}

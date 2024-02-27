@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Navigate } from 'react-router-dom';
-import { PageRoutes, Role } from '../../../common/enum';
+import { Role } from '../../../common/enum';
 import useLoggedUser from '../../../common/hooks/useLoggedUser';
 
 const IndexLayout = () => {
@@ -8,9 +8,9 @@ const IndexLayout = () => {
 
     const indexElement = useMemo(() => {
         return user?.role?.toLowerCase() === Role.ADMIN_LSP ? (
-            <Navigate to={PageRoutes.ADMIN_LSP_ASESI} />
+            <Navigate to='/admin/lsp/data-asesi' />
         ) : (
-            <Navigate to={PageRoutes.PROFILE} />
+            <Navigate to='/profile' />
         );
     }, [user]);
 

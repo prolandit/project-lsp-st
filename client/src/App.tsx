@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { PageRoutes } from './common/enum';
 import IndexLayout from './presentation/components/Layouts/IndexLayout';
 import MainLayout from './presentation/components/Layouts/MainLayout';
 import ProfileLayout from './presentation/components/Layouts/ProfileLayout';
@@ -7,15 +6,16 @@ import ChangePasswordPage from './presentation/pages/ChangePasswordPage';
 import LoginPage from './presentation/pages/LoginPage';
 import NotFoundPage from './presentation/pages/NotFoundPage';
 import RegisterPage from './presentation/pages/RegisterPage';
-import CreateAccountPage from './presentation/pages/admin_lsp/CreateAccountPage';
 import LSPDataAsesiPage from './presentation/pages/admin_lsp/LSPDataAsesiPage';
+import UsersPage from './presentation/pages/admin_lsp/UsersPage';
+import VerifyAccountPage from './presentation/pages/admin_lsp/VerifyAccountPage';
 
 const App = () => {
     return (
         <BrowserRouter basename='/'>
             <Routes>
                 <Route
-                    path={PageRoutes.INDEX}
+                    path='/'
                     element={<MainLayout />}
                 >
                     <Route
@@ -25,33 +25,38 @@ const App = () => {
                     />
                     <Route
                         key='profile'
-                        path={PageRoutes.PROFILE}
+                        path='/profile'
                         element={<ProfileLayout />}
                     />
                     <Route
+                        key='verifikasi-akun'
+                        path='/verifikasi-akun/:id'
+                        element={<VerifyAccountPage />}
+                    />
+                    <Route
                         key='admin-lsp-asesi'
-                        path={PageRoutes.ADMIN_LSP_ASESI}
+                        path='/admin/lsp/data-asesi'
                         element={<LSPDataAsesiPage />}
                     />
                     <Route
-                        key='admin-create-account'
-                        path={PageRoutes.ADMIN_LSP_CREATE_ACCCOUNT}
-                        element={<CreateAccountPage />}
+                        key='admin-lsp-akun-asesi'
+                        path='/admin/lsp/akun-asesi'
+                        element={<UsersPage />}
                     />
                 </Route>
                 <Route
                     key='login'
-                    path={PageRoutes.LOGIN}
+                    path='/login'
                     element={<LoginPage />}
                 />
                 <Route
                     key='register'
-                    path={PageRoutes.REGISTER}
+                    path='/register'
                     element={<RegisterPage />}
                 />
                 <Route
-                    key='change-password'
-                    path={PageRoutes.CHANGE_PASSWORD}
+                    key='ubah-password'
+                    path='/ubah-password'
                     element={<ChangePasswordPage />}
                 />
                 <Route

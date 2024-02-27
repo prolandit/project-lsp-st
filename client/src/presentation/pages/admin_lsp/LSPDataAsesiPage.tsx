@@ -4,11 +4,14 @@ import {
     createColumnHelper,
 } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
-import { TbEdit, TbTrash } from 'react-icons/tb';
+import { TbEdit } from 'react-icons/tb';
+import { useNavigate } from 'react-router-dom';
 import { UserType } from '../../../common/types';
 import Table from '../../components/Elements/Table';
 
 const LSPDataAsesiPage = () => {
+    const navigate = useNavigate();
+
     const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
         pageIndex: 1,
         pageSize: 10,
@@ -43,12 +46,12 @@ const LSPDataAsesiPage = () => {
             cell: ({ row }) => (
                 <div className='flex flex-row items-center justify-center gap-3'>
                     <TbEdit
-                        onClick={() => console.log(row.original.fullName)}
+                        onClick={() =>
+                            navigate(
+                                `/verifikasi-akun/${row.original.fullName}`
+                            )
+                        }
                         className='text-2xl text-blue-500 cursor-pointer'
-                    />
-                    <TbTrash
-                        onClick={() => console.log(row.original.fullName)}
-                        className='text-2xl text-red-500 cursor-pointer'
                     />
                 </div>
             ),

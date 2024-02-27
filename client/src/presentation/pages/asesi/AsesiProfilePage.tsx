@@ -99,13 +99,15 @@ const AsesiProfilePage = ({ user }: Props) => {
     return (
         <>
             <form
-                className='flex flex-col mt-10'
+                className='flex flex-col mt-6'
                 encType='multipart/form-data'
                 onSubmit={handleSubmit}
             >
                 <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
-                        <span className='p-4 lg:p-6'>Data Profile</span>
+                        <span className='p-4 text-base font-semibold text-blue-600 lg:p-6'>
+                            Data Profile
+                        </span>
                         <hr className='my-4' />
                         <div className='flex flex-col px-4 lg:flex-row lg:px-6'>
                             <div className='flex flex-col w-full gap-5'>
@@ -340,7 +342,9 @@ const AsesiProfilePage = ({ user }: Props) => {
                     </div>
                     <div className='flex flex-col w-full'>
                         <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
-                            <span className='p-4 lg:p-6'>Data Kantor</span>
+                            <span className='p-4 text-base font-semibold text-blue-600 lg:p-6'>
+                                Data Kantor
+                            </span>
                             <hr className='my-4' />
                             <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
                                 <div className='flex flex-col w-full gap-5'>

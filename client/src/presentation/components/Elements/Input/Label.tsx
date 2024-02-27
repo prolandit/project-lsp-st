@@ -2,7 +2,7 @@ import { twMerge } from 'tailwind-merge';
 
 type Props = {
     className?: string;
-    htmlFor: string;
+    htmlFor?: string;
     children: React.ReactNode;
 };
 

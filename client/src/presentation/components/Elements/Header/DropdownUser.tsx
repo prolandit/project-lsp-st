@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { BiLock, BiLogOut, BiUser } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-import { PageRoutes } from '../../../../common/enum';
 import useLoggedUser from '../../../../common/hooks/useLoggedUser';
 
 type Props = {
@@ -46,14 +45,14 @@ const DropdownUser = ({ setLogoutModalOpen }: Props) => {
                 }`}
             >
                 <Link
-                    to={PageRoutes.PROFILE}
+                    to='/profile'
                     className='flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:text-blue-500 lg:text-base'
                 >
                     <BiUser className='text-lg' />
                     My Profile
                 </Link>
                 <Link
-                    to={PageRoutes.CHANGE_PASSWORD}
+                    to='/ubah-password'
                     className='flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:text-blue-500 lg:text-base'
                 >
                     <BiLock className='text-lg' />
