@@ -21,8 +21,8 @@ export const adminLspMenus = [
         icon: <BiGroup />,
     },
     {
-        name: 'Akun Asesi',
-        path: '/admin/lsp/akun-asesi',
+        name: 'User',
+        path: '/admin/lsp/akun',
         icon: <BiUser />,
     },
 ];

@@ -7,7 +7,7 @@ import LoginPage from './presentation/pages/LoginPage';
 import NotFoundPage from './presentation/pages/NotFoundPage';
 import RegisterPage from './presentation/pages/RegisterPage';
 import LSPDataAsesiPage from './presentation/pages/admin_lsp/LSPDataAsesiPage';
-import UsersPage from './presentation/pages/admin_lsp/UsersPage';
+import UsersPage from './presentation/pages/admin_lsp/AccountsPage';
 import VerifyAccountPage from './presentation/pages/admin_lsp/VerifyAccountPage';
 
 const App = () => {
@@ -39,8 +39,8 @@ const App = () => {
                         element={<LSPDataAsesiPage />}
                     />
                     <Route
-                        key='admin-lsp-akun-asesi'
-                        path='/admin/lsp/akun-asesi'
+                        key='admin-lsp-akun'
+                        path='/admin/lsp/akun'
                         element={<UsersPage />}
                     />
                 </Route>
