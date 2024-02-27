@@ -4,6 +4,7 @@ import {
     createColumnHelper,
 } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
+import { TbEdit, TbTrash } from 'react-icons/tb';
 import { UserType } from '../../../common/types';
 import Table from '../../components/Elements/Table';
 
@@ -36,6 +37,22 @@ const LSPDataAsesi = () => {
         columnHelper.accessor('address', {
             header: 'Alamat',
         }),
+        columnHelper.display({
+            header: 'Aksi',
+            enableSorting: false,
+            cell: ({ row }) => (
+                <div className='flex flex-row items-center justify-center gap-3'>
+                    <TbEdit
+                        onClick={() => console.log(row.original.fullName)}
+                        className='text-2xl text-blue-500 cursor-pointer'
+                    />
+                    <TbTrash
+                        onClick={() => console.log(row.original.fullName)}
+                        className='text-2xl text-red-500 cursor-pointer'
+                    />
+                </div>
+            ),
+        }),
     ];
 
     const generateData = (count: number): UserType[] => {
@@ -57,8 +74,6 @@ const LSPDataAsesi = () => {
     const onSearch = (query: string) => {
         console.log(query);
     };
-
-    console.log(sorting);
 
     return (
         <div className='flex flex-col gap-4 mx-3 mt-10 lg:mx-8'>

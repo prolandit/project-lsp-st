@@ -13,6 +13,7 @@ import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { FaSortDown } from 'react-icons/fa';
 import { FaSort, FaSortUp } from 'react-icons/fa6';
 import { IoIosArrowDown } from 'react-icons/io';
+import { MdClear } from 'react-icons/md';
 import ReactPaginate from 'react-paginate';
 import { twMerge } from 'tailwind-merge';
 import { SortDirection } from '../../../common/enum';
@@ -104,7 +105,6 @@ const Table = <T,>({
                             className='w-16 px-3 py-1 text-sm bg-gray-100 rounded-md appearance-none'
                             value={table.getState().pagination.pageSize}
                             onChange={handleNumEntries}
-                            defaultValue={10}
                         >
                             {[10, 20, 30, 40, 50].map((pageSize) => (
                                 <option
@@ -124,8 +124,17 @@ const Table = <T,>({
                         type='text'
                         name='search'
                         placeholder='Search...'
-                        className='bg-gray-100'
+                        className='w-64 bg-gray-100'
+                        value={searchQuery}
                         prefix={<BiSearch className='text-gray-500' />}
+                        suffix={
+                            searchQuery ? (
+                                <MdClear
+                                    className='text-gray-500'
+                                    onClick={() => setSearchQuery('')}
+                                />
+                            ) : undefined
+                        }
                         onChange={handleSearch}
                     />
                 </div>
@@ -165,15 +174,17 @@ const Table = <T,>({
                                                     )
                                                 }
                                             >
-                                                {header.column.getIsSorted() ===
-                                                SortDirection.ASC ? (
-                                                    <FaSortUp className='text-xs text-blue-500' />
-                                                ) : header.column.getIsSorted() ===
-                                                  SortDirection.DESC ? (
-                                                    <FaSortDown className='text-xs text-blue-500' />
-                                                ) : (
-                                                    <FaSort className='text-xs text-gray-400' />
-                                                )}
+                                                {header.column.getCanSort() ? (
+                                                    header.column.getIsSorted() ===
+                                                    SortDirection.ASC ? (
+                                                        <FaSortUp className='text-xs text-blue-500' />
+                                                    ) : header.column.getIsSorted() ===
+                                                      SortDirection.DESC ? (
+                                                        <FaSortDown className='text-xs text-blue-500' />
+                                                    ) : (
+                                                        <FaSort className='text-xs text-gray-400' />
+                                                    )
+                                                ) : null}
                                             </div>
                                         </div>
                                     </th>

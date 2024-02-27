@@ -5,6 +5,7 @@ import { twMerge } from 'tailwind-merge';
 type Props = {
     className?: string;
     prefix?: React.ReactNode;
+    suffix?: React.ReactNode;
     type: string;
     name: string;
     placeholder?: string;
@@ -17,6 +18,7 @@ type Props = {
 const Input = ({
     className,
     prefix,
+    suffix,
     type,
     name,
     placeholder,
@@ -43,7 +45,7 @@ const Input = ({
                     maxLength={maxLength}
                     className={twMerge(
                         `w-full py-3 text-sm font-medium text-black placeholder-gray-500 bg-gray-100 rounded-md outline-none focus:border-blue-500 ${
-                            isPassword
+                            isPassword || suffix
                                 ? 'px-12'
                                 : prefix === undefined
                                 ? 'ps-4 pe-4'
@@ -53,17 +55,19 @@ const Input = ({
                     )}
                     placeholder={placeholder}
                 />
-
-                <div className='absolute right-0 -translate-y-1/2 top-1/2'>
+                <div className='absolute right-0 -translate-y-1/2 top-1/2 me-4'>
+                    {suffix !== undefined ? suffix : <span></span>}
+                </div>
+                <div className='absolute right-0 -translate-y-1/2 top-1/2 me-4'>
                     {isPassword &&
                         (obscureText ? (
                             <IoEyeOffOutline
-                                className='text-lg text-gray-500 me-4'
+                                className='text-lg text-gray-500'
                                 onClick={() => setObscureText(false)}
                             />
                         ) : (
                             <IoEyeOutline
-                                className='text-lg text-gray-500 me-4'
+                                className='text-lg text-gray-500'
                                 onClick={() => setObscureText(true)}
                             />
                         ))}
