@@ -232,7 +232,6 @@ const Table = <T,>({
                     />
                 </div>
             </div>
-            <pre>{JSON.stringify(sorting, null, 2)}</pre>
         </div>
     );
 };
