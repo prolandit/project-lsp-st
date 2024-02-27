@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 import FileNameDisplayer from '../CustomFileInput/FilenameDisplayer';
 import Label from '../Input/Label';
 
@@ -25,7 +25,7 @@ const SignFileUploader = ({
     const horizontalClassName = `flex flex-col lg:flex-row lg:items-center gap-3`;
     return (
         <div
-            className={classNames(
+            className={twMerge(
                 `${horizontally ? horizontalClassName : verticalClassName}`,
                 className
             )}

@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
     type?: 'error' | 'warning' | 'info' | 'success';
@@ -23,7 +23,7 @@ const Alert = ({ type = 'info', className, message }: Props) => {
 
     return (
         <span
-            className={classNames(
+            className={twMerge(
                 `px-3 py-2 text-xs rounded-md ${selectedClassName}`,
                 className
             )}

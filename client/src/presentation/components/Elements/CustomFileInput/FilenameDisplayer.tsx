@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import { FaFileUpload } from 'react-icons/fa';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
     value: File | null | undefined;
@@ -9,7 +9,7 @@ type Props = {
 const FileNameDisplayer = ({ value, className }: Props) => {
     return (
         <div
-            className={classNames(
+            className={twMerge(
                 `flex flex-row items-center justify-start w-full px-2 py-2 bg-blue-100 rounded-md gap-3`,
                 className
             )}

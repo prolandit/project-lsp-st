@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 import { OptionType } from '../../../common/types';
 import ComboBox from './ComboBox';
 import Label from './Input/Label';
@@ -31,7 +31,7 @@ const ComboBoxForm = ({
         'flex flex-col lg:flex-row lg:items-center gap-3';
     return (
         <div
-            className={classNames(
+            className={twMerge(
                 `${horizontally ? horizontalClassName : verticalClassName}`,
                 className
             )}

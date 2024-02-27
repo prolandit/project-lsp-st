@@ -1,6 +1,6 @@
-import classNames from 'classnames';
 import { useState } from 'react';
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
     className?: string;
@@ -29,12 +29,7 @@ const Input = ({
     const isPassword = type === 'password';
 
     return (
-        <div
-            className={classNames(
-                'flex items-center justify-between rounded-md',
-                className
-            )}
-        >
+        <div className='flex items-center justify-between rounded-md'>
             <div className='relative w-full'>
                 <div className='absolute -translate-y-1/2 top-1/2 ms-4'>
                     {prefix !== undefined ? prefix : <span></span>}
@@ -46,15 +41,19 @@ const Input = ({
                     type={obscureText ? type : 'text'}
                     minLength={minLength}
                     maxLength={maxLength}
-                    className={`w-full ${
-                        isPassword
-                            ? 'px-12'
-                            : prefix === undefined
-                            ? 'ps-4 pe-4'
-                            : 'ps-12 pe-4'
-                    } py-3 text-sm font-medium text-black placeholder-gray-500 bg-gray-100 rounded-md outline-none focus:border-blue-500`}
+                    className={twMerge(
+                        `w-full py-3 text-sm font-medium text-black placeholder-gray-500 bg-gray-100 rounded-md outline-none focus:border-blue-500 ${
+                            isPassword
+                                ? 'px-12'
+                                : prefix === undefined
+                                ? 'ps-4 pe-4'
+                                : 'ps-12 pe-4'
+                        }`,
+                        className
+                    )}
                     placeholder={placeholder}
                 />
+
                 <div className='absolute right-0 -translate-y-1/2 top-1/2'>
                     {isPassword &&
                         (obscureText ? (

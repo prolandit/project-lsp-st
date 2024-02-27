@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import { IoIosArrowDown } from 'react-icons/io';
+import { twMerge } from 'tailwind-merge';
 import { OptionType } from '../../../common/types';
 
 type Props = {
@@ -21,7 +21,7 @@ const ComboBox = ({
 }: Props) => {
     return (
         <div
-            className={classNames(
+            className={twMerge(
                 'relative w-full rounded-md bg-gray-100',
                 className
             )}

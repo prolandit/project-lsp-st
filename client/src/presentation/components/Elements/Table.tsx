@@ -5,11 +5,11 @@ import {
     getCoreRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-import classNames from 'classnames';
 import { useEffect, useMemo, useState } from 'react';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { IoIosArrowDown } from 'react-icons/io';
 import ReactPaginate from 'react-paginate';
+import { twMerge } from 'tailwind-merge';
 
 type Props<T> = {
     data: T[];
@@ -71,7 +71,7 @@ const Table = <T,>({ data, columns, className }: Props<T>) => {
     return (
         <div>
             <div
-                className={classNames(
+                className={twMerge(
                     'flex flex-col overflow-auto rounded-t-lg shadow',
                     className
                 )}
@@ -83,7 +83,7 @@ const Table = <T,>({ data, columns, className }: Props<T>) => {
                                 {headerGroup.headers.map((header) => (
                                     <th
                                         key={header.id}
-                                        className='p-3 text-sm font-semibold tracking-wide text-left'
+                                        className='p-5 text-sm font-semibold tracking-wide text-left'
                                     >
                                         {header.isPlaceholder
                                             ? null
@@ -101,12 +101,12 @@ const Table = <T,>({ data, columns, className }: Props<T>) => {
                         {table.getRowModel().rows.map((row) => (
                             <tr
                                 key={row.id}
-                                className='odd:bg-white even:bg-gray-50'
+                                className=' odd:bg-white even:bg-gray-50'
                             >
                                 {row.getVisibleCells().map((cell) => (
                                     <td
                                         key={cell.id}
-                                        className='w-24 p-3 text-sm text-gray-700 whitespace-nowrap'
+                                        className='w-24 px-5 py-4 text-sm text-gray-700 whitespace-nowrap'
                                     >
                                         {flexRender(
                                             cell.column.columnDef.cell,
@@ -119,16 +119,13 @@ const Table = <T,>({ data, columns, className }: Props<T>) => {
                     </tbody>
                 </table>
             </div>
-            <div className='flex flex-row justify-between w-full gap-3 p-3 rounded-b-lg bg-gray-50'>
-                <span className='self-center w-full text-sm'>
-                    5 of 10 items
-                </span>
+            <div className='flex flex-row justify-between w-full gap-3 p-3 bg-white border-t-2 border-gray-200 rounded-b-lg shadow '>
                 <div className='flex flex-row justify-end w-full gap-3'>
                     <ReactPaginate
                         breakClassName='hidden lg:block'
                         onPageChange={handlePageClick}
                         pageRangeDisplayed={1}
-                        marginPagesDisplayed={isMobileScreen ? 0 : 3}
+                        marginPagesDisplayed={isMobileScreen ? 0 : 2}
                         pageCount={20}
                         nextLabel={
                             <span className='flex items-center justify-center w-10 h-10 bg-white rounded-md'>
@@ -142,8 +139,8 @@ const Table = <T,>({ data, columns, className }: Props<T>) => {
                         }
                         renderOnZeroPageCount={null}
                         className='flex flex-row items-center justify-center gap-2'
-                        pageClassName='px-4 py-2 text-sm font-semibold hover:bg-white rounded-md cursor-pointer'
-                        activeClassName='bg-blue-500 text-white rounded-md hover:bg-blue-500 hover:text-white'
+                        pageLinkClassName='px-4 py-2 text-sm font-semibold rounded-md cursor-pointer'
+                        activeLinkClassName='bg-blue-500 text-white rounded-md hover:bg-blue-500 hover:text-white'
                     />
                     <div className='relative bg-gray-100 rounded-md'>
                         <select
