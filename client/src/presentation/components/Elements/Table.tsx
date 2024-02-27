@@ -97,7 +97,7 @@ const Table = <T,>({
 
     return (
         <div className='flex flex-col gap-4 px-6 py-4 bg-white rounded-lg shadow'>
-            <div className='flex flex-row items-center justify-between'>
+            <div className='flex flex-col justify-between gap-3 lg:items-center lg:flex-row'>
                 <div className='flex flex-row items-center gap-2'>
                     <span className='text-sm'>Show</span>
                     <div className='relative bg-gray-100 rounded-md'>
@@ -124,7 +124,7 @@ const Table = <T,>({
                         type='text'
                         name='search'
                         placeholder='Search...'
-                        className='w-64 bg-gray-100'
+                        className='bg-gray-100 lg:w-64'
                         value={searchQuery}
                         prefix={<BiSearch className='text-gray-500' />}
                         suffix={

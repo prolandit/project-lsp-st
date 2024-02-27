@@ -76,8 +76,11 @@ const LSPDataAsesi = () => {
     };
 
     return (
-        <div className='flex flex-col gap-4 mx-3 my-10 lg:mx-8'>
-            <h1 className='text-2xl font-semibold'>Data Asesi</h1>
+        <div className='flex flex-col mx-3 my-6 bg-white rounded-t-lg lg:mx-8'>
+            <h1 className='px-5 py-2 text-base font-semibold text-blue-600'>
+                Data Asesi
+            </h1>
+            <hr />
             <Table
                 data={data}
                 columns={columns}

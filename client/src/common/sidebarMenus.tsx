@@ -17,7 +17,7 @@ export const asesiAsesorMenus = [
 export const adminLspMenus = [
     {
         name: 'Data Asesi',
-        path: 'admin/lsp/asessions',
+        path: '/admin/lsp/asessions',
         icon: <BiGroup />,
     },
 ];
