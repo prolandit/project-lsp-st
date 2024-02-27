@@ -8,7 +8,7 @@ import { TbEdit, TbTrash } from 'react-icons/tb';
 import { UserType } from '../../../common/types';
 import Table from '../../components/Elements/Table';
 
-const LSPDataAsesi = () => {
+const LSPDataAsesiPage = () => {
     const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
         pageIndex: 1,
         pageSize: 10,
@@ -94,4 +94,4 @@ const LSPDataAsesi = () => {
     );
 };
 
-export default LSPDataAsesi;
+export default LSPDataAsesiPage;

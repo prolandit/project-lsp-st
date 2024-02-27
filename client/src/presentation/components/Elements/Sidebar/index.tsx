@@ -2,7 +2,7 @@
 import { useMemo, useRef } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
-import { Role } from '../../../../common/enum';
+import { PageRoutes, Role } from '../../../../common/enum';
 import { useAppSelector } from '../../../../common/hooks';
 import {
     adminLspMenus,
@@ -33,7 +33,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
             }`}
         >
             <div className='flex items-center justify-between gap-2 px-6 py-5 lg:py-6'>
-                <NavLink to='/'>
+                <NavLink to={PageRoutes.INDEX}>
                     <span className='text-xl font-semibold text-white'>
                         Sistem LSP
                     </span>
