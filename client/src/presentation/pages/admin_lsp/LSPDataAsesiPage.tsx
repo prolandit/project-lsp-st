@@ -80,9 +80,9 @@ const LSPDataAsesiPage = () => {
 
     return (
         <div className='flex flex-col mx-3 my-6 bg-white rounded-t-lg lg:mx-8'>
-            <h1 className='px-5 py-2 text-base font-semibold text-blue-600'>
+            <span className='px-4 py-4 text-base font-semibold text-blue-600 lg:px-6'>
                 Data Asesi
-            </h1>
+            </span>
             <hr />
             <Table
                 data={data}

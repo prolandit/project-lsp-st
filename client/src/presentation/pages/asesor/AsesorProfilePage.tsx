@@ -90,7 +90,7 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
             >
                 <div className='flex flex-col gap-4 mx-3 mb-6 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
-                        <span className='p-4 text-base font-semibold text-blue-600 lg:p-6'>
+                        <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
                             Data Profile
                         </span>
                         <hr className='my-4' />

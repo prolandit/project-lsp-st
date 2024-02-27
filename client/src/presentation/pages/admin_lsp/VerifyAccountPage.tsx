@@ -17,7 +17,7 @@ const VerifyAccountPage = () => {
         <>
             <div className='flex flex-col mt-6'>
                 <div className='py-4 mx-3 bg-white rounded-md shadow-sm lg:mx-8 drop-shadow-sm'>
-                    <span className='p-4 text-base font-semibold text-blue-600 lg:p-6'>
+                    <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
                         Verifikasi
                     </span>
                     <hr className='my-4' />
@@ -37,7 +37,7 @@ const VerifyAccountPage = () => {
                 </div>
                 <div className='flex flex-col gap-4 mx-3 mt-4 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
-                        <span className='p-4 text-base font-semibold text-blue-600 lg:p-6'>
+                        <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
                             Data Profile
                         </span>
                         <hr className='my-4' />
@@ -194,7 +194,7 @@ const VerifyAccountPage = () => {
                     </div>
                     <div className='flex flex-col w-full gap-5'>
                         <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
-                            <span className='p-4 text-base font-semibold text-blue-600 lg:p-6'>
+                            <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
                                 Data Kantor
                             </span>
                             <hr className='my-4' />

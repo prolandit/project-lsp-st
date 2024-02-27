@@ -122,3 +122,10 @@ export type UserType = {
     createdAt?: string;
     updatedAt?: string;
 };
+
+export type MenuType = {
+    name: string;
+    path: string;
+    icon: React.ReactNode;
+    children?: MenuType[];
+};

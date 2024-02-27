@@ -6,8 +6,9 @@ import ChangePasswordPage from './presentation/pages/ChangePasswordPage';
 import LoginPage from './presentation/pages/LoginPage';
 import NotFoundPage from './presentation/pages/NotFoundPage';
 import RegisterPage from './presentation/pages/RegisterPage';
-import LSPDataAsesiPage from './presentation/pages/admin_lsp/LSPDataAsesiPage';
 import UsersPage from './presentation/pages/admin_lsp/AccountsPage';
+import CreateAccountPage from './presentation/pages/admin_lsp/CreateAccountPage';
+import LSPDataAsesiPage from './presentation/pages/admin_lsp/LSPDataAsesiPage';
 import VerifyAccountPage from './presentation/pages/admin_lsp/VerifyAccountPage';
 
 const App = () => {
@@ -34,14 +35,19 @@ const App = () => {
                         element={<VerifyAccountPage />}
                     />
                     <Route
-                        key='admin-lsp-asesi'
-                        path='/admin/lsp/data-asesi'
+                        key='data-asesi'
+                        path='/data-asesi'
                         element={<LSPDataAsesiPage />}
                     />
                     <Route
-                        key='admin-lsp-akun'
-                        path='/admin/lsp/akun'
+                        key='akun'
+                        path='user/akun'
                         element={<UsersPage />}
+                    />
+                    <Route
+                        key='buat-akun'
+                        path='user/buat-akun'
+                        element={<CreateAccountPage />}
                     />
                 </Route>
                 <Route

@@ -96,7 +96,7 @@ const Table = <T,>({
     };
 
     return (
-        <div className='flex flex-col gap-4 px-6 py-4 bg-white rounded-lg shadow'>
+        <div className='flex flex-col gap-4 px-4 py-4 bg-white rounded-lg shadow lg:px-6'>
             <div className='flex flex-col justify-between gap-3 lg:items-center lg:flex-row'>
                 <div className='flex flex-row items-center gap-2'>
                     <span className='text-sm'>Show</span>

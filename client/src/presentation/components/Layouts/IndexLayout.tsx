@@ -8,7 +8,7 @@ const IndexLayout = () => {
 
     const indexElement = useMemo(() => {
         return user?.role?.toLowerCase() === Role.ADMIN_LSP ? (
-            <Navigate to='/admin/lsp/data-asesi' />
+            <Navigate to='/data-asesi' />
         ) : (
             <Navigate to='/profile' />
         );
