@@ -1,19 +1,23 @@
-import { createColumnHelper } from '@tanstack/react-table';
-import { useEffect, useState } from 'react';
-import { BiSearch } from 'react-icons/bi';
-import useDebounce from '../../../common/hooks/useDebounce';
+import {
+    PaginationState,
+    SortingState,
+    createColumnHelper,
+} from '@tanstack/react-table';
+import { useMemo, useState } from 'react';
 import { UserType } from '../../../common/types';
-import Input from '../../components/Elements/Input';
 import Table from '../../components/Elements/Table';
 
 const LSPDataAsesi = () => {
-    const [searchQuery, setSearchQuery] = useState('');
-    const debounceSearch = useDebounce(searchQuery);
+    const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
+        pageIndex: 1,
+        pageSize: 10,
+    });
+    const [sorting, setSorting] = useState<SortingState>([]);
 
-    const onSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(event.target.value);
-        console.log(event.target.value);
-    };
+    const pagination = useMemo(
+        () => ({ pageIndex, pageSize }),
+        [pageIndex, pageSize]
+    );
 
     const columnHelper = createColumnHelper<UserType>();
     const columns = [
@@ -34,99 +38,39 @@ const LSPDataAsesi = () => {
         }),
     ];
 
-    const data: UserType[] = [
-        {
-            fullName: 'Abdul Azis',
-            email: '2aJtT@example.com',
-            phone: '08123456789',
-            gender: 'Laki-laki',
-            address: 'Jalan Jalan',
-        },
-        {
-            fullName: 'Abdul Azis',
-            email: '2aJtT@example.com',
-            phone: '08123456789',
-            gender: 'Laki-laki',
-            address: 'Jalan Jalan',
-        },
-        {
-            fullName: 'Abdul Azis',
-            email: '2aJtT@example.com',
-            phone: '08123456789',
-            gender: 'Laki-laki',
-            address: 'Jalan Jalan',
-        },
-        {
-            fullName: 'Abdul Azis',
-            email: '2aJtT@example.com',
-            phone: '08123456789',
-            gender: 'Laki-laki',
-            address: 'Jalan Jalan',
-        },
-        {
-            fullName: 'Abdul Azis',
-            email: '2aJtT@example.com',
-            phone: '08123456789',
-            gender: 'Laki-laki',
-            address: 'Jalan Jalan',
-        },
-        {
-            fullName: 'Abdul Azis',
-            email: '2aJtT@example.com',
-            phone: '08123456789',
-            gender: 'Laki-laki',
-            address: 'Jalan Jalan',
-        },
-        {
-            fullName: 'Abdul Azis',
-            email: '2aJtT@example.com',
-            phone: '08123456789',
-            gender: 'Laki-laki',
-            address: 'Jalan Jalan',
-        },
-        {
-            fullName: 'Abdul Azis',
-            email: '2aJtT@example.com',
-            phone: '08123456789',
-            gender: 'Laki-laki',
-            address: 'Jalan Jalan',
-        },
-        {
-            fullName: 'Abdul Azis',
-            email: '2aJtT@example.com',
-            phone: '08123456789',
-            gender: 'Laki-laki',
-            address: 'Jalan Jalan',
-        },
-        {
-            fullName: 'Abdul Azis',
-            email: '2aJtT@example.com',
-            phone: '08123456789',
-            gender: 'Laki-laki',
-            address: 'Jalan Jalan',
-        },
-    ];
+    const generateData = (count: number): UserType[] => {
+        const personDataList: UserType[] = [];
+        for (let i = 0; i < count; i++) {
+            personDataList.push({
+                fullName: `Abdul Azis ${i + 1}`,
+                email: '2aJtT@example.com',
+                phone: '08123456789',
+                gender: 'Laki-laki',
+                address: 'Jalan Jalan',
+            });
+        }
+        return personDataList;
+    };
 
-    useEffect(() => {
-        console.log(debounceSearch);
-    }, [debounceSearch]);
+    const data: UserType[] = generateData(pageSize);
+
+    const onSearch = (query: string) => {
+        console.log(query);
+    };
+
+    console.log(sorting);
 
     return (
         <div className='flex flex-col gap-4 mx-3 mt-10 lg:mx-8'>
-            <div className='flex flex-row items-center justify-between'>
-                <h1 className='text-2xl font-semibold'>Data Asesi</h1>
-                <Input
-                    type='text'
-                    name='search'
-                    placeholder='Search...'
-                    className='self-end bg-white w-60'
-                    prefix={<BiSearch className='text-gray-500' />}
-                    onChange={onSearch}
-                />
-            </div>
+            <h1 className='text-2xl font-semibold'>Data Asesi</h1>
             <Table
                 data={data}
                 columns={columns}
+                pagination={pagination}
+                sorting={sorting}
+                onSortingChange={setSorting}
+                onPaginationChange={setPagination}
+                onSearch={onSearch}
             />
         </div>
     );
