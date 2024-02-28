@@ -2,18 +2,18 @@
 import { useFormik } from 'formik';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import Constants from '../../common/constants';
-import { asesiProfileSchema } from '../../common/formSchemas';
-import { AsesiProfileValues, UserType } from '../../common/types';
-import { downloadFile, formattedDate } from '../../common/utils';
-import UserRemoteDataSource from '../../data/datasources/UserRemoteDataSource';
-import Alert from '../components/Elements/Alert';
-import Button from '../components/Elements/Button';
-import ComboBoxForm from '../components/Elements/ComboBoxForm';
-import InputForm from '../components/Elements/InputForm';
-import LoadingSpinner from '../components/Elements/LoadingSpinner';
-import SignFileUploader from '../components/Elements/SignFileUpload';
-import SignUploadModal from '../components/Elements/SignFileUpload/SignUploadModal';
+import Constants from '../../../common/constants';
+import { asesiProfileSchema } from '../../../common/formSchemas';
+import { AsesiProfileValues, UserType } from '../../../common/types';
+import { downloadFile, formattedDate } from '../../../common/utils';
+import UserRemoteDataSource from '../../../data/datasources/UserRemoteDataSource';
+import Alert from '../../components/Elements/Alert';
+import Button from '../../components/Elements/Button';
+import ComboBoxForm from '../../components/Elements/ComboBoxForm';
+import InputForm from '../../components/Elements/InputForm';
+import LoadingSpinner from '../../components/Elements/LoadingSpinner';
+import SignFileUploader from '../../components/Elements/SignFileUpload';
+import SignUploadModal from '../../components/Elements/SignFileUpload/SignUploadModal';
 
 type Props = {
     user?: UserType;
@@ -99,13 +99,15 @@ const AsesiProfilePage = ({ user }: Props) => {
     return (
         <>
             <form
-                className='flex flex-col mt-10'
+                className='flex flex-col mt-6'
                 encType='multipart/form-data'
                 onSubmit={handleSubmit}
             >
                 <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
-                        <span className='p-4 lg:p-6'>Data Profile</span>
+                        <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
+                            Data Profile
+                        </span>
                         <hr className='my-4' />
                         <div className='flex flex-col px-4 lg:flex-row lg:px-6'>
                             <div className='flex flex-col w-full gap-5'>
@@ -340,33 +342,9 @@ const AsesiProfilePage = ({ user }: Props) => {
                     </div>
                     <div className='flex flex-col w-full'>
                         <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
-                            <span className='p-4 lg:p-6'>
-                                Data TUK (Tempat Uji Kompetensi)
+                            <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
+                                Data Kantor
                             </span>
-                            <hr className='my-4' />
-                            <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
-                                <div className='flex flex-col w-full gap-5'>
-                                    <ComboBoxForm
-                                        name='tuk'
-                                        text='TUK'
-                                        value={values.tuk}
-                                        items={Constants.listTuk}
-                                        placeholder='Pilih TUK'
-                                        onChange={handleChange}
-                                        horizontally
-                                        important
-                                    />
-                                    {errors.tuk && touched.tuk ? (
-                                        <Alert
-                                            message={errors.tuk}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                            </div>
-                        </div>
-                        <div className='w-full pt-4 mt-6 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
-                            <span className='p-4 lg:p-6'>Data Kantor</span>
                             <hr className='my-4' />
                             <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
                                 <div className='flex flex-col w-full gap-5'>

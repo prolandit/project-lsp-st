@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
     type: 'button' | 'submit' | 'reset' | undefined;
@@ -11,7 +11,7 @@ const Button = ({ type, children, className, onClick }: Props) => {
     return (
         <button
             type={type}
-            className={classNames(
+            className={twMerge(
                 'bg-blue-500 hover:bg-blue-400 text-white font-medium py-2 px-4 rounded',
                 className
             )}

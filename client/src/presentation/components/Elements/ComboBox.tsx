@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import { IoIosArrowDown } from 'react-icons/io';
+import { twMerge } from 'tailwind-merge';
 import { OptionType } from '../../../common/types';
 
 type Props = {
@@ -7,7 +7,8 @@ type Props = {
     name: string;
     placeholder?: string;
     value?: string | number | readonly string[] | undefined;
-    items: OptionType[];
+    items?: OptionType[];
+    disabled?: boolean;
     onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
@@ -17,11 +18,12 @@ const ComboBox = ({
     placeholder,
     value,
     items,
+    disabled,
     onChange,
 }: Props) => {
     return (
         <div
-            className={classNames(
+            className={twMerge(
                 'relative w-full rounded-md bg-gray-100',
                 className
             )}
@@ -31,6 +33,7 @@ const ComboBox = ({
                 value={value === '' ? 'initial' : value}
                 onChange={onChange}
                 className='w-full px-4 py-3 text-sm font-medium text-black bg-gray-100 rounded-md outline-none appearance-none'
+                disabled={disabled}
             >
                 {placeholder && (
                     <option
@@ -40,7 +43,7 @@ const ComboBox = ({
                         {placeholder}
                     </option>
                 )}
-                {items.map((item) => (
+                {items?.map((item) => (
                     <option
                         key={item.key}
                         value={item.value}

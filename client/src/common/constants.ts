@@ -297,6 +297,20 @@ const Constants = {
         { key: 'Zambia', value: 'Zambia' },
         { key: 'Zimbabwe', value: 'Zimbabwe' },
     ],
+    dummyRoles: [
+        {
+            key: 'adminLsp',
+            value: 'Admin LSP',
+        },
+        {
+            key: 'asesi',
+            value: 'Asesi',
+        },
+        {
+            key: 'asesor',
+            value: 'Asesor',
+        },
+    ],
 };
 
 export default Constants;

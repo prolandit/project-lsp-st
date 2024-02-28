@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import classNames from 'classnames';
+
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
     className?: string;
@@ -27,7 +28,7 @@ const FileInput = ({
             name={name}
             type={type === undefined ? 'file' : type}
             accept={accept === undefined ? undefined : accept}
-            className={classNames(defaultClassName, className)}
+            className={twMerge(defaultClassName, className)}
             value={value}
             onChange={onChange}
             placeholder={placeholder}

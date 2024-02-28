@@ -100,13 +100,18 @@ export const asesorProfileSchema = Yup.object().shape({
     lastEducation: Yup.string()
         .oneOf(Constants.educationOptions.map((education) => education.value))
         .required('Pendidikan Terakhir tidak boleh kosong'),
+    signExplanation: Yup.string(),
     signUpload: Yup.mixed<File>()
+        .when('signExplanation', {
+            is: (explanation: string) =>
+                !explanation || explanation.trim().length === 0,
+            then: (schema) => schema.required('Tanda Tangan harus diisi'),
+        })
         .test(
             'fileSize',
             'Ukuran file terlalu besar. Maksimal 5MB',
             (value: File | undefined) => !value || value.size <= 5242880
-        )
-        .nullable(),
+        ),
 });
 
 export const fileInputSchema = Yup.object().shape({
@@ -135,4 +140,18 @@ export const changePasswordSchema = Yup.object().shape({
     newPasswordConfirmation: Yup.string()
         .oneOf([Yup.ref('newPassword')], 'Password tidak sama')
         .required('Konfirmasi Password tidak boleh kosong'),
+});
+
+export const createNewUserSchema = Yup.object().shape({
+    fullName: Yup.string().required('Nama Lengkap tidak boleh kosong'),
+    email: Yup.string()
+        .email('Email tidak valid')
+        .required('Email tidak boleh kosong'),
+    password: Yup.string()
+        .min(6, 'Password minimal 6 karakter')
+        .max(20, 'Password maksimal 20 karakter')
+        .required('Password tidak boleh kosong'),
+    role: Yup.string()
+        .oneOf(Constants.dummyRoles.map((role) => role.value))
+        .required('Role tidak boleh kosong'),
 });

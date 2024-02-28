@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 import { OptionType } from '../../../common/types';
 import ComboBox from './ComboBox';
 import Label from './Input/Label';
@@ -8,10 +8,11 @@ type Props = {
     important?: boolean;
     name: string;
     text: string;
-    items: OptionType[];
+    items?: OptionType[];
     value?: string | number | readonly string[] | undefined;
     placeholder?: string;
     horizontally?: boolean;
+    disabled?: boolean;
     onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
@@ -24,6 +25,7 @@ const ComboBoxForm = ({
     placeholder,
     items,
     onChange,
+    disabled,
     horizontally = false,
 }: Props) => {
     const verticalClassName = 'flex flex-col gap-3';
@@ -31,7 +33,7 @@ const ComboBoxForm = ({
         'flex flex-col lg:flex-row lg:items-center gap-3';
     return (
         <div
-            className={classNames(
+            className={twMerge(
                 `${horizontally ? horizontalClassName : verticalClassName}`,
                 className
             )}
@@ -56,6 +58,7 @@ const ComboBoxForm = ({
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
+                disabled={disabled}
             />
         </div>
     );

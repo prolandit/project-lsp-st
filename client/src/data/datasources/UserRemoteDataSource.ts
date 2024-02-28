@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import {
     AsesiProfileValues,
+    AsesorProfileValues,
     ChangePasswordValues,
     ErrorResponse,
     UserType,
@@ -30,7 +31,7 @@ const UserRemoteDataSource = {
     },
     changeProfile: async (
         token: string,
-        payload: AsesiProfileValues
+        payload: AsesorProfileValues | AsesiProfileValues
     ): Promise<void> => {
         const url = import.meta.env.VITE_API_URL;
         const endpoint = `${url}/api-em/user/update`;

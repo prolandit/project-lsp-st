@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { BiLock, BiLogOut, BiUser } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-import { useLoggedUser } from '../../../../common/hooks/useLoggedUser';
+import useLoggedUser from '../../../../common/hooks/useLoggedUser';
 
 type Props = {
     setLogoutModalOpen(value: boolean): void;
@@ -52,7 +52,7 @@ const DropdownUser = ({ setLogoutModalOpen }: Props) => {
                     My Profile
                 </Link>
                 <Link
-                    to='/change-password'
+                    to='/ubah-password'
                     className='flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:text-blue-500 lg:text-base'
                 >
                     <BiLock className='text-lg' />

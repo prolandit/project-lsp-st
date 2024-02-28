@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+import Button from '../Elements/Button';
 import Header from '../Elements/Header';
-import LogoutModal from '../Elements/Header/LogoutModal';
+import Modal from '../Elements/Modal';
 import Sidebar from '../Elements/Sidebar';
 import AnimationContainer from '../Fragments/AnimationContainer';
 
@@ -35,11 +36,26 @@ const MainLayout = () => {
                         <Outlet />
                     </main>
                 </div>
-                <LogoutModal
+                <Modal
                     show={modalOpen}
                     onClose={() => setModalOpen(false)}
-                    onLogout={onLogout}
-                />
+                    onConfirm={onLogout}
+                    onCloseBuilder={<Button type='button'>Batal</Button>}
+                    onConfirmBuilder={
+                        <Button
+                            type='button'
+                            className='bg-red-500 hover:bg-red-400'
+                        >
+                            Ya
+                        </Button>
+                    }
+                >
+                    <span className='font-semibold text-red-600'>
+                        Peringatan!!!
+                    </span>
+                    <hr />
+                    <span>Anda yakin ingin keluar?</span>
+                </Modal>
             </div>
         </AnimationContainer>
     );
