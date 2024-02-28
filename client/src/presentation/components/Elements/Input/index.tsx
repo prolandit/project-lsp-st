@@ -52,8 +52,10 @@ const Input = ({
                     maxLength={maxLength}
                     className={twMerge(
                         `w-full py-3 text-sm font-medium text-black placeholder-gray-500 bg-gray-100 rounded-md outline-none focus:border-blue-500 ${
-                            isPassword || suffix
+                            isPassword && prefix
                                 ? 'px-12'
+                                : isPassword || suffix
+                                ? 'ps-4 pe-12'
                                 : prefix === undefined
                                 ? 'ps-4 pe-4'
                                 : 'ps-12 pe-4'

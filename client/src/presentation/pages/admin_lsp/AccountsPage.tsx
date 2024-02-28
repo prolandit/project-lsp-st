@@ -7,10 +7,12 @@ import { useMemo, useState } from 'react';
 import { TbEdit, TbTrash } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
 import { UserType } from '../../../common/types';
+import Modal from '../../components/Elements/Modal';
 import Table from '../../components/Elements/Table';
 
 const AccountsPage = () => {
     const navigate = useNavigate();
+    const [modalOpen, setModalOpen] = useState(false);
 
     const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
         pageIndex: 1,
@@ -47,7 +49,10 @@ const AccountsPage = () => {
                         }
                         className='text-2xl text-blue-500 cursor-pointer'
                     />
-                    <TbTrash className='text-2xl text-red-500 cursor-pointer' />
+                    <TbTrash
+                        onClick={() => setModalOpen(true)}
+                        className='text-2xl text-red-500 cursor-pointer'
+                    />
                 </div>
             ),
         }),
@@ -78,7 +83,6 @@ const AccountsPage = () => {
                     Akun User
                 </span>
             </div>
-
             <hr />
             <Table
                 data={data}
@@ -89,6 +93,20 @@ const AccountsPage = () => {
                 onPaginationChange={setPagination}
                 onSearch={onSearch}
             />
+            <Modal
+                show={modalOpen}
+                onClose={() => setModalOpen(false)}
+                onConfirm={() => {
+                    console.log('Hapus');
+                    setModalOpen(false);
+                }}
+            >
+                <span className='font-semibold text-red-600'>
+                    Peringatan!!!
+                </span>
+                <hr />
+                <span>Anda yakin ingin menghapus data ini?</span>
+            </Modal>
         </div>
     );
 };

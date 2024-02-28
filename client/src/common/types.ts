@@ -10,6 +10,13 @@ export type RegisterValues = {
     passwordConfirmation: string;
 };
 
+export type CreateUserValues = {
+    fullName: string;
+    email: string;
+    password: string;
+    role: string;
+};
+
 export type ErrorResponse = {
     statusCode: number;
     error: string;

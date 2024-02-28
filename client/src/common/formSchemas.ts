@@ -141,3 +141,17 @@ export const changePasswordSchema = Yup.object().shape({
         .oneOf([Yup.ref('newPassword')], 'Password tidak sama')
         .required('Konfirmasi Password tidak boleh kosong'),
 });
+
+export const createNewUserSchema = Yup.object().shape({
+    fullName: Yup.string().required('Nama Lengkap tidak boleh kosong'),
+    email: Yup.string()
+        .email('Email tidak valid')
+        .required('Email tidak boleh kosong'),
+    password: Yup.string()
+        .min(6, 'Password minimal 6 karakter')
+        .max(20, 'Password maksimal 20 karakter')
+        .required('Password tidak boleh kosong'),
+    role: Yup.string()
+        .oneOf(Constants.dummyRoles.map((role) => role.value))
+        .required('Role tidak boleh kosong'),
+});
