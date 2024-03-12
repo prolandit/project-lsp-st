@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 import Input from './Input';
 import Label from './Input/Label';
 
@@ -12,7 +12,9 @@ type Props = {
     maxLength?: number;
     text: string;
     value?: string | number | readonly string[] | undefined;
+    defaultValue?: string | number | readonly string[] | undefined;
     horizontally?: boolean;
+    disabled?: boolean;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -25,8 +27,10 @@ const InputForm = ({
     placeholder,
     text,
     value,
+    defaultValue,
     onChange,
     maxLength,
+    disabled,
     horizontally = false,
 }: Props) => {
     const verticalClassName = 'flex flex-col gap-3';
@@ -34,7 +38,7 @@ const InputForm = ({
         'flex flex-col lg:flex-row lg:items-center gap-3';
     return (
         <div
-            className={classNames(
+            className={twMerge(
                 `${horizontally ? horizontalClassName : verticalClassName}`,
                 className
             )}
@@ -56,11 +60,13 @@ const InputForm = ({
                 className={`${horizontally ? 'lg:w-full' : ''}`}
                 prefix={prefix}
                 value={value}
+                defaultValue={defaultValue}
                 onChange={onChange}
                 maxLength={maxLength}
                 name={name}
                 type={type}
                 placeholder={placeholder}
+                disabled={disabled}
             />
         </div>
     );

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export const useCanvas = (): [
+const useCanvas = (): [
     React.RefObject<HTMLCanvasElement>,
     File | undefined
 ] => {
@@ -90,3 +90,5 @@ export const useCanvas = (): [
 
     return [canvasRef, imageFile];
 };
+
+export default useCanvas;

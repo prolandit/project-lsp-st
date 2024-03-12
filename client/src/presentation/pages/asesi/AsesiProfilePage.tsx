@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import Constants from '../../common/constants';
-import { asesiProfileSchema } from '../../common/formSchemas';
-import { AsesiProfileValues, UserType } from '../../common/types';
-import { formattedDate } from '../../common/utils';
-import UserRemoteDataSource from '../../data/datasources/UserRemoteDataSource';
-import Alert from '../components/Elements/Alert';
-import Button from '../components/Elements/Button';
-import ComboBoxForm from '../components/Elements/ComboBoxForm';
-import InputForm from '../components/Elements/InputForm';
-import LoadingSpinner from '../components/Elements/LoadingSpinner';
-import SignFileUploader from '../components/Elements/SignFileUpload';
-import SignUploadModal from '../components/Elements/SignFileUpload/SignUploadModal';
+import Constants from '../../../common/constants';
+import { asesiProfileSchema } from '../../../common/formSchemas';
+import { AsesiProfileValues, UserType } from '../../../common/types';
+import { downloadFile, formattedDate } from '../../../common/utils';
+import UserRemoteDataSource from '../../../data/datasources/UserRemoteDataSource';
+import Alert from '../../components/Elements/Alert';
+import Button from '../../components/Elements/Button';
+import ComboBoxForm from '../../components/Elements/ComboBoxForm';
+import InputForm from '../../components/Elements/InputForm';
+import LoadingSpinner from '../../components/Elements/LoadingSpinner';
+import SignFileUploader from '../../components/Elements/SignFileUpload';
+import SignUploadModal from '../../components/Elements/SignFileUpload/SignUploadModal';
 
 type Props = {
     user?: UserType;
@@ -22,15 +22,6 @@ type Props = {
 const AsesiProfilePage = ({ user }: Props) => {
     const [isShowModal, setIsShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    // const [file, setFile] = useState<File | null>(null);
-
-    // useEffect(() => {
-    //     const signUploadFile = async () => {
-    //         setFile(await downloadFile(user?.signUpload ?? ''));
-    //     };
-
-    //     signUploadFile();
-    // });
 
     const onSaveProfile = async (profile: AsesiProfileValues) => {
         setIsLoading(true);
@@ -94,16 +85,29 @@ const AsesiProfilePage = ({ user }: Props) => {
         onSubmit: onSaveProfile,
     });
 
+    const signUploadFile = useCallback(async () => {
+        if (user?.signUpload) {
+            const file = await downloadFile(user.signUpload);
+            setFieldValue('signUpload', file);
+        }
+    }, [user?.signUpload, setFieldValue]);
+
+    useEffect(() => {
+        signUploadFile();
+    }, [signUploadFile]);
+
     return (
         <>
             <form
-                className='flex flex-col mt-10'
+                className='flex flex-col mt-6'
                 encType='multipart/form-data'
                 onSubmit={handleSubmit}
             >
                 <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
-                        <span className='p-4 lg:p-6'>Data Profile</span>
+                        <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
+                            Data Profile
+                        </span>
                         <hr className='my-4' />
                         <div className='flex flex-col px-4 lg:flex-row lg:px-6'>
                             <div className='flex flex-col w-full gap-5'>
@@ -338,33 +342,9 @@ const AsesiProfilePage = ({ user }: Props) => {
                     </div>
                     <div className='flex flex-col w-full'>
                         <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
-                            <span className='p-4 lg:p-6'>
-                                Data TUK (Tempat Uji Kompetensi)
+                            <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
+                                Data Kantor
                             </span>
-                            <hr className='my-4' />
-                            <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
-                                <div className='flex flex-col w-full gap-5'>
-                                    <ComboBoxForm
-                                        name='tuk'
-                                        text='TUK'
-                                        value={values.tuk}
-                                        items={Constants.listTuk}
-                                        placeholder='Pilih TUK'
-                                        onChange={handleChange}
-                                        horizontally
-                                        important
-                                    />
-                                    {errors.tuk && touched.tuk ? (
-                                        <Alert
-                                            message={errors.tuk}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                            </div>
-                        </div>
-                        <div className='w-full pt-4 mt-6 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
-                            <span className='p-4 lg:p-6'>Data Kantor</span>
                             <hr className='my-4' />
                             <div className='flex flex-col px-4 lg:flex-row lg:px-6 '>
                                 <div className='flex flex-col w-full gap-5'>

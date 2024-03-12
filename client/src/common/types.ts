@@ -10,6 +10,13 @@ export type RegisterValues = {
     passwordConfirmation: string;
 };
 
+export type CreateUserValues = {
+    fullName: string;
+    email: string;
+    password: string;
+    role: string;
+};
+
 export type ErrorResponse = {
     statusCode: number;
     error: string;
@@ -48,6 +55,7 @@ export type AsesiProfileValues = {
 };
 
 export type AsesorProfileValues = {
+    [key: string]: any;
     fullName: string;
     ktpPassport: string;
     noMet: string;
@@ -65,6 +73,12 @@ export type AsesorProfileValues = {
     lastEducation: string;
     signUpload?: File;
     signExplanation: string;
+};
+
+export type ChangePasswordValues = {
+    oldPassword: string;
+    newPassword: string;
+    newPasswordConfirmation: string;
 };
 
 export type OptionType = {
@@ -89,6 +103,7 @@ export type UserType = {
     role?: string;
     ktpPassport?: string;
     met?: string;
+    gender?: string;
     birthPlace?: string;
     birthDate?: string;
     nationality?: string;
@@ -113,4 +128,11 @@ export type UserType = {
     companyEmail?: string;
     createdAt?: string;
     updatedAt?: string;
+};
+
+export type MenuType = {
+    name: string;
+    path: string;
+    icon: React.ReactNode;
+    children?: MenuType[];
 };

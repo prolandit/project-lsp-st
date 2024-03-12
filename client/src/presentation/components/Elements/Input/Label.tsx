@@ -1,8 +1,8 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
     className?: string;
-    htmlFor: string;
+    htmlFor?: string;
     children: React.ReactNode;
 };
 
@@ -10,7 +10,7 @@ const Label = ({ className, htmlFor, children }: Props) => {
     return (
         <label
             htmlFor={htmlFor}
-            className={classNames('text-sm font-medium text-black', className)}
+            className={twMerge('text-sm font-medium text-black', className)}
         >
             {children}
         </label>

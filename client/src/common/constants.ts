@@ -1,4 +1,6 @@
 const Constants = {
+    registerSuccessMessage: 'Register berhasil. Silahkan masuk ke akun Anda',
+    reLoginMessage: 'Silahkan Masuk ulang dengan Password Baru Anda',
     genderOptions: [
         {
             key: 'pria',
@@ -294,6 +296,20 @@ const Constants = {
         { key: 'Yemen', value: 'Yaman' },
         { key: 'Zambia', value: 'Zambia' },
         { key: 'Zimbabwe', value: 'Zimbabwe' },
+    ],
+    dummyRoles: [
+        {
+            key: 'adminLsp',
+            value: 'Admin LSP',
+        },
+        {
+            key: 'asesi',
+            value: 'Asesi',
+        },
+        {
+            key: 'asesor',
+            value: 'Asesor',
+        },
     ],
 };
 

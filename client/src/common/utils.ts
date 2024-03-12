@@ -12,20 +12,23 @@ export const formattedDate = (isoDate: string): string => {
     return fDate;
 };
 
-export const downloadFile = async (url: string): Promise<File | null> => {
+export const downloadFile = async (url: string): Promise<File | undefined> => {
     if (url.length) {
         const response = await axios.get(url, {
             responseType: 'arraybuffer',
         });
-        console.log(response);
+
+        const parsedUrl = new URL(url);
+        const pathnameParts = parsedUrl.pathname.split('/');
+        const filename = pathnameParts[pathnameParts.length - 1];
 
         const blob = new Blob([response.data], { type: 'image/png' });
-        const file = new File([blob], 'image.png', { type: 'image/png' });
+        const file = new File([blob], filename, { type: 'image/png' });
 
         return file;
     }
 
-    return null;
+    return undefined;
 };
 
 export const handleAxiosError = (error: unknown): void => {
