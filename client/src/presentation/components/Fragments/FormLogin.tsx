@@ -1,32 +1,33 @@
+import { useFormik } from 'formik';
 import { CiLock, CiMail } from 'react-icons/ci';
+import { LoginValues } from '../../../common/types';
 import Button from '../Elements/Button';
 import InputForm from '../Elements/InputForm';
 
 type Props = {
-    onLogin: () => void;
+    onLogin: (payload: LoginValues) => void;
 };
 
 const FormLogin = ({ onLogin }: Props) => {
-    // const { errors, touched, values, handleChange, handleSubmit } = useFormik({
-    //     initialValues: {
-    //         email: '',
-    //         password: '',
-    //     },
-    //     validationSchema: loginSchema,
-    //     onSubmit: onLogin,
-    // });
+    const { values, handleChange, handleSubmit } = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+        },
+        // validationSchema: loginSchema,
+        onSubmit: onLogin,
+    });
 
     return (
         <form
             className='flex flex-col gap-5'
-            // onSubmit={handleSubmit}
-            onSubmit={() => onLogin()}
+            onSubmit={handleSubmit}
         >
             <InputForm
                 type='email'
                 name='email'
-                // value={values.email}
-                // onChange={handleChange}
+                value={values.email}
+                onChange={handleChange}
                 placeholder='Masukkan Email Anda'
                 text='Email'
                 prefix={<CiMail className='text-lg text-black me-3' />}
@@ -40,8 +41,8 @@ const FormLogin = ({ onLogin }: Props) => {
             <InputForm
                 type='password'
                 name='password'
-                // value={values.password}
-                // onChange={handleChange}
+                value={values.password}
+                onChange={handleChange}
                 placeholder='Masukkan Password Anda'
                 text='Password'
                 prefix={<CiLock className='text-lg text-black me-3' />}

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
-import { BiLock, BiLogOut, BiUser } from 'react-icons/bi';
+import { BiLogOut, BiUser } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 
 type Props = {
@@ -35,7 +35,20 @@ const DropdownUser = ({ setLogoutModalOpen }: Props) => {
             ) : (
                 <span className='block text-xs'>-</span>
             )} */}
-            <span className='block text-xs'>-</span>
+            <Link
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className='flex items-center gap-4'
+                to='#'
+            >
+                <span className='text-right'>
+                    <span className='block text-sm font-medium'>Admin</span>
+                    <span className='block text-xs'>Admin</span>
+                </span>
+
+                <div className='p-3 bg-gray-300 rounded-full'>
+                    <BiUser className='text-2xl' />
+                </div>
+            </Link>
             <div
                 onFocus={() => setDropdownOpen(true)}
                 onBlur={() => setDropdownOpen(false)}
@@ -43,20 +56,6 @@ const DropdownUser = ({ setLogoutModalOpen }: Props) => {
                     dropdownOpen === true ? 'block' : 'hidden'
                 }`}
             >
-                <Link
-                    to='/profile'
-                    className='flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:text-blue-500 lg:text-base'
-                >
-                    <BiUser className='text-lg' />
-                    My Profile
-                </Link>
-                <Link
-                    to='/ubah-password'
-                    className='flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:text-blue-500 lg:text-base'
-                >
-                    <BiLock className='text-lg' />
-                    Ubah Password
-                </Link>
                 <button
                     onClick={() => setLogoutModalOpen(true)}
                     className='flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:text-blue-500 lg:text-base'

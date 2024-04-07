@@ -1,43 +1,41 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
-import { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { useState } from 'react';
 import Constants from '../../../common/constants';
 import { asesorProfileSchema } from '../../../common/formSchemas';
 import { AsesorProfileValues, UserType } from '../../../common/types';
-import { downloadFile, formattedDate } from '../../../common/utils';
-import UserRemoteDataSource from '../../../data/datasources/UserRemoteDataSource';
+import { formattedDate } from '../../../common/utils';
 import Alert from '../../components/Elements/Alert';
 import Button from '../../components/Elements/Button';
 import ComboBoxForm from '../../components/Elements/ComboBoxForm';
 import InputForm from '../../components/Elements/InputForm';
-import LoadingSpinner from '../../components/Elements/LoadingSpinner';
 import SignFileUploader from '../../components/Elements/SignFileUpload';
 import SignUploadModal from '../../components/Elements/SignFileUpload/SignUploadModal';
 
 const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
     const [isShowModal, setIsShowModal] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    // const [isLoading, setIsLoading] = useState(false);
 
     const onSaveProfile = async (profile: AsesorProfileValues) => {
-        setIsLoading(true);
-        // console.log(profile)
-        try {
-            const token = localStorage.getItem('token') ?? '';
+        console.log(profile);
+        // setIsLoading(true);
 
-            await UserRemoteDataSource.changeProfile(token, profile);
-            toast.success('Profile Asesor berhasil diubah', {
-                position: 'top-center',
-                hideProgressBar: true,
-            });
-        } catch (error) {
-            toast.error((error as Error).message, {
-                position: 'top-center',
-                hideProgressBar: true,
-            });
-        } finally {
-            setIsLoading(false);
-        }
+        // try {
+        //     const token = localStorage.getItem('token') ?? '';
+
+        //     await UserRemoteDataSource.changeProfile(token, profile);
+        //     toast.success('Profile Asesor berhasil diubah', {
+        //         position: 'top-center',
+        //         hideProgressBar: true,
+        //     });
+        // } catch (error) {
+        //     toast.error((error as Error).message, {
+        //         position: 'top-center',
+        //         hideProgressBar: true,
+        //     });
+        // } finally {
+        //     setIsLoading(false);
+        // }
     };
 
     const {
@@ -71,16 +69,16 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
         onSubmit: onSaveProfile,
     });
 
-    const signUploadFile = useCallback(async () => {
-        if (user?.signUpload) {
-            const file = await downloadFile(user.signUpload);
-            setFieldValue('signUpload', file);
-        }
-    }, [user?.signUpload, setFieldValue]);
+    // const signUploadFile = useCallback(async () => {
+    //     if (user?.signUpload) {
+    //         const file = await downloadFile(user.signUpload);
+    //         setFieldValue('signUpload', file);
+    //     }
+    // }, [user?.signUpload, setFieldValue]);
 
-    useEffect(() => {
-        signUploadFile();
-    }, [signUploadFile]);
+    // useEffect(() => {
+    //     signUploadFile();
+    // }, [signUploadFile]);
 
     return (
         <>
@@ -382,7 +380,7 @@ const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
                     }}
                 />
             </form>
-            <LoadingSpinner show={isLoading} />
+            {/* <LoadingSpinner show={isLoading} /> */}
         </>
     );
 };
