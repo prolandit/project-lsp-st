@@ -25,7 +25,7 @@ type Props<TData, TValue> = {
     pageCount?: number;
     searchFn?: (query: string) => void;
     paginateFn?: (page: number, pageSize: number) => void;
-    // sortingFn?: (page: number, pageSize: number) => void;
+    sortingFn?: (states: SortingState) => void;
 };
 
 const DataTable = <TData, TValue>({
@@ -35,6 +35,7 @@ const DataTable = <TData, TValue>({
     pageCount,
     searchFn,
     paginateFn,
+    sortingFn,
 }: Props<TData, TValue>) => {
     const [isMobileScreen, setIsMobileScreen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -61,6 +62,10 @@ const DataTable = <TData, TValue>({
     }, [debounceSearch, searchFn]);
 
     useEffect(() => {
+        sortingFn?.(sorting);
+    }, [sorting, sortingFn]);
+
+    useEffect(() => {
         const handleResize = () => {
             setIsMobileScreen(window.innerWidth < 768);
         };
@@ -81,8 +86,9 @@ const DataTable = <TData, TValue>({
             pagination,
             sorting,
         },
-        pageCount: pageCount,
+        onPaginationChange: setPagination,
         onSortingChange: setSorting,
+        pageCount: pageCount,
         manualSorting: true,
         manualPagination: true,
         manualFiltering: true,
@@ -92,10 +98,6 @@ const DataTable = <TData, TValue>({
 
     const handlePageClick = (selectedItem: { selected: number }) => {
         table.setPageIndex(selectedItem.selected + 1);
-        setPagination({
-            ...pagination,
-            pageIndex: selectedItem.selected + 1,
-        });
         paginateFn?.(selectedItem.selected + 1, pageSize);
     };
 
@@ -103,10 +105,6 @@ const DataTable = <TData, TValue>({
         event: React.ChangeEvent<HTMLSelectElement> | undefined
     ) => {
         table.setPageSize(Number(event?.target.value));
-        setPagination({
-            ...pagination,
-            pageSize: Number(event?.target.value),
-        });
         paginateFn?.(pageIndex, Number(event?.target.value));
     };
 
@@ -174,12 +172,12 @@ const DataTable = <TData, TValue>({
                                             </div>
                                             <div
                                                 className='cursor-pointer'
-                                                onClick={() =>
+                                                onClick={() => {
                                                     header.column.toggleSorting(
                                                         undefined,
                                                         true
-                                                    )
-                                                }
+                                                    );
+                                                }}
                                             >
                                                 {header.column.getCanSort() ? (
                                                     header.column.getIsSorted() ===

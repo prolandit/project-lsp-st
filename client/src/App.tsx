@@ -2,14 +2,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import BerandaLayout from './presentation/components/Layouts/BerandaLayout';
 import MainLayout from './presentation/components/Layouts/MainLayout';
 import ProfileLayout from './presentation/components/Layouts/ProfileLayout';
+import UsersPage from './presentation/pages/AccountsPage';
 import ChangePasswordPage from './presentation/pages/ChangePasswordPage';
+import CreateAccountPage from './presentation/pages/CreateAccountPage';
 import LoginPage from './presentation/pages/LoginPage';
+import LSPDataAsesiPage from './presentation/pages/LSPDataAsesiPage';
 import NotFoundPage from './presentation/pages/NotFoundPage';
 import RegisterPage from './presentation/pages/RegisterPage';
-import UsersPage from './presentation/pages/admin_lsp/AccountsPage';
-import CreateAccountPage from './presentation/pages/admin_lsp/CreateAccountPage';
-import LSPDataAsesiPage from './presentation/pages/admin_lsp/LSPDataAsesiPage';
-import VerifyAccountPage from './presentation/pages/admin_lsp/VerifyAccountPage';
+import VerifyAccountPage from './presentation/pages/VerifyAccountPage';
 
 const App = () => {
     return (

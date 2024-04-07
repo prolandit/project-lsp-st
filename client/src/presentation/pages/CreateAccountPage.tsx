@@ -1,11 +1,11 @@
 import { useFormik } from 'formik';
-import Constants from '../../../common/constants';
-import { createNewUserSchema } from '../../../common/formSchemas';
-import { CreateUserValues } from '../../../common/types';
-import Alert from '../../components/Elements/Alert';
-import Button from '../../components/Elements/Button';
-import ComboBoxForm from '../../components/Elements/ComboBoxForm';
-import InputForm from '../../components/Elements/InputForm';
+import Constants from '../../common/constants';
+import { createNewUserSchema } from '../../common/formSchemas';
+import { CreateUserValues } from '../../common/types';
+import Alert from '../components/Elements/Alert';
+import Button from '../components/Elements/Button';
+import ComboBoxForm from '../components/Elements/ComboBoxForm';
+import InputForm from '../components/Elements/InputForm';
 
 const CreateAccountPage = () => {
     // const [isLoading, setIsLoading] = useState(false);

@@ -1,20 +1,17 @@
-import { createColumnHelper } from '@tanstack/react-table';
+import { PaginationState, createColumnHelper } from '@tanstack/react-table';
 import { useState } from 'react';
-import { TbEdit, TbTrash } from 'react-icons/tb';
+import { TbEdit } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
-import { UserType } from '../../../common/types';
-import DataTable from '../../components/Elements/DataTable';
-import Modal from '../../components/Elements/Modal';
+import { UserType } from '../../common/types';
+import DataTable from '../components/Elements/DataTable';
 
-const AccountsPage = () => {
+const LSPDataAsesiPage = () => {
     const navigate = useNavigate();
-    const [modalOpen, setModalOpen] = useState(false);
 
-    const [{ pageIndex, pageSize }, setPagination] = useState({
+    const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
         pageIndex: 1,
         pageSize: 10,
     });
-    // const [sorting, setSorting] = useState<SortingState>([]);
 
     const columnHelper = createColumnHelper<UserType>();
     const columns = [
@@ -24,8 +21,14 @@ const AccountsPage = () => {
         columnHelper.accessor('email', {
             header: 'Email Address',
         }),
-        columnHelper.accessor('role', {
-            header: 'Role',
+        columnHelper.accessor('phone', {
+            header: 'HP',
+        }),
+        columnHelper.accessor('gender', {
+            header: 'Jenis Kelamin',
+        }),
+        columnHelper.accessor('address', {
+            header: 'Alamat',
         }),
         columnHelper.display({
             header: 'Aksi',
@@ -40,28 +43,28 @@ const AccountsPage = () => {
                         }
                         className='text-2xl text-blue-500 cursor-pointer'
                     />
-                    <TbTrash
-                        onClick={() => setModalOpen(true)}
-                        className='text-2xl text-red-500 cursor-pointer'
-                    />
                 </div>
             ),
         }),
     ];
 
-    const generateData = (count: number): UserType[] => {
+    const generateData = (skip: number, pageSize: number): UserType[] => {
         const personDataList: UserType[] = [];
-        for (let i = 0; i < count; i++) {
+        const endIndex = skip + pageSize;
+
+        for (let i = skip; i < endIndex && i < 50; i++) {
             personDataList.push({
                 fullName: `Abdul Azis ${i + 1}`,
                 email: '2aJtT@example.com',
-                role: 'Asesi',
+                phone: '08123456789',
+                gender: 'Laki-laki',
+                address: 'Jalan Jalan',
             });
         }
         return personDataList;
     };
 
-    const data: UserType[] = generateData(pageIndex * pageSize);
+    const data: UserType[] = generateData(pageIndex * pageSize, pageSize);
 
     const onSearch = (query: string) => {
         console.log(query);
@@ -69,37 +72,22 @@ const AccountsPage = () => {
 
     return (
         <div className='flex flex-col mx-3 my-6 bg-white rounded-t-lg lg:mx-8'>
-            <div className='flex flex-row items-center justify-between'>
-                <span className='px-4 py-4 text-base font-semibold text-blue-600 lg:px-6'>
-                    Akun User
-                </span>
-            </div>
+            <span className='px-4 py-4 text-base font-semibold text-blue-600 lg:px-6'>
+                Data Asesi
+            </span>
             <hr />
             <DataTable
                 data={data}
                 columns={columns}
                 searchFn={onSearch}
+                pageCount={5}
                 paginateFn={(page, pageSize) => {
                     setPagination({ pageIndex: page, pageSize });
                     console.log(page, pageSize);
                 }}
             />
-            <Modal
-                show={modalOpen}
-                onClose={() => setModalOpen(false)}
-                onConfirm={() => {
-                    console.log('Hapus');
-                    setModalOpen(false);
-                }}
-            >
-                <span className='font-semibold text-red-600'>
-                    Peringatan!!!
-                </span>
-                <hr />
-                <span>Anda yakin ingin menghapus data ini?</span>
-            </Modal>
         </div>
     );
 };
 
-export default AccountsPage;
+export default LSPDataAsesiPage;

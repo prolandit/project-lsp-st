@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import Constants from '../../../common/constants';
-import { asesorProfileSchema } from '../../../common/formSchemas';
-import { AsesorProfileValues, UserType } from '../../../common/types';
-import { formattedDate } from '../../../common/utils';
-import Alert from '../../components/Elements/Alert';
-import Button from '../../components/Elements/Button';
-import ComboBoxForm from '../../components/Elements/ComboBoxForm';
-import InputForm from '../../components/Elements/InputForm';
-import SignFileUploader from '../../components/Elements/SignFileUpload';
-import SignUploadModal from '../../components/Elements/SignFileUpload/SignUploadModal';
+import Constants from '../../common/constants';
+import { asesorProfileSchema } from '../../common/formSchemas';
+import { AsesorProfileValues, UserType } from '../../common/types';
+import { formattedDate } from '../../common/utils';
+import Alert from '../components/Elements/Alert';
+import Button from '../components/Elements/Button';
+import ComboBoxForm from '../components/Elements/ComboBoxForm';
+import InputForm from '../components/Elements/InputForm';
+import SignFileUploader from '../components/Elements/SignFileUpload';
+import SignUploadModal from '../components/Elements/SignFileUpload/SignUploadModal';
 
 const AsesorProfilePage: React.FC<{ user: UserType | null }> = ({ user }) => {
     const [isShowModal, setIsShowModal] = useState(false);

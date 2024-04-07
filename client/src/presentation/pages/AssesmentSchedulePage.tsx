@@ -21,7 +21,7 @@ const AssesmentSchedulePage = () => {
         },
         {
             accessorKey: 'startDate',
-            header: 'Mulai',
+            header: 'Tanggal Mulai',
             cell: ({ row }) => localDateString(row.original.startDate),
         },
         {
@@ -54,7 +54,7 @@ const AssesmentSchedulePage = () => {
     };
 
     const data: AssesmentScheduleType[] = generateData(
-        pageIndex * pageSize,
+        pageIndex * pageSize - pageSize,
         pageSize
     );
 
@@ -78,10 +78,13 @@ const AssesmentSchedulePage = () => {
                             data={data}
                             columns={columns}
                             searchFn={onSearch}
-                            pageCount={5}
+                            pageCount={Math.ceil(50 / pageSize)}
                             paginateFn={(page, pageSize) => {
                                 setPagination({ pageIndex: page, pageSize });
                                 console.log(page, pageSize);
+                            }}
+                            sortingFn={(states) => {
+                                console.log(states);
                             }}
                         />
                     </div>

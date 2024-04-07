@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import Constants from '../../../common/constants';
-import { asesiProfileSchema } from '../../../common/formSchemas';
-import { AsesiProfileValues, UserType } from '../../../common/types';
-import { formattedDate } from '../../../common/utils';
-import Alert from '../../components/Elements/Alert';
-import Button from '../../components/Elements/Button';
-import ComboBoxForm from '../../components/Elements/ComboBoxForm';
-import InputForm from '../../components/Elements/InputForm';
-import SignFileUploader from '../../components/Elements/SignFileUpload';
-import SignUploadModal from '../../components/Elements/SignFileUpload/SignUploadModal';
+import Constants from '../../common/constants';
+import { asesiProfileSchema } from '../../common/formSchemas';
+import { AsesiProfileValues, UserType } from '../../common/types';
+import { formattedDate } from '../../common/utils';
+import Alert from '../components/Elements/Alert';
+import Button from '../components/Elements/Button';
+import ComboBoxForm from '../components/Elements/ComboBoxForm';
+import InputForm from '../components/Elements/InputForm';
+import SignFileUploader from '../components/Elements/SignFileUpload';
+import SignUploadModal from '../components/Elements/SignFileUpload/SignUploadModal';
 
 type Props = {
     user?: UserType;
