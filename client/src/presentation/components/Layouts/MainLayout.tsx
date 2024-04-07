@@ -13,9 +13,9 @@ const MainLayout = () => {
     const [modalOpen, setModalOpen] = useState(false);
 
     const onLogout = () => {
-        setModalOpen(false);
+        // setModalOpen(false);
 
-        localStorage.removeItem('token');
+        // localStorage.removeItem('token');
         navigate('/login');
     };
 

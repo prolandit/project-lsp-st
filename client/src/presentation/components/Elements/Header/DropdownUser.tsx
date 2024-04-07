@@ -2,19 +2,18 @@
 import { useState } from 'react';
 import { BiLock, BiLogOut, BiUser } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-import useLoggedUser from '../../../../common/hooks/useLoggedUser';
 
 type Props = {
     setLogoutModalOpen(value: boolean): void;
 };
 
 const DropdownUser = ({ setLogoutModalOpen }: Props) => {
-    const user = useLoggedUser();
+    // const user = useLoggedUser();
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     return (
         <div className='relative'>
-            {user ? (
+            {/* {user ? (
                 <Link
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                     className='flex items-center gap-4'
@@ -35,8 +34,8 @@ const DropdownUser = ({ setLogoutModalOpen }: Props) => {
                 </Link>
             ) : (
                 <span className='block text-xs'>-</span>
-            )}
-
+            )} */}
+            <span className='block text-xs'>-</span>
             <div
                 onFocus={() => setDropdownOpen(true)}
                 onBlur={() => setDropdownOpen(false)}
