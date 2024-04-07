@@ -1,6 +1,25 @@
 import { BiGroup, BiPlus, BiUser } from 'react-icons/bi';
 import { FaWpforms } from 'react-icons/fa';
+import { MdDashboard } from 'react-icons/md';
 import { MenuType } from './types';
+
+export const superUserMenus: MenuType[] = [
+    {
+        name: 'Beranda',
+        path: '/',
+        icon: <MdDashboard />,
+    },
+    {
+        name: 'Profile',
+        path: '/profile',
+        icon: <BiUser />,
+    },
+    {
+        name: 'Permohonan Sertifikasi',
+        path: '/permohonan-sertifikasi',
+        icon: <FaWpforms />,
+    },
+];
 
 export const asesiAsesorMenus: MenuType[] = [
     {

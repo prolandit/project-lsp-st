@@ -7,7 +7,7 @@ import { useMemo, useState } from 'react';
 import { TbEdit } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
 import { UserType } from '../../../common/types';
-import Table from '../../components/Elements/Table';
+import DataTable from '../../components/Elements/DataTable';
 
 const LSPDataAsesiPage = () => {
     const navigate = useNavigate();
@@ -84,7 +84,7 @@ const LSPDataAsesiPage = () => {
                 Data Asesi
             </span>
             <hr />
-            <Table
+            <DataTable
                 data={data}
                 columns={columns}
                 pagination={pagination}

@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import DashboardLayout from './presentation/components/Layouts/DashboardLayout';
+import BerandaLayout from './presentation/components/Layouts/BerandaLayout';
 import MainLayout from './presentation/components/Layouts/MainLayout';
 import ProfileLayout from './presentation/components/Layouts/ProfileLayout';
 import ChangePasswordPage from './presentation/pages/ChangePasswordPage';
@@ -22,7 +22,7 @@ const App = () => {
                     <Route
                         index
                         key='index'
-                        element={<DashboardLayout />}
+                        element={<BerandaLayout />}
                     />
                     <Route
                         key='profile'

@@ -1,4 +1,6 @@
-const DashboardLayout = () => {
+import AssesmentSchedulePage from '../../pages/AssesmentSchedulePage';
+
+const BerandaLayout = () => {
     // const user = useLoggedUser();
 
     // const indexElement = useMemo(() => {
@@ -9,7 +11,7 @@ const DashboardLayout = () => {
     //     );
     // }, [user]);
 
-    return <div />;
+    return <AssesmentSchedulePage />;
 };
 
-export default DashboardLayout;
+export default BerandaLayout;

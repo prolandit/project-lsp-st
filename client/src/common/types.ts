@@ -96,6 +96,14 @@ export type Position = {
     y: number;
 };
 
+export type AssesmentScheduleType = {
+    status: string;
+    eventName: string;
+    startDate: Date;
+    tuk: string;
+    asesor: string;
+};
+
 export type UserType = {
     id?: number;
     email?: string;
