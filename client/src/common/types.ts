@@ -1,4 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+export type AssesmentSchedulePayload = {
+    id: number;
+    status: string;
+    eventName: string;
+    startDate: Date;
+    tuk: string;
+    asesor: string;
+};
+
+export type AssesmentDataPayload = {
+    id: number;
+    eventName: string;
+    role: string;
+    address: string;
+    praAssesmentDate: Date;
+    assesmentDate: Date;
+    virtualMeetLink: string;
+    tukName: string;
+    schema: string;
+    status: string;
+};
+
 export type LoginValues = {
     email: string;
     password: string;
@@ -94,14 +117,6 @@ export type FileUpload = {
 export type Position = {
     x: number;
     y: number;
-};
-
-export type AssesmentScheduleType = {
-    status: string;
-    eventName: string;
-    startDate: Date;
-    tuk: string;
-    asesor: string;
 };
 
 export type UserType = {

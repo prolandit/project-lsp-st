@@ -1,7 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
-import { AssesmentScheduleType } from '../../common/types';
 import { localDateString } from '../../common/utils';
+import AssesmentSchedule from '../../data/models/AssesmentSchedule';
 import DataTable from '../components/Elements/DataTable';
 
 const AssesmentSchedulePage = () => {
@@ -10,7 +10,7 @@ const AssesmentSchedulePage = () => {
         pageSize: 10,
     });
 
-    const columns: ColumnDef<AssesmentScheduleType>[] = [
+    const columns: ColumnDef<AssesmentSchedule>[] = [
         {
             accessorKey: 'status',
             header: 'Status',
@@ -37,23 +37,25 @@ const AssesmentSchedulePage = () => {
     const generateData = (
         skip: number,
         pageSize: number
-    ): AssesmentScheduleType[] => {
-        const personDataList: AssesmentScheduleType[] = [];
+    ): AssesmentSchedule[] => {
+        const personDataList: AssesmentSchedule[] = [];
         const endIndex = skip + pageSize;
 
         for (let i = skip; i < endIndex && i < 50; i++) {
-            personDataList.push({
+            const assesmentSchedule = new AssesmentSchedule({
+                id: i + 1,
                 status: 'Status',
                 eventName: `Kegiatan ${i + 1}`,
                 startDate: new Date(),
                 tuk: 'TUK',
                 asesor: 'Asesor',
             });
+            personDataList.push(assesmentSchedule);
         }
         return personDataList;
     };
 
-    const data: AssesmentScheduleType[] = generateData(
+    const data: AssesmentSchedule[] = generateData(
         pageIndex * pageSize - pageSize,
         pageSize
     );

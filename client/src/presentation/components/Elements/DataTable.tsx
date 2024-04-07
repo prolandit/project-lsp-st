@@ -158,7 +158,7 @@ const DataTable = <TData, TValue>({
                                     <th
                                         key={header.id}
                                         colSpan={header.colSpan}
-                                        className='pe-5'
+                                        className='pe-5 whitespace-nowrap'
                                     >
                                         <div className='flex flex-row items-center justify-between'>
                                             <div className='p-5 text-sm font-semibold tracking-wide text-left'>

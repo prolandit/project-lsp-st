@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import BerandaLayout from './presentation/components/Layouts/BerandaLayout';
+import BerandaLayout from './presentation/components/Layouts/HomeLayout';
 import MainLayout from './presentation/components/Layouts/MainLayout';
 import ProfileLayout from './presentation/components/Layouts/ProfileLayout';
 import UsersPage from './presentation/pages/AccountsPage';
