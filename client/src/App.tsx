@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import BerandaLayout from './presentation/components/Layouts/HomeLayout';
 import MainLayout from './presentation/components/Layouts/MainLayout';
-import ChangePasswordPage from './presentation/pages/ChangePasswordPage';
-import LoginPage from './presentation/pages/LoginPage';
+import ChangePasswordPage from './presentation/pages/Auth/ChangePasswordPage';
+import LoginPage from './presentation/pages/Auth/LoginPage';
+import RegisterPage from './presentation/pages/Auth/RegisterPage';
 import NotFoundPage from './presentation/pages/NotFoundPage';
-import ProfilePage from './presentation/pages/ProfilePage';
-import RegisterPage from './presentation/pages/RegisterPage';
+import ProfilePage from './presentation/pages/Profile/ProfilePage';
 import CreateUserPage from './presentation/pages/Users/CreateUserPage';
 import EditUserPage from './presentation/pages/Users/EditUserPage';
 import UsersPage from './presentation/pages/Users/UsersPage';

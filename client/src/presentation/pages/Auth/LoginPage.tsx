@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { LoginValues } from '../../common/types';
-import FormLogin from '../components/Fragments/FormLogin';
-import AuthLayout from '../components/Layouts/AuthLayout';
+import { LoginValues } from '../../../common/types';
+import FormLogin from '../../components/Fragments/FormLogin';
+import AuthLayout from '../../components/Layouts/AuthLayout';
 
 const LoginPage = () => {
     const navigate = useNavigate();

@@ -1,8 +1,8 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
-import { localDateString } from '../../common/utils';
-import AssesmentSchedule from '../../data/models/AssesmentSchedule';
-import DataTable from '../components/Elements/DataTable';
+import { localDateString } from '../../../common/utils';
+import AssesmentSchedule from '../../../data/models/AssesmentSchedule';
+import DataTable from '../../components/Elements/DataTable';
 
 const AssesmentSchedulePage = () => {
     const [{ pageIndex, pageSize }, setPagination] = useState({

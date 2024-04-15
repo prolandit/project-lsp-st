@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import Constants from '../../common/constants';
-import { userSchema } from '../../common/formSchemas';
-import { UserValues } from '../../common/types';
-import Alert from '../components/Elements/Alert';
-import Button from '../components/Elements/Button';
-import ComboBox from '../components/Elements/ComboBox';
-import ImagePlaceholder from '../components/Elements/ImagePlaceholder';
-import Input from '../components/Elements/Input';
-import Label from '../components/Elements/Input/Label';
-import UploadSignModal from '../components/Fragments/SignUpload/UploadSignModal';
+import Constants from '../../../common/constants';
+import { userSchema } from '../../../common/formSchemas';
+import { UserValues } from '../../../common/types';
+import Alert from '../../components/Elements/Alert';
+import Button from '../../components/Elements/Button';
+import ComboBox from '../../components/Elements/ComboBox';
+import ImagePlaceholder from '../../components/Elements/ImagePlaceholder';
+import Input from '../../components/Elements/Input';
+import Label from '../../components/Elements/Input/Label';
+import UploadSignModal from '../../components/Fragments/SignUpload/UploadSignModal';
 
 const ProfilePage = () => {
     const [isShowModal, setIsShowModal] = useState(false);

@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { FaFolderOpen } from 'react-icons/fa';
 import { FaPeopleGroup } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
-import { localDateString } from '../../common/utils';
-import AssesmentData from '../../data/models/AssesmentData';
-import DataTable from '../components/Elements/DataTable';
+import { localDateString } from '../../../common/utils';
+import AssesmentData from '../../../data/models/AssesmentData';
+import DataTable from '../../components/Elements/DataTable';
 
 const AssesmentDataPage = () => {
     const [{ pageIndex, pageSize }, setPagination] = useState({

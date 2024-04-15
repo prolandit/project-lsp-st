@@ -3,15 +3,15 @@ import { useState } from 'react';
 import { CiLock } from 'react-icons/ci';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Constants from '../../common/constants';
-import { changePasswordSchema } from '../../common/formSchemas';
-import { ChangePasswordValues } from '../../common/types';
-import UserRemoteDataSource from '../../data/datasources/UserRemoteDataSource';
-import Alert from '../components/Elements/Alert';
-import Button from '../components/Elements/Button';
-import InputForm from '../components/Elements/InputForm';
-import LoadingSpinner from '../components/Elements/LoadingSpinner';
-import AnimationContainer from '../components/Fragments/AnimationContainer';
+import Constants from '../../../common/constants';
+import { changePasswordSchema } from '../../../common/formSchemas';
+import { ChangePasswordValues } from '../../../common/types';
+import UserRemoteDataSource from '../../../data/datasources/UserRemoteDataSource';
+import Alert from '../../components/Elements/Alert';
+import Button from '../../components/Elements/Button';
+import InputForm from '../../components/Elements/InputForm';
+import LoadingSpinner from '../../components/Elements/LoadingSpinner';
+import AnimationContainer from '../../components/Fragments/AnimationContainer';
 
 const ChangePasswordPage = () => {
     const navigate = useNavigate();

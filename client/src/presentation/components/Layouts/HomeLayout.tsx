@@ -1,4 +1,4 @@
-import AssesmentSchedulePage from '../../pages/AssesmentSchedulePage';
+import AssesmentSchedulePage from '../../pages/Home/AssesmentSchedulePage';
 
 const HomeLayout = () => {
     // const user = useLoggedUser();
