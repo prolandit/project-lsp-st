@@ -1,10 +1,10 @@
 import { useFormik } from 'formik';
 import { fileInputSchema } from '../../../../common/formSchemas';
 import { FileUpload } from '../../../../common/types';
-import Alert from '../Alert';
-import Button from '../Button';
-import CustomFileInput from '../CustomFileInput';
-import InputForm from '../InputForm';
+import Alert from '../../Elements/Alert';
+import Button from '../../Elements/Button';
+import CustomFileInput from '../../Elements/CustomFileInput';
+import InputForm from '../../Elements/InputForm';
 
 type Props = {
     onChange?: (file: File | undefined, exp: string) => void;
@@ -20,8 +20,10 @@ const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
                 explanation: '',
             },
             validationSchema: fileInputSchema,
-            onSubmit: (values: FileUpload) => {
-                console.log(values);
+            onSubmit: () => {
+                if (values.fileUpload || values.explanation) {
+                    onSave();
+                }
             },
         });
 
@@ -78,17 +80,11 @@ const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
                     type='button'
                     onClick={(e) => {
                         e.preventDefault();
-
                         onChange?.(
                             values.fileUpload ?? undefined,
                             values.explanation
                         );
-
                         handleSubmit();
-
-                        if (values.fileUpload || values.explanation) {
-                            onSave();
-                        }
                     }}
                 >
                     Simpan

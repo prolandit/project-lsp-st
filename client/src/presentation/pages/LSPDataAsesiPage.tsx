@@ -1,13 +1,9 @@
-import {
-    PaginationState,
-    SortingState,
-    createColumnHelper,
-} from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import { PaginationState, createColumnHelper } from '@tanstack/react-table';
+import { useState } from 'react';
 import { TbEdit } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
-import { UserType } from '../../../common/types';
-import Table from '../../components/Elements/Table';
+import { UserType } from '../../common/types';
+import DataTable from '../components/Elements/DataTable';
 
 const LSPDataAsesiPage = () => {
     const navigate = useNavigate();
@@ -16,12 +12,6 @@ const LSPDataAsesiPage = () => {
         pageIndex: 1,
         pageSize: 10,
     });
-    const [sorting, setSorting] = useState<SortingState>([]);
-
-    const pagination = useMemo(
-        () => ({ pageIndex, pageSize }),
-        [pageIndex, pageSize]
-    );
 
     const columnHelper = createColumnHelper<UserType>();
     const columns = [
@@ -58,9 +48,11 @@ const LSPDataAsesiPage = () => {
         }),
     ];
 
-    const generateData = (count: number): UserType[] => {
+    const generateData = (skip: number, pageSize: number): UserType[] => {
         const personDataList: UserType[] = [];
-        for (let i = 0; i < count; i++) {
+        const endIndex = skip + pageSize;
+
+        for (let i = skip; i < endIndex && i < 50; i++) {
             personDataList.push({
                 fullName: `Abdul Azis ${i + 1}`,
                 email: '2aJtT@example.com',
@@ -72,7 +64,7 @@ const LSPDataAsesiPage = () => {
         return personDataList;
     };
 
-    const data: UserType[] = generateData(pageSize);
+    const data: UserType[] = generateData(pageIndex * pageSize, pageSize);
 
     const onSearch = (query: string) => {
         console.log(query);
@@ -84,14 +76,15 @@ const LSPDataAsesiPage = () => {
                 Data Asesi
             </span>
             <hr />
-            <Table
+            <DataTable
                 data={data}
                 columns={columns}
-                pagination={pagination}
-                sorting={sorting}
-                onSortingChange={setSorting}
-                onPaginationChange={setPagination}
-                onSearch={onSearch}
+                searchFn={onSearch}
+                pageCount={5}
+                paginateFn={(page, pageSize) => {
+                    setPagination({ pageIndex: page, pageSize });
+                    console.log(page, pageSize);
+                }}
             />
         </div>
     );

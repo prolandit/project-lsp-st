@@ -1,4 +1,6 @@
-const DashboardLayout = () => {
+import AssesmentDataPage from '../../pages/AssesmentDataPage';
+
+const HomeLayout = () => {
     // const user = useLoggedUser();
 
     // const indexElement = useMemo(() => {
@@ -9,7 +11,7 @@ const DashboardLayout = () => {
     //     );
     // }, [user]);
 
-    return <div />;
+    return <AssesmentDataPage />;
 };
 
-export default DashboardLayout;
+export default HomeLayout;

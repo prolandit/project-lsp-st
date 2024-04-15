@@ -1,29 +1,20 @@
-import {
-    PaginationState,
-    SortingState,
-    createColumnHelper,
-} from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import { createColumnHelper } from '@tanstack/react-table';
+import { useState } from 'react';
 import { TbEdit, TbTrash } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
-import { UserType } from '../../../common/types';
-import Modal from '../../components/Elements/Modal';
-import Table from '../../components/Elements/Table';
+import { UserType } from '../../common/types';
+import DataTable from '../components/Elements/DataTable';
+import Modal from '../components/Elements/Modal';
 
 const AccountsPage = () => {
     const navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
 
-    const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
+    const [{ pageIndex, pageSize }, setPagination] = useState({
         pageIndex: 1,
         pageSize: 10,
     });
-    const [sorting, setSorting] = useState<SortingState>([]);
-
-    const pagination = useMemo(
-        () => ({ pageIndex, pageSize }),
-        [pageIndex, pageSize]
-    );
+    // const [sorting, setSorting] = useState<SortingState>([]);
 
     const columnHelper = createColumnHelper<UserType>();
     const columns = [
@@ -58,9 +49,11 @@ const AccountsPage = () => {
         }),
     ];
 
-    const generateData = (count: number): UserType[] => {
+    const generateData = (skip: number, pageSize: number): UserType[] => {
         const personDataList: UserType[] = [];
-        for (let i = 0; i < count; i++) {
+        const endIndex = skip + pageSize;
+
+        for (let i = skip; i < endIndex && i < 50; i++) {
             personDataList.push({
                 fullName: `Abdul Azis ${i + 1}`,
                 email: '2aJtT@example.com',
@@ -70,7 +63,7 @@ const AccountsPage = () => {
         return personDataList;
     };
 
-    const data: UserType[] = generateData(pageSize);
+    const data: UserType[] = generateData(pageIndex * pageSize, pageSize);
 
     const onSearch = (query: string) => {
         console.log(query);
@@ -84,14 +77,14 @@ const AccountsPage = () => {
                 </span>
             </div>
             <hr />
-            <Table
+            <DataTable
                 data={data}
                 columns={columns}
-                pagination={pagination}
-                sorting={sorting}
-                onSortingChange={setSorting}
-                onPaginationChange={setPagination}
-                onSearch={onSearch}
+                searchFn={onSearch}
+                paginateFn={(page, pageSize) => {
+                    setPagination({ pageIndex: page, pageSize });
+                    console.log(page, pageSize);
+                }}
             />
             <Modal
                 show={modalOpen}

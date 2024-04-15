@@ -1,50 +1,56 @@
 import {
     ColumnDef,
-    OnChangeFn,
     PaginationState,
     SortingState,
     flexRender,
     getCoreRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { FaSortDown } from 'react-icons/fa';
 import { FaSort, FaSortUp } from 'react-icons/fa6';
 import { IoIosArrowDown } from 'react-icons/io';
-import { MdClear } from 'react-icons/md';
 import ReactPaginate from 'react-paginate';
 import { twMerge } from 'tailwind-merge';
 import { SortDirection } from '../../../common/enum';
 import useDebounce from '../../../common/hooks/useDebounce';
 import Input from './Input';
 
-type Props<T> = {
-    data: T[];
-    columns: ColumnDef<T, string | undefined>[];
+type Props<TData, TValue> = {
+    data: TData[];
+    columns: ColumnDef<TData, TValue | undefined>[];
     className?: string;
-    pagination?: PaginationState;
-    sorting?: SortingState;
-    onSearch?: (query: string) => void;
     pageCount?: number;
-    onPaginationChange?: OnChangeFn<PaginationState>;
-    onSortingChange?: OnChangeFn<SortingState>;
+    searchFn?: (query: string) => void;
+    paginateFn?: (page: number, pageSize: number) => void;
+    sortingFn?: (states: SortingState) => void;
 };
 
-const Table = <T,>({
+const DataTable = <TData, TValue>({
     data,
     columns,
     className,
-    onSearch,
-    pagination,
-    sorting,
     pageCount,
-    onPaginationChange,
-    onSortingChange,
-}: Props<T>) => {
+    searchFn,
+    paginateFn,
+    sortingFn,
+}: Props<TData, TValue>) => {
     const [isMobileScreen, setIsMobileScreen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+
+    const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
+        pageIndex: 1,
+        pageSize: 10,
+    });
+    const [sorting, setSorting] = useState<SortingState>([]);
+
+    const pagination = useMemo(
+        () => ({ pageIndex, pageSize }),
+        [pageIndex, pageSize]
+    );
+
     const debounceSearch = useDebounce(searchQuery);
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,8 +58,12 @@ const Table = <T,>({
     };
 
     useEffect(() => {
-        onSearch?.(debounceSearch);
-    }, [debounceSearch, onSearch]);
+        searchFn?.(debounceSearch);
+    }, [debounceSearch, searchFn]);
+
+    useEffect(() => {
+        sortingFn?.(sorting);
+    }, [sorting, sortingFn]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -69,35 +79,38 @@ const Table = <T,>({
         };
     }, []);
 
-    const table = useReactTable<T>({
+    const table = useReactTable({
         data,
         columns,
         state: {
             pagination,
             sorting,
         },
+        onPaginationChange: setPagination,
+        onSortingChange: setSorting,
         pageCount: pageCount,
-        onPaginationChange: onPaginationChange,
-        onSortingChange: onSortingChange,
         manualSorting: true,
         manualPagination: true,
+        manualFiltering: true,
         enableMultiSort: true,
         getCoreRowModel: getCoreRowModel(),
     });
 
     const handlePageClick = (selectedItem: { selected: number }) => {
         table.setPageIndex(selectedItem.selected + 1);
+        paginateFn?.(selectedItem.selected + 1, pageSize);
     };
 
     const handleNumEntries = (
         event: React.ChangeEvent<HTMLSelectElement> | undefined
     ) => {
         table.setPageSize(Number(event?.target.value));
+        paginateFn?.(pageIndex, Number(event?.target.value));
     };
 
     return (
-        <div className='flex flex-col gap-4 px-4 py-4 bg-white rounded-lg shadow lg:px-6'>
-            <div className='flex flex-col justify-between gap-3 lg:items-center lg:flex-row'>
+        <div className='flex flex-col gap-4 py-4'>
+            <div className='flex flex-col justify-between gap-4 lg:items-center lg:flex-row'>
                 <div className='flex flex-row items-center gap-2'>
                     <span className='text-sm'>Show</span>
                     <div className='relative bg-gray-100 rounded-md'>
@@ -121,20 +134,12 @@ const Table = <T,>({
                 </div>
                 <div className='flex-row justify-end lg:flex'>
                     <Input
-                        type='text'
+                        type='search'
                         name='search'
                         placeholder='Search...'
-                        className='bg-gray-100 lg:w-64'
+                        className='border border-gray-100 bg-gray-50 lg:w-64'
                         value={searchQuery}
                         prefix={<BiSearch className='text-gray-500' />}
-                        suffix={
-                            searchQuery ? (
-                                <MdClear
-                                    className='text-gray-500'
-                                    onClick={() => setSearchQuery('')}
-                                />
-                            ) : undefined
-                        }
                         onChange={handleSearch}
                     />
                 </div>
@@ -153,7 +158,7 @@ const Table = <T,>({
                                     <th
                                         key={header.id}
                                         colSpan={header.colSpan}
-                                        className='pe-5'
+                                        className='pe-5 whitespace-nowrap'
                                     >
                                         <div className='flex flex-row items-center justify-between'>
                                             <div className='p-5 text-sm font-semibold tracking-wide text-left'>
@@ -167,12 +172,12 @@ const Table = <T,>({
                                             </div>
                                             <div
                                                 className='cursor-pointer'
-                                                onClick={() =>
+                                                onClick={() => {
                                                     header.column.toggleSorting(
                                                         undefined,
                                                         true
-                                                    )
-                                                }
+                                                    );
+                                                }}
                                             >
                                                 {header.column.getCanSort() ? (
                                                     header.column.getIsSorted() ===
@@ -193,58 +198,64 @@ const Table = <T,>({
                         ))}
                     </thead>
                     <tbody>
-                        {table.getRowModel().rows.map((row) => (
-                            <tr
-                                key={row.id}
-                                className=' odd:bg-white even:bg-gray-50'
-                            >
-                                {row.getVisibleCells().map((cell) => (
-                                    <td
-                                        key={cell.id}
-                                        className='w-24 px-5 py-4 text-sm text-gray-700 whitespace-nowrap'
-                                    >
-                                        {flexRender(
-                                            cell.column.columnDef.cell,
-                                            cell.getContext()
-                                        )}
-                                    </td>
-                                ))}
+                        {table.getRowModel().rows.length ? (
+                            table.getRowModel().rows.map((row) => (
+                                <tr
+                                    key={row.id}
+                                    className=' odd:bg-white even:bg-gray-50'
+                                >
+                                    {row.getVisibleCells().map((cell) => (
+                                        <td
+                                            key={cell.id}
+                                            className='w-24 px-5 py-4 text-sm text-gray-700 whitespace-nowrap'
+                                        >
+                                            {flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext()
+                                            )}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td
+                                    colSpan={columns.length}
+                                    className='h-24 text-center'
+                                >
+                                    Tidak ada data.
+                                </td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div>
-            <div className='flex flex-row justify-between w-full'>
-                <div className='flex flex-row items-center justify-between w-full'>
-                    <span className='text-sm'>{`Show ${
-                        table.getState().pagination.pageSize
-                    } of 20 entries`}</span>
-                    <ReactPaginate
-                        breakClassName='hidden lg:block'
-                        onPageChange={handlePageClick}
-                        pageRangeDisplayed={1}
-                        marginPagesDisplayed={isMobileScreen ? 0 : 2}
-                        pageCount={table.getPageCount()}
-                        nextLabel={
-                            <span className='flex items-center justify-center w-10 h-10 bg-white rounded-md'>
-                                <BsChevronRight />
-                            </span>
-                        }
-                        previousLabel={
-                            <span className='flex items-center justify-center w-10 h-10 bg-white rounded-md'>
-                                <BsChevronLeft />
-                            </span>
-                        }
-                        renderOnZeroPageCount={null}
-                        containerClassName='bg-black'
-                        className='flex flex-row items-center justify-center gap-2'
-                        pageLinkClassName='px-4 py-2 text-sm font-semibold rounded-md cursor-pointer'
-                        activeLinkClassName='bg-blue-500 text-white rounded-md hover:bg-blue-500 hover:text-white'
-                    />
-                </div>
+            <div className='flex flex-row justify-end w-full'>
+                <ReactPaginate
+                    breakClassName='hidden lg:block'
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={1}
+                    marginPagesDisplayed={isMobileScreen ? 0 : 2}
+                    pageCount={table.getPageCount()}
+                    nextLabel={
+                        <span className='flex items-center justify-center w-10 h-10 bg-white rounded-md'>
+                            <BsChevronRight />
+                        </span>
+                    }
+                    previousLabel={
+                        <span className='flex items-center justify-center w-10 h-10 bg-white rounded-md'>
+                            <BsChevronLeft />
+                        </span>
+                    }
+                    renderOnZeroPageCount={null}
+                    containerClassName='bg-black'
+                    className='flex flex-row items-center justify-center gap-2'
+                    pageLinkClassName='px-4 py-2 text-sm font-semibold rounded-md cursor-pointer'
+                    activeLinkClassName='bg-blue-500 text-white rounded-md hover:bg-blue-500 hover:text-white'
+                />
             </div>
         </div>
     );
 };
 
-export default Table;
+export default DataTable;

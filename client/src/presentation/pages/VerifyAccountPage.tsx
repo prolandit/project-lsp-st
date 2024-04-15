@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router-dom';
-import Constants from '../../../common/constants';
-import Button from '../../components/Elements/Button';
-import ComboBoxForm from '../../components/Elements/ComboBoxForm';
-import Input from '../../components/Elements/Input';
-import Label from '../../components/Elements/Input/Label';
-import InputForm from '../../components/Elements/InputForm';
+import Constants from '../../common/constants';
+import Button from '../components/Elements/Button';
+import ComboBoxForm from '../components/Elements/ComboBoxForm';
+import Input from '../components/Elements/Input';
+import Label from '../components/Elements/Input/Label';
+import InputForm from '../components/Elements/InputForm';
 
 const VerifyAccountPage = () => {
     const location = useLocation();
