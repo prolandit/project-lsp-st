@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import Constants from '../../common/constants';
-import { userSchema } from '../../common/formSchemas';
-import { UserValues } from '../../common/types';
-import Alert from '../components/Elements/Alert';
-import Button from '../components/Elements/Button';
-import ComboBox from '../components/Elements/ComboBox';
-import ImagePlaceholder from '../components/Elements/ImagePlaceholder';
-import Input from '../components/Elements/Input';
-import Label from '../components/Elements/Input/Label';
-import UploadSignModal from '../components/Fragments/SignUpload/UploadSignModal';
+import Constants from '../../../common/constants';
+import { userSchema } from '../../../common/formSchemas';
+import { UserValues } from '../../../common/types';
+import Alert from '../../components/Elements/Alert';
+import Button from '../../components/Elements/Button';
+import ComboBox from '../../components/Elements/ComboBox';
+import ImagePlaceholder from '../../components/Elements/ImagePlaceholder';
+import Input from '../../components/Elements/Input';
+import Label from '../../components/Elements/Input/Label';
+import UploadSignModal from '../../components/Fragments/SignUpload/UploadSignModal';
 
-const ProfilePage = () => {
+const CreateUserPage = () => {
     const [isShowModal, setIsShowModal] = useState(false);
     // const [isLoading, setIsLoading] = useState(false);
 
-    const onSaveProfile = async (profile: UserValues) => {
+    const onSave = async (profile: UserValues) => {
         console.log(profile);
         // setIsLoading(true);
 
@@ -52,6 +52,7 @@ const ProfilePage = () => {
             birthPlace: '',
             birthDate: '',
             username: '',
+            password: '',
             email: '',
             gender: '',
             fullName: '',
@@ -63,7 +64,7 @@ const ProfilePage = () => {
             signExplanation: '',
         },
         validationSchema: userSchema,
-        onSubmit: onSaveProfile,
+        onSubmit: onSave,
     });
 
     // const signUploadFile = useCallback(async () => {
@@ -87,7 +88,7 @@ const ProfilePage = () => {
                 <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                         <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
-                            Profile
+                            Tambah Pengguna
                         </span>
                         <hr className='my-4' />
                         <div className='flex flex-col items-center gap-6 px-4 lg:gap-16 lg:px-16'>
@@ -205,6 +206,26 @@ const ProfilePage = () => {
                                     {errors.username && touched.username ? (
                                         <Alert
                                             message={errors.username}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
+                                        htmlFor='password'
+                                        className='w-36'
+                                    >
+                                        Password
+                                    </Label>
+                                    <Input
+                                        type='password'
+                                        name='password'
+                                        value={values.password}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.password && touched.password ? (
+                                        <Alert
+                                            message={errors.password}
                                             type='error'
                                         />
                                     ) : null}
@@ -423,4 +444,4 @@ const ProfilePage = () => {
     );
 };
 
-export default ProfilePage;
+export default CreateUserPage;

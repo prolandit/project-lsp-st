@@ -65,32 +65,28 @@ const AssesmentSchedulePage = () => {
     };
 
     return (
-        <div className='flex flex-col my-6'>
-            <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
-                <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
-                    <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
-                        Beranda
-                    </span>
-                    <hr className='my-4' />
-                    <div className='flex flex-col gap-2 px-4 lg:px-6'>
-                        <span className='text-lg font-semibold'>
-                            Jadwal Asesmen
-                        </span>
-                        <DataTable
-                            data={data}
-                            columns={columns}
-                            searchFn={onSearch}
-                            pageCount={Math.ceil(50 / pageSize)}
-                            paginateFn={(page, pageSize) => {
-                                setPagination({ pageIndex: page, pageSize });
-                                console.log(page, pageSize);
-                            }}
-                            sortingFn={(states) => {
-                                console.log(states);
-                            }}
-                        />
-                    </div>
-                </div>
+        <div className='flex flex-col mx-3 my-6 bg-white rounded-t-lg lg:mx-8'>
+            <div className='flex flex-row items-center justify-between px-4 py-4 lg:px-6'>
+                <span className='text-base font-semibold text-blue-600'>
+                    Beranda
+                </span>
+            </div>
+            <hr />
+            <div className='flex flex-col px-4 py-4 lg:px-6'>
+                <span className='text-lg font-semibold'>Jadwal Asesmen</span>
+                <DataTable
+                    data={data}
+                    columns={columns}
+                    searchFn={onSearch}
+                    pageCount={Math.ceil(50 / pageSize)}
+                    paginateFn={(page, pageSize) => {
+                        setPagination({ pageIndex: page, pageSize });
+                        console.log(page, pageSize);
+                    }}
+                    sortingFn={(states) => {
+                        console.log(states);
+                    }}
+                />
             </div>
         </div>
     );

@@ -6,7 +6,9 @@ import LoginPage from './presentation/pages/LoginPage';
 import NotFoundPage from './presentation/pages/NotFoundPage';
 import ProfilePage from './presentation/pages/ProfilePage';
 import RegisterPage from './presentation/pages/RegisterPage';
-import UsersPage from './presentation/pages/UsersPage';
+import CreateUserPage from './presentation/pages/Users/CreateUserPage';
+import EditUserPage from './presentation/pages/Users/EditUserPage';
+import UsersPage from './presentation/pages/Users/UsersPage';
 
 const App = () => {
     return (
@@ -27,9 +29,19 @@ const App = () => {
                         element={<ProfilePage />}
                     />
                     <Route
-                        key='pengguna'
-                        path='/pengguna'
+                        key='users'
+                        path='/users'
                         element={<UsersPage />}
+                    />
+                    <Route
+                        key='create-user'
+                        path='/users/create'
+                        element={<CreateUserPage />}
+                    />
+                    <Route
+                        key='edit-user'
+                        path='/users/edit/:id'
+                        element={<EditUserPage />}
                     />
                 </Route>
                 <Route

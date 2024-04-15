@@ -16,7 +16,7 @@ export const superUserMenus: MenuType[] = [
     },
     {
         name: 'Pengguna',
-        path: '/pengguna',
+        path: '/users',
         icon: <BiGroup />,
     },
 ];

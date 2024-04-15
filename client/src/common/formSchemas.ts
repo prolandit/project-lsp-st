@@ -114,7 +114,7 @@ export const registerSchema = Yup.object().shape({
 //         ),
 // });
 
-export const profileSchema = Yup.object().shape({
+export const userSchema = Yup.object().shape({
     photo: Yup.mixed<File>()
         .test(
             'fileSize',

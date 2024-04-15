@@ -98,13 +98,14 @@ export type ErrorResponse = {
 //     signExplanation: string;
 // };
 
-export type ProfileValues = {
+export type UserValues = {
     [key: string]: any;
     photo?: File;
     role?: string;
     birthPlace?: string;
     birthDate?: string;
     username?: string;
+    password?: string;
     email?: string;
     gender?: string;
     fullName?: string;
