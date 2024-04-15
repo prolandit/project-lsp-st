@@ -157,8 +157,13 @@ const DataTable = <TData, TValue>({
                                 {headerGroup.headers.map((header) => (
                                     <th
                                         key={header.id}
-                                        colSpan={header.colSpan}
                                         className='pe-5 whitespace-nowrap'
+                                        style={{
+                                            width:
+                                                header.getSize() !== 150
+                                                    ? header.getSize()
+                                                    : undefined,
+                                        }}
                                     >
                                         <div className='flex flex-row items-center justify-between'>
                                             <div className='p-5 text-sm font-semibold tracking-wide text-left'>

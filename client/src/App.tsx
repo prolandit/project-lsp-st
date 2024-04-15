@@ -1,15 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import BerandaLayout from './presentation/components/Layouts/HomeLayout';
 import MainLayout from './presentation/components/Layouts/MainLayout';
-import UsersPage from './presentation/pages/AccountsPage';
 import ChangePasswordPage from './presentation/pages/ChangePasswordPage';
-import CreateAccountPage from './presentation/pages/CreateAccountPage';
 import LoginPage from './presentation/pages/LoginPage';
-import LSPDataAsesiPage from './presentation/pages/LSPDataAsesiPage';
 import NotFoundPage from './presentation/pages/NotFoundPage';
 import ProfilePage from './presentation/pages/ProfilePage';
 import RegisterPage from './presentation/pages/RegisterPage';
-import VerifyAccountPage from './presentation/pages/VerifyAccountPage';
+import CreateUserPage from './presentation/pages/Users/CreateUserPage';
+import EditUserPage from './presentation/pages/Users/EditUserPage';
+import UsersPage from './presentation/pages/Users/UsersPage';
 
 const App = () => {
     return (
@@ -30,24 +29,19 @@ const App = () => {
                         element={<ProfilePage />}
                     />
                     <Route
-                        key='verifikasi-akun'
-                        path='/verifikasi-akun/:id'
-                        element={<VerifyAccountPage />}
-                    />
-                    <Route
-                        key='data-asesi'
-                        path='/data-asesi'
-                        element={<LSPDataAsesiPage />}
-                    />
-                    <Route
-                        key='akun'
-                        path='user/akun'
+                        key='users'
+                        path='/users'
                         element={<UsersPage />}
                     />
                     <Route
-                        key='buat-akun'
-                        path='user/buat-akun'
-                        element={<CreateAccountPage />}
+                        key='create-user'
+                        path='/users/create'
+                        element={<CreateUserPage />}
+                    />
+                    <Route
+                        key='edit-user'
+                        path='/users/edit/:id'
+                        element={<EditUserPage />}
                     />
                 </Route>
                 <Route
