@@ -1,13 +1,13 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import BerandaLayout from './presentation/components/Layouts/HomeLayout';
 import MainLayout from './presentation/components/Layouts/MainLayout';
-import ProfileLayout from './presentation/components/Layouts/ProfileLayout';
 import UsersPage from './presentation/pages/AccountsPage';
 import ChangePasswordPage from './presentation/pages/ChangePasswordPage';
 import CreateAccountPage from './presentation/pages/CreateAccountPage';
 import LoginPage from './presentation/pages/LoginPage';
 import LSPDataAsesiPage from './presentation/pages/LSPDataAsesiPage';
 import NotFoundPage from './presentation/pages/NotFoundPage';
+import ProfilePage from './presentation/pages/ProfilePage';
 import RegisterPage from './presentation/pages/RegisterPage';
 import VerifyAccountPage from './presentation/pages/VerifyAccountPage';
 
@@ -27,7 +27,7 @@ const App = () => {
                     <Route
                         key='profile'
                         path='/profile'
-                        element={<ProfileLayout />}
+                        element={<ProfilePage />}
                     />
                     <Route
                         key='verifikasi-akun'
