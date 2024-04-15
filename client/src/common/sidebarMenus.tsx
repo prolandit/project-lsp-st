@@ -15,9 +15,9 @@ export const superUserMenus: MenuType[] = [
         icon: <BiUser />,
     },
     {
-        name: 'Permohonan Sertifikasi',
-        path: '/permohonan-sertifikasi',
-        icon: <FaWpforms />,
+        name: 'Pengguna',
+        path: '/pengguna',
+        icon: <BiGroup />,
     },
 ];
 

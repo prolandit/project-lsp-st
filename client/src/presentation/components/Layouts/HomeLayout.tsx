@@ -1,4 +1,4 @@
-import AssesmentDataPage from '../../pages/AssesmentDataPage';
+import AssesmentSchedulePage from '../../pages/AssesmentSchedulePage';
 
 const HomeLayout = () => {
     // const user = useLoggedUser();
@@ -11,7 +11,7 @@ const HomeLayout = () => {
     //     );
     // }, [user]);
 
-    return <AssesmentDataPage />;
+    return <AssesmentSchedulePage />;
 };
 
 export default HomeLayout;
