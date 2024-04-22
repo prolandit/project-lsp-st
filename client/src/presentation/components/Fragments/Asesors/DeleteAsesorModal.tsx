@@ -8,7 +8,7 @@ type Props = {
     id: number;
 };
 
-const DeleteTukModal = ({ id }: Props) => {
+const DeleteUserModal = ({ id }: Props) => {
     // const navigate = useNavigate();
     const [modal, setModal] = useState(false);
 
@@ -35,7 +35,7 @@ const DeleteTukModal = ({ id }: Props) => {
                 onConfirm={handleDelete}
                 className='lg:w-96 max-h-[500px] lg:max-h-[800px]'
             >
-                <span className='text-base font-semibold'>Hapus TUK</span>
+                <span className='text-base font-semibold'>Hapus Asesor</span>
                 <hr />
                 <span className='my-1 font-medium'>
                     Anda yakin ingin menghapus data ini?
@@ -46,4 +46,4 @@ const DeleteTukModal = ({ id }: Props) => {
     );
 };
 
-export default DeleteTukModal;
+export default DeleteUserModal;

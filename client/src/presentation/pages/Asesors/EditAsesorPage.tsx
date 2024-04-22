@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Constants from '../../../common/constants';
-import { userInputSchema } from '../../../common/formSchemas';
+import { asesorEditSchema } from '../../../common/formSchemas';
 import { UserValues } from '../../../common/types';
 import Alert from '../../components/Elements/Alert';
 import Button from '../../components/Elements/Button';
@@ -12,11 +13,14 @@ import Input from '../../components/Elements/Input';
 import Label from '../../components/Elements/Input/Label';
 import UploadSignModal from '../../components/Fragments/SignUpload/UploadSignModal';
 
-const CreateUserPage = () => {
+const EditAsesorPage = () => {
+    const { id } = useParams();
+    console.log(id);
+
     const [isShowModal, setIsShowModal] = useState(false);
     // const [isLoading, setIsLoading] = useState(false);
 
-    const onSave = async (profile: UserValues) => {
+    const onEdit = async (profile: UserValues) => {
         console.log(profile);
         // setIsLoading(true);
 
@@ -47,24 +51,25 @@ const CreateUserPage = () => {
         setFieldValue,
     } = useFormik({
         initialValues: {
+            met: '',
             photo: undefined,
             role: '',
             birthPlace: '',
             birthDate: '',
             username: '',
-            password: '',
             email: '',
             gender: '',
             fullName: '',
             religion: '',
             nik: '',
-            address: '',
             phone: '',
+            education: '',
+            job: '',
             signUpload: undefined,
             signExplanation: '',
         },
-        validationSchema: userInputSchema,
-        onSubmit: onSave,
+        validationSchema: asesorEditSchema,
+        onSubmit: onEdit,
     });
 
     // const signUploadFile = useCallback(async () => {
@@ -88,7 +93,7 @@ const CreateUserPage = () => {
                 <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                         <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
-                            Tambah Pengguna
+                            Tambah Asesor
                         </span>
                         <hr className='my-4' />
                         <div className='flex flex-col items-center gap-6 px-4 lg:gap-16 lg:px-16'>
@@ -212,26 +217,6 @@ const CreateUserPage = () => {
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='password'
-                                        className='w-36'
-                                    >
-                                        Password
-                                    </Label>
-                                    <Input
-                                        type='password'
-                                        name='password'
-                                        value={values.password}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.password && touched.password ? (
-                                        <Alert
-                                            message={errors.password}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
                                         htmlFor='email'
                                         className='w-36'
                                     >
@@ -264,6 +249,26 @@ const CreateUserPage = () => {
                                     {errors.gender && touched.gender ? (
                                         <Alert
                                             message={errors.gender}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
+                                        htmlFor='met'
+                                        className='w-36'
+                                    >
+                                        Nomor Registrasi
+                                    </Label>
+                                    <Input
+                                        type='text'
+                                        name='met'
+                                        value={values.met}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.met && touched.met ? (
+                                        <Alert
+                                            message={errors.met}
                                             type='error'
                                         />
                                     ) : null}
@@ -310,6 +315,46 @@ const CreateUserPage = () => {
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
+                                        htmlFor='education'
+                                        className='w-36'
+                                    >
+                                        Pendidikan
+                                    </Label>
+                                    <Input
+                                        type='text'
+                                        name='education'
+                                        value={values.education}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.education && touched.education ? (
+                                        <Alert
+                                            message={errors.education}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
+                                        htmlFor='job'
+                                        className='w-36'
+                                    >
+                                        Pekerjaan
+                                    </Label>
+                                    <Input
+                                        type='text'
+                                        name='job'
+                                        value={values.job}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.job && touched.job ? (
+                                        <Alert
+                                            message={errors.job}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
                                         htmlFor='religion'
                                         className='w-36'
                                     >
@@ -345,26 +390,6 @@ const CreateUserPage = () => {
                                     {errors.phone && touched.phone ? (
                                         <Alert
                                             message={errors.phone}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='address'
-                                        className='w-36'
-                                    >
-                                        Alamat
-                                    </Label>
-                                    <Input
-                                        type='text'
-                                        name='address'
-                                        value={values.address}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.address && touched.address ? (
-                                        <Alert
-                                            message={errors.address}
                                             type='error'
                                         />
                                     ) : null}
@@ -444,4 +469,4 @@ const CreateUserPage = () => {
     );
 };
 
-export default CreateUserPage;
+export default EditAsesorPage;

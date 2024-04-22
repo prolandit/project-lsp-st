@@ -35,11 +35,9 @@ const DeleteUserModal = ({ id }: Props) => {
                 onConfirm={handleDelete}
                 className='lg:w-96 max-h-[500px] lg:max-h-[800px]'
             >
-                <span className='mx-4 text-base font-semibold'>
-                    Hapus Pengguna
-                </span>
+                <span className='text-base font-semibold'>Hapus Pengguna</span>
                 <hr />
-                <span className='mx-4 my-1 font-medium'>
+                <span className='my-1 font-medium'>
                     Anda yakin ingin menghapus data ini?
                 </span>
                 {/* <LoadingSpinner show={isLoading} /> */}

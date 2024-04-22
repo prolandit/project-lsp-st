@@ -100,6 +100,7 @@ export type ErrorResponse = {
 
 export type UserValues = {
     [key: string]: any;
+    met?: string;
     photo?: File;
     role?: string;
     birthPlace?: string;
@@ -113,6 +114,8 @@ export type UserValues = {
     nik?: string;
     address?: string;
     phone?: string;
+    education?: string;
+    job?: string;
     signUpload?: File;
     signExplanation?: string;
 };
@@ -149,6 +152,7 @@ export type Position = {
 
 export type UserPayload = {
     id: number;
+    met?: string;
     photo: string;
     role: string;
     birthPlace: string;
@@ -159,8 +163,10 @@ export type UserPayload = {
     fullName: string;
     religion: string;
     nik: string;
-    address: string;
+    address?: string;
     phone: string;
+    education?: string;
+    job?: string;
     sign: string;
     signExplanation: string;
 };
