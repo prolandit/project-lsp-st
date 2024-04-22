@@ -2,7 +2,7 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import Constants from '../../../common/constants';
-import { userSchema } from '../../../common/formSchemas';
+import { userInputSchema } from '../../../common/formSchemas';
 import { UserValues } from '../../../common/types';
 import Alert from '../../components/Elements/Alert';
 import Button from '../../components/Elements/Button';
@@ -63,7 +63,7 @@ const CreateUserPage = () => {
             signUpload: undefined,
             signExplanation: '',
         },
-        validationSchema: userSchema,
+        validationSchema: userInputSchema,
         onSubmit: onSave,
     });
 

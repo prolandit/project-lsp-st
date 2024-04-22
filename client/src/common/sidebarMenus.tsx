@@ -1,5 +1,6 @@
 import { BiGroup, BiPlus, BiUser } from 'react-icons/bi';
 import { FaWpforms } from 'react-icons/fa';
+import { GoTasklist } from 'react-icons/go';
 import { MdDashboard } from 'react-icons/md';
 import { MenuType } from './types';
 
@@ -18,6 +19,11 @@ export const superUserMenus: MenuType[] = [
         name: 'Pengguna',
         path: '/users',
         icon: <BiGroup />,
+    },
+    {
+        name: 'TUK',
+        path: '/tuks',
+        icon: <GoTasklist />,
     },
 ];
 

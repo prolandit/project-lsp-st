@@ -117,6 +117,15 @@ export type UserValues = {
     signExplanation?: string;
 };
 
+export type TukValues = {
+    name: string;
+    code: string;
+    type: string;
+    validDate: string;
+    areaAddress: string;
+    address: string;
+};
+
 export type ChangePasswordValues = {
     oldPassword: string;
     newPassword: string;
@@ -154,6 +163,16 @@ export type UserPayload = {
     phone: string;
     sign: string;
     signExplanation: string;
+};
+
+export type TukPayload = {
+    id: number;
+    name: string;
+    code: string;
+    type: string;
+    validDate: Date;
+    areaAddress: string;
+    address: string;
 };
 
 export type MenuType = {

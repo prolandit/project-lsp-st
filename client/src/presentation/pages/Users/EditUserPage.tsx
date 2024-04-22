@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Constants from '../../../common/constants';
-import { userSchema } from '../../../common/formSchemas';
+import { userEditSchema } from '../../../common/formSchemas';
 import { UserValues } from '../../../common/types';
 import Alert from '../../components/Elements/Alert';
 import Button from '../../components/Elements/Button';
@@ -20,7 +20,7 @@ const EditUserPage = () => {
     const [isShowModal, setIsShowModal] = useState(false);
     // const [isLoading, setIsLoading] = useState(false);
 
-    const onSave = async (profile: UserValues) => {
+    const onEdit = async (profile: UserValues) => {
         console.log(profile);
         // setIsLoading(true);
 
@@ -67,8 +67,8 @@ const EditUserPage = () => {
             signUpload: undefined,
             signExplanation: '',
         },
-        validationSchema: userSchema,
-        onSubmit: onSave,
+        validationSchema: userEditSchema,
+        onSubmit: onEdit,
     });
 
     // const signUploadFile = useCallback(async () => {
