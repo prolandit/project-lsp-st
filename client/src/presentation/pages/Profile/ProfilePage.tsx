@@ -2,7 +2,7 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import Constants from '../../../common/constants';
-import { userInputSchema } from '../../../common/formSchemas';
+import { profileSchema } from '../../../common/formSchemas';
 import { UserValues } from '../../../common/types';
 import Alert from '../../components/Elements/Alert';
 import Button from '../../components/Elements/Button';
@@ -16,7 +16,7 @@ const ProfilePage = () => {
     const [isShowModal, setIsShowModal] = useState(false);
     // const [isLoading, setIsLoading] = useState(false);
 
-    const onSaveProfile = async (profile: UserValues) => {
+    const onSave = async (profile: UserValues) => {
         console.log(profile);
         // setIsLoading(true);
 
@@ -62,8 +62,8 @@ const ProfilePage = () => {
             signUpload: undefined,
             signExplanation: '',
         },
-        validationSchema: userInputSchema,
-        onSubmit: onSaveProfile,
+        validationSchema: profileSchema,
+        onSubmit: onSave,
     });
 
     // const signUploadFile = useCallback(async () => {

@@ -25,6 +25,11 @@ export const superUserMenus: MenuType[] = [
         path: '/tuks',
         icon: <GoTasklist />,
     },
+    {
+        name: 'Asesor',
+        path: '/asesors',
+        icon: <BiGroup />,
+    },
 ];
 
 export const asesiAsesorMenus: MenuType[] = [

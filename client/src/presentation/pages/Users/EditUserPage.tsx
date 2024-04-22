@@ -274,6 +274,26 @@ const EditUserPage = () => {
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
+                                        htmlFor='nik'
+                                        className='w-36'
+                                    >
+                                        NIK
+                                    </Label>
+                                    <Input
+                                        type='text'
+                                        name='nik'
+                                        value={values.nik}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.nik && touched.nik ? (
+                                        <Alert
+                                            message={errors.nik}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
                                         htmlFor='fullName'
                                         className='w-36'
                                     >
@@ -309,26 +329,6 @@ const EditUserPage = () => {
                                     {errors.religion && touched.religion ? (
                                         <Alert
                                             message={errors.religion}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='nik'
-                                        className='w-36'
-                                    >
-                                        NIK
-                                    </Label>
-                                    <Input
-                                        type='text'
-                                        name='nik'
-                                        value={values.nik}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.nik && touched.nik ? (
-                                        <Alert
-                                            message={errors.nik}
                                             type='error'
                                         />
                                     ) : null}

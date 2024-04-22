@@ -1,6 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import BerandaLayout from './presentation/components/Layouts/HomeLayout';
 import MainLayout from './presentation/components/Layouts/MainLayout';
+import AsesorsPage from './presentation/pages/Asesors/AsesorsPage';
+import CreateAsesorPage from './presentation/pages/Asesors/CreateAsesorPage';
+import EditAsesorPage from './presentation/pages/Asesors/EditAsesorPage';
 import ChangePasswordPage from './presentation/pages/Auth/ChangePasswordPage';
 import LoginPage from './presentation/pages/Auth/LoginPage';
 import RegisterPage from './presentation/pages/Auth/RegisterPage';
@@ -60,6 +63,21 @@ const App = () => {
                         key='edit-tuk'
                         path='/tuks/edit/:id'
                         element={<EditTukPage />}
+                    />
+                    <Route
+                        key='asesors'
+                        path='/asesors'
+                        element={<AsesorsPage />}
+                    />
+                    <Route
+                        key='create-asesor'
+                        path='/asesors/create'
+                        element={<CreateAsesorPage />}
+                    />
+                    <Route
+                        key='edit-asesor'
+                        path='/asesors/edit/:id'
+                        element={<EditAsesorPage />}
                     />
                 </Route>
                 <Route
