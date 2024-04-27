@@ -13,13 +13,13 @@ dotenv.config();
 
 const getAllUser = async (role) => {
     try {
-        if (role !== 'Admin') {
+        if ( role !== 'Admin' ) {
             return Promise.reject(Boom.unauthorized("You are not authorized to see this data"));
         };
 
         const allUser = await db.tb_user.findAll();
 
-        if (_.isEmpty(allUser)) {
+        if ( _.isEmpty(allUser) ) {
             return { message: "User is Empty" };
         };
 
@@ -38,7 +38,7 @@ const getProfileUser = async (id) => {
     try {
         const isUser = await db.tb_user.findOne({
             where: {
-                id: id
+                id
             }
         });
 
@@ -91,7 +91,7 @@ const updateProfileUser = async (dataObject) => {
     try {
         const checkUser = await db.tb_user.findOne({
             where: {
-                id: id
+                id
             }
         });
 
@@ -102,35 +102,35 @@ const updateProfileUser = async (dataObject) => {
         };
 
         await db.tb_user.update({
-            email: email ? email : checkUser.dataValues.email,
-            fullName: fullName ? fullName : checkUser.dataValues.fullName,
-            ktpPassport: ktpPassport ? ktpPassport : checkUser.dataValues.ktpPassport,
-            met: met ? met : checkUser.dataValues.met, 
-            birthPlace: birthPlace ? birthPlace : checkUser.dataValues.birthPlace, 
-            birthDate: birthDate ? birthDate : checkUser.dataValues.birthDate, 
-            nationality: nationality ? nationality : checkUser.dataValues.nationality, 
-            address: address ? address : checkUser.dataValues.address, 
-            province: province ? province : checkUser.dataValues.province, 
-            city: city ? city : checkUser.dataValues.city, 
-            posCode: posCode ? posCode : checkUser.dataValues.posCode, 
-            telp: telp ? telp : checkUser.dataValues.telp, 
-            phone: phone ? phone : checkUser.dataValues.phone, 
-            lastEducation: lastEducation ? lastEducation : checkUser.dataValues.lastEducation, 
-            signUpload: signUpload ? signUpload : checkUser.dataValues.signUpload, 
-            tuk: tuk ? tuk : checkUser.dataValues.tuk, 
-            institution: institution ? institution : checkUser.dataValues.institution, 
-            company: company ? company : checkUser.dataValues.company,
-            fund: fund ? fund : checkUser.dataValues.fund, 
-            job: job ? job : checkUser.dataValues.job, 
-            position: position ? position : checkUser.dataValues.position,
-            companyAddress: companyAddress ? companyAddress : checkUser.dataValues.companyAddress,
-            telpCompany: telpCompany ? telpCompany : checkUser.dataValues.telpCompany, 
-            companyPosCode: companyPosCode ? companyPosCode : checkUser.dataValues.companyPosCode,
-            fax: fax ? fax : checkUser.dataValues.fax,
-            companyEmail: companyEmail ? companyEmail : checkUser.dataValues.companyEmail
+            email: email || checkUser.dataValues.email,
+            fullName: fullName || checkUser.dataValues.fullName,
+            ktpPassport: ktpPassport || checkUser.dataValues.ktpPassport,
+            met: met || checkUser.dataValues.met, 
+            birthPlace: birthPlace || checkUser.dataValues.birthPlace, 
+            birthDate: birthDate || checkUser.dataValues.birthDate, 
+            nationality: nationality || checkUser.dataValues.nationality, 
+            address: address || checkUser.dataValues.address, 
+            province: province || checkUser.dataValues.province, 
+            city: city || checkUser.dataValues.city, 
+            posCode: posCode || checkUser.dataValues.posCode, 
+            telp: telp || checkUser.dataValues.telp, 
+            phone: phone || checkUser.dataValues.phone, 
+            lastEducation: lastEducation || checkUser.dataValues.lastEducation, 
+            signUpload: signUpload || checkUser.dataValues.signUpload, 
+            tuk: tuk || checkUser.dataValues.tuk, 
+            institution: institution || checkUser.dataValues.institution, 
+            company: company || checkUser.dataValues.company,
+            fund: fund || checkUser.dataValues.fund, 
+            job: job || checkUser.dataValues.job, 
+            position: position || checkUser.dataValues.position,
+            companyAddress: companyAddress || checkUser.dataValues.companyAddress,
+            telpCompany: telpCompany || checkUser.dataValues.telpCompany, 
+            companyPosCode: companyPosCode || checkUser.dataValues.companyPosCode,
+            fax: fax || checkUser.dataValues.fax,
+            companyEmail: companyEmail || checkUser.dataValues.companyEmail
         }, {
             where: {
-                id: id
+                id
             }
         });
 
@@ -144,13 +144,30 @@ const updateProfileUser = async (dataObject) => {
     }
 }
 
+const getKtpUser = async (pathKtp) => {
+    try {
+        if (pathKtp) {
+            return Promise.resolve({
+                statusCode: 200,
+                message: "Get ktp user successfully!",
+                data: pathKtp
+            });
+        } 
+        
+        return Promise.reject(Boom.notFound("Ktp not exist!"));
+    } catch (error) {
+        console.log([fileName, 'getKtpUser', 'ERROR'], { info: `${error}` });
+        return Promise.reject(GeneralHelper.errorResponse(error));
+    }
+}
+ 
 const changePassword = async (dataObject) => {
     const { oldPassword, newPassword, newPasswordConfirmation, id } = dataObject;
 
     try {
         const isUser = await db.tb_user.findOne({
             where: {
-                id: id
+                id
             }
         });
 
@@ -178,7 +195,7 @@ const changePassword = async (dataObject) => {
             password: hashedPass
         }, {
             where: {
-                id: id
+                id
             }
         });
 
@@ -198,7 +215,7 @@ const forgotPassword = async (dataObject) => {
     try {
         const isUser = await db.tb_user.findOne({
             where: {
-                email: email
+                email
             }
         });
 
@@ -213,7 +230,7 @@ const forgotPassword = async (dataObject) => {
         await db.tb_token.create({
             email_user: email,
             token: codeOtp,
-            expiryTime: expiryTime
+            expiryTime
         });
 
         const mailOptions = {
@@ -235,5 +252,5 @@ const forgotPassword = async (dataObject) => {
     }
 }
 
-module.exports = { getAllUser, getProfileUser, updateProfileUser, changePassword, forgotPassword }
+module.exports = { getAllUser, getProfileUser, updateProfileUser, getKtpUser, changePassword, forgotPassword }
         

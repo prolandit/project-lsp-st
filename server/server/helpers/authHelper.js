@@ -14,7 +14,7 @@ const registerUser = async (dataObject) => {
     try {
         const isRegistered = await db.tb_user.findOne({
             where: {
-                email: email,
+                email,
             }
         });
 
@@ -24,7 +24,7 @@ const registerUser = async (dataObject) => {
 
         const hashedPass = bcrPassword.__hashPassword(password);
 
-        await db.tb_user.create({ email, password: hashedPass, fullName, role: 'Asesi' });
+        await db.tb_user.create({ email, password: hashedPass, fullName, role });
 
         return Promise.resolve({
             statusCode: 201,
@@ -42,7 +42,7 @@ const loginUser = async (dataObject) => {
     try {
         const isUser = await db.tb_user.findOne({
             where: {
-                email: email
+                email
             }
         });
 
