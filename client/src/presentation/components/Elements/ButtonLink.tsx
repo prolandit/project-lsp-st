@@ -1,25 +1,25 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
 type Props = {
-  type: "button" | "submit" | "reset" | undefined;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  to: string;
   className?: string;
   children: React.ReactNode;
 };
 
-const Button = ({ type, children, className, onClick }: Props) => {
+const ButtonLink: React.FC<Props> = ({ children, className, to }) => {
   return (
-    <button
-      type={type}
+    <Link
+      to={to}
       className={twMerge(
         "bg-blue-500 hover:bg-blue-400 text-white font-medium py-2 px-4 rounded",
         className
       )}
-      onClick={onClick}
     >
       {children}
-    </button>
+    </Link>
   );
 };
 
-export default Button;
+export default ButtonLink;
