@@ -18,7 +18,7 @@ const AuthLayout = ({
 }: Props) => {
     return (
         <AnimationContainer className='flex items-center justify-center min-h-screen duration-300 sm:bg-gray-100'>
-            <div className='w-full max-w-md p-10 bg-white rounded-md sm:shadow-lg'>
+            <div className='w-full max-w-md px-5 py-10 bg-white rounded-md md:px-10 sm:shadow-lg'>
                 <div className='mb-10'>
                     <h1 className='mb-3 text-3xl font-semibold'>{title}</h1>
                     <p className='text-sm'>{subtitle}</p>

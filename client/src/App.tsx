@@ -1,15 +1,20 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import IndexLayout from './presentation/components/Layouts/IndexLayout';
+import BerandaLayout from './presentation/components/Layouts/HomeLayout';
 import MainLayout from './presentation/components/Layouts/MainLayout';
-import ProfileLayout from './presentation/components/Layouts/ProfileLayout';
-import ChangePasswordPage from './presentation/pages/ChangePasswordPage';
-import LoginPage from './presentation/pages/LoginPage';
+import AsesorsPage from './presentation/pages/Asesors/AsesorsPage';
+import CreateAsesorPage from './presentation/pages/Asesors/CreateAsesorPage';
+import EditAsesorPage from './presentation/pages/Asesors/EditAsesorPage';
+import ChangePasswordPage from './presentation/pages/Auth/ChangePasswordPage';
+import LoginPage from './presentation/pages/Auth/LoginPage';
+import RegisterPage from './presentation/pages/Auth/RegisterPage';
 import NotFoundPage from './presentation/pages/NotFoundPage';
-import RegisterPage from './presentation/pages/RegisterPage';
-import UsersPage from './presentation/pages/admin_lsp/AccountsPage';
-import CreateAccountPage from './presentation/pages/admin_lsp/CreateAccountPage';
-import LSPDataAsesiPage from './presentation/pages/admin_lsp/LSPDataAsesiPage';
-import VerifyAccountPage from './presentation/pages/admin_lsp/VerifyAccountPage';
+import ProfilePage from './presentation/pages/Profile/ProfilePage';
+import CreateTukPage from './presentation/pages/Tuks/CreateTukPage';
+import EditTukPage from './presentation/pages/Tuks/EditTuksPage';
+import TuksPage from './presentation/pages/Tuks/TuksPage';
+import CreateUserPage from './presentation/pages/Users/CreateUserPage';
+import EditUserPage from './presentation/pages/Users/EditUserPage';
+import UsersPage from './presentation/pages/Users/UsersPage';
 
 const App = () => {
     return (
@@ -22,32 +27,57 @@ const App = () => {
                     <Route
                         index
                         key='index'
-                        element={<IndexLayout />}
+                        element={<BerandaLayout />}
                     />
                     <Route
                         key='profile'
                         path='/profile'
-                        element={<ProfileLayout />}
+                        element={<ProfilePage />}
                     />
                     <Route
-                        key='verifikasi-akun'
-                        path='/verifikasi-akun/:id'
-                        element={<VerifyAccountPage />}
-                    />
-                    <Route
-                        key='data-asesi'
-                        path='/data-asesi'
-                        element={<LSPDataAsesiPage />}
-                    />
-                    <Route
-                        key='akun'
-                        path='user/akun'
+                        key='users'
+                        path='/users'
                         element={<UsersPage />}
                     />
                     <Route
-                        key='buat-akun'
-                        path='user/buat-akun'
-                        element={<CreateAccountPage />}
+                        key='create-user'
+                        path='/users/create'
+                        element={<CreateUserPage />}
+                    />
+                    <Route
+                        key='edit-user'
+                        path='/users/edit/:id'
+                        element={<EditUserPage />}
+                    />
+                    <Route
+                        key='tuks'
+                        path='/tuks'
+                        element={<TuksPage />}
+                    />
+                    <Route
+                        key='create-tuk'
+                        path='/tuks/create'
+                        element={<CreateTukPage />}
+                    />
+                    <Route
+                        key='edit-tuk'
+                        path='/tuks/edit/:id'
+                        element={<EditTukPage />}
+                    />
+                    <Route
+                        key='asesors'
+                        path='/asesors'
+                        element={<AsesorsPage />}
+                    />
+                    <Route
+                        key='create-asesor'
+                        path='/asesors/create'
+                        element={<CreateAsesorPage />}
+                    />
+                    <Route
+                        key='edit-asesor'
+                        path='/asesors/edit/:id'
+                        element={<EditAsesorPage />}
                     />
                 </Route>
                 <Route

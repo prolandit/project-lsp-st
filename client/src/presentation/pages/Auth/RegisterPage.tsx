@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Constants from '../../common/constants';
-import { RegisterValues } from '../../common/types';
-import AuthRemoteDataSource from '../../data/datasources/AuthRemoteDataSource';
-import LoadingSpinner from '../components/Elements/LoadingSpinner';
-import FormRegister from '../components/Fragments/FormRegister';
-import AuthLayout from '../components/Layouts/AuthLayout';
+import Constants from '../../../common/constants';
+import { RegisterValues } from '../../../common/types';
+import AuthRemoteDataSource from '../../../data/datasources/AuthRemoteDataSource';
+import LoadingSpinner from '../../components/Elements/LoadingSpinner';
+import FormRegister from '../../components/Fragments/FormRegister';
+import AuthLayout from '../../components/Layouts/AuthLayout';
 
 const RegisterPage = () => {
     const navigate = useNavigate();

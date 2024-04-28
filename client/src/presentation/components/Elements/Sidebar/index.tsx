@@ -1,13 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Role } from '../../../../common/enum';
-import { useAppSelector } from '../../../../common/hooks';
-import {
-    adminLspMenus,
-    asesiAsesorMenus,
-} from '../../../../common/sidebarMenus';
+import { superUserMenus } from '../../../../common/sidebarMenus';
 import SidebarMenuItem from './SidebarMenuItem';
 
 type Props = {
@@ -16,7 +11,7 @@ type Props = {
 };
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
-    const user = useAppSelector((state) => state.user.user);
+    // const user = useAppSelector((state) => state.user.user);
 
     const location = useLocation();
     const { pathname } = location;
@@ -31,11 +26,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
             : storedSidebarExpanded === 'true'
     );
 
-    const menus = useMemo(() => {
-        return user?.role?.toLowerCase() === Role.ADMIN_LSP
-            ? adminLspMenus
-            : asesiAsesorMenus;
-    }, [user]);
+    // const menus = useMemo(() => {
+    //     return user?.role?.toLowerCase() === Role.ADMIN_LSP
+    //         ? adminLspMenus
+    //         : asesiAsesorMenus;
+    // }, [user]);
+    const menus = superUserMenus;
 
     useEffect(() => {
         const clickHandler = ({ target }: MouseEvent) => {
