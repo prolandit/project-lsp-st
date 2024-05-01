@@ -32,7 +32,9 @@ const DummyData = (): PemohonStructure => {
     },
   };
 };
+
 const totalData = 100;
+
 const List: React.FC = () => {
   const [{ pageIndex, pageSize }, setPagination] = useState({
     pageIndex: 1,
@@ -48,6 +50,12 @@ const List: React.FC = () => {
   useEffect(() => {
     setData(Array.from(Array(pageSize)).map(() => DummyData()));
   }, [pageIndex]);
+
+  const onAction = (type: string) => {
+    return () => {
+      console.log(type);
+    };
+  };
 
   const columns: ColumnDef<PemohonStructure>[] = [
     {
@@ -85,7 +93,7 @@ const List: React.FC = () => {
       enableSorting: false,
       cell: ({ row }) => (
         <>
-          <ButtonLink to={`pemohon/berkas/${row.original.id}`}>Berkas Asesi</ButtonLink>
+          <ButtonLink to={`/pemohon/berkas/${row.original.id}`}>Berkas Asesi</ButtonLink>
         </>
       ),
     },
@@ -98,6 +106,7 @@ const List: React.FC = () => {
             <Button
               type="button"
               className="bg-green-200 text-green-600 rounded-full w-10 h-10 hover:bg-green-300"
+              onClick={onAction("Setujui Asesi")}
             >
               <FaCheck className="-ml-0.5" />
             </Button>
@@ -106,6 +115,7 @@ const List: React.FC = () => {
             <Button
               type="button"
               className="bg-red-200 text-red-600 rounded-full w-10 h-10 hover:bg-red-300 ml-5"
+              onClick={onAction("Tolak Asesi")}
             >
               <FaX className="-ml-0.5" />
             </Button>
@@ -114,6 +124,7 @@ const List: React.FC = () => {
             <Button
               type="button"
               className="bg-orange-200 text-orange-600 rounded-full w-10 h-10 hover:bg-orange-300 ml-5"
+              onClick={onAction("Revisi Asesi")}
             >
               <FaRotateLeft className="-ml-0.5" />
             </Button>
@@ -127,20 +138,26 @@ const List: React.FC = () => {
 
   return (
     <>
-      <div className="flex flex-col px-4 py-4 lg:px-6">
-        <span className="text-lg font-semibold">Jadwal Asesmen</span>
-        <DataTable
-          data={data}
-          columns={columns}
-          searchFn={onSearch}
-          pageCount={Math.ceil(totalData / 10)}
-          paginateFn={(page, pageSize) => {
-            setPagination({ pageIndex: page, pageSize });
-          }}
-          sortingFn={(states) => {
-            console.log(states);
-          }}
-        />
+      <div className="flex flex-col mx-3 my-6 bg-white rounded-t-lg lg:mx-8">
+        {/* <div className="flex flex-row items-center justify-between px-4 py-4 lg:px-6">
+          <span className="text-base font-semibold text-blue-600">Beranda</span>
+        </div>
+        <hr /> */}
+        <div className="flex flex-col px-4 py-4 lg:px-6">
+          <span className="text-lg font-semibold">Daftar Peserta</span>
+          <DataTable
+            data={data}
+            columns={columns}
+            searchFn={onSearch}
+            pageCount={Math.ceil(totalData / 10)}
+            paginateFn={(page, pageSize) => {
+              setPagination({ pageIndex: page, pageSize });
+            }}
+            sortingFn={(states) => {
+              console.log(states);
+            }}
+          />
+        </div>
       </div>
     </>
   );

@@ -20,3 +20,15 @@ export interface PemohonStructure {
   tuk: string;
   purpose: string;
 }
+
+export interface PemohonPortofolioStructure {
+  name: string;
+  file: string | null;
+}
+
+export interface PersyaratanPortofolioStructure {
+  name: string;
+  formType: string;
+  file: string | null;
+  status: "disetujui" | "submit";
+}

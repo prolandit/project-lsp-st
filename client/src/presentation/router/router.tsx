@@ -1,13 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import ListPemohon from "../pages/pemohon/list";
 import MainLayout from "../components/Layouts/MainLayout";
+import PersyaratanUmum from "../pages/pemohon/persyaratan-umum";
 
 interface RouteParam {
   path: string;
   component: (user: any) => ReturnType<React.FC>;
 }
 
-const routes: RouteParam[] = [{ path: "/pemohon", component: (user: any) => <ListPemohon /> }];
+const routes: RouteParam[] = [
+  { path: "/pemohon", component: (user: any) => <ListPemohon /> },
+  { path: "/pemohon/berkas/:id", component: (user: any) => <PersyaratanUmum /> },
+];
 
 const RenderRouter = () => {
   const user = "user";
