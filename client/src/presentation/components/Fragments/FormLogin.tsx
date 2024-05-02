@@ -1,8 +1,6 @@
 import { useFormik } from 'formik';
 import { CiLock, CiMail } from 'react-icons/ci';
-import { loginSchema } from '../../../common/formSchemas';
 import { LoginValues } from '../../../common/types';
-import Alert from '../Elements/Alert';
 import Button from '../Elements/Button';
 import InputForm from '../Elements/InputForm';
 
@@ -11,12 +9,12 @@ type Props = {
 };
 
 const FormLogin = ({ onLogin }: Props) => {
-    const { errors, touched, values, handleChange, handleSubmit } = useFormik({
+    const { values, handleChange, handleSubmit } = useFormik({
         initialValues: {
             email: '',
             password: '',
         },
-        validationSchema: loginSchema,
+        // validationSchema: loginSchema,
         onSubmit: onLogin,
     });
 
@@ -34,12 +32,12 @@ const FormLogin = ({ onLogin }: Props) => {
                 text='Email'
                 prefix={<CiMail className='text-lg text-black me-3' />}
             />
-            {errors.email && touched.email ? (
+            {/* {errors.email && touched.email ? (
                 <Alert
                     message={errors.email}
                     type='error'
                 />
-            ) : null}
+            ) : null} */}
             <InputForm
                 type='password'
                 name='password'
@@ -49,12 +47,12 @@ const FormLogin = ({ onLogin }: Props) => {
                 text='Password'
                 prefix={<CiLock className='text-lg text-black me-3' />}
             />
-            {errors.password && touched.password ? (
+            {/* {errors.password && touched.password ? (
                 <Alert
                     message={errors.password}
                     type='error'
                 />
-            ) : null}
+            ) : null} */}
             <Button
                 type='submit'
                 className='mt-5 h-[45px] bg-blue-500 hover:bg-blue-700'

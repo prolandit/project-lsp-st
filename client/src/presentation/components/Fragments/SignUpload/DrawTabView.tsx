@@ -3,10 +3,9 @@ import { useEffect, useState } from 'react';
 import { IoRefresh } from 'react-icons/io5';
 import { fileInputSchema } from '../../../../common/formSchemas';
 import useCanvas from '../../../../common/hooks/useCanvas';
-import { FileUpload } from '../../../../common/types';
-import Alert from '../Alert';
-import Button from '../Button';
-import InputForm from '../InputForm';
+import Alert from '../../Elements/Alert';
+import Button from '../../Elements/Button';
+import InputForm from '../../Elements/InputForm';
 
 type Props = {
     onChange?: (file: File | undefined, exp: string) => void;
@@ -48,8 +47,10 @@ const DrawTabView = ({ onChange, onClose, onSave }: Props) => {
                 explanation: '',
             },
             validationSchema: fileInputSchema,
-            onSubmit: (values: FileUpload) => {
-                console.log(values);
+            onSubmit: () => {
+                if (values.fileUpload || values.explanation) {
+                    onSave();
+                }
             },
         });
 
@@ -115,13 +116,8 @@ const DrawTabView = ({ onChange, onClose, onSave }: Props) => {
                     type='button'
                     onClick={(e) => {
                         e.preventDefault();
-
                         onChange?.(imageFile, values.explanation);
-
                         handleSubmit();
-                        if (values.fileUpload || values.explanation) {
-                            onSave();
-                        }
                     }}
                 >
                     Simpan

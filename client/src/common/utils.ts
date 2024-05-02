@@ -1,6 +1,14 @@
 import axios, { AxiosError } from 'axios';
 import { ErrorResponse } from './types';
 
+export const localDateString = (date: Date): string => {
+    return date.toLocaleDateString('ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    });
+};
+
 export const formattedDate = (isoDate: string): string => {
     const date = new Date(isoDate);
 
