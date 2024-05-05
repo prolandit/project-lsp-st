@@ -26,9 +26,16 @@ export interface PemohonPortofolioStructure {
   file: string | null;
 }
 
-export interface PersyaratanPortofolioStructure {
+export interface PersyaratanPendaftaranStructure {
   name: string;
   formType: string;
   file: string | null;
   status: "disetujui" | "submit";
+}
+
+export interface BuktiKompetensiStructure {
+  unitKompetensi: string;
+  element: string;
+  kuks: string[];
+  files: string[];
 }

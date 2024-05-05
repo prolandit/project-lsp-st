@@ -115,7 +115,7 @@ const PersyaratanPendaftaran: React.FC = () => {
         </div>
         <hr /> */}
         <div className="flex flex-col px-4 py-4 lg:px-6">
-          <span className="text-lg font-semibold">Daftar Peserta</span>
+          {/* <span className="text-lg font-semibold">Daftar Peserta</span> */}
           <DataTable
             data={data}
             columns={columns}
