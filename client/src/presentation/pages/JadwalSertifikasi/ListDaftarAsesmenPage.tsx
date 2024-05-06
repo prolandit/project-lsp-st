@@ -80,7 +80,11 @@ const ListDaftarAsesmenPage = () => {
                     <Button
                         type='button'
                         className='text-green-500 duration-300 bg-white border border-green-500 hover:bg-green-500 hover:text-white transition-color'
-                        onClick={() => console.log(row.original.id)}
+                        onClick={() =>
+                            navigate(
+                                `/jadwal-sertifikasi/daftar-asesmen/assign/${row.original.id}`
+                            )
+                        }
                     >
                         Assign
                     </Button>

@@ -6,6 +6,7 @@ import TambahAsesorPage from '../presentation/pages/Asesor/TambahAsesorPage';
 import ChangePasswordPage from '../presentation/pages/Auth/ChangePasswordPage';
 import LoginPage from '../presentation/pages/Auth/LoginPage';
 import RegisterPage from '../presentation/pages/Auth/RegisterPage';
+import AssignAsesmenPage from '../presentation/pages/JadwalSertifikasi/AssignAsesmentPage';
 import EditAsesmentPage from '../presentation/pages/JadwalSertifikasi/EditAsesmentPage';
 import ListDaftarAsesmenPage from '../presentation/pages/JadwalSertifikasi/ListDaftarAsesmenPage';
 import TambahAsesmentPage from '../presentation/pages/JadwalSertifikasi/TambahAsesmentPage';
@@ -79,6 +80,10 @@ const routes: RouteParam[] = [
             {
                 path: '/jadwal-sertifikasi/daftar-asesmen/edit/:id',
                 element: <EditAsesmentPage />,
+            },
+            {
+                path: '/jadwal-sertifikasi/daftar-asesmen/assign/:id',
+                element: <AssignAsesmenPage />,
             },
         ],
     },

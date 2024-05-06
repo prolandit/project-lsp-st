@@ -1,12 +1,13 @@
 import {
     ColumnDef,
     PaginationState,
+    RowSelectionState,
     SortingState,
     flexRender,
     getCoreRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { FaSortDown } from 'react-icons/fa';
@@ -23,9 +24,11 @@ interface Props<TData, TValue> {
     columns: ColumnDef<TData, TValue | undefined>[];
     className?: string;
     pageCount?: number;
+    selectable?: boolean;
     searchFn?: (query: string) => void;
     paginateFn?: (page: number, pageSize: number) => void;
     sortingFn?: (states: SortingState) => void;
+    selectionFn?: (selectedData: TData[]) => void;
 }
 
 const DataTable = <TData, TValue>({
@@ -33,18 +36,26 @@ const DataTable = <TData, TValue>({
     columns,
     className,
     pageCount,
+    selectable,
     searchFn,
     paginateFn,
     sortingFn,
+    selectionFn,
 }: Props<TData, TValue>) => {
     const [isMobileScreen, setIsMobileScreen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const getRowId = useCallback((row: any) => {
+        return row.id;
+    }, []);
 
     const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
         pageIndex: 1,
         pageSize: 10,
     });
     const [sorting, setSorting] = useState<SortingState>([]);
+    const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
     const pagination = useMemo(
         () => ({ pageIndex, pageSize }),
@@ -53,9 +64,38 @@ const DataTable = <TData, TValue>({
 
     const debounceSearch = useDebounce(searchQuery);
 
-    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(event.target.value);
-    };
+    const table = useReactTable({
+        data,
+        columns,
+        getRowId,
+        state: {
+            pagination,
+            sorting,
+            rowSelection,
+        },
+        getCoreRowModel: getCoreRowModel(),
+        enableRowSelection: selectable,
+        onRowSelectionChange: async (rowSelection) => {
+            setRowSelection(rowSelection);
+
+            await setRowSelection(rowSelection);
+
+            const selectedRows = table.getSelectedRowModel();
+            if (selectedRows) {
+                const selectedData = selectedRows.flatRows.map(
+                    (row) => row.original
+                );
+                selectionFn?.(selectedData);
+            }
+        },
+        onPaginationChange: setPagination,
+        onSortingChange: setSorting,
+        pageCount: pageCount,
+        manualSorting: true,
+        manualPagination: true,
+        manualFiltering: true,
+        enableMultiSort: true,
+    });
 
     useEffect(() => {
         searchFn?.(debounceSearch);
@@ -79,22 +119,9 @@ const DataTable = <TData, TValue>({
         };
     }, []);
 
-    const table = useReactTable({
-        data,
-        columns,
-        state: {
-            pagination,
-            sorting,
-        },
-        onPaginationChange: setPagination,
-        onSortingChange: setSorting,
-        pageCount: pageCount,
-        manualSorting: true,
-        manualPagination: true,
-        manualFiltering: true,
-        enableMultiSort: true,
-        getCoreRowModel: getCoreRowModel(),
-    });
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(event.target.value);
+    };
 
     const handlePageClick = (selectedItem: { selected: number }) => {
         table.setPageIndex(selectedItem.selected + 1);

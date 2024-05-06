@@ -48,15 +48,7 @@ const Modal = ({
                         {onConfirmBuilder ? (
                             onConfirmBuilder
                         ) : (
-                            <Button
-                                type='button'
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    onConfirm();
-                                }}
-                            >
-                                Ya
-                            </Button>
+                            <Button type='button'>Ya</Button>
                         )}
                     </div>
                 </div>

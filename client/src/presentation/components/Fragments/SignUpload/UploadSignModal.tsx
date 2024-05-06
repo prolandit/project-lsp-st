@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../Elements/Tabs';
 import DrawTabView from './DrawTabView';
 import UploadTabView from './UploadTabView';
 
@@ -8,48 +8,7 @@ interface Props {
     onChange?: (file: File | undefined, exp: string) => void;
 }
 
-type TabType = {
-    id: number;
-    children: React.ReactNode;
-};
-
 const UploadSignModal = ({ show, closeModal, onChange }: Props) => {
-    const [index, setIndex] = useState(0);
-
-    const tabs = [
-        { id: 0, text: 'Upload' },
-        { id: 1, text: 'Gambar' },
-    ];
-
-    const tabsView: TabType[] = [
-        {
-            id: 0,
-            children: (
-                <UploadTabView
-                    key={0}
-                    onChange={onChange}
-                    onClose={closeModal}
-                    onSave={closeModal}
-                />
-            ),
-        },
-        {
-            id: 1,
-            children: (
-                <DrawTabView
-                    key={1}
-                    onChange={onChange}
-                    onClose={closeModal}
-                    onSave={closeModal}
-                />
-            ),
-        },
-    ];
-
-    const handleTabChange = (tabIndex: number) => {
-        setIndex(tabIndex);
-    };
-
     if (!show) {
         return <></>;
     } else {
@@ -62,35 +21,38 @@ const UploadSignModal = ({ show, closeModal, onChange }: Props) => {
                                 Unggah Tanda Tangan
                             </h1>
                         </div>
-                        <div>
-                            <div className='flex flex-row mt-4 divide-x-2 lg:mt-6'>
-                                {tabs.map((tab) => (
-                                    <span
-                                        key={tab.id}
-                                        onClick={() => handleTabChange(tab.id)}
-                                        className={`px-4 py-2 rounded-sm text-md cursor-pointer w-full text-center ${
-                                            index === tab.id
-                                                ? 'text-blue-700 bg-blue-100'
-                                                : ''
-                                        }`}
+                        <Tabs defaultValue='upload'>
+                            <div className='flex flex-row items-center mx-4 my-6 lg:mx-8'>
+                                <TabsList className='w-full bg-gray-100'>
+                                    <TabsTrigger
+                                        value='upload'
+                                        className='w-full'
                                     >
-                                        {tab.text}
-                                    </span>
-                                ))}
+                                        Persyaratan Dasar
+                                    </TabsTrigger>
+                                    <TabsTrigger
+                                        value='draw'
+                                        className='w-full'
+                                    >
+                                        Persyaratan Pendaftaran
+                                    </TabsTrigger>
+                                </TabsList>
                             </div>
-                            <hr />
-                        </div>
-
-                        {tabsView.map((tabView) => (
-                            <div
-                                key={tabView.id}
-                                className={`mt-10 ${
-                                    index !== tabView.id ? 'hidden' : ''
-                                }`}
-                            >
-                                {tabView.children}
-                            </div>
-                        ))}
+                            <TabsContent value='upload'>
+                                <UploadTabView
+                                    onChange={onChange}
+                                    onClose={closeModal}
+                                    onSave={closeModal}
+                                />
+                            </TabsContent>
+                            <TabsContent value='draw'>
+                                <DrawTabView
+                                    onChange={onChange}
+                                    onClose={closeModal}
+                                    onSave={closeModal}
+                                />
+                            </TabsContent>
+                        </Tabs>
                     </div>
                 </div>
             </div>
