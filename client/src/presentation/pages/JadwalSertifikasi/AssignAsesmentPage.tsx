@@ -6,6 +6,7 @@ import {
     TabsList,
     TabsTrigger,
 } from '../../components/Elements/Tabs';
+import AssignAsesiView from './TabView/AssignAsesiView';
 import AssignAsesorPenyaliaView from './TabView/AssignAsesorPenyaliaView';
 import AssignAsesorView from './TabView/AssignAsesorView';
 
@@ -106,7 +107,7 @@ const AssignAsesmenPage = () => {
                             <AssignAsesorPenyaliaView />
                         </TabsContent>
                         <TabsContent value='asesi'>
-                            <div>Asesi</div>
+                            <AssignAsesiView />
                         </TabsContent>
                         <TabsContent value='admin'>
                             <div>Admin</div>

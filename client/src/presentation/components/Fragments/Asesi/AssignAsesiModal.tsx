@@ -9,7 +9,7 @@ import DataTable from '../../Elements/DataTable';
 import IndeterminateCheckbox from '../../Elements/IndeterminateCheckbox';
 import Modal from '../../Elements/Modal';
 
-const AssignAsesorModal = () => {
+const AssignAsesiModal = () => {
     // const navigate = useNavigate();
     const [modal, setModal] = useState(false);
 
@@ -51,11 +51,6 @@ const AssignAsesorModal = () => {
         {
             accessorKey: 'photo',
             header: 'Foto',
-            size: 500,
-        },
-        {
-            accessorKey: 'met',
-            header: 'No. Reg Asesor',
             size: 500,
         },
         {
@@ -128,7 +123,7 @@ const AssignAsesorModal = () => {
     };
 
     const onSave = async () => {
-        console.log(`Asesor Selected`);
+        console.log(`Asesi Selected`);
         console.log(selectedUsers);
     };
 
@@ -140,7 +135,7 @@ const AssignAsesorModal = () => {
                 onClick={handleClose}
             >
                 <FaUserPlus />
-                Assign Asesor
+                Assign Asesi
             </Button>
             <Modal
                 show={modal}
@@ -149,7 +144,7 @@ const AssignAsesorModal = () => {
                 onConfirmBuilder={<Button type='button'>Simpan</Button>}
                 className='lg:w-3/4 max-h-[70%] lg:max-h-[95%] overflow-y-scroll'
             >
-                <span className='text-base font-semibold'>Select Asesor</span>
+                <span className='text-base font-semibold'>Select Asesi</span>
                 <hr />
                 <DataTable
                     data={data}
@@ -173,4 +168,4 @@ const AssignAsesorModal = () => {
     );
 };
 
-export default AssignAsesorModal;
+export default AssignAsesiModal;
