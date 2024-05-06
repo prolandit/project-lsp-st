@@ -1,18 +1,14 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
-import { FaUserPlus } from 'react-icons/fa';
 import { TiArrowBack } from 'react-icons/ti';
-import { useNavigate } from 'react-router-dom';
 import User from '../../../../data/models/User';
 import Button from '../../../components/Elements/Button';
 import DataTable from '../../../components/Elements/DataTable';
-import AssignAsesorModal from '../../../components/Fragments/Asesmen/AssignAsesorModal';
-import DetailAsesorModal from '../../../components/Fragments/Asesmen/DetailAsesorModal';
-import DeleteAsesorModal from '../../../components/Fragments/Asesor/DeleteAsesorModal';
+import { TabsList, TabsTrigger } from '../../../components/Elements/Tabs';
+import AssignPlenoModal from '../../../components/Fragments/Asesmen/Pleno/AssignPlenoModal';
+import DeleteAssignPlenoModal from '../../../components/Fragments/Asesmen/Pleno/DeleteAssignPlenoModal';
 
-const AssignAsesorView = () => {
-    const navigate = useNavigate();
-
+const AssignPlenoView = () => {
     const [{ pageIndex, pageSize }, setPagination] = useState({
         pageIndex: 1,
         pageSize: 10,
@@ -30,18 +26,15 @@ const AssignAsesorView = () => {
             size: 500,
         },
         {
+            accessorKey: 'position',
+            header: 'Jabatan',
+            size: 500,
+        },
+        {
             header: 'Aksi',
             cell: ({ row }) => (
                 <div className='flex flex-row items-center gap-4'>
-                    <Button
-                        type='button'
-                        className='flex flex-row items-center gap-2 text-green-500 transition-colors duration-300 bg-transparent border border-green-500 hover:bg-green-500 hover:text-white'
-                    >
-                        <FaUserPlus />
-                        Tambah Asesi
-                    </Button>
-                    <DetailAsesorModal id={row.original.id} />
-                    <DeleteAsesorModal id={row.original.id} />
+                    <DeleteAssignPlenoModal id={row.original.id} />
                 </div>
             ),
         },
@@ -68,6 +61,7 @@ const AssignAsesorView = () => {
                 address: 'Address',
                 phone: '21345678',
                 education: 'Education',
+                position: 'Position',
                 job: 'Job',
                 sign: 'Sign',
                 signExplanation: 'Sign Explanation',
@@ -91,9 +85,9 @@ const AssignAsesorView = () => {
             <div className='flex flex-col gap-2 py-4 border border-gray-200 rounded-md'>
                 <div className='flex flex-row items-center justify-between px-4 lg:px-6'>
                     <span className='text-xl font-semibold text-center'>
-                        Daftar Asesor
+                        Daftar Pleno
                     </span>
-                    <AssignAsesorModal />
+                    <AssignPlenoModal />
                 </div>
                 <hr />
                 <div className='px-4 lg:px-6'>
@@ -113,17 +107,23 @@ const AssignAsesorView = () => {
                 </div>
             </div>
             <div>
-                <Button
-                    type='button'
-                    className='flex flex-row items-center gap-2 text-blue-500 transition-colors duration-300 bg-transparent border border-blue-500 hover:bg-blue-500 hover:text-white'
-                    onClick={() => navigate(-1)}
-                >
-                    <TiArrowBack />
-                    Kembali
-                </Button>
+                <TabsList className='p-0 bg-white'>
+                    <TabsTrigger
+                        value='admin'
+                        className='w-full p-0'
+                    >
+                        <Button
+                            type='button'
+                            className='flex flex-row items-center gap-2 text-blue-500 transition-colors duration-300 bg-transparent border border-blue-500 hover:bg-blue-500 hover:text-white'
+                        >
+                            <TiArrowBack />
+                            Kembali
+                        </Button>
+                    </TabsTrigger>
+                </TabsList>
             </div>
         </div>
     );
 };
 
-export default AssignAsesorView;
+export default AssignPlenoView;

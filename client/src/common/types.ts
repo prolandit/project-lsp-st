@@ -123,6 +123,7 @@ export type UserValues = {
     address?: string;
     phone?: string;
     education?: string;
+    position?: string;
     job?: string;
     signUpload?: File;
     signExplanation?: string;
@@ -194,6 +195,7 @@ export type UserPayload = {
     address?: string;
     phone: string;
     education?: string;
+    position?: string;
     job?: string;
     sign: string;
     signExplanation: string;

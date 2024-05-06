@@ -2,15 +2,17 @@ import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
 import { FaUserPlus } from 'react-icons/fa';
 import { TiArrowBack } from 'react-icons/ti';
+import { useNavigate } from 'react-router-dom';
 import User from '../../../../data/models/User';
 import Button from '../../../components/Elements/Button';
 import DataTable from '../../../components/Elements/DataTable';
-import { TabsList, TabsTrigger } from '../../../components/Elements/Tabs';
-import AssignAsesorModal from '../../../components/Fragments/Asesmen/AssignAsesorModal';
-import DetailAsesorModal from '../../../components/Fragments/Asesmen/DetailAsesorModal';
-import DeleteAsesorModal from '../../../components/Fragments/Asesor/DeleteAsesorModal';
+import AssignAsesorModal from '../../../components/Fragments/Asesmen/Asesor/AssignAsesorModal';
+import DeleteAssignAsesorModal from '../../../components/Fragments/Asesmen/Asesor/DeleteAssignAsesorModal';
+import DetailAsesorModal from '../../../components/Fragments/Asesmen/Asesor/DetailAsesorModal';
 
-const AssignAsesorPenyaliaView = () => {
+const AssignAsesorView = () => {
+    const navigate = useNavigate();
+
     const [{ pageIndex, pageSize }, setPagination] = useState({
         pageIndex: 1,
         pageSize: 10,
@@ -39,7 +41,7 @@ const AssignAsesorPenyaliaView = () => {
                         Tambah Asesi
                     </Button>
                     <DetailAsesorModal id={row.original.id} />
-                    <DeleteAsesorModal id={row.original.id} />
+                    <DeleteAssignAsesorModal id={row.original.id} />
                 </div>
             ),
         },
@@ -86,50 +88,42 @@ const AssignAsesorPenyaliaView = () => {
 
     return (
         <div className='flex flex-col gap-4'>
-            <div className='flex flex-col gap-6'>
-                <div className='flex flex-col gap-2 py-4 border border-gray-200 rounded-md'>
-                    <div className='flex flex-row items-center justify-between px-4 lg:px-6'>
-                        <span className='text-xl font-semibold text-center'>
-                            Daftar Asesor Penyelia
-                        </span>
-                        <AssignAsesorModal />
-                    </div>
-                    <hr />
-                    <div className='px-4 lg:px-6'>
-                        <DataTable
-                            data={data}
-                            columns={columns}
-                            searchFn={onSearch}
-                            pageCount={Math.ceil(5 / pageSize)}
-                            paginateFn={(page, pageSize) => {
-                                setPagination({ pageIndex: page, pageSize });
-                                console.log(page, pageSize);
-                            }}
-                            sortingFn={(states) => {
-                                console.log(states);
-                            }}
-                        />
-                    </div>
+            <div className='flex flex-col gap-2 py-4 border border-gray-200 rounded-md'>
+                <div className='flex flex-row items-center justify-between px-4 lg:px-6'>
+                    <span className='text-xl font-semibold text-center'>
+                        Daftar Asesor
+                    </span>
+                    <AssignAsesorModal />
+                </div>
+                <hr />
+                <div className='px-4 lg:px-6'>
+                    <DataTable
+                        data={data}
+                        columns={columns}
+                        searchFn={onSearch}
+                        pageCount={Math.ceil(5 / pageSize)}
+                        paginateFn={(page, pageSize) => {
+                            setPagination({ pageIndex: page, pageSize });
+                            console.log(page, pageSize);
+                        }}
+                        sortingFn={(states) => {
+                            console.log(states);
+                        }}
+                    />
                 </div>
             </div>
             <div>
-                <TabsList className='p-0 bg-white'>
-                    <TabsTrigger
-                        value='asesor'
-                        className='w-full p-0'
-                    >
-                        <Button
-                            type='button'
-                            className='flex flex-row items-center gap-2 text-blue-500 transition-colors duration-300 bg-transparent border border-blue-500 hover:bg-blue-500 hover:text-white'
-                        >
-                            <TiArrowBack />
-                            Kembali
-                        </Button>
-                    </TabsTrigger>
-                </TabsList>
+                <Button
+                    type='button'
+                    className='flex flex-row items-center gap-2 text-blue-500 transition-colors duration-300 bg-transparent border border-blue-500 hover:bg-blue-500 hover:text-white'
+                    onClick={() => navigate(-1)}
+                >
+                    <TiArrowBack />
+                    Kembali
+                </Button>
             </div>
         </div>
     );
 };
 
-export default AssignAsesorPenyaliaView;
+export default AssignAsesorView;

@@ -6,9 +6,11 @@ import {
     TabsList,
     TabsTrigger,
 } from '../../components/Elements/Tabs';
-import AssignAsesiView from './TabView/AssignAsesiView';
-import AssignAsesorPenyaliaView from './TabView/AssignAsesorPenyaliaView';
-import AssignAsesorView from './TabView/AssignAsesorView';
+import AssignAdminView from './AssignView/AssignAdminView';
+import AssignAsesiView from './AssignView/AssignAsesiView';
+import AssignAsesorPenyaliaView from './AssignView/AssignAsesorPenyaliaView';
+import AssignAsesorView from './AssignView/AssignAsesorView';
+import AssignPlenoView from './AssignView/AssignPlenoView';
 
 const AssignAsesmenPage = () => {
     const { id } = useParams();
@@ -110,10 +112,10 @@ const AssignAsesmenPage = () => {
                             <AssignAsesiView />
                         </TabsContent>
                         <TabsContent value='admin'>
-                            <div>Admin</div>
+                            <AssignAdminView />
                         </TabsContent>
                         <TabsContent value='pleno'>
-                            <div>Pleno</div>
+                            <AssignPlenoView />
                         </TabsContent>
                     </div>
                 </div>

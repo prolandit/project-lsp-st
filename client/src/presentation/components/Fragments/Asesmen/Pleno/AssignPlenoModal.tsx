@@ -3,13 +3,13 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
 import { FaUserPlus } from 'react-icons/fa';
-import User from '../../../../data/models/User';
-import Button from '../../Elements/Button';
-import DataTable from '../../Elements/DataTable';
-import IndeterminateCheckbox from '../../Elements/IndeterminateCheckbox';
-import Modal from '../../Elements/Modal';
+import User from '../../../../../data/models/User';
+import Button from '../../../Elements/Button';
+import DataTable from '../../../Elements/DataTable';
+import IndeterminateCheckbox from '../../../Elements/IndeterminateCheckbox';
+import Modal from '../../../Elements/Modal';
 
-const AssignAsesiModal = () => {
+const AssignPlenoModal = () => {
     // const navigate = useNavigate();
     const [modal, setModal] = useState(false);
 
@@ -49,23 +49,18 @@ const AssignAsesiModal = () => {
             },
         },
         {
-            accessorKey: 'photo',
-            header: 'Foto',
-            size: 500,
-        },
-        {
             accessorKey: 'fullName',
             header: 'Nama Lengkap',
             size: 500,
         },
         {
-            accessorKey: 'email',
-            header: 'Email',
+            accessorKey: 'phone',
+            header: 'No. Telp',
             size: 500,
         },
         {
-            accessorKey: 'phone',
-            header: 'No. Telp',
+            accessorKey: 'position',
+            header: 'Jabatan',
             size: 500,
         },
     ];
@@ -91,6 +86,7 @@ const AssignAsesiModal = () => {
                 address: 'Address',
                 phone: '21345678',
                 education: 'Education',
+                position: 'Position',
                 job: 'Job',
                 sign: 'Sign',
                 signExplanation: 'Sign Explanation',
@@ -123,7 +119,7 @@ const AssignAsesiModal = () => {
     };
 
     const onSave = async () => {
-        console.log(`Asesi Selected`);
+        console.log(`Pleno Selected`);
         console.log(selectedUsers);
     };
 
@@ -135,7 +131,7 @@ const AssignAsesiModal = () => {
                 onClick={handleClose}
             >
                 <FaUserPlus />
-                Assign Asesi
+                Assign Pleno
             </Button>
             <Modal
                 show={modal}
@@ -144,7 +140,7 @@ const AssignAsesiModal = () => {
                 onConfirmBuilder={<Button type='button'>Simpan</Button>}
                 className='lg:w-3/4 max-h-[70%] lg:max-h-[95%] overflow-y-scroll'
             >
-                <span className='text-base font-semibold'>Select Asesi</span>
+                <span className='text-base font-semibold'>Select Pleno</span>
                 <hr />
                 <DataTable
                     data={data}
@@ -168,4 +164,4 @@ const AssignAsesiModal = () => {
     );
 };
 
-export default AssignAsesiModal;
+export default AssignPlenoModal;

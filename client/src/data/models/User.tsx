@@ -16,6 +16,7 @@ export default class User {
     public address?: string;
     public phone: string;
     public education?: string;
+    public position?: string;
     public job?: string;
     public sign: string;
     public signExplanation: string;
@@ -36,6 +37,7 @@ export default class User {
         this.address = payload.address;
         this.phone = payload.phone;
         this.education = payload.education;
+        this.position = payload.position;
         this.job = payload.job;
         this.sign = payload.sign;
         this.signExplanation = payload.signExplanation;

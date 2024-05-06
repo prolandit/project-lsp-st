@@ -5,9 +5,9 @@ import User from '../../../../data/models/User';
 import Button from '../../../components/Elements/Button';
 import DataTable from '../../../components/Elements/DataTable';
 import { TabsList, TabsTrigger } from '../../../components/Elements/Tabs';
-import AssignAsesiModal from '../../../components/Fragments/Asesmen/AssignAsesiModal';
-import DetailAsesorModal from '../../../components/Fragments/Asesmen/DetailAsesorModal';
-import DeleteAsesorModal from '../../../components/Fragments/Asesor/DeleteAsesorModal';
+import AssignAsesiModal from '../../../components/Fragments/Asesmen/Asesi/AssignAsesiModal';
+import DeleteAssignAsesiModal from '../../../components/Fragments/Asesmen/Asesi/DeleteAssignAsesiModal';
+import DetailAsesiModal from '../../../components/Fragments/Asesmen/Asesi/DetailAsesiModal';
 
 const AssignAsesiView = () => {
     const [{ pageIndex, pageSize }, setPagination] = useState({
@@ -35,8 +35,8 @@ const AssignAsesiView = () => {
             header: 'Aksi',
             cell: ({ row }) => (
                 <div className='flex flex-row items-center gap-4'>
-                    <DetailAsesorModal id={row.original.id} />
-                    <DeleteAsesorModal id={row.original.id} />
+                    <DetailAsesiModal id={row.original.id} />
+                    <DeleteAssignAsesiModal id={row.original.id} />
                 </div>
             ),
         },
