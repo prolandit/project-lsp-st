@@ -5,9 +5,9 @@ import User from '../../../../data/models/User';
 import Button from '../../../components/Elements/Button';
 import DataTable from '../../../components/Elements/DataTable';
 import { TabsList, TabsTrigger } from '../../../components/Elements/Tabs';
-import AssignAsesiModal from '../../../components/Fragments/Asesi/AssignAsesiModal';
+import AssignAsesiModal from '../../../components/Fragments/Asesmen/AssignAsesiModal';
+import DetailAsesorModal from '../../../components/Fragments/Asesmen/DetailAsesorModal';
 import DeleteAsesorModal from '../../../components/Fragments/Asesor/DeleteAsesorModal';
-import DetailAsesorModal from '../../../components/Fragments/Asesor/DetailAsesorModal';
 
 const AssignAsesiView = () => {
     const [{ pageIndex, pageSize }, setPagination] = useState({

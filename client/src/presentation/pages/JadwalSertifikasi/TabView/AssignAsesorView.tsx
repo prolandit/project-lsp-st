@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import User from '../../../../data/models/User';
 import Button from '../../../components/Elements/Button';
 import DataTable from '../../../components/Elements/DataTable';
-import AssignAsesorModal from '../../../components/Fragments/Asesor/AssignAsesorModal';
+import AssignAsesorModal from '../../../components/Fragments/Asesmen/AssignAsesorModal';
+import DetailAsesorModal from '../../../components/Fragments/Asesmen/DetailAsesorModal';
 import DeleteAsesorModal from '../../../components/Fragments/Asesor/DeleteAsesorModal';
-import DetailAsesorModal from '../../../components/Fragments/Asesor/DetailAsesorModal';
 
 const AssignAsesorView = () => {
     const navigate = useNavigate();
