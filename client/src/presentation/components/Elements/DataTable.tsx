@@ -73,11 +73,13 @@ const DataTable = <TData, TValue>({
             sorting,
             rowSelection,
         },
+        defaultColumn: {
+            minSize: 0,
+        },
         getCoreRowModel: getCoreRowModel(),
         enableRowSelection: selectable,
         onRowSelectionChange: async (rowSelection) => {
             setRowSelection(rowSelection);
-
             await setRowSelection(rowSelection);
 
             const selectedRows = table.getSelectedRowModel();
@@ -186,10 +188,7 @@ const DataTable = <TData, TValue>({
                                         key={header.id}
                                         className='pe-5 whitespace-nowrap'
                                         style={{
-                                            width:
-                                                header.getSize() !== 150
-                                                    ? header.getSize()
-                                                    : undefined,
+                                            width: header.column.getSize(),
                                         }}
                                     >
                                         <div className='flex flex-row items-center justify-between'>
@@ -240,6 +239,9 @@ const DataTable = <TData, TValue>({
                                         <td
                                             key={cell.id}
                                             className='w-24 px-5 py-4 text-sm text-gray-700 whitespace-nowrap'
+                                            style={{
+                                                width: cell.column.getSize(),
+                                            }}
                                         >
                                             {flexRender(
                                                 cell.column.columnDef.cell,

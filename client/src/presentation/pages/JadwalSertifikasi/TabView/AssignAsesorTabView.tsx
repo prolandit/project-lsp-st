@@ -4,6 +4,7 @@ import { localDateString } from '../../../../common/utils';
 import User from '../../../../data/models/User';
 import DataTable from '../../../components/Elements/DataTable';
 import AssignAsesorModal from '../../../components/Fragments/Asesor/AssignAsesorModal';
+import DeleteAsesorModal from '../../../components/Fragments/Asesor/DeleteAsesorModal';
 
 const AssignAsesorTabView = () => {
     const [{ pageIndex, pageSize }, setPagination] = useState({
@@ -32,21 +33,14 @@ const AssignAsesorTabView = () => {
             accessorKey: 'phone',
             header: 'No. Telp',
         },
-        // {
-        //     header: 'Aksi',
-        //     cell: ({ row }) => (
-        //         <div className='flex flex-row items-center gap-4'>
-        //             <BiEdit
-        //                 size={20}
-        //                 className='text-blue-500 cursor-pointer'
-        //                 onClick={() =>
-        //                     navigate(`/asesor/edit/${row.original.id}`)
-        //                 }
-        //             />
-        //             <DeleteAsesorModal id={row.original.id} />
-        //         </div>
-        //     ),
-        // },
+        {
+            header: 'Aksi',
+            cell: ({ row }) => (
+                <div className='flex flex-row items-center gap-4'>
+                    <DeleteAsesorModal id={row.original.id} />
+                </div>
+            ),
+        },
     ];
 
     const generateData = (skip: number, pageSize: number): User[] => {
@@ -94,34 +88,40 @@ const AssignAsesorTabView = () => {
                 <span className='text-xl font-semibold text-center'>
                     Detail Asesmen
                 </span>
-                <table>
-                    <tr>
-                        <td className='font-semibold w-60'>Nama Kegiatan</td>
-                        <td className='font-medium'>: Tes Simulasi 3</td>
-                    </tr>
-                    <tr>
-                        <td className='font-semibold'>Nama Skema</td>
-                        <td className='font-medium'>
+                <div className='flex flex-col gap-3'>
+                    <div className='flex flex-row'>
+                        <span className='font-semibold w-60'>
+                            Nama Kegiatan
+                        </span>
+                        <span className='font-medium'>: Tes Simulasi 3</span>
+                    </div>
+                    <div className='flex flex-row'>
+                        <span className='font-semibold w-60'>Nama Skema</span>
+                        <span className='font-medium'>
                             : Instruktur Junior (KKNI LEVEL III)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className='font-semibold'>Lokasi</td>
-                        <td className='font-medium'>: Jalan Jalan</td>
-                    </tr>
-                    <tr>
-                        <td className='font-semibold'>Tanggal Pra Asesmen</td>
-                        <td className='font-medium'>
+                        </span>
+                    </div>
+                    <div className='flex flex-row'>
+                        <span className='font-semibold w-60'>Lokasi</span>
+                        <span className='font-medium'>: Jalan Jalan</span>
+                    </div>
+                    <div className='flex flex-row'>
+                        <span className='font-semibold w-60'>
+                            Tanggal Pra Asesmen
+                        </span>
+                        <span className='font-medium'>
                             : {localDateString(new Date())}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className='font-semibold'>Tanggal Asesmen</td>
-                        <td className='font-medium'>
+                        </span>
+                    </div>
+                    <div className='flex flex-row'>
+                        <span className='font-semibold w-60'>
+                            Tanggal Asesmen
+                        </span>
+                        <span className='font-medium'>
                             : {localDateString(new Date())}
-                        </td>
-                    </tr>
-                </table>
+                        </span>
+                    </div>
+                </div>
             </div>
             <div className='flex flex-col gap-2 py-4 border border-gray-200 rounded-md'>
                 <div className='flex flex-row items-center justify-between px-4 lg:px-6'>
