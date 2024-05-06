@@ -3,7 +3,7 @@ import React from 'react';
 import { IoMdCloudUpload } from 'react-icons/io';
 import FileNameDisplayer from './FilenameDisplayer';
 
-type Props = {
+interface Props {
     className?: string;
     name: string;
     placeholder?: string;
@@ -11,7 +11,7 @@ type Props = {
     accept?: string | undefined;
     value?: File | null | undefined;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+}
 
 const CustomFileInput = ({
     className,

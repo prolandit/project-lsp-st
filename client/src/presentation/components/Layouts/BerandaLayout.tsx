@@ -1,6 +1,6 @@
-import AssesmentSchedulePage from '../../pages/Home/AssesmentSchedulePage';
+import JadwalAsesmenPage from '../../pages/Beranda/JadwalAsesmenPage';
 
-const HomeLayout = () => {
+const BerandaLayout = () => {
     // const user = useLoggedUser();
 
     // const indexElement = useMemo(() => {
@@ -11,7 +11,7 @@ const HomeLayout = () => {
     //     );
     // }, [user]);
 
-    return <AssesmentSchedulePage />;
+    return <JadwalAsesmenPage />;
 };
 
-export default HomeLayout;
+export default BerandaLayout;

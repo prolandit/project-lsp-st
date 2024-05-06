@@ -18,7 +18,7 @@ import { SortDirection } from '../../../common/enum';
 import useDebounce from '../../../common/hooks/useDebounce';
 import Input from './Input';
 
-type Props<TData, TValue> = {
+interface Props<TData, TValue> {
     data: TData[];
     columns: ColumnDef<TData, TValue | undefined>[];
     className?: string;
@@ -26,7 +26,7 @@ type Props<TData, TValue> = {
     searchFn?: (query: string) => void;
     paginateFn?: (page: number, pageSize: number) => void;
     sortingFn?: (states: SortingState) => void;
-};
+}
 
 const DataTable = <TData, TValue>({
     data,

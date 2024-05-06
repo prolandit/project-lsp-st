@@ -5,10 +5,10 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { superUserMenus } from '../../../../common/sidebarMenus';
 import SidebarMenuItem from './SidebarMenuItem';
 
-type Props = {
+interface Props {
     sidebarOpen: boolean;
     setSidebarOpen: (arg: boolean) => void;
-};
+}
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
     // const user = useAppSelector((state) => state.user.user);

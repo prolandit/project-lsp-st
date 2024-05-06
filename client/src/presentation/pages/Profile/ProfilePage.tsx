@@ -90,7 +90,7 @@ const ProfilePage = () => {
                             Profile
                         </span>
                         <hr className='my-4' />
-                        <div className='flex flex-col items-center gap-6 px-4 lg:gap-16 lg:px-16'>
+                        <div className='flex flex-col items-center gap-6 px-4 lg:gap-8 lg:px-16'>
                             <div className='flex flex-col items-center gap-4'>
                                 {values.photo ? (
                                     <img
@@ -130,12 +130,7 @@ const ProfilePage = () => {
                             </div>
                             <div className='flex flex-col w-full gap-6 lg:gap-16 lg:grid lg:grid-cols-4 lg:gap-y-10'>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='role'
-                                        className='w-36'
-                                    >
-                                        Peran
-                                    </Label>
+                                    <Label htmlFor='role'>Peran</Label>
                                     <Input
                                         type='text'
                                         name='role'
@@ -150,10 +145,7 @@ const ProfilePage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='birthPlace'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='birthPlace'>
                                         Tempat Lahir
                                     </Label>
                                     <Input
@@ -170,10 +162,7 @@ const ProfilePage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='birthDate'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='birthDate'>
                                         Tanggal Lahir
                                     </Label>
                                     <Input
@@ -190,12 +179,7 @@ const ProfilePage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='username'
-                                        className='w-36'
-                                    >
-                                        Username
-                                    </Label>
+                                    <Label htmlFor='username'>Username</Label>
                                     <Input
                                         type='text'
                                         name='username'
@@ -210,12 +194,7 @@ const ProfilePage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='email'
-                                        className='w-36'
-                                    >
-                                        Email
-                                    </Label>
+                                    <Label htmlFor='email'>Email</Label>
                                     <Input
                                         type='text'
                                         name='email'
@@ -248,10 +227,7 @@ const ProfilePage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='fullName'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='fullName'>
                                         Nama Lengkap
                                     </Label>
                                     <Input
@@ -268,12 +244,7 @@ const ProfilePage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='religion'
-                                        className='w-36'
-                                    >
-                                        Agama
-                                    </Label>
+                                    <Label htmlFor='religion'>Agama</Label>
                                     <ComboBox
                                         name='religion'
                                         items={Constants.religions}
@@ -289,12 +260,7 @@ const ProfilePage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='nik'
-                                        className='w-36'
-                                    >
-                                        NIK
-                                    </Label>
+                                    <Label htmlFor='nik'>NIK</Label>
                                     <Input
                                         type='text'
                                         name='nik'
@@ -309,12 +275,7 @@ const ProfilePage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='phone'
-                                        className='w-36'
-                                    >
-                                        No.Telepon
-                                    </Label>
+                                    <Label htmlFor='phone'>No.Telepon</Label>
                                     <Input
                                         type='text'
                                         name='phone'
@@ -329,12 +290,7 @@ const ProfilePage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='address'
-                                        className='w-36'
-                                    >
-                                        Alamat
-                                    </Label>
+                                    <Label htmlFor='address'>Alamat</Label>
                                     <Input
                                         type='text'
                                         name='address'

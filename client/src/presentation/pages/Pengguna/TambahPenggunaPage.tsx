@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import Constants from '../../../common/constants';
-import { userEditSchema } from '../../../common/formSchemas';
+import { userInputSchema } from '../../../common/formSchemas';
 import { UserValues } from '../../../common/types';
 import Alert from '../../components/Elements/Alert';
 import Button from '../../components/Elements/Button';
@@ -13,14 +12,11 @@ import Input from '../../components/Elements/Input';
 import Label from '../../components/Elements/Input/Label';
 import UploadSignModal from '../../components/Fragments/SignUpload/UploadSignModal';
 
-const EditUserPage = () => {
-    const { id } = useParams();
-    console.log(id);
-
+const TambahPenggunaPage = () => {
     const [isShowModal, setIsShowModal] = useState(false);
     // const [isLoading, setIsLoading] = useState(false);
 
-    const onEdit = async (profile: UserValues) => {
+    const onSave = async (profile: UserValues) => {
         console.log(profile);
         // setIsLoading(true);
 
@@ -67,8 +63,8 @@ const EditUserPage = () => {
             signUpload: undefined,
             signExplanation: '',
         },
-        validationSchema: userEditSchema,
-        onSubmit: onEdit,
+        validationSchema: userInputSchema,
+        onSubmit: onSave,
     });
 
     // const signUploadFile = useCallback(async () => {
@@ -92,10 +88,10 @@ const EditUserPage = () => {
                 <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                         <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
-                            Edit Pengguna
+                            Tambah Pengguna
                         </span>
                         <hr className='my-4' />
-                        <div className='flex flex-col items-center gap-6 px-4 lg:gap-16 lg:px-16'>
+                        <div className='flex flex-col items-center gap-6 px-4 lg:gap-8 lg:px-16'>
                             <div className='flex flex-col items-center gap-4'>
                                 {values.photo ? (
                                     <img
@@ -135,12 +131,7 @@ const EditUserPage = () => {
                             </div>
                             <div className='flex flex-col w-full gap-6 lg:gap-16 lg:grid lg:grid-cols-4 lg:gap-y-10'>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='role'
-                                        className='w-36'
-                                    >
-                                        Peran
-                                    </Label>
+                                    <Label htmlFor='role'>Peran</Label>
                                     <Input
                                         type='text'
                                         name='role'
@@ -155,10 +146,7 @@ const EditUserPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='birthPlace'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='birthPlace'>
                                         Tempat Lahir
                                     </Label>
                                     <Input
@@ -175,10 +163,7 @@ const EditUserPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='birthDate'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='birthDate'>
                                         Tanggal Lahir
                                     </Label>
                                     <Input
@@ -195,12 +180,7 @@ const EditUserPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='username'
-                                        className='w-36'
-                                    >
-                                        Username
-                                    </Label>
+                                    <Label htmlFor='username'>Username</Label>
                                     <Input
                                         type='text'
                                         name='username'
@@ -215,12 +195,7 @@ const EditUserPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='password'
-                                        className='w-36'
-                                    >
-                                        Password
-                                    </Label>
+                                    <Label htmlFor='password'>Password</Label>
                                     <Input
                                         type='password'
                                         name='password'
@@ -235,12 +210,7 @@ const EditUserPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='email'
-                                        className='w-36'
-                                    >
-                                        Email
-                                    </Label>
+                                    <Label htmlFor='email'>Email</Label>
                                     <Input
                                         type='text'
                                         name='email'
@@ -273,12 +243,7 @@ const EditUserPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='nik'
-                                        className='w-36'
-                                    >
-                                        NIK
-                                    </Label>
+                                    <Label htmlFor='nik'>NIK</Label>
                                     <Input
                                         type='text'
                                         name='nik'
@@ -293,10 +258,7 @@ const EditUserPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='fullName'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='fullName'>
                                         Nama Lengkap
                                     </Label>
                                     <Input
@@ -313,12 +275,7 @@ const EditUserPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='religion'
-                                        className='w-36'
-                                    >
-                                        Agama
-                                    </Label>
+                                    <Label htmlFor='religion'>Agama</Label>
                                     <ComboBox
                                         name='religion'
                                         items={Constants.religions}
@@ -334,12 +291,7 @@ const EditUserPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='phone'
-                                        className='w-36'
-                                    >
-                                        No.Telepon
-                                    </Label>
+                                    <Label htmlFor='phone'>No.Telepon</Label>
                                     <Input
                                         type='text'
                                         name='phone'
@@ -354,12 +306,7 @@ const EditUserPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='address'
-                                        className='w-36'
-                                    >
-                                        Alamat
-                                    </Label>
+                                    <Label htmlFor='address'>Alamat</Label>
                                     <Input
                                         type='text'
                                         name='address'
@@ -448,4 +395,4 @@ const EditUserPage = () => {
     );
 };
 
-export default EditUserPage;
+export default TambahPenggunaPage;

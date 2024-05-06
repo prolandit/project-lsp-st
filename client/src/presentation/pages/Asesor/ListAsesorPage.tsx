@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import User from '../../../data/models/User';
 import Button from '../../components/Elements/Button';
 import DataTable from '../../components/Elements/DataTable';
-import DeleteAsesorModal from '../../components/Fragments/Asesors/DeleteAsesorModal';
+import DeleteAsesorModal from '../../components/Fragments/Asesor/DeleteAsesorModal';
 
-const AsesorsPage = () => {
+const ListAsesorPage = () => {
     const navigate = useNavigate();
 
     const [{ pageIndex, pageSize }, setPagination] = useState({
@@ -45,7 +45,7 @@ const AsesorsPage = () => {
                         size={20}
                         className='text-blue-500 cursor-pointer'
                         onClick={() =>
-                            navigate(`/asesors/edit/${row.original.id}`)
+                            navigate(`/asesor/edit/${row.original.id}`)
                         }
                     />
                     <DeleteAsesorModal id={row.original.id} />
@@ -102,7 +102,7 @@ const AsesorsPage = () => {
                 <Button
                     type='button'
                     className='flex flex-row items-center gap-2'
-                    onClick={() => navigate('/asesors/create')}
+                    onClick={() => navigate('/asesor/tambah')}
                 >
                     <FaPlus />
                     Tambah Asesor
@@ -128,4 +128,4 @@ const AsesorsPage = () => {
     );
 };
 
-export default AsesorsPage;
+export default ListAsesorPage;

@@ -84,15 +84,10 @@ const EditTukPage = () => {
                             Edit Tempat Uji Kompetensi (TUK)
                         </span>
                         <hr className='my-4' />
-                        <div className='flex flex-col items-center gap-6 px-4 lg:gap-16 lg:px-6'>
+                        <div className='flex flex-col items-center gap-6 px-4 lg:gap-8 lg:px-6'>
                             <div className='flex flex-col w-full gap-6 lg:gap-4 lg:grid lg:grid-cols-4 lg:gap-y-8'>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='name'
-                                        className='w-36'
-                                    >
-                                        Nama TUK
-                                    </Label>
+                                    <Label htmlFor='name'>Nama TUK</Label>
                                     <Input
                                         type='text'
                                         name='name'
@@ -107,12 +102,7 @@ const EditTukPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='code'
-                                        className='w-36'
-                                    >
-                                        Kode TUK
-                                    </Label>
+                                    <Label htmlFor='code'>Kode TUK</Label>
                                     <Input
                                         type='text'
                                         name='code'
@@ -127,12 +117,7 @@ const EditTukPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='type'
-                                        className='w-36'
-                                    >
-                                        Tipe TUK
-                                    </Label>
+                                    <Label htmlFor='type'>Tipe TUK</Label>
                                     <Input
                                         type='text'
                                         name='type'
@@ -147,10 +132,7 @@ const EditTukPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='validDate'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='validDate'>
                                         Tanggal Berlaku
                                     </Label>
                                     <Input
@@ -167,10 +149,7 @@ const EditTukPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='areaAddress'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='areaAddress'>
                                         Alamat Wilayah
                                     </Label>
                                     <Textarea
@@ -187,12 +166,7 @@ const EditTukPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='address'
-                                        className='w-36'
-                                    >
-                                        Alamat
-                                    </Label>
+                                    <Label htmlFor='address'>Alamat</Label>
                                     <Textarea
                                         name='address'
                                         value={values.address}

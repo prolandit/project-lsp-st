@@ -1,19 +1,23 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
-import { FaFolderOpen } from 'react-icons/fa';
-import { FaPeopleGroup } from 'react-icons/fa6';
-import { Link } from 'react-router-dom';
+import { FaPlus } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { localDateString } from '../../../common/utils';
-import AssesmentData from '../../../data/models/AssesmentData';
+import Assesment from '../../../data/models/Assesment';
+import Button from '../../components/Elements/Button';
 import DataTable from '../../components/Elements/DataTable';
+import MeetingLink from '../../components/Elements/MeetingLink';
+import DeleteAsesmenModal from '../../components/Fragments/Asesmen/DeleteAsesmenModal';
 
-const AssesmentDataPage = () => {
+const ListDaftarAsesmenPage = () => {
+    const navigate = useNavigate();
+
     const [{ pageIndex, pageSize }, setPagination] = useState({
         pageIndex: 1,
         pageSize: 10,
     });
 
-    const columns: ColumnDef<AssesmentData>[] = [
+    const columns: ColumnDef<Assesment>[] = [
         {
             accessorKey: 'eventName',
             header: 'Nama Kegiatan',
@@ -40,12 +44,20 @@ const AssesmentDataPage = () => {
             accessorKey: 'virtualMeetLink',
             header: 'Link Virtual Meet',
             cell: ({ row }) => (
-                <Link
-                    to={row.original.virtualMeetLink}
-                    className='text-blue-500'
-                >
-                    {row.original.virtualMeetLink}
-                </Link>
+                <div className='flex flex-col gap-2'>
+                    <MeetingLink
+                        url={row.original.praAssesmentMeetLink}
+                        label='Pra Asesmen'
+                    />
+                    <MeetingLink
+                        url={row.original.assesmentMeetLink}
+                        label='Asesmen'
+                    />
+                    <MeetingLink
+                        url={row.original.plenoMeetLink}
+                        label='Pleno'
+                    />
+                </div>
             ),
         },
         {
@@ -65,32 +77,50 @@ const AssesmentDataPage = () => {
             size: 110,
             cell: ({ row }) => (
                 <div className='flex flex-row items-center gap-4'>
-                    <FaFolderOpen
-                        size={20}
-                        className='text-green-500 cursor-pointer'
+                    <Button
+                        type='button'
+                        className='text-green-500 duration-300 bg-white border border-green-500 hover:bg-green-500 hover:text-white transition-color'
                         onClick={() => console.log(row.original.id)}
-                    />
-                    <FaPeopleGroup
-                        size={20}
-                        className='text-blue-500 cursor-pointer'
+                    >
+                        Assign
+                    </Button>
+                    <Button
+                        type='button'
+                        className='text-blue-500 duration-300 bg-white border border-blue-500 hover:bg-blue-500 hover:text-white transition-color'
                         onClick={() => console.log(row.original.id)}
-                    />
+                    >
+                        Status
+                    </Button>
+                    <Button
+                        type='button'
+                        className='text-yellow-500 duration-300 bg-white border border-yellow-500 hover:bg-yellow-500 hover:text-white transition-color'
+                        onClick={() =>
+                            navigate(
+                                `/jadwal-sertifikasi/daftar-asesmen/edit/${row.original.id}`
+                            )
+                        }
+                    >
+                        Edit
+                    </Button>
+                    <DeleteAsesmenModal id={row.original.id} />
                 </div>
             ),
         },
     ];
 
-    const generateData = (skip: number, pageSize: number): AssesmentData[] => {
-        const personDataList: AssesmentData[] = [];
+    const generateData = (skip: number, pageSize: number): Assesment[] => {
+        const personDataList: Assesment[] = [];
         const endIndex = skip + pageSize;
 
         for (let i = skip; i < endIndex && i < 50; i++) {
-            const assesmentSchedule = new AssesmentData({
+            const assesmentSchedule = new Assesment({
                 id: i + 1,
                 eventName: `Kegiatan ${i + 1}`,
                 role: 'Asesor',
                 address: 'Jalan Jalan',
-                virtualMeetLink: 'https://www.google.com',
+                praAssesmentMeetLink: 'https://www.google.com',
+                assesmentMeetLink: 'https://www.google.com',
+                plenoMeetLink: 'https://www.google.com',
                 praAssesmentDate: new Date(),
                 assesmentDate: new Date(),
                 tukName: 'TUK',
@@ -102,7 +132,7 @@ const AssesmentDataPage = () => {
         return personDataList;
     };
 
-    const data: AssesmentData[] = generateData(
+    const data: Assesment[] = generateData(
         pageIndex * pageSize - pageSize,
         pageSize
     );
@@ -115,12 +145,21 @@ const AssesmentDataPage = () => {
         <div className='flex flex-col mx-3 my-6 bg-white rounded-t-lg lg:mx-8'>
             <div className='flex flex-row items-center justify-between px-4 py-4 lg:px-6'>
                 <span className='text-base font-semibold text-blue-600'>
-                    Beranda
+                    Daftar Asesmen
                 </span>
+                <Button
+                    type='button'
+                    className='flex flex-row items-center gap-2'
+                    onClick={() =>
+                        navigate('/jadwal-sertifikasi/daftar-asesmen/tambah')
+                    }
+                >
+                    <FaPlus />
+                    Tambah Asesmen
+                </Button>
             </div>
             <hr />
-            <div className='flex flex-col px-4 py-4 lg:px-6'>
-                <span className='text-lg font-semibold'>Data Asesmen</span>
+            <div className='px-4 py-4 lg:px-6'>
                 <DataTable
                     data={data}
                     columns={columns}
@@ -139,4 +178,4 @@ const AssesmentDataPage = () => {
     );
 };
 
-export default AssesmentDataPage;
+export default ListDaftarAsesmenPage;

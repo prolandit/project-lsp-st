@@ -3,7 +3,7 @@ import { OptionType } from '../../../common/types';
 import ComboBox from './ComboBox';
 import Label from './Input/Label';
 
-type Props = {
+interface Props {
     className?: string;
     important?: boolean;
     name: string;
@@ -14,7 +14,7 @@ type Props = {
     horizontally?: boolean;
     disabled?: boolean;
     onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-};
+}
 
 const ComboBoxForm = ({
     className,

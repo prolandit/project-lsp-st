@@ -4,7 +4,7 @@ import { localDateString } from '../../../common/utils';
 import AssesmentSchedule from '../../../data/models/AssesmentSchedule';
 import DataTable from '../../components/Elements/DataTable';
 
-const AssesmentSchedulePage = () => {
+const JadwalAsesmenPage = () => {
     const [{ pageIndex, pageSize }, setPagination] = useState({
         pageIndex: 1,
         pageSize: 10,
@@ -92,4 +92,4 @@ const AssesmentSchedulePage = () => {
     );
 };
 
-export default AssesmentSchedulePage;
+export default JadwalAsesmenPage;

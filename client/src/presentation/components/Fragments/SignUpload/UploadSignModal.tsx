@@ -2,11 +2,11 @@ import { useState } from 'react';
 import DrawTabView from './DrawTabView';
 import UploadTabView from './UploadTabView';
 
-type Props = {
+interface Props {
     show: boolean;
     closeModal: () => void;
     onChange?: (file: File | undefined, exp: string) => void;
-};
+}
 
 type TabType = {
     id: number;

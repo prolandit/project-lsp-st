@@ -2,7 +2,7 @@
 
 import { twMerge } from 'tailwind-merge';
 
-type Props = {
+interface Props {
     className?: string;
     name: string;
     placeholder?: string;
@@ -10,7 +10,7 @@ type Props = {
     accept?: string | undefined;
     value?: string | number | readonly string[] | undefined;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+}
 
 const FileInput = ({
     className,

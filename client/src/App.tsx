@@ -1,106 +1,11 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import BerandaLayout from './presentation/components/Layouts/HomeLayout';
-import MainLayout from './presentation/components/Layouts/MainLayout';
-import AsesorsPage from './presentation/pages/Asesors/AsesorsPage';
-import CreateAsesorPage from './presentation/pages/Asesors/CreateAsesorPage';
-import EditAsesorPage from './presentation/pages/Asesors/EditAsesorPage';
-import ChangePasswordPage from './presentation/pages/Auth/ChangePasswordPage';
-import LoginPage from './presentation/pages/Auth/LoginPage';
-import RegisterPage from './presentation/pages/Auth/RegisterPage';
-import NotFoundPage from './presentation/pages/NotFoundPage';
-import ProfilePage from './presentation/pages/Profile/ProfilePage';
-import CreateTukPage from './presentation/pages/Tuks/CreateTukPage';
-import EditTukPage from './presentation/pages/Tuks/EditTuksPage';
-import TuksPage from './presentation/pages/Tuks/TuksPage';
-import CreateUserPage from './presentation/pages/Users/CreateUserPage';
-import EditUserPage from './presentation/pages/Users/EditUserPage';
-import UsersPage from './presentation/pages/Users/UsersPage';
+import { BrowserRouter } from 'react-router-dom';
+import AppRouter from './AppRouter';
+import routes from './common/routes';
 
 const App = () => {
     return (
         <BrowserRouter basename='/'>
-            <Routes>
-                <Route
-                    path='/'
-                    element={<MainLayout />}
-                >
-                    <Route
-                        index
-                        key='index'
-                        element={<BerandaLayout />}
-                    />
-                    <Route
-                        key='profile'
-                        path='/profile'
-                        element={<ProfilePage />}
-                    />
-                    <Route
-                        key='users'
-                        path='/users'
-                        element={<UsersPage />}
-                    />
-                    <Route
-                        key='create-user'
-                        path='/users/create'
-                        element={<CreateUserPage />}
-                    />
-                    <Route
-                        key='edit-user'
-                        path='/users/edit/:id'
-                        element={<EditUserPage />}
-                    />
-                    <Route
-                        key='tuks'
-                        path='/tuks'
-                        element={<TuksPage />}
-                    />
-                    <Route
-                        key='create-tuk'
-                        path='/tuks/create'
-                        element={<CreateTukPage />}
-                    />
-                    <Route
-                        key='edit-tuk'
-                        path='/tuks/edit/:id'
-                        element={<EditTukPage />}
-                    />
-                    <Route
-                        key='asesors'
-                        path='/asesors'
-                        element={<AsesorsPage />}
-                    />
-                    <Route
-                        key='create-asesor'
-                        path='/asesors/create'
-                        element={<CreateAsesorPage />}
-                    />
-                    <Route
-                        key='edit-asesor'
-                        path='/asesors/edit/:id'
-                        element={<EditAsesorPage />}
-                    />
-                </Route>
-                <Route
-                    key='login'
-                    path='/login'
-                    element={<LoginPage />}
-                />
-                <Route
-                    key='register'
-                    path='/register'
-                    element={<RegisterPage />}
-                />
-                <Route
-                    key='ubah-password'
-                    path='/ubah-password'
-                    element={<ChangePasswordPage />}
-                />
-                <Route
-                    key='error'
-                    path='*'
-                    element={<NotFoundPage />}
-                />
-            </Routes>
+            <AppRouter routes={routes} />
         </BrowserRouter>
     );
 };

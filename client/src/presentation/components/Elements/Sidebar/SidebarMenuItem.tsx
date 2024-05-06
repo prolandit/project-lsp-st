@@ -3,12 +3,12 @@ import { MenuType } from '../../../../common/types';
 import SidebarLink from './SidebarLink';
 import SidebarLinkGroup from './SidebarLinkGroup';
 
-type Props = {
+interface Props {
     menu: MenuType;
     pathname: string;
     setSidebarExpanded: (value: boolean) => void;
     sidebarExpanded: boolean;
-};
+}
 
 const SidebarMenuItem = ({
     menu,

@@ -1,10 +1,10 @@
 import { twMerge } from 'tailwind-merge';
 
-type Props = {
+interface Props {
     type?: 'error' | 'warning' | 'info' | 'success';
     className?: string;
     message: string;
-};
+}
 
 const Alert = ({ type = 'info', className, message }: Props) => {
     const errorClassName = 'bg-red-100 border border-red-300';

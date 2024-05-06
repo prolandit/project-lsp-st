@@ -282,6 +282,30 @@ export const asesorEditSchema = Yup.object().shape({
         ),
 });
 
+export const asesmentInputSchema = Yup.object().shape({
+    eventName: Yup.string().required('Nama Kegiatan harus diisi'),
+    skemaName: Yup.string().required('Nama Skema harus diisi'),
+    scheduleCode: Yup.string().required('Kode Jadwal harus diisi'),
+    schemaLicense: Yup.string().required('Lisensi Skema harus diisi'),
+    metode: Yup.string().required('Metode Pengerjaan harus diisi'),
+    tuk: Yup.string().required('TUK harus diisi'),
+    praAssesmentDate: Yup.date().required('Tangal Pra Asesmen harus diisi'),
+    startDate: Yup.date().required('Tanggal Mulai harus diisi'),
+    endDate: Yup.date().required('Tanggal Selesai harus diisi'),
+});
+
+export const asesmentEditSchema = Yup.object().shape({
+    eventName: Yup.string().optional(),
+    skemaName: Yup.string().optional(),
+    scheduleCode: Yup.string().optional(),
+    schemaLicense: Yup.string().optional(),
+    metode: Yup.string().optional(),
+    tuk: Yup.string().optional(),
+    praAssesmentDate: Yup.date().optional(),
+    startDate: Yup.date().optional(),
+    endDate: Yup.date().optional(),
+});
+
 export const fileInputSchema = Yup.object().shape({
     fileUpload: Yup.mixed<File>()
         .test(

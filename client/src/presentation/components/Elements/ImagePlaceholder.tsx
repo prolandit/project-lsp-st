@@ -1,9 +1,9 @@
 import { FaImage } from 'react-icons/fa';
 import { twMerge } from 'tailwind-merge';
 
-type Props = {
+interface Props {
     className?: string;
-};
+}
 
 const ImagePlaceholder = ({ className }: Props) => {
     return (

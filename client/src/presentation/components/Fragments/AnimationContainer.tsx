@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 
-type Props = {
+interface Props {
     className?: string;
     children: React.ReactNode;
-};
+}
 
 const AnimationContainer = ({ className, children }: Props) => {
     return (

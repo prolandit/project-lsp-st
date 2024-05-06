@@ -7,11 +7,11 @@ import Alert from '../../Elements/Alert';
 import Button from '../../Elements/Button';
 import InputForm from '../../Elements/InputForm';
 
-type Props = {
+interface Props {
     onChange?: (file: File | undefined, exp: string) => void;
     onClose: () => void;
     onSave: () => void;
-};
+}
 
 const DrawTabView = ({ onChange, onClose, onSave }: Props) => {
     const [canvasRef, imageFile] = useCanvas();

@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+export type RouteParam = {
+    path: string;
+    element: ReturnType<React.FC>;
+    children?: RouteParam[];
+};
+
 export type AssesmentSchedulePayload = {
     id: number;
     status: string;
@@ -9,14 +15,16 @@ export type AssesmentSchedulePayload = {
     asesor: string;
 };
 
-export type AssesmentDataPayload = {
+export type AssesmentPayload = {
     id: number;
     eventName: string;
     role: string;
     address: string;
     praAssesmentDate: Date;
     assesmentDate: Date;
-    virtualMeetLink: string;
+    praAssesmentMeetLink: string;
+    assesmentMeetLink: string;
+    plenoMeetLink: string;
     tukName: string;
     schema: string;
     status: string;
@@ -127,6 +135,26 @@ export type TukValues = {
     validDate: string;
     areaAddress: string;
     address: string;
+};
+
+export type AssesmentValues = {
+    eventName: string;
+    schemaName: string;
+    scheduleCode: string;
+    schemaLicense: string;
+    method: string;
+    tuk: string;
+    verificator: string;
+    isVerified: boolean;
+    tukCoordinator: string;
+    praAssesmentDate: string;
+    startDate: string;
+    endDate: string;
+    praAssesmentMeetLink: string;
+    assesmentMeetLink: string;
+    plenoMeetLink: string;
+    tukAddress: string;
+    note: string;
 };
 
 export type ChangePasswordValues = {

@@ -2,54 +2,28 @@ import { useState } from 'react';
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 import { twMerge } from 'tailwind-merge';
 
-type Props = {
-    className?: string;
+interface Props
+    extends Omit<
+        React.InputHTMLAttributes<HTMLInputElement>,
+        'prefix' | 'suffix'
+    > {
     prefix?: React.ReactNode;
     suffix?: React.ReactNode;
-    type: string;
-    name: string;
-    placeholder?: string;
-    minLength?: number;
-    maxLength?: number;
-    value?: string | number | readonly string[] | undefined;
-    defaultValue?: string | number | readonly string[] | undefined;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    disabled?: boolean;
-    checked?: boolean;
-};
+}
 
-const Input = ({
-    className,
-    prefix,
-    suffix,
-    type,
-    name,
-    placeholder,
-    value,
-    defaultValue,
-    onChange,
-    minLength,
-    maxLength,
-    disabled,
-    checked,
-}: Props) => {
+const Input = ({ className, prefix, suffix, ...props }: Props) => {
     const [obscureText, setObscureText] = useState(true);
+    const { type } = props;
     const isPassword = type === 'password';
 
     return (
         <div className='flex items-center justify-between w-full rounded-md'>
             <div className='relative w-full'>
-                <div className='absolute -translate-y-1/2 top-1/2 ms-4'>
+                <div className='absolute -translate-y-1/2 top-1/2 ps-4'>
                     {prefix !== undefined ? prefix : <span></span>}
                 </div>
                 <input
-                    value={value}
-                    defaultValue={defaultValue}
-                    name={name}
-                    onChange={onChange}
-                    type={obscureText ? type : 'text'}
-                    minLength={minLength}
-                    maxLength={maxLength}
+                    {...props}
                     className={twMerge(
                         `w-full py-3 text-sm font-medium text-black placeholder-gray-500 bg-gray-100 rounded-md outline-none focus:border-blue-500 ${
                             isPassword && prefix
@@ -62,11 +36,9 @@ const Input = ({
                         }`,
                         className
                     )}
-                    placeholder={placeholder}
-                    disabled={disabled}
-                    checked={checked}
+                    type={obscureText ? type : 'text'}
                 />
-                <div className='absolute right-0 -translate-y-1/2 top-1/2 me-4'>
+                <div className='absolute right-0 -translate-y-1/2 top-1/2 pe-4'>
                     {suffix !== undefined ? suffix : <span></span>}
                 </div>
                 <div className='absolute right-0 -translate-y-1/2 top-1/2 me-4'>

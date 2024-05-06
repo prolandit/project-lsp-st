@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import Modal from '../../Elements/Modal';
 
-type Props = {
+interface Props {
     id: number;
-};
+}
 
-const DeleteUserModal = ({ id }: Props) => {
+const DeletePenggunaModal = ({ id }: Props) => {
     // const navigate = useNavigate();
     const [modal, setModal] = useState(false);
 
@@ -46,4 +46,4 @@ const DeleteUserModal = ({ id }: Props) => {
     );
 };
 
-export default DeleteUserModal;
+export default DeletePenggunaModal;

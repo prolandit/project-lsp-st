@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import Modal from '../../Elements/Modal';
 
-type Props = {
+interface Props {
     id: number;
-};
+}
 
-const DeleteUserModal = ({ id }: Props) => {
+const DeleteTukModal = ({ id }: Props) => {
     // const navigate = useNavigate();
     const [modal, setModal] = useState(false);
 
@@ -35,7 +35,7 @@ const DeleteUserModal = ({ id }: Props) => {
                 onConfirm={handleDelete}
                 className='lg:w-96 max-h-[500px] lg:max-h-[800px]'
             >
-                <span className='text-base font-semibold'>Hapus Asesor</span>
+                <span className='text-base font-semibold'>Hapus TUK</span>
                 <hr />
                 <span className='my-1 font-medium'>
                     Anda yakin ingin menghapus data ini?
@@ -46,4 +46,4 @@ const DeleteUserModal = ({ id }: Props) => {
     );
 };
 
-export default DeleteUserModal;
+export default DeleteTukModal;

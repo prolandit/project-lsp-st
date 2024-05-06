@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
-import { useState } from 'react';
 import { tukInputSchema } from '../../../common/formSchemas';
 import { TukValues } from '../../../common/types';
 import Alert from '../../components/Elements/Alert';
@@ -8,10 +7,8 @@ import Button from '../../components/Elements/Button';
 import Input from '../../components/Elements/Input';
 import Label from '../../components/Elements/Input/Label';
 import Textarea from '../../components/Elements/Textarea';
-import UploadSignModal from '../../components/Fragments/SignUpload/UploadSignModal';
 
-const CreateTukPage = () => {
-    const [isShowModal, setIsShowModal] = useState(false);
+const TambahTukPage = () => {
     // const [isLoading, setIsLoading] = useState(false);
 
     const onSave = async (profile: TukValues) => {
@@ -36,14 +33,7 @@ const CreateTukPage = () => {
         // }
     };
 
-    const {
-        errors,
-        touched,
-        values,
-        handleChange,
-        handleSubmit,
-        setFieldValue,
-    } = useFormik({
+    const { errors, touched, values, handleChange, handleSubmit } = useFormik({
         initialValues: {
             name: '',
             code: '',
@@ -55,17 +45,6 @@ const CreateTukPage = () => {
         validationSchema: tukInputSchema,
         onSubmit: onSave,
     });
-
-    // const signUploadFile = useCallback(async () => {
-    //     if (user?.signUpload) {
-    //         const file = await downloadFile(user.signUpload);
-    //         setFieldValue('signUpload', file);
-    //     }
-    // }, [user?.signUpload, setFieldValue]);
-
-    // useEffect(() => {
-    //     signUploadFile();
-    // }, [signUploadFile]);
 
     return (
         <>
@@ -80,15 +59,10 @@ const CreateTukPage = () => {
                             Tambah Tempat Uji Kompetensi (TUK)
                         </span>
                         <hr className='my-4' />
-                        <div className='flex flex-col items-center gap-6 px-4 lg:gap-16 lg:px-6'>
+                        <div className='flex flex-col items-center gap-6 px-4 lg:gap-8 lg:px-6'>
                             <div className='flex flex-col w-full gap-6 lg:gap-4 lg:grid lg:grid-cols-4 lg:gap-y-8'>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='name'
-                                        className='w-36'
-                                    >
-                                        Nama TUK
-                                    </Label>
+                                    <Label htmlFor='name'>Nama TUK</Label>
                                     <Input
                                         type='text'
                                         name='name'
@@ -103,12 +77,7 @@ const CreateTukPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='code'
-                                        className='w-36'
-                                    >
-                                        Kode TUK
-                                    </Label>
+                                    <Label htmlFor='code'>Kode TUK</Label>
                                     <Input
                                         type='text'
                                         name='code'
@@ -123,12 +92,7 @@ const CreateTukPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='type'
-                                        className='w-36'
-                                    >
-                                        Tipe TUK
-                                    </Label>
+                                    <Label htmlFor='type'>Tipe TUK</Label>
                                     <Input
                                         type='text'
                                         name='type'
@@ -143,10 +107,7 @@ const CreateTukPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='validDate'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='validDate'>
                                         Tanggal Berlaku
                                     </Label>
                                     <Input
@@ -163,10 +124,7 @@ const CreateTukPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='areaAddress'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='areaAddress'>
                                         Alamat Wilayah
                                     </Label>
                                     <Textarea
@@ -183,12 +141,7 @@ const CreateTukPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='address'
-                                        className='w-36'
-                                    >
-                                        Alamat
-                                    </Label>
+                                    <Label htmlFor='address'>Alamat</Label>
                                     <Textarea
                                         name='address'
                                         value={values.address}
@@ -211,18 +164,10 @@ const CreateTukPage = () => {
                         </div>
                     </div>
                 </div>
-                <UploadSignModal
-                    show={isShowModal}
-                    closeModal={() => setIsShowModal(false)}
-                    onChange={(file, exp) => {
-                        setFieldValue('signUpload', file);
-                        setFieldValue('signExplanation', exp);
-                    }}
-                />
             </form>
             {/* <LoadingSpinner show={isLoading} /> */}
         </>
     );
 };
 
-export default CreateTukPage;
+export default TambahTukPage;

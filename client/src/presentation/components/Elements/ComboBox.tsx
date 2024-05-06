@@ -2,7 +2,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { twMerge } from 'tailwind-merge';
 import { OptionType } from '../../../common/types';
 
-type Props = {
+interface Props {
     className?: string;
     name: string;
     placeholder?: string;
@@ -10,7 +10,7 @@ type Props = {
     items?: OptionType[];
     disabled?: boolean;
     onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-};
+}
 
 const ComboBox = ({
     className,

@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Constants from '../../../common/constants';
-import { asesorInputSchema } from '../../../common/formSchemas';
+import { asesorEditSchema } from '../../../common/formSchemas';
 import { UserValues } from '../../../common/types';
 import Alert from '../../components/Elements/Alert';
 import Button from '../../components/Elements/Button';
@@ -12,11 +13,14 @@ import Input from '../../components/Elements/Input';
 import Label from '../../components/Elements/Input/Label';
 import UploadSignModal from '../../components/Fragments/SignUpload/UploadSignModal';
 
-const CreateAsesorPage = () => {
+const EditAsesorPage = () => {
+    const { id } = useParams();
+    console.log(id);
+
     const [isShowModal, setIsShowModal] = useState(false);
     // const [isLoading, setIsLoading] = useState(false);
 
-    const onSave = async (profile: UserValues) => {
+    const onEdit = async (profile: UserValues) => {
         console.log(profile);
         // setIsLoading(true);
 
@@ -64,8 +68,8 @@ const CreateAsesorPage = () => {
             signUpload: undefined,
             signExplanation: '',
         },
-        validationSchema: asesorInputSchema,
-        onSubmit: onSave,
+        validationSchema: asesorEditSchema,
+        onSubmit: onEdit,
     });
 
     // const signUploadFile = useCallback(async () => {
@@ -92,7 +96,7 @@ const CreateAsesorPage = () => {
                             Tambah Asesor
                         </span>
                         <hr className='my-4' />
-                        <div className='flex flex-col items-center gap-6 px-4 lg:gap-16 lg:px-16'>
+                        <div className='flex flex-col items-center gap-6 px-4 lg:gap-8 lg:px-16'>
                             <div className='flex flex-col items-center gap-4'>
                                 {values.photo ? (
                                     <img
@@ -132,12 +136,7 @@ const CreateAsesorPage = () => {
                             </div>
                             <div className='flex flex-col w-full gap-6 lg:gap-16 lg:grid lg:grid-cols-4 lg:gap-y-10'>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='role'
-                                        className='w-36'
-                                    >
-                                        Peran
-                                    </Label>
+                                    <Label htmlFor='role'>Peran</Label>
                                     <Input
                                         type='text'
                                         name='role'
@@ -152,10 +151,7 @@ const CreateAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='birthPlace'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='birthPlace'>
                                         Tempat Lahir
                                     </Label>
                                     <Input
@@ -172,10 +168,7 @@ const CreateAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='birthDate'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='birthDate'>
                                         Tanggal Lahir
                                     </Label>
                                     <Input
@@ -192,12 +185,7 @@ const CreateAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='username'
-                                        className='w-36'
-                                    >
-                                        Username
-                                    </Label>
+                                    <Label htmlFor='username'>Username</Label>
                                     <Input
                                         type='text'
                                         name='username'
@@ -212,12 +200,7 @@ const CreateAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='email'
-                                        className='w-36'
-                                    >
-                                        Email
-                                    </Label>
+                                    <Label htmlFor='email'>Email</Label>
                                     <Input
                                         type='text'
                                         name='email'
@@ -250,10 +233,7 @@ const CreateAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='met'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='met'>
                                         Nomor Registrasi
                                     </Label>
                                     <Input
@@ -270,12 +250,7 @@ const CreateAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='nik'
-                                        className='w-36'
-                                    >
-                                        NIK
-                                    </Label>
+                                    <Label htmlFor='nik'>NIK</Label>
                                     <Input
                                         type='text'
                                         name='nik'
@@ -290,10 +265,7 @@ const CreateAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='fullName'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='fullName'>
                                         Nama Lengkap
                                     </Label>
                                     <Input
@@ -310,10 +282,7 @@ const CreateAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='education'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='education'>
                                         Pendidikan
                                     </Label>
                                     <Input
@@ -330,12 +299,7 @@ const CreateAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='job'
-                                        className='w-36'
-                                    >
-                                        Pekerjaan
-                                    </Label>
+                                    <Label htmlFor='job'>Pekerjaan</Label>
                                     <Input
                                         type='text'
                                         name='job'
@@ -350,12 +314,7 @@ const CreateAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='religion'
-                                        className='w-36'
-                                    >
-                                        Agama
-                                    </Label>
+                                    <Label htmlFor='religion'>Agama</Label>
                                     <ComboBox
                                         name='religion'
                                         items={Constants.religions}
@@ -371,12 +330,7 @@ const CreateAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='phone'
-                                        className='w-36'
-                                    >
-                                        No.Telepon
-                                    </Label>
+                                    <Label htmlFor='phone'>No.Telepon</Label>
                                     <Input
                                         type='text'
                                         name='phone'
@@ -465,4 +419,4 @@ const CreateAsesorPage = () => {
     );
 };
 
-export default CreateAsesorPage;
+export default EditAsesorPage;

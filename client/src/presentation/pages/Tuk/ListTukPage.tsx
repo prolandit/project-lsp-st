@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { BiEdit } from 'react-icons/bi';
 import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import User from '../../../data/models/User';
+import Tuk from '../../../data/models/Tuk';
 import Button from '../../components/Elements/Button';
 import DataTable from '../../components/Elements/DataTable';
-import DeleteUserModal from '../../components/Fragments/Users/DeleteUserModal';
+import DeleteTukModal from '../../components/Fragments/Tuk/DeleteTukModal';
 
-const UsersPage = () => {
+const ListTukPage = () => {
     const navigate = useNavigate();
 
     const [{ pageIndex, pageSize }, setPagination] = useState({
@@ -16,26 +16,18 @@ const UsersPage = () => {
         pageSize: 10,
     });
 
-    const columns: ColumnDef<User>[] = [
+    const columns: ColumnDef<Tuk>[] = [
         {
-            accessorKey: 'photo',
-            header: 'Foto',
+            accessorKey: 'name',
+            header: 'Nama TUK',
         },
         {
-            accessorKey: 'username',
-            header: 'Username',
+            accessorKey: 'address',
+            header: 'Alamat',
         },
         {
-            accessorKey: 'email',
-            header: 'Email',
-        },
-        {
-            accessorKey: 'fullName',
-            header: 'Nama Lengkap',
-        },
-        {
-            accessorKey: 'role',
-            header: 'Peran',
+            accessorKey: 'type',
+            header: 'Tipe TUK',
         },
         {
             header: 'Aksi',
@@ -44,47 +36,34 @@ const UsersPage = () => {
                     <BiEdit
                         size={20}
                         className='text-blue-500 cursor-pointer'
-                        onClick={() =>
-                            navigate(`/users/edit/${row.original.id}`)
-                        }
+                        onClick={() => navigate(`/tuk/edit/${row.original.id}`)}
                     />
-                    <DeleteUserModal id={row.original.id} />
+                    <DeleteTukModal id={row.original.id} />
                 </div>
             ),
         },
     ];
 
-    const generateData = (skip: number, pageSize: number): User[] => {
-        const personDataList: User[] = [];
+    const generateData = (skip: number, pageSize: number): Tuk[] => {
+        const personDataList: Tuk[] = [];
         const endIndex = skip + pageSize;
 
         for (let i = skip; i < endIndex && i < 50; i++) {
-            const user = new User({
+            const tuks = new Tuk({
                 id: i + 1,
-                photo: `Foto ${i + 1}`,
-                role: 'Peran',
-                birthPlace: 'Tempat Lahir',
-                birthDate: new Date(),
-                username: 'Username',
-                email: 'example@ex.com',
-                gender: 'Gender',
-                fullName: 'Full Name',
-                religion: 'Religion',
-                nik: '2134567890',
-                address: 'Address',
-                phone: '21345678',
-                sign: 'Sign',
-                signExplanation: 'Sign Explanation',
+                name: `TUK ${i + 1}`,
+                code: `Kode TUK ${i + 1}`,
+                type: 'Tipe TUK',
+                validDate: new Date(),
+                address: 'Jalan Jalan',
+                areaAddress: 'Jalan Jalan',
             });
-            personDataList.push(user);
+            personDataList.push(tuks);
         }
         return personDataList;
     };
 
-    const data: User[] = generateData(
-        pageIndex * pageSize - pageSize,
-        pageSize
-    );
+    const data: Tuk[] = generateData(pageIndex * pageSize - pageSize, pageSize);
 
     const onSearch = (query: string) => {
         console.log(query);
@@ -94,15 +73,15 @@ const UsersPage = () => {
         <div className='flex flex-col mx-3 my-6 bg-white rounded-t-lg lg:mx-8'>
             <div className='flex flex-row items-center justify-between px-4 py-4 lg:px-6'>
                 <span className='text-base font-semibold text-blue-600'>
-                    Daftar Pengguna
+                    Tempat Uji Kompetensi (TUK)
                 </span>
                 <Button
                     type='button'
                     className='flex flex-row items-center gap-2'
-                    onClick={() => navigate('/users/create')}
+                    onClick={() => navigate('/tuk/tambah')}
                 >
                     <FaPlus />
-                    Tambah Pengguna
+                    Tambah TUK
                 </Button>
             </div>
             <hr />
@@ -125,4 +104,4 @@ const UsersPage = () => {
     );
 };
 
-export default UsersPage;
+export default ListTukPage;

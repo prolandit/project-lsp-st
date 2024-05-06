@@ -1,14 +1,14 @@
 import Input from './Input';
 import Label from './Input/Label';
 
-type Props = {
+interface Props {
     name: string;
     text: string;
     value?: string | number | readonly string[] | undefined;
     defaultValue?: string | number | readonly string[] | undefined;
     disabled?: boolean;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+}
 
 const CheckboxForm = ({
     name,

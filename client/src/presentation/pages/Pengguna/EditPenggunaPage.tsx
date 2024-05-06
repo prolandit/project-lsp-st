@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Constants from '../../../common/constants';
-import { asesorEditSchema } from '../../../common/formSchemas';
+import { userEditSchema } from '../../../common/formSchemas';
 import { UserValues } from '../../../common/types';
 import Alert from '../../components/Elements/Alert';
 import Button from '../../components/Elements/Button';
@@ -13,7 +13,7 @@ import Input from '../../components/Elements/Input';
 import Label from '../../components/Elements/Input/Label';
 import UploadSignModal from '../../components/Fragments/SignUpload/UploadSignModal';
 
-const EditAsesorPage = () => {
+const EditPenggunaPage = () => {
     const { id } = useParams();
     console.log(id);
 
@@ -51,24 +51,23 @@ const EditAsesorPage = () => {
         setFieldValue,
     } = useFormik({
         initialValues: {
-            met: '',
             photo: undefined,
             role: '',
             birthPlace: '',
             birthDate: '',
             username: '',
+            password: '',
             email: '',
             gender: '',
             fullName: '',
             religion: '',
             nik: '',
+            address: '',
             phone: '',
-            education: '',
-            job: '',
             signUpload: undefined,
             signExplanation: '',
         },
-        validationSchema: asesorEditSchema,
+        validationSchema: userEditSchema,
         onSubmit: onEdit,
     });
 
@@ -93,10 +92,10 @@ const EditAsesorPage = () => {
                 <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                         <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
-                            Tambah Asesor
+                            Edit Pengguna
                         </span>
                         <hr className='my-4' />
-                        <div className='flex flex-col items-center gap-6 px-4 lg:gap-16 lg:px-16'>
+                        <div className='flex flex-col items-center gap-6 px-4 lg:gap-8 lg:px-16'>
                             <div className='flex flex-col items-center gap-4'>
                                 {values.photo ? (
                                     <img
@@ -136,12 +135,7 @@ const EditAsesorPage = () => {
                             </div>
                             <div className='flex flex-col w-full gap-6 lg:gap-16 lg:grid lg:grid-cols-4 lg:gap-y-10'>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='role'
-                                        className='w-36'
-                                    >
-                                        Peran
-                                    </Label>
+                                    <Label htmlFor='role'>Peran</Label>
                                     <Input
                                         type='text'
                                         name='role'
@@ -156,10 +150,7 @@ const EditAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='birthPlace'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='birthPlace'>
                                         Tempat Lahir
                                     </Label>
                                     <Input
@@ -176,10 +167,7 @@ const EditAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='birthDate'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='birthDate'>
                                         Tanggal Lahir
                                     </Label>
                                     <Input
@@ -196,12 +184,7 @@ const EditAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='username'
-                                        className='w-36'
-                                    >
-                                        Username
-                                    </Label>
+                                    <Label htmlFor='username'>Username</Label>
                                     <Input
                                         type='text'
                                         name='username'
@@ -216,12 +199,22 @@ const EditAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='email'
-                                        className='w-36'
-                                    >
-                                        Email
-                                    </Label>
+                                    <Label htmlFor='password'>Password</Label>
+                                    <Input
+                                        type='password'
+                                        name='password'
+                                        value={values.password}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.password && touched.password ? (
+                                        <Alert
+                                            message={errors.password}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label htmlFor='email'>Email</Label>
                                     <Input
                                         type='text'
                                         name='email'
@@ -254,32 +247,7 @@ const EditAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='met'
-                                        className='w-36'
-                                    >
-                                        Nomor Registrasi
-                                    </Label>
-                                    <Input
-                                        type='text'
-                                        name='met'
-                                        value={values.met}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.met && touched.met ? (
-                                        <Alert
-                                            message={errors.met}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='nik'
-                                        className='w-36'
-                                    >
-                                        NIK
-                                    </Label>
+                                    <Label htmlFor='nik'>NIK</Label>
                                     <Input
                                         type='text'
                                         name='nik'
@@ -294,10 +262,7 @@ const EditAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='fullName'
-                                        className='w-36'
-                                    >
+                                    <Label htmlFor='fullName'>
                                         Nama Lengkap
                                     </Label>
                                     <Input
@@ -314,52 +279,7 @@ const EditAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='education'
-                                        className='w-36'
-                                    >
-                                        Pendidikan
-                                    </Label>
-                                    <Input
-                                        type='text'
-                                        name='education'
-                                        value={values.education}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.education && touched.education ? (
-                                        <Alert
-                                            message={errors.education}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='job'
-                                        className='w-36'
-                                    >
-                                        Pekerjaan
-                                    </Label>
-                                    <Input
-                                        type='text'
-                                        name='job'
-                                        value={values.job}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.job && touched.job ? (
-                                        <Alert
-                                            message={errors.job}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='religion'
-                                        className='w-36'
-                                    >
-                                        Agama
-                                    </Label>
+                                    <Label htmlFor='religion'>Agama</Label>
                                     <ComboBox
                                         name='religion'
                                         items={Constants.religions}
@@ -375,12 +295,7 @@ const EditAsesorPage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='phone'
-                                        className='w-36'
-                                    >
-                                        No.Telepon
-                                    </Label>
+                                    <Label htmlFor='phone'>No.Telepon</Label>
                                     <Input
                                         type='text'
                                         name='phone'
@@ -390,6 +305,21 @@ const EditAsesorPage = () => {
                                     {errors.phone && touched.phone ? (
                                         <Alert
                                             message={errors.phone}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label htmlFor='address'>Alamat</Label>
+                                    <Input
+                                        type='text'
+                                        name='address'
+                                        value={values.address}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.address && touched.address ? (
+                                        <Alert
+                                            message={errors.address}
                                             type='error'
                                         />
                                     ) : null}
@@ -469,4 +399,4 @@ const EditAsesorPage = () => {
     );
 };
 
-export default EditAsesorPage;
+export default EditPenggunaPage;
