@@ -71,7 +71,7 @@ const EditAsesmentPage = () => {
                 <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                         <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
-                            Tambah Asesmen
+                            Edit Asesmen
                         </span>
                         <hr className='my-4' />
                         <div className='flex flex-col items-center gap-6 px-4 lg:gap-8 lg:px-6'>

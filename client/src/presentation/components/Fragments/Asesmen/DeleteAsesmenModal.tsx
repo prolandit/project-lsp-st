@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { MdDeleteOutline } from 'react-icons/md';
 import Button from '../../Elements/Button';
 import Modal from '../../Elements/Modal';
 
@@ -26,10 +27,13 @@ const DeleteAsesmenModal = ({ id }: Props) => {
         <div>
             <Button
                 type='button'
-                className='text-red-500 duration-300 bg-white border border-red-500 hover:bg-red-500 hover:text-white transition-color'
+                className='flex flex-row items-center gap-2 text-red-500 transition-colors duration-300 bg-transparent border border-red-500 group hover:bg-red-500 hover:text-white'
                 onClick={handleClose}
             >
-                Delete
+                <MdDeleteOutline
+                    size={20}
+                    className='text-red-500 transition-colors duration-300 cursor-pointer group-hover:text-white'
+                />
             </Button>
             <Modal
                 show={modal}

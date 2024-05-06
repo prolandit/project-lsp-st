@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
+import Button from '../../Elements/Button';
 import Modal from '../../Elements/Modal';
 
 interface Props {
@@ -24,11 +25,16 @@ const DeleteTukModal = ({ id }: Props) => {
 
     return (
         <div>
-            <MdDeleteOutline
-                size={20}
-                className='text-red-500 cursor-pointer'
+            <Button
+                type='button'
+                className='flex flex-row items-center gap-2 text-red-500 transition-colors duration-300 bg-transparent border border-red-500 group hover:bg-red-500 hover:text-white'
                 onClick={handleClose}
-            />
+            >
+                <MdDeleteOutline
+                    size={20}
+                    className='text-red-500 transition-colors duration-300 cursor-pointer group-hover:text-white'
+                />
+            </Button>
             <Modal
                 show={modal}
                 onClose={handleClose}

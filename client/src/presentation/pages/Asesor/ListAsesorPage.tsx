@@ -41,13 +41,18 @@ const ListAsesorPage = () => {
             header: 'Aksi',
             cell: ({ row }) => (
                 <div className='flex flex-row items-center gap-4'>
-                    <BiEdit
-                        size={20}
-                        className='text-blue-500 cursor-pointer'
+                    <Button
+                        type='button'
+                        className='flex flex-row items-center gap-2 text-blue-500 transition-colors duration-300 bg-transparent border border-blue-500 group hover:bg-blue-500 hover:text-white'
                         onClick={() =>
                             navigate(`/asesor/edit/${row.original.id}`)
                         }
-                    />
+                    >
+                        <BiEdit
+                            size={20}
+                            className='text-blue-500 transition-colors duration-300cursor-pointer group-hover:text-white'
+                        />
+                    </Button>
                     <DeleteAsesorModal id={row.original.id} />
                 </div>
             ),

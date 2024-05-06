@@ -1,12 +1,18 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
-import { localDateString } from '../../../../common/utils';
+import { FaUserPlus } from 'react-icons/fa';
+import { TiArrowBack } from 'react-icons/ti';
+import { useNavigate } from 'react-router-dom';
 import User from '../../../../data/models/User';
+import Button from '../../../components/Elements/Button';
 import DataTable from '../../../components/Elements/DataTable';
 import AssignAsesorModal from '../../../components/Fragments/Asesor/AssignAsesorModal';
 import DeleteAsesorModal from '../../../components/Fragments/Asesor/DeleteAsesorModal';
+import DetailAsesorModal from '../../../components/Fragments/Asesor/DetailAsesorModal';
 
-const AssignAsesorTabView = () => {
+const AssignAsesorView = () => {
+    const navigate = useNavigate();
+
     const [{ pageIndex, pageSize }, setPagination] = useState({
         pageIndex: 1,
         pageSize: 10,
@@ -14,29 +20,27 @@ const AssignAsesorTabView = () => {
 
     const columns: ColumnDef<User>[] = [
         {
-            accessorKey: 'photo',
-            header: 'Foto',
-        },
-        {
-            accessorKey: 'met',
-            header: 'No. Reg Asesor',
-        },
-        {
             accessorKey: 'fullName',
             header: 'Nama Lengkap',
-        },
-        {
-            accessorKey: 'email',
-            header: 'Email',
+            size: 500,
         },
         {
             accessorKey: 'phone',
             header: 'No. Telp',
+            size: 500,
         },
         {
             header: 'Aksi',
             cell: ({ row }) => (
                 <div className='flex flex-row items-center gap-4'>
+                    <Button
+                        type='button'
+                        className='flex flex-row items-center gap-2 text-green-500 transition-colors duration-300 bg-transparent border border-green-500 hover:bg-green-500 hover:text-white'
+                    >
+                        <FaUserPlus />
+                        Tambah Asesi
+                    </Button>
+                    <DetailAsesorModal id={row.original.id} />
                     <DeleteAsesorModal id={row.original.id} />
                 </div>
             ),
@@ -83,46 +87,7 @@ const AssignAsesorTabView = () => {
     };
 
     return (
-        <div className='flex flex-col gap-6'>
-            <div className='flex flex-col gap-6 px-4 py-4 border border-gray-200 rounded-md lg:px-6'>
-                <span className='text-xl font-semibold text-center'>
-                    Detail Asesmen
-                </span>
-                <div className='flex flex-col gap-3'>
-                    <div className='flex flex-row'>
-                        <span className='font-semibold w-60'>
-                            Nama Kegiatan
-                        </span>
-                        <span className='font-medium'>: Tes Simulasi 3</span>
-                    </div>
-                    <div className='flex flex-row'>
-                        <span className='font-semibold w-60'>Nama Skema</span>
-                        <span className='font-medium'>
-                            : Instruktur Junior (KKNI LEVEL III)
-                        </span>
-                    </div>
-                    <div className='flex flex-row'>
-                        <span className='font-semibold w-60'>Lokasi</span>
-                        <span className='font-medium'>: Jalan Jalan</span>
-                    </div>
-                    <div className='flex flex-row'>
-                        <span className='font-semibold w-60'>
-                            Tanggal Pra Asesmen
-                        </span>
-                        <span className='font-medium'>
-                            : {localDateString(new Date())}
-                        </span>
-                    </div>
-                    <div className='flex flex-row'>
-                        <span className='font-semibold w-60'>
-                            Tanggal Asesmen
-                        </span>
-                        <span className='font-medium'>
-                            : {localDateString(new Date())}
-                        </span>
-                    </div>
-                </div>
-            </div>
+        <div className='flex flex-col gap-4'>
             <div className='flex flex-col gap-2 py-4 border border-gray-200 rounded-md'>
                 <div className='flex flex-row items-center justify-between px-4 lg:px-6'>
                     <span className='text-xl font-semibold text-center'>
@@ -147,8 +112,18 @@ const AssignAsesorTabView = () => {
                     />
                 </div>
             </div>
+            <div>
+                <Button
+                    type='button'
+                    className='flex flex-row items-center gap-2 text-blue-500 transition-colors duration-300 bg-transparent border border-blue-500 hover:bg-blue-500 hover:text-white'
+                    onClick={() => navigate(-1)}
+                >
+                    <TiArrowBack />
+                    Kembali
+                </Button>
+            </div>
         </div>
     );
 };
 
-export default AssignAsesorTabView;
+export default AssignAsesorView;

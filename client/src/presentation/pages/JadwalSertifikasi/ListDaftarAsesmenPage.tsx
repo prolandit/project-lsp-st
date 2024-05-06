@@ -1,5 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
+import { BiEdit } from 'react-icons/bi';
 import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { localDateString } from '../../../common/utils';
@@ -97,15 +98,19 @@ const ListDaftarAsesmenPage = () => {
                     </Button>
                     <Button
                         type='button'
-                        className='text-yellow-500 duration-300 bg-white border border-yellow-500 hover:bg-yellow-500 hover:text-white transition-color'
+                        className='flex flex-row items-center gap-2 text-yellow-500 transition-colors duration-300 bg-transparent border border-yellow-500 group hover:bg-yellow-500 hover:text-white'
                         onClick={() =>
                             navigate(
                                 `/jadwal-sertifikasi/daftar-asesmen/edit/${row.original.id}`
                             )
                         }
                     >
-                        Edit
+                        <BiEdit
+                            size={20}
+                            className='text-yellow-500 transition-colors duration-300cursor-pointer group-hover:text-white'
+                        />
                     </Button>
+
                     <DeleteAsesmenModal id={row.original.id} />
                 </div>
             ),
