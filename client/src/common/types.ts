@@ -40,6 +40,12 @@ export type CreateUserValues = {
     role: string;
 };
 
+export type CreatePengelolaanSuratValues = {
+    kategori?: string;
+    namaSurat?: string;
+    upload: File | null;
+};
+
 export type ErrorResponse = {
     statusCode: number;
     error: string;

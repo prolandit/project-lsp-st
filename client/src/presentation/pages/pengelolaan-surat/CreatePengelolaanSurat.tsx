@@ -24,6 +24,7 @@ import {
   DialogTrigger,
 } from "../../components/Elements/Dialog";
 import { ToolTipWrapper } from "../../components/Elements/Tooltip";
+import ButtonLink from "../../components/Elements/ButtonLink";
 
 const CreatePengelolaanSurat = () => {
   const onCreatePengelolaanSurat = async (
@@ -33,16 +34,12 @@ const CreatePengelolaanSurat = () => {
     console.log("Button Clicked");
   };
 
-  const onKembali = async () => {
-    console.log("Button Kembali Clicked");
-  };
-
   const { errors, touched, values, handleChange, handleSubmit, setFieldValue } =
-    useFormik({
+    useFormik<CreatePengelolaanSuratValues>({
       initialValues: {
         kategori: "",
         namaSurat: "",
-        upload: undefined,
+        upload: null,
       },
       validationSchema: pengelolaanSuratSchema,
       onSubmit: onCreatePengelolaanSurat,
@@ -132,6 +129,7 @@ const CreatePengelolaanSurat = () => {
                       <DialogTrigger>
                         <Button
                           type="button"
+                          // onClick={(e) => e.preventDefault()}
                           className="bg-transparent hover:bg-transparent"
                         >
                           <ToolTipWrapper content="View File">
@@ -211,13 +209,12 @@ const CreatePengelolaanSurat = () => {
               <div></div>
               {/* <div className="flex items-center justify-start gap-3 mt-4 ml-4"> */}
               <div className="flex justify-start items-center ">
-                <Button
-                  type="button"
-                  onClick={() => onKembali()}
+                <ButtonLink
+                  to={`/pengelolaan-surat`}
                   className="flex items-center gap-3 bg-green-500 hover:bg-green-600"
                 >
                   <span>Kembali</span>
-                </Button>
+                </ButtonLink>
                 <Button
                   type="submit"
                   // onClick={() => onCreatePengelolaanSurat()}

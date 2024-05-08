@@ -11,6 +11,16 @@ const Constants = {
             value: 'Wanita',
         },
     ],
+    kategoriOptions: [
+        {
+            key: 'kategori 1',
+            value: 'Kategori 1',
+        },
+        {
+            key: 'kategori 2',
+            value: 'Kategori 2',
+        },
+    ],
     religions: [
         {
             key: 'islam',

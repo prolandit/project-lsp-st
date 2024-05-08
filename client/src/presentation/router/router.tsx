@@ -2,6 +2,9 @@ import { Route, Routes } from "react-router-dom";
 import ListPemohon from "../pages/pemohon/list";
 import MainLayout from "../components/Layouts/MainLayout";
 import PersyaratanUmum from "../pages/pemohon/persyaratan-umum";
+import PengelolaanSurat from "../pages/pengelolaan-surat/PengelolaanSurat";
+import CreatePengelolaanSurat from "../pages/pengelolaan-surat/CreatePengelolaanSurat";
+import PersyaratanPendaftaran from "../pages/persyaratan/persyaratan-pendaftaran";
 
 interface RouteParam {
   path: string;
@@ -10,7 +13,23 @@ interface RouteParam {
 
 const routes: RouteParam[] = [
   { path: "/pemohon", component: (user: any) => <ListPemohon /> },
-  { path: "/pemohon/berkas/:id", component: (user: any) => <PersyaratanUmum /> },
+  {
+    path: "/pemohon/berkas/:id",
+    component: (user: any) => <PersyaratanUmum />,
+  },
+  {
+    path: "/pengelolaan-surat",
+    component: (user: any) => <PengelolaanSurat />,
+  },
+  {
+    path: "/tambah-pengelolaan-surat",
+    component: (user: any) => <CreatePengelolaanSurat />,
+  },
+  {
+    path: "/persyaratan-perndaftaran",
+    component: (user: any) => <PersyaratanPendaftaran />,
+  },
+  //tambah disini routenya
 ];
 
 const RenderRouter = () => {
@@ -23,7 +42,11 @@ const RenderRouter = () => {
 
           return (
             // @ts-expect-error
-            <Route key={index} path={route.path} element={route.component.call(null, user)} />
+            <Route
+              key={index}
+              path={route.path}
+              element={route.component.call(null, user)}
+            />
           );
         })}
       </Route>

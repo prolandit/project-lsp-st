@@ -87,13 +87,13 @@ const PengelolaanSurat: React.FC = () => {
           </div>
 
           <div className="flex justify-end items-center">
-            <button
-              onClick={() => handleActionClick()}
+            <ButtonLink
+              to={`/tambah-pengelolaan-surat`}
               className="flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:text-gray-300 lg:text-base bg-blue-500 rounded-xl text-white px-4 py-2 transition-colors"
             >
               <FaCirclePlus className="text-xl" />
               <span>Tambah Jenis Surat</span>
-            </button>
+            </ButtonLink>
           </div>
 
           <DataTable
