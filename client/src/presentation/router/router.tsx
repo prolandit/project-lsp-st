@@ -5,6 +5,7 @@ import PersyaratanUmum from "../pages/pemohon/persyaratan-umum";
 import PengelolaanSurat from "../pages/pengelolaan-surat/PengelolaanSurat";
 import CreatePengelolaanSurat from "../pages/pengelolaan-surat/CreatePengelolaanSurat";
 import PersyaratanPendaftaran from "../pages/persyaratan/persyaratan-pendaftaran";
+import EditPengelolaanSurat from "../pages/pengelolaan-surat/EditPengelolaanSurat";
 
 interface RouteParam {
   path: string;
@@ -26,10 +27,9 @@ const routes: RouteParam[] = [
     component: (user: any) => <CreatePengelolaanSurat />,
   },
   {
-    path: "/persyaratan-perndaftaran",
-    component: (user: any) => <PersyaratanPendaftaran />,
+    path: "/edit-pengelolaan-surat/:id",
+    component: (user: any) => <EditPengelolaanSurat />,
   },
-  //tambah disini routenya
 ];
 
 const RenderRouter = () => {
