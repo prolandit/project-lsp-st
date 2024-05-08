@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import AnimationContainer from '../Fragments/AnimationContainer';
 
-type Props = {
+interface Props {
     title: string;
     subtitle: string;
     navigationTitle: string;
     children: React.ReactNode;
     navigateTo: string;
-};
+}
 
 const AuthLayout = ({
     title,

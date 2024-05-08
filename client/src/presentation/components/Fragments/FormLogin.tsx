@@ -4,9 +4,9 @@ import { LoginValues } from '../../../common/types';
 import Button from '../Elements/Button';
 import InputForm from '../Elements/InputForm';
 
-type Props = {
+interface Props {
     onLogin: (payload: LoginValues) => void;
-};
+}
 
 const FormLogin = ({ onLogin }: Props) => {
     const { values, handleChange, handleSubmit } = useFormik({

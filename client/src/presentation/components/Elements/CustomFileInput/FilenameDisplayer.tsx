@@ -1,10 +1,10 @@
 import { FaFileUpload } from 'react-icons/fa';
 import { twMerge } from 'tailwind-merge';
 
-type Props = {
+interface Props {
     value: File | null | undefined;
     className?: string;
-};
+}
 
 const FileNameDisplayer = ({ value, className }: Props) => {
     return (

@@ -2,7 +2,7 @@ import { twMerge } from 'tailwind-merge';
 import FileInput from './FileInput';
 import Label from './Input/Label';
 
-type Props = {
+interface Props {
     className?: string;
     important?: boolean;
     name: string;
@@ -13,7 +13,7 @@ type Props = {
     accept?: string | undefined;
     value?: string | number | readonly string[] | undefined;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+}
 
 const FileInputForm = ({
     className,

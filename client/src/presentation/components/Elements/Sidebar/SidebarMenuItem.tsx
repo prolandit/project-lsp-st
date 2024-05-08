@@ -3,12 +3,12 @@ import { MenuType } from '../../../../common/types';
 import SidebarLink from './SidebarLink';
 import SidebarLinkGroup from './SidebarLinkGroup';
 
-type Props = {
+interface Props {
     menu: MenuType;
     pathname: string;
     setSidebarExpanded: (value: boolean) => void;
     sidebarExpanded: boolean;
-};
+}
 
 const SidebarMenuItem = ({
     menu,
@@ -27,7 +27,7 @@ const SidebarMenuItem = ({
                     }
                 >
                     {(handleClick, open) => (
-                        <>
+                        <div className='flex flex-col gap-2'>
                             <SidebarLink
                                 to={menu.path}
                                 className={
@@ -61,7 +61,7 @@ const SidebarMenuItem = ({
                                     !open && 'hidden'
                                 }`}
                             >
-                                <ul className='mt-4 mb-5.5 flex flex-col gap-2.5 pl-6'>
+                                <div className='mb-5.5 flex flex-col gap-2.5 pl-6'>
                                     {menu.children?.map((childMenu) => (
                                         <li key={childMenu.name}>
                                             <SidebarMenuItem
@@ -77,9 +77,9 @@ const SidebarMenuItem = ({
                                             />
                                         </li>
                                     ))}
-                                </ul>
+                                </div>
                             </div>
-                        </>
+                        </div>
                     )}
                 </SidebarLinkGroup>
             ) : (

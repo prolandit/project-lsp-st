@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
-type Props = {
+interface Props {
     to: string;
     className?: string;
     children: React.ReactNode;
     onClick?: React.MouseEventHandler<HTMLAnchorElement>;
-};
+}
 
 const SidebarLink = ({ to, children, onClick, className }: Props) => {
     return (

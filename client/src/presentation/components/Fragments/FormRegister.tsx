@@ -7,9 +7,9 @@ import Alert from '../Elements/Alert';
 import Button from '../Elements/Button';
 import InputForm from '../Elements/InputForm';
 
-type Props = {
+interface Props {
     onRegister: (payload: RegisterValues) => void;
-};
+}
 
 const FormRegister = ({ onRegister }: Props) => {
     const { errors, touched, values, handleChange, handleSubmit } = useFormik({

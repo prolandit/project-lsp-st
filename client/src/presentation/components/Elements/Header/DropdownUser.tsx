@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { BiLogOut, BiUser } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 
-type Props = {
+interface Props {
     setLogoutModalOpen(value: boolean): void;
-};
+}
 
 const DropdownUser = ({ setLogoutModalOpen }: Props) => {
     // const user = useLoggedUser();

@@ -6,11 +6,11 @@ import Button from '../../Elements/Button';
 import CustomFileInput from '../../Elements/CustomFileInput';
 import InputForm from '../../Elements/InputForm';
 
-type Props = {
+interface Props {
     onChange?: (file: File | undefined, exp: string) => void;
     onClose: () => void;
     onSave: () => void;
-};
+}
 
 const UploadTabView = ({ onChange, onClose, onSave }: Props) => {
     const { errors, values, handleChange, setFieldValue, handleSubmit } =

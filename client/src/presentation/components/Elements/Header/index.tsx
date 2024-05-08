@@ -1,10 +1,10 @@
 import DropdownUser from './DropdownUser';
 
-type Props = {
+interface Props {
     sidebarOpen: string | boolean | undefined;
     setSidebarOpen: (value: boolean) => void;
     setLogoutModalOpen(value: boolean): void;
-};
+}
 
 const Header = ({ sidebarOpen, setSidebarOpen, setLogoutModalOpen }: Props) => {
     return (
