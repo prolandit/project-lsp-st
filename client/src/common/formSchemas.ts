@@ -306,6 +306,26 @@ export const asesmentEditSchema = Yup.object().shape({
     endDate: Yup.date().optional(),
 });
 
+export const persyaratanDasarInputSchema = Yup.object().shape({
+    name: Yup.string().required('Nama Persyaratan harus diisi'),
+    formType: Yup.string().required('Tipe Form harus diisi'),
+    mandatory: Yup.boolean().required('Mandatory harus diisi'),
+    showOnAsesorAt: Yup.string().required(
+        'Munculkan dokumen pada asesor saat harus diisi'
+    ),
+    showOnAsesiAt: Yup.string().required(
+        'Munculkan dokumen pada asesi saat harus diisi'
+    ),
+});
+
+export const persyaratanDasarEditSchema = Yup.object().shape({
+    name: Yup.string().optional(),
+    formType: Yup.string().optional(),
+    mandatory: Yup.boolean().optional(),
+    showOnAsesorAt: Yup.string().optional(),
+    showOnAsesiAt: Yup.string().optional(),
+});
+
 export const fileInputSchema = Yup.object().shape({
     fileUpload: Yup.mixed<File>()
         .test(

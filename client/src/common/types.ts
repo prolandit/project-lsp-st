@@ -211,6 +211,23 @@ export type TukPayload = {
     address: string;
 };
 
+export type RequirementPayload = {
+    id: number;
+    name: string;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+};
+
+export type RequirementValues = {
+    name: string;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+};
+
 export type MenuType = {
     name: string;
     path: string;

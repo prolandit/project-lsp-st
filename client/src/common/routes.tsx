@@ -6,14 +6,17 @@ import TambahAsesorPage from '../presentation/pages/Asesor/TambahAsesorPage';
 import ChangePasswordPage from '../presentation/pages/Auth/ChangePasswordPage';
 import LoginPage from '../presentation/pages/Auth/LoginPage';
 import RegisterPage from '../presentation/pages/Auth/RegisterPage';
-import AssignAsesmenPage from '../presentation/pages/JadwalSertifikasi/AssignAsesmentPage';
+import AssignAsesmenPage from '../presentation/pages/JadwalSertifikasi/AssignAsesmenPage';
 import EditAsesmentPage from '../presentation/pages/JadwalSertifikasi/EditAsesmentPage';
 import ListDaftarAsesmenPage from '../presentation/pages/JadwalSertifikasi/ListDaftarAsesmenPage';
-import TambahAsesmentPage from '../presentation/pages/JadwalSertifikasi/TambahAsesmentPage';
+import TambahAsesmentPage from '../presentation/pages/JadwalSertifikasi/TambahAsesmenPage';
 import NotFoundPage from '../presentation/pages/NotFoundPage';
 import EditPenggunaPage from '../presentation/pages/Pengguna/EditPenggunaPage';
 import ListPenggunaPage from '../presentation/pages/Pengguna/ListPenggunaPage';
 import TambahPenggunaPage from '../presentation/pages/Pengguna/TambahPenggunaPage';
+import EditPersyaratanDasarPage from '../presentation/pages/Persyaratan/PersyaratanDasar/EditPersyaratanDasarPage';
+import ListPersyaratanDasarPage from '../presentation/pages/Persyaratan/PersyaratanDasar/ListPersyaratanDasarPage';
+import TambahPersyaratanDasarPage from '../presentation/pages/Persyaratan/PersyaratanDasar/TambahPersyaratanDasarPage';
 import ProfilePage from '../presentation/pages/Profile/ProfilePage';
 import EditTukPage from '../presentation/pages/Tuk/EditTukPage';
 import ListTukPage from '../presentation/pages/Tuk/ListTukPage';
@@ -84,6 +87,18 @@ const routes: RouteParam[] = [
             {
                 path: '/jadwal-sertifikasi/daftar-asesmen/assign/:id',
                 element: <AssignAsesmenPage />,
+            },
+            {
+                path: '/persyaratan/persyaratan-dasar',
+                element: <ListPersyaratanDasarPage />,
+            },
+            {
+                path: '/persyaratan/persyaratan-dasar/tambah',
+                element: <TambahPersyaratanDasarPage />,
+            },
+            {
+                path: '/persyaratan/persyaratan-dasar/edit/:id',
+                element: <EditPersyaratanDasarPage />,
             },
         ],
     },
