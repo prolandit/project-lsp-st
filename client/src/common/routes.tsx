@@ -14,6 +14,9 @@ import NotFoundPage from '../presentation/pages/NotFoundPage';
 import EditPenggunaPage from '../presentation/pages/Pengguna/EditPenggunaPage';
 import ListPenggunaPage from '../presentation/pages/Pengguna/ListPenggunaPage';
 import TambahPenggunaPage from '../presentation/pages/Pengguna/TambahPenggunaPage';
+import EditBuktiAdministratifPage from '../presentation/pages/Persyaratan/BuktiAdministratif/EditBuktiAdministratifPage';
+import ListBuktiAdministratifPage from '../presentation/pages/Persyaratan/BuktiAdministratif/ListBuktiAdministratifPage';
+import TambahBuktiAdministratifPage from '../presentation/pages/Persyaratan/BuktiAdministratif/TambahBuktiAdministratifPage';
 import EditMukPage from '../presentation/pages/Persyaratan/Muk/EditMukPage';
 import ListMukPage from '../presentation/pages/Persyaratan/Muk/ListMukPage';
 import TambahMukPage from '../presentation/pages/Persyaratan/Muk/TambahMukPage';
@@ -129,6 +132,18 @@ const routes: RouteParam[] = [
             {
                 path: '/persyaratan/materi-uji-kompetensi/edit/:id',
                 element: <EditMukPage />,
+            },
+            {
+                path: '/persyaratan/bukti-administratif',
+                element: <ListBuktiAdministratifPage />,
+            },
+            {
+                path: '/persyaratan/bukti-administratif/tambah',
+                element: <TambahBuktiAdministratifPage />,
+            },
+            {
+                path: '/persyaratan/bukti-administratif/edit/:id',
+                element: <EditBuktiAdministratifPage />,
             },
         ],
     },

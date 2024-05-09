@@ -384,6 +384,28 @@ export const mukEditSchema = Yup.object().shape({
     validator: Yup.string().optional(),
 });
 
+export const buktiAdministratifInputSchema = Yup.object().shape({
+    schemaId: Yup.number().required('Skema harus diisi'),
+    proof: Yup.mixed<File>()
+        .test(
+            'fileSize',
+            'Ukuran file terlalu besar. Maksimal 5MB',
+            (value: File | undefined) => !value || value.size <= 5242880
+        )
+        .required('Bukti Administratif harus diisi'),
+});
+
+export const buktiAdministratifEditSchema = Yup.object().shape({
+    schemaId: Yup.number().optional(),
+    proof: Yup.mixed<File>()
+        .test(
+            'fileSize',
+            'Ukuran file terlalu besar. Maksimal 5MB',
+            (value: File | undefined) => !value || value.size <= 5242880
+        )
+        .optional(),
+});
+
 export const fileInputSchema = Yup.object().shape({
     fileUpload: Yup.mixed<File>()
         .test(

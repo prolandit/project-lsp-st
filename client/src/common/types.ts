@@ -280,6 +280,17 @@ export type MukValues = {
     validator: string;
 };
 
+export type AdministrativeEvidencePayload = {
+    id: number;
+    schema: SchemaPayload;
+    proofUrl: string;
+};
+
+export type AdministrativeEvidenceValues = {
+    schemaId: number;
+    proof?: File;
+};
+
 export type SchemaPayload = {
     id: number;
     name: string;

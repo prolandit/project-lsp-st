@@ -116,7 +116,7 @@ const TambahPenggunaPage = () => {
                                     >
                                         Upload Foto
                                     </Label>
-                                    <input
+                                    <Input
                                         id='photo-upload'
                                         type='file'
                                         accept='image/*'
