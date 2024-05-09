@@ -14,6 +14,9 @@ import NotFoundPage from '../presentation/pages/NotFoundPage';
 import EditPenggunaPage from '../presentation/pages/Pengguna/EditPenggunaPage';
 import ListPenggunaPage from '../presentation/pages/Pengguna/ListPenggunaPage';
 import TambahPenggunaPage from '../presentation/pages/Pengguna/TambahPenggunaPage';
+import EditMukPage from '../presentation/pages/Persyaratan/Muk/EditMukPage';
+import ListMukPage from '../presentation/pages/Persyaratan/Muk/ListMukPage';
+import TambahMukPage from '../presentation/pages/Persyaratan/Muk/TambahMukPage';
 import EditPersyaratanDasarPage from '../presentation/pages/Persyaratan/PersyaratanDasar/EditPersyaratanDasarPage';
 import ListPersyaratanDasarPage from '../presentation/pages/Persyaratan/PersyaratanDasar/ListPersyaratanDasarPage';
 import TambahPersyaratanDasarPage from '../presentation/pages/Persyaratan/PersyaratanDasar/TambahPersyaratanDasarPage';
@@ -114,6 +117,18 @@ const routes: RouteParam[] = [
             {
                 path: '/persyaratan/persyaratan-pendaftaran/edit/:id',
                 element: <EditPersyaratanPendaftaranPage />,
+            },
+            {
+                path: '/persyaratan/materi-uji-kompetensi',
+                element: <ListMukPage />,
+            },
+            {
+                path: '/persyaratan/materi-uji-kompetensi/tambah',
+                element: <TambahMukPage />,
+            },
+            {
+                path: '/persyaratan/materi-uji-kompetensi/edit/:id',
+                element: <EditMukPage />,
             },
         ],
     },

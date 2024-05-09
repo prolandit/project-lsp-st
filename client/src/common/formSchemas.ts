@@ -354,6 +354,36 @@ export const persyaratanPendaftaranEditSchema = Yup.object().shape({
     validator: Yup.string().optional(),
 });
 
+export const mukInputSchema = Yup.object().shape({
+    name: Yup.string().required('Nama Persyaratan harus diisi'),
+    formType: Yup.string().required('Tipe Form harus diisi'),
+    formCode: Yup.string().required('Kode Form harus diisi'),
+    schemaId: Yup.number().required('Skema harus diisi'),
+    method: Yup.number().required('Metode Uji harus diisi'),
+    mandatory: Yup.boolean().required('Mandatory harus diisi'),
+    showOnAsesorAt: Yup.string().required(
+        'Munculkan dokumen pada asesor saat harus diisi'
+    ),
+    showOnAsesiAt: Yup.string().required(
+        'Munculkan dokumen pada asesi saat harus diisi'
+    ),
+    organizer: Yup.string().required('Penyusun diisi'),
+    validator: Yup.string().required('Validator harus diisi'),
+});
+
+export const mukEditSchema = Yup.object().shape({
+    name: Yup.string().optional(),
+    formType: Yup.string().optional(),
+    formCode: Yup.string().optional(),
+    schemaId: Yup.number().optional(),
+    methodId: Yup.number().optional(),
+    mandatory: Yup.boolean().optional(),
+    showOnAsesorAt: Yup.string().optional(),
+    showOnAsesiAt: Yup.string().optional(),
+    organizer: Yup.string().optional(),
+    validator: Yup.string().optional(),
+});
+
 export const fileInputSchema = Yup.object().shape({
     fileUpload: Yup.mixed<File>()
         .test(

@@ -253,7 +253,39 @@ export type RegistrationRequirementValues = {
     validator: string;
 };
 
+export type MukPayload = {
+    id: number;
+    name: string;
+    formCode: string;
+    schema: SchemaPayload;
+    method: MethodPayload;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+    organizer: string;
+    validator: string;
+};
+
+export type MukValues = {
+    name: string;
+    formCode: string;
+    schemaId: number;
+    methodId: number;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+    organizer: string;
+    validator: string;
+};
+
 export type SchemaPayload = {
+    id: number;
+    name: string;
+};
+
+export type MethodPayload = {
     id: number;
     name: string;
 };
