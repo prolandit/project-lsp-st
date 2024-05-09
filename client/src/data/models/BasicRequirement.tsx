@@ -1,6 +1,6 @@
-import { RequirementPayload } from '../../common/types';
+import { BasicRequirementPayload } from '../../common/types';
 
-export default class Requirement {
+export default class BasicRequirement {
     public id: number;
     public name: string;
     public formType: string;
@@ -8,7 +8,7 @@ export default class Requirement {
     public showOnAsesorAt: string;
     public showOnAsesiAt: string;
 
-    constructor(payload: RequirementPayload) {
+    constructor(payload: BasicRequirementPayload) {
         this.id = payload.id;
         this.name = payload.name;
         this.formType = payload.formType;

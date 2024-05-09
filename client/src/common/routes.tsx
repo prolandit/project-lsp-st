@@ -17,6 +17,9 @@ import TambahPenggunaPage from '../presentation/pages/Pengguna/TambahPenggunaPag
 import EditPersyaratanDasarPage from '../presentation/pages/Persyaratan/PersyaratanDasar/EditPersyaratanDasarPage';
 import ListPersyaratanDasarPage from '../presentation/pages/Persyaratan/PersyaratanDasar/ListPersyaratanDasarPage';
 import TambahPersyaratanDasarPage from '../presentation/pages/Persyaratan/PersyaratanDasar/TambahPersyaratanDasarPage';
+import EditPersyaratanPendaftaranPage from '../presentation/pages/Persyaratan/PersyaratanPendaftaran/EditPersyaratanPendaftaranPage';
+import ListPersyaratanPendaftaranPage from '../presentation/pages/Persyaratan/PersyaratanPendaftaran/ListPersyaratanPendaftaranPage';
+import TambahPersyaratanPendaftaranPage from '../presentation/pages/Persyaratan/PersyaratanPendaftaran/TambahPersyaratanPendaftaranPage';
 import ProfilePage from '../presentation/pages/Profile/ProfilePage';
 import EditTukPage from '../presentation/pages/Tuk/EditTukPage';
 import ListTukPage from '../presentation/pages/Tuk/ListTukPage';
@@ -99,6 +102,18 @@ const routes: RouteParam[] = [
             {
                 path: '/persyaratan/persyaratan-dasar/edit/:id',
                 element: <EditPersyaratanDasarPage />,
+            },
+            {
+                path: '/persyaratan/persyaratan-pendaftaran',
+                element: <ListPersyaratanPendaftaranPage />,
+            },
+            {
+                path: '/persyaratan/persyaratan-pendaftaran/tambah',
+                element: <TambahPersyaratanPendaftaranPage />,
+            },
+            {
+                path: '/persyaratan/persyaratan-pendaftaran/edit/:id',
+                element: <EditPersyaratanPendaftaranPage />,
             },
         ],
     },

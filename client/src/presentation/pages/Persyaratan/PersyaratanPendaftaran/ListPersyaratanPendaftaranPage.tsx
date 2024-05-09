@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { BiEdit } from 'react-icons/bi';
 import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import BasicRequirement from '../../../../data/models/BasicRequirement';
+import RegistrationRequirement from '../../../../data/models/RegistrationRequirement';
+import Schema from '../../../../data/models/Schema';
 import Button from '../../../components/Elements/Button';
 import DataTable from '../../../components/Elements/DataTable';
-import DeletePersyaratanDasarModal from '../../../components/Fragments/Persyaratan/PersyaratanDasar/DeletePersyaratanDasarModal';
+import DeletePersyaratanPendaftaranModal from '../../../components/Fragments/Persyaratan/PersyaratanPendaftaran/DeletePersyaratanPendaftaranModal';
 
-const ListPersyaratanDasarPage = () => {
+const ListPersyaratanPendaftaranPage = () => {
     const navigate = useNavigate();
 
     const [{ pageIndex, pageSize }, setPagination] = useState({
@@ -16,7 +17,12 @@ const ListPersyaratanDasarPage = () => {
         pageSize: 10,
     });
 
-    const columns: ColumnDef<BasicRequirement>[] = [
+    const columns: ColumnDef<RegistrationRequirement>[] = [
+        {
+            accessorKey: 'schema',
+            accessorFn: (row) => row.schema.name,
+            header: 'Nama Skema',
+        },
         {
             accessorKey: 'name',
             header: 'Nama Persyaratan',
@@ -35,7 +41,7 @@ const ListPersyaratanDasarPage = () => {
                         className='flex flex-row items-center gap-2 text-blue-500 transition-colors duration-300 bg-transparent border border-blue-500 group hover:bg-blue-500 hover:text-white'
                         onClick={() =>
                             navigate(
-                                `/persyaratan/persyaratan-dasar/edit/${row.original.id}`
+                                `/persyaratan/persyaratan-pendaftaran/edit/${row.original.id}`
                             )
                         }
                     >
@@ -44,7 +50,7 @@ const ListPersyaratanDasarPage = () => {
                             className='text-blue-500 transition-colors duration-300cursor-pointer group-hover:text-white'
                         />
                     </Button>
-                    <DeletePersyaratanDasarModal id={row.original.id} />
+                    <DeletePersyaratanPendaftaranModal id={row.original.id} />
                 </div>
             ),
         },
@@ -53,25 +59,32 @@ const ListPersyaratanDasarPage = () => {
     const generateData = (
         skip: number,
         pageSize: number
-    ): BasicRequirement[] => {
-        const personDataList: BasicRequirement[] = [];
+    ): RegistrationRequirement[] => {
+        const personDataList: RegistrationRequirement[] = [];
         const endIndex = skip + pageSize;
 
         for (let i = skip; i < endIndex && i < 50; i++) {
-            const basicReqs = new BasicRequirement({
+            const basicReqs = new RegistrationRequirement({
                 id: i + 1,
                 name: `Persyaratan ${i + 1}`,
                 formType: 'Tipe File',
+                formCode: 'Kode Form',
+                schema: new Schema({
+                    id: 1,
+                    name: 'Nama Skema',
+                }),
                 mandatory: true,
                 showOnAsesorAt: '',
                 showOnAsesiAt: '',
+                organizer: '',
+                validator: '',
             });
             personDataList.push(basicReqs);
         }
         return personDataList;
     };
 
-    const data: BasicRequirement[] = generateData(
+    const data: RegistrationRequirement[] = generateData(
         pageIndex * pageSize - pageSize,
         pageSize
     );
@@ -84,17 +97,17 @@ const ListPersyaratanDasarPage = () => {
         <div className='flex flex-col mx-3 my-6 bg-white rounded-t-lg lg:mx-8'>
             <div className='flex flex-row items-center justify-between px-4 py-4 lg:px-6'>
                 <span className='text-base font-semibold text-blue-600'>
-                    Persyaratan / Master Data Persyaratan Dasar
+                    Persyaratan / Master Data Persyaratan Pendaftaran
                 </span>
                 <Button
                     type='button'
                     className='flex flex-row items-center gap-2'
                     onClick={() =>
-                        navigate('/persyaratan/persyaratan-dasar/tambah')
+                        navigate('/persyaratan/persyaratan-pendaftaran/tambah')
                     }
                 >
                     <FaPlus />
-                    Tambah Persyaratan Dasar
+                    Tambah Persyaratan Pendaftaran
                 </Button>
             </div>
             <hr />
@@ -117,4 +130,4 @@ const ListPersyaratanDasarPage = () => {
     );
 };
 
-export default ListPersyaratanDasarPage;
+export default ListPersyaratanPendaftaranPage;

@@ -1,27 +1,27 @@
 import { useFormik } from 'formik';
-import { persyaratanDasarInputSchema } from '../../../../common/formSchemas';
-import { BasicRequirementValues } from '../../../../common/types';
+import { persyaratanPendaftaranEditSchema } from '../../../../common/formSchemas';
+import { RegistrationRequirementValues } from '../../../../common/types';
 import Alert from '../../../components/Elements/Alert';
 import Button from '../../../components/Elements/Button';
 import ComboBox from '../../../components/Elements/ComboBox';
 import Input from '../../../components/Elements/Input';
 import Label from '../../../components/Elements/Input/Label';
 
-const TambahPersyaratanDasarPage = () => {
+const EditPersyaratanPendaftaranPage = () => {
     // const [isLoading, setIsLoading] = useState(false);
 
     const handleMandatoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFieldValue('mandatory', e.target.value === 'yes');
     };
 
-    const onSave = async (payload: BasicRequirementValues) => {
+    const onEdit = async (payload: RegistrationRequirementValues) => {
         console.log(payload);
         // setIsLoading(true);
 
         // try {
         //     const token = localStorage.getItem('token') ?? '';
 
-        //     await UserRemoteDataSource.changeProfile(token, payload);
+        //     await UserRemoteDataSource.changeProfile(token, profile);
         //     toast.success('Profile berhasil diubah', {
         //         position: 'top-center',
         //         hideProgressBar: true,
@@ -47,12 +47,16 @@ const TambahPersyaratanDasarPage = () => {
         initialValues: {
             name: '',
             formType: '',
+            formCode: '',
+            schemaId: 0,
             mandatory: false,
             showOnAsesorAt: '',
             showOnAsesiAt: '',
+            organizer: '',
+            validator: '',
         },
-        validationSchema: persyaratanDasarInputSchema,
-        onSubmit: onSave,
+        validationSchema: persyaratanPendaftaranEditSchema,
+        onSubmit: onEdit,
     });
 
     return (
@@ -65,11 +69,11 @@ const TambahPersyaratanDasarPage = () => {
                 <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                         <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
-                            Tambah Persyaratan Dasar
+                            Edit Persyaratan Pendaftaran
                         </span>
                         <hr className='my-4' />
                         <div className='flex flex-col gap-6 px-4 lg:gap-8 lg:px-6'>
-                            <div className='flex flex-col w-full gap-6 lg:flex-row'>
+                            <div className='flex flex-col w-full gap-6 lg:grid lg:grid-cols-3'>
                                 <div className='flex flex-col w-full gap-3'>
                                     <Label htmlFor='name'>Nama Form</Label>
                                     <Input
@@ -99,6 +103,42 @@ const TambahPersyaratanDasarPage = () => {
                                     {errors.formType && touched.formType ? (
                                         <Alert
                                             message={errors.formType}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col w-full gap-3'>
+                                    <Label htmlFor='formCode'>Kode Form</Label>
+                                    <ComboBox
+                                        name='formCode'
+                                        items={[]}
+                                        value={''}
+                                        placeholder='Pilih Kode Form'
+                                        onChange={handleChange}
+                                        className='w-full'
+                                    />
+                                    {errors.formCode && touched.formCode ? (
+                                        <Alert
+                                            message={errors.formCode}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col w-full gap-3'>
+                                    <Label htmlFor='schemaId'>
+                                        Skema Sertifikasi
+                                    </Label>
+                                    <ComboBox
+                                        name='schemaId'
+                                        items={[]}
+                                        value={''}
+                                        placeholder='Pilih Skema Sertifikasi'
+                                        onChange={handleChange}
+                                        className='w-full'
+                                    />
+                                    {errors.schemaId && touched.schemaId ? (
+                                        <Alert
+                                            message={errors.schemaId}
                                             type='error'
                                         />
                                     ) : null}
@@ -184,6 +224,38 @@ const TambahPersyaratanDasarPage = () => {
                                         />
                                     ) : null}
                                 </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label htmlFor='organizer'>Penyusun</Label>
+                                    <ComboBox
+                                        name='organizer'
+                                        items={[]}
+                                        value={''}
+                                        placeholder='Pilih Penyusun'
+                                        onChange={handleChange}
+                                    />
+                                    {errors.organizer && touched.organizer ? (
+                                        <Alert
+                                            message={errors.organizer}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label htmlFor='validator'>Validator</Label>
+                                    <ComboBox
+                                        name='validator'
+                                        items={[]}
+                                        value={''}
+                                        placeholder='Pilih Validator'
+                                        onChange={handleChange}
+                                    />
+                                    {errors.validator && touched.validator ? (
+                                        <Alert
+                                            message={errors.validator}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
                             </div>
                             <Button
                                 type='submit'
@@ -200,4 +272,4 @@ const TambahPersyaratanDasarPage = () => {
     );
 };
 
-export default TambahPersyaratanDasarPage;
+export default EditPersyaratanPendaftaranPage;

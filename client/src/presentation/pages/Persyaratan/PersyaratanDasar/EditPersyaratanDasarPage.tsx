@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { persyaratanDasarEditSchema } from '../../../../common/formSchemas';
-import { RequirementValues } from '../../../../common/types';
+import { BasicRequirementValues } from '../../../../common/types';
 import Alert from '../../../components/Elements/Alert';
 import Button from '../../../components/Elements/Button';
 import ComboBox from '../../../components/Elements/ComboBox';
@@ -14,7 +14,7 @@ const EditPersyaratanDasarPage = () => {
         setFieldValue('mandatory', e.target.value === 'yes');
     };
 
-    const onEdit = async (payload: RequirementValues) => {
+    const onEdit = async (payload: BasicRequirementValues) => {
         console.log(payload);
         // setIsLoading(true);
 
@@ -65,7 +65,7 @@ const EditPersyaratanDasarPage = () => {
                 <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                         <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
-                            Tambah Persyaratan Dasar
+                            Edit Persyaratan Dasar
                         </span>
                         <hr className='my-4' />
                         <div className='flex flex-col gap-6 px-4 lg:gap-8 lg:px-6'>

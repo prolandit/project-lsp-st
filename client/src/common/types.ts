@@ -211,7 +211,7 @@ export type TukPayload = {
     address: string;
 };
 
-export type RequirementPayload = {
+export type BasicRequirementPayload = {
     id: number;
     name: string;
     formType: string;
@@ -220,12 +220,42 @@ export type RequirementPayload = {
     showOnAsesiAt: string;
 };
 
-export type RequirementValues = {
+export type BasicRequirementValues = {
     name: string;
     formType: string;
     mandatory: boolean;
     showOnAsesorAt: string;
     showOnAsesiAt: string;
+};
+
+export type RegistrationRequirementPayload = {
+    id: number;
+    name: string;
+    formCode: string;
+    schema: SchemaPayload;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+    organizer: string;
+    validator: string;
+};
+
+export type RegistrationRequirementValues = {
+    name: string;
+    formCode: string;
+    schemaId: number;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+    organizer: string;
+    validator: string;
+};
+
+export type SchemaPayload = {
+    id: number;
+    name: string;
 };
 
 export type MenuType = {
