@@ -2,7 +2,7 @@ import React from 'react';
 import { twMerge } from 'tailwind-merge';
 import Button from './Button';
 
-type Props = {
+interface Props {
     show: boolean;
     className?: string;
     children?: React.ReactNode;
@@ -10,7 +10,7 @@ type Props = {
     onConfirmBuilder?: React.ReactNode;
     onClose: () => void;
     onConfirm: () => void;
-};
+}
 
 const Modal = ({
     show,
@@ -48,15 +48,7 @@ const Modal = ({
                         {onConfirmBuilder ? (
                             onConfirmBuilder
                         ) : (
-                            <Button
-                                type='button'
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    onConfirm();
-                                }}
-                            >
-                                Ya
-                            </Button>
+                            <Button type='button'>Ya</Button>
                         )}
                     </div>
                 </div>

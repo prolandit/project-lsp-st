@@ -282,6 +282,130 @@ export const asesorEditSchema = Yup.object().shape({
         ),
 });
 
+export const asesmentInputSchema = Yup.object().shape({
+    eventName: Yup.string().required('Nama Kegiatan harus diisi'),
+    skemaName: Yup.string().required('Nama Skema harus diisi'),
+    scheduleCode: Yup.string().required('Kode Jadwal harus diisi'),
+    schemaLicense: Yup.string().required('Lisensi Skema harus diisi'),
+    metode: Yup.string().required('Metode Pengerjaan harus diisi'),
+    tuk: Yup.string().required('TUK harus diisi'),
+    praAssesmentDate: Yup.date().required('Tangal Pra Asesmen harus diisi'),
+    startDate: Yup.date().required('Tanggal Mulai harus diisi'),
+    endDate: Yup.date().required('Tanggal Selesai harus diisi'),
+});
+
+export const asesmentEditSchema = Yup.object().shape({
+    eventName: Yup.string().optional(),
+    skemaName: Yup.string().optional(),
+    scheduleCode: Yup.string().optional(),
+    schemaLicense: Yup.string().optional(),
+    metode: Yup.string().optional(),
+    tuk: Yup.string().optional(),
+    praAssesmentDate: Yup.date().optional(),
+    startDate: Yup.date().optional(),
+    endDate: Yup.date().optional(),
+});
+
+export const persyaratanDasarInputSchema = Yup.object().shape({
+    name: Yup.string().required('Nama Persyaratan harus diisi'),
+    formType: Yup.string().required('Tipe Form harus diisi'),
+    mandatory: Yup.boolean().required('Mandatory harus diisi'),
+    showOnAsesorAt: Yup.string().required(
+        'Munculkan dokumen pada asesor saat harus diisi'
+    ),
+    showOnAsesiAt: Yup.string().required(
+        'Munculkan dokumen pada asesi saat harus diisi'
+    ),
+});
+
+export const persyaratanDasarEditSchema = Yup.object().shape({
+    name: Yup.string().optional(),
+    formType: Yup.string().optional(),
+    mandatory: Yup.boolean().optional(),
+    showOnAsesorAt: Yup.string().optional(),
+    showOnAsesiAt: Yup.string().optional(),
+});
+
+export const persyaratanPendaftaranInputSchema = Yup.object().shape({
+    name: Yup.string().required('Nama Persyaratan harus diisi'),
+    formType: Yup.string().required('Tipe Form harus diisi'),
+    formCode: Yup.string().required('Kode Form harus diisi'),
+    schemaId: Yup.number().required('Skema harus diisi'),
+    mandatory: Yup.boolean().required('Mandatory harus diisi'),
+    showOnAsesorAt: Yup.string().required(
+        'Munculkan dokumen pada asesor saat harus diisi'
+    ),
+    showOnAsesiAt: Yup.string().required(
+        'Munculkan dokumen pada asesi saat harus diisi'
+    ),
+    organizer: Yup.string().required('Penyusun diisi'),
+    validator: Yup.string().required('Validator harus diisi'),
+});
+
+export const persyaratanPendaftaranEditSchema = Yup.object().shape({
+    name: Yup.string().optional(),
+    formType: Yup.string().optional(),
+    formCode: Yup.string().optional(),
+    schemaId: Yup.number().optional(),
+    mandatory: Yup.boolean().optional(),
+    showOnAsesorAt: Yup.string().optional(),
+    showOnAsesiAt: Yup.string().optional(),
+    organizer: Yup.string().optional(),
+    validator: Yup.string().optional(),
+});
+
+export const mukInputSchema = Yup.object().shape({
+    name: Yup.string().required('Nama Persyaratan harus diisi'),
+    formType: Yup.string().required('Tipe Form harus diisi'),
+    formCode: Yup.string().required('Kode Form harus diisi'),
+    schemaId: Yup.number().required('Skema harus diisi'),
+    method: Yup.number().required('Metode Uji harus diisi'),
+    mandatory: Yup.boolean().required('Mandatory harus diisi'),
+    showOnAsesorAt: Yup.string().required(
+        'Munculkan dokumen pada asesor saat harus diisi'
+    ),
+    showOnAsesiAt: Yup.string().required(
+        'Munculkan dokumen pada asesi saat harus diisi'
+    ),
+    organizer: Yup.string().required('Penyusun diisi'),
+    validator: Yup.string().required('Validator harus diisi'),
+});
+
+export const mukEditSchema = Yup.object().shape({
+    name: Yup.string().optional(),
+    formType: Yup.string().optional(),
+    formCode: Yup.string().optional(),
+    schemaId: Yup.number().optional(),
+    methodId: Yup.number().optional(),
+    mandatory: Yup.boolean().optional(),
+    showOnAsesorAt: Yup.string().optional(),
+    showOnAsesiAt: Yup.string().optional(),
+    organizer: Yup.string().optional(),
+    validator: Yup.string().optional(),
+});
+
+export const buktiAdministratifInputSchema = Yup.object().shape({
+    schemaId: Yup.number().required('Skema harus diisi'),
+    proof: Yup.mixed<File>()
+        .test(
+            'fileSize',
+            'Ukuran file terlalu besar. Maksimal 5MB',
+            (value: File | undefined) => !value || value.size <= 5242880
+        )
+        .required('Bukti Administratif harus diisi'),
+});
+
+export const buktiAdministratifEditSchema = Yup.object().shape({
+    schemaId: Yup.number().optional(),
+    proof: Yup.mixed<File>()
+        .test(
+            'fileSize',
+            'Ukuran file terlalu besar. Maksimal 5MB',
+            (value: File | undefined) => !value || value.size <= 5242880
+        )
+        .optional(),
+});
+
 export const fileInputSchema = Yup.object().shape({
     fileUpload: Yup.mixed<File>()
         .test(

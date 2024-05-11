@@ -1,8 +1,8 @@
 import { CgSpinnerTwo } from 'react-icons/cg';
 
-type Props = {
+interface Props {
     show: boolean;
-};
+}
 
 const LoadingSpinner = ({ show }: Props) => {
     if (!show) return;

@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+export type RouteParam = {
+    path: string;
+    element: ReturnType<React.FC>;
+    children?: RouteParam[];
+};
+
 export type AssesmentSchedulePayload = {
     id: number;
     status: string;
@@ -9,14 +15,16 @@ export type AssesmentSchedulePayload = {
     asesor: string;
 };
 
-export type AssesmentDataPayload = {
+export type AssesmentPayload = {
     id: number;
     eventName: string;
     role: string;
     address: string;
     praAssesmentDate: Date;
     assesmentDate: Date;
-    virtualMeetLink: string;
+    praAssesmentMeetLink: string;
+    assesmentMeetLink: string;
+    plenoMeetLink: string;
     tukName: string;
     schema: string;
     status: string;
@@ -115,6 +123,7 @@ export type UserValues = {
     address?: string;
     phone?: string;
     education?: string;
+    position?: string;
     job?: string;
     signUpload?: File;
     signExplanation?: string;
@@ -127,6 +136,26 @@ export type TukValues = {
     validDate: string;
     areaAddress: string;
     address: string;
+};
+
+export type AssesmentValues = {
+    eventName: string;
+    schemaName: string;
+    scheduleCode: string;
+    schemaLicense: string;
+    method: string;
+    tuk: string;
+    verificator: string;
+    isVerified: boolean;
+    tukCoordinator: string;
+    praAssesmentDate: string;
+    startDate: string;
+    endDate: string;
+    praAssesmentMeetLink: string;
+    assesmentMeetLink: string;
+    plenoMeetLink: string;
+    tukAddress: string;
+    note: string;
 };
 
 export type ChangePasswordValues = {
@@ -166,6 +195,7 @@ export type UserPayload = {
     address?: string;
     phone: string;
     education?: string;
+    position?: string;
     job?: string;
     sign: string;
     signExplanation: string;
@@ -179,6 +209,96 @@ export type TukPayload = {
     validDate: Date;
     areaAddress: string;
     address: string;
+};
+
+export type BasicRequirementPayload = {
+    id: number;
+    name: string;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+};
+
+export type BasicRequirementValues = {
+    name: string;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+};
+
+export type RegistrationRequirementPayload = {
+    id: number;
+    name: string;
+    formCode: string;
+    schema: SchemaPayload;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+    organizer: string;
+    validator: string;
+};
+
+export type RegistrationRequirementValues = {
+    name: string;
+    formCode: string;
+    schemaId: number;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+    organizer: string;
+    validator: string;
+};
+
+export type MukPayload = {
+    id: number;
+    name: string;
+    formCode: string;
+    schema: SchemaPayload;
+    method: MethodPayload;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+    organizer: string;
+    validator: string;
+};
+
+export type MukValues = {
+    name: string;
+    formCode: string;
+    schemaId: number;
+    methodId: number;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+    organizer: string;
+    validator: string;
+};
+
+export type AdministrativeEvidencePayload = {
+    id: number;
+    schema: SchemaPayload;
+    proofUrl: string;
+};
+
+export type AdministrativeEvidenceValues = {
+    schemaId: number;
+    proof?: File;
+};
+
+export type SchemaPayload = {
+    id: number;
+    name: string;
+};
+
+export type MethodPayload = {
+    id: number;
+    name: string;
 };
 
 export type MenuType = {

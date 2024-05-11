@@ -2,7 +2,7 @@ import { twMerge } from 'tailwind-merge';
 import Input from './Input';
 import Label from './Input/Label';
 
-type Props = {
+interface Props {
     className?: string;
     important?: boolean;
     prefix?: React.ReactNode;
@@ -16,7 +16,7 @@ type Props = {
     horizontally?: boolean;
     disabled?: boolean;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+}
 
 const InputForm = ({
     className,

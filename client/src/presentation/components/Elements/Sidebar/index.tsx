@@ -5,10 +5,10 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { superUserMenus } from '../../../../common/sidebarMenus';
 import SidebarMenuItem from './SidebarMenuItem';
 
-type Props = {
+interface Props {
     sidebarOpen: boolean;
     setSidebarOpen: (arg: boolean) => void;
-};
+}
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
     // const user = useAppSelector((state) => state.user.user);
@@ -71,7 +71,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
     return (
         <aside
             ref={sidebar}
-            className={`absolute left-0 top-0 z-50 flex h-screen w-72 flex-col overflow-y-hidden bg-blue-800 duration-300 ease-linear shadow-md lg:static lg:translate-x-0 ${
+            className={`absolute left-0 top-0 z-50 flex h-screen w-80 flex-col overflow-y-hidden bg-blue-800 duration-300 ease-linear shadow-md lg:static lg:translate-x-0 ${
                 sidebarOpen ? 'translate-x-0' : '-translate-x-full'
             }`}
         >

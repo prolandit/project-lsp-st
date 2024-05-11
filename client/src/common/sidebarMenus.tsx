@@ -1,7 +1,8 @@
 import { BiGroup, BiPlus, BiUser } from 'react-icons/bi';
 import { FaWpforms } from 'react-icons/fa';
 import { GoTasklist } from 'react-icons/go';
-import { MdDashboard } from 'react-icons/md';
+import { IoCalendarOutline } from 'react-icons/io5';
+import { MdDashboard, MdOutlineSpeakerNotes } from 'react-icons/md';
 import { MenuType } from './types';
 
 export const superUserMenus: MenuType[] = [
@@ -17,18 +18,57 @@ export const superUserMenus: MenuType[] = [
     },
     {
         name: 'Pengguna',
-        path: '/users',
+        path: '/pengguna',
         icon: <BiGroup />,
     },
     {
         name: 'TUK',
-        path: '/tuks',
+        path: '/tuk',
         icon: <GoTasklist />,
     },
     {
         name: 'Asesor',
-        path: '/asesors',
+        path: '/asesor',
         icon: <BiGroup />,
+    },
+    {
+        name: 'Jadwal Sertifikasi',
+        icon: <IoCalendarOutline />,
+        path: '/jadwal-sertifikasi',
+        children: [
+            {
+                name: 'Daftar Asesmen',
+                path: '/jadwal-sertifikasi/daftar-asesmen',
+                icon: <IoCalendarOutline />,
+            },
+        ],
+    },
+    {
+        name: 'Persyaratan',
+        icon: <MdOutlineSpeakerNotes />,
+        path: '/persyaratan',
+        children: [
+            {
+                name: 'Persyaratan Dasar',
+                path: '/persyaratan/persyaratan-dasar',
+                icon: <MdOutlineSpeakerNotes />,
+            },
+            {
+                name: 'Persyaratan Pendaftaran',
+                path: '/persyaratan/persyaratan-pendaftaran',
+                icon: <MdOutlineSpeakerNotes />,
+            },
+            {
+                name: 'Materi Uji Kompetensi',
+                path: '/persyaratan/materi-uji-kompetensi',
+                icon: <MdOutlineSpeakerNotes />,
+            },
+            {
+                name: 'Bukti Administratif',
+                path: '/persyaratan/bukti-administratif',
+                icon: <MdOutlineSpeakerNotes />,
+            },
+        ],
     },
 ];
 
