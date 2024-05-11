@@ -211,6 +211,96 @@ export type TukPayload = {
     address: string;
 };
 
+export type BasicRequirementPayload = {
+    id: number;
+    name: string;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+};
+
+export type BasicRequirementValues = {
+    name: string;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+};
+
+export type RegistrationRequirementPayload = {
+    id: number;
+    name: string;
+    formCode: string;
+    schema: SchemaPayload;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+    organizer: string;
+    validator: string;
+};
+
+export type RegistrationRequirementValues = {
+    name: string;
+    formCode: string;
+    schemaId: number;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+    organizer: string;
+    validator: string;
+};
+
+export type MukPayload = {
+    id: number;
+    name: string;
+    formCode: string;
+    schema: SchemaPayload;
+    method: MethodPayload;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+    organizer: string;
+    validator: string;
+};
+
+export type MukValues = {
+    name: string;
+    formCode: string;
+    schemaId: number;
+    methodId: number;
+    formType: string;
+    mandatory: boolean;
+    showOnAsesorAt: string;
+    showOnAsesiAt: string;
+    organizer: string;
+    validator: string;
+};
+
+export type AdministrativeEvidencePayload = {
+    id: number;
+    schema: SchemaPayload;
+    proofUrl: string;
+};
+
+export type AdministrativeEvidenceValues = {
+    schemaId: number;
+    proof?: File;
+};
+
+export type SchemaPayload = {
+    id: number;
+    name: string;
+};
+
+export type MethodPayload = {
+    id: number;
+    name: string;
+};
+
 export type MenuType = {
     name: string;
     path: string;

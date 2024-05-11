@@ -6,14 +6,26 @@ import TambahAsesorPage from '../presentation/pages/Asesor/TambahAsesorPage';
 import ChangePasswordPage from '../presentation/pages/Auth/ChangePasswordPage';
 import LoginPage from '../presentation/pages/Auth/LoginPage';
 import RegisterPage from '../presentation/pages/Auth/RegisterPage';
-import AssignAsesmenPage from '../presentation/pages/JadwalSertifikasi/AssignAsesmentPage';
+import AssignAsesmenPage from '../presentation/pages/JadwalSertifikasi/AssignAsesmenPage';
 import EditAsesmentPage from '../presentation/pages/JadwalSertifikasi/EditAsesmentPage';
 import ListDaftarAsesmenPage from '../presentation/pages/JadwalSertifikasi/ListDaftarAsesmenPage';
-import TambahAsesmentPage from '../presentation/pages/JadwalSertifikasi/TambahAsesmentPage';
+import TambahAsesmentPage from '../presentation/pages/JadwalSertifikasi/TambahAsesmenPage';
 import NotFoundPage from '../presentation/pages/NotFoundPage';
 import EditPenggunaPage from '../presentation/pages/Pengguna/EditPenggunaPage';
 import ListPenggunaPage from '../presentation/pages/Pengguna/ListPenggunaPage';
 import TambahPenggunaPage from '../presentation/pages/Pengguna/TambahPenggunaPage';
+import EditBuktiAdministratifPage from '../presentation/pages/Persyaratan/BuktiAdministratif/EditBuktiAdministratifPage';
+import ListBuktiAdministratifPage from '../presentation/pages/Persyaratan/BuktiAdministratif/ListBuktiAdministratifPage';
+import TambahBuktiAdministratifPage from '../presentation/pages/Persyaratan/BuktiAdministratif/TambahBuktiAdministratifPage';
+import EditMukPage from '../presentation/pages/Persyaratan/Muk/EditMukPage';
+import ListMukPage from '../presentation/pages/Persyaratan/Muk/ListMukPage';
+import TambahMukPage from '../presentation/pages/Persyaratan/Muk/TambahMukPage';
+import EditPersyaratanDasarPage from '../presentation/pages/Persyaratan/PersyaratanDasar/EditPersyaratanDasarPage';
+import ListPersyaratanDasarPage from '../presentation/pages/Persyaratan/PersyaratanDasar/ListPersyaratanDasarPage';
+import TambahPersyaratanDasarPage from '../presentation/pages/Persyaratan/PersyaratanDasar/TambahPersyaratanDasarPage';
+import EditPersyaratanPendaftaranPage from '../presentation/pages/Persyaratan/PersyaratanPendaftaran/EditPersyaratanPendaftaranPage';
+import ListPersyaratanPendaftaranPage from '../presentation/pages/Persyaratan/PersyaratanPendaftaran/ListPersyaratanPendaftaranPage';
+import TambahPersyaratanPendaftaranPage from '../presentation/pages/Persyaratan/PersyaratanPendaftaran/TambahPersyaratanPendaftaranPage';
 import ProfilePage from '../presentation/pages/Profile/ProfilePage';
 import EditTukPage from '../presentation/pages/Tuk/EditTukPage';
 import ListTukPage from '../presentation/pages/Tuk/ListTukPage';
@@ -84,6 +96,54 @@ const routes: RouteParam[] = [
             {
                 path: '/jadwal-sertifikasi/daftar-asesmen/assign/:id',
                 element: <AssignAsesmenPage />,
+            },
+            {
+                path: '/persyaratan/persyaratan-dasar',
+                element: <ListPersyaratanDasarPage />,
+            },
+            {
+                path: '/persyaratan/persyaratan-dasar/tambah',
+                element: <TambahPersyaratanDasarPage />,
+            },
+            {
+                path: '/persyaratan/persyaratan-dasar/edit/:id',
+                element: <EditPersyaratanDasarPage />,
+            },
+            {
+                path: '/persyaratan/persyaratan-pendaftaran',
+                element: <ListPersyaratanPendaftaranPage />,
+            },
+            {
+                path: '/persyaratan/persyaratan-pendaftaran/tambah',
+                element: <TambahPersyaratanPendaftaranPage />,
+            },
+            {
+                path: '/persyaratan/persyaratan-pendaftaran/edit/:id',
+                element: <EditPersyaratanPendaftaranPage />,
+            },
+            {
+                path: '/persyaratan/materi-uji-kompetensi',
+                element: <ListMukPage />,
+            },
+            {
+                path: '/persyaratan/materi-uji-kompetensi/tambah',
+                element: <TambahMukPage />,
+            },
+            {
+                path: '/persyaratan/materi-uji-kompetensi/edit/:id',
+                element: <EditMukPage />,
+            },
+            {
+                path: '/persyaratan/bukti-administratif',
+                element: <ListBuktiAdministratifPage />,
+            },
+            {
+                path: '/persyaratan/bukti-administratif/tambah',
+                element: <TambahBuktiAdministratifPage />,
+            },
+            {
+                path: '/persyaratan/bukti-administratif/edit/:id',
+                element: <EditBuktiAdministratifPage />,
             },
         ],
     },

@@ -15,8 +15,8 @@ const EditAsesmentPage = () => {
 
     // const [isLoading, setIsLoading] = useState(false);
 
-    const onSave = async (profile: AssesmentValues) => {
-        console.log(profile);
+    const onEdit = async (payload: AssesmentValues) => {
+        console.log(payload);
         // setIsLoading(true);
 
         // try {
@@ -58,7 +58,7 @@ const EditAsesmentPage = () => {
             note: '',
         },
         validationSchema: tukInputSchema,
-        onSubmit: onSave,
+        onSubmit: onEdit,
     });
 
     return (
@@ -363,7 +363,7 @@ const EditAsesmentPage = () => {
                             </div>
                             <Button
                                 type='submit'
-                                className='self-center w-9/12 lg:w-40 mx-6 lg:mx-10 h-[45px] bg-blue-500 hover:bg-blue-700'
+                                className='self-end w-9/12 lg:w-40 mt-4 h-[45px] bg-blue-500 hover:bg-blue-700'
                             >
                                 Simpan
                             </Button>

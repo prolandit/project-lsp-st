@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
-import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { tukEditSchema } from '../../../common/formSchemas';
 import { TukValues } from '../../../common/types';
@@ -9,17 +8,15 @@ import Button from '../../components/Elements/Button';
 import Input from '../../components/Elements/Input';
 import Label from '../../components/Elements/Input/Label';
 import Textarea from '../../components/Elements/Textarea';
-import UploadSignModal from '../../components/Fragments/SignUpload/UploadSignModal';
 
 const EditTukPage = () => {
     const { id } = useParams();
     console.log(id);
 
-    const [isShowModal, setIsShowModal] = useState(false);
     // const [isLoading, setIsLoading] = useState(false);
 
-    const onEdit = async (profile: TukValues) => {
-        console.log(profile);
+    const onEdit = async (payload: TukValues) => {
+        console.log(payload);
         // setIsLoading(true);
 
         // try {
@@ -40,14 +37,7 @@ const EditTukPage = () => {
         // }
     };
 
-    const {
-        errors,
-        touched,
-        values,
-        handleChange,
-        handleSubmit,
-        setFieldValue,
-    } = useFormik({
+    const { errors, touched, values, handleChange, handleSubmit } = useFormik({
         initialValues: {
             name: '',
             code: '',
@@ -182,21 +172,13 @@ const EditTukPage = () => {
                             </div>
                             <Button
                                 type='submit'
-                                className='self-center w-9/12 lg:w-40 mx-6 lg:mx-10 h-[45px] bg-blue-500 hover:bg-blue-700'
+                                className='self-end w-9/12 lg:w-40 mt-4 h-[45px] bg-blue-500 hover:bg-blue-700'
                             >
                                 Simpan
                             </Button>
                         </div>
                     </div>
                 </div>
-                <UploadSignModal
-                    show={isShowModal}
-                    closeModal={() => setIsShowModal(false)}
-                    onChange={(file, exp) => {
-                        setFieldValue('signUpload', file);
-                        setFieldValue('signExplanation', exp);
-                    }}
-                />
             </form>
             {/* <LoadingSpinner show={isLoading} /> */}
         </>
