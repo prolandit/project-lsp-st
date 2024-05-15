@@ -135,7 +135,16 @@ export const userSchema = Yup.object().shape({
   gender: Yup.string()
     .oneOf(Constants.genderOptions.map((gender) => gender.value))
     .required("Jenis Kelamin tidak boleh kosong"),
+  nationality: Yup.string()
+    .oneOf(Constants.nationality.map((nationality) => nationality.value))
+    .required("Kebangsaan tidak boleh kosong"),
+  education: Yup.string()
+    .oneOf(Constants.education.map((education) => education.value))
+    .required("Pendidikan tidak boleh kosong"),
   address: Yup.string().required("Alamat tidak boleh kosong"),
+  posCode: Yup.string().required("Kode POS tidak boleh kosong"),
+  areaAddress: Yup.string().required("Alamat Wilayah tidak boleh kosong"),
+  jobStatus: Yup.string().required("Status Bekerja tidak boleh kosong"),
   phone: Yup.number().required("No HP tidak boleh kosong"),
   email: Yup.string().required("Email tidak boleh kosong"),
   signExplanation: Yup.string(),

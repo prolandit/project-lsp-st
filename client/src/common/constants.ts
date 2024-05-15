@@ -11,6 +11,52 @@ const Constants = {
             value: 'Wanita',
         },
     ],
+    nationality: [
+        {
+            key: 'wni',
+            value: 'WNI',
+        },
+        {
+            key: 'wna',
+            value: 'WNA',
+        },
+    ],
+    education: [
+        {
+            key: 'd1',
+            value: 'D1',
+        },
+        {
+            key: 'd2',
+            value: 'D2',
+        },
+        {
+            key: 'd3',
+            value: 'D3',
+        },
+        {
+            key: 's1',
+            value: 'S1',
+        },
+        {
+            key: 's2',
+            value: 'S2',
+        },
+        {
+            key: 's3',
+            value: 'S3',
+        },
+    ],
+    jobStatusOptions: [
+        {
+            key: 'belum',
+            value: 'Belum/Tidak Bekerja',
+        },
+        {
+            key: 'sudah',
+            value: 'Sudah Bekerja',
+        },
+    ],
     kategoriOptions: [
         {
             key: 'kategori 1',

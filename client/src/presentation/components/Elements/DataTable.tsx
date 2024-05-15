@@ -26,6 +26,7 @@ type Props<TData, TValue> = {
     searchFn?: (query: string) => void;
     paginateFn?: (page: number, pageSize: number) => void;
     sortingFn?: (states: SortingState) => void;
+    disablePagination?: boolean;
 };
 
 const DataTable = <TData, TValue>({
@@ -36,6 +37,7 @@ const DataTable = <TData, TValue>({
     searchFn,
     paginateFn,
     sortingFn,
+    disablePagination = false,
 }: Props<TData, TValue>) => {
     const [isMobileScreen, setIsMobileScreen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -236,6 +238,7 @@ const DataTable = <TData, TValue>({
                 </table>
             </div>
             <div className='flex flex-row justify-end w-full'>
+            {!disablePagination && (
                 <ReactPaginate
                     breakClassName='hidden lg:block'
                     onPageChange={handlePageClick}
@@ -257,7 +260,8 @@ const DataTable = <TData, TValue>({
                     className='flex flex-row items-center justify-center gap-2'
                     pageLinkClassName='px-4 py-2 text-sm font-semibold rounded-md cursor-pointer'
                     activeLinkClassName='bg-blue-500 text-white rounded-md hover:bg-blue-500 hover:text-white'
-                />
+                    />
+                )}
             </div>
         </div>
     );

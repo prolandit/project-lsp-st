@@ -6,6 +6,9 @@ import PengelolaanSurat from "../pages/pengelolaan-surat/PengelolaanSurat";
 import CreatePengelolaanSurat from "../pages/pengelolaan-surat/CreatePengelolaanSurat";
 import PersyaratanPendaftaran from "../pages/persyaratan/persyaratan-pendaftaran";
 import EditPengelolaanSurat from "../pages/pengelolaan-surat/EditPengelolaanSurat";
+import PengajuanSkemaTab from "../pages/pengajuan-skema/PengajuanSkemaTab";
+import PengajuanSkemaDataList from "../pages/pengajuan-skema/PengajuanSkemaDataList";
+import PengajuanSkemaAssesmentList from "../pages/pengajuan-skema/PengajuanSkemaAssesmentList";
 
 interface RouteParam {
   path: string;
@@ -29,6 +32,18 @@ const routes: RouteParam[] = [
   {
     path: "/edit-pengelolaan-surat/:id",
     component: (user: any) => <EditPengelolaanSurat />,
+  },
+  {
+    path: "/pengajuan-skema-data-list",
+    component: (user: any) => <PengajuanSkemaDataList />,
+  },
+  {
+    path: "/pengajuan-skema-assesment-list",
+    component: (user: any) => <PengajuanSkemaAssesmentList />,
+  },
+  {
+    path: "/pengajuan-skema/ajukan/:id",
+    component: (user: any) => <PengajuanSkemaTab />,
   },
 ];
 
