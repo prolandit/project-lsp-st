@@ -10,12 +10,14 @@ export interface PengajuanSkemaAssesmentListStructure {
   id: number;
   kodeSkema: string;
   namaSkema: string;
+  kodeUnit?: string;
+  namaUnitKompetensi?: string;
+  subRows?: PengajuanSkemaAssesmentListChildStructure[];
 }
 
 export interface PengajuanSkemaAssesmentListChildStructure {
-  id: number;
-  kodeUnit: string;
-  namaUnitKompetensi: string;
+  kodeUnit?: string;
+  namaUnitKompetensi?: string;
 }
 
 export interface PengajuanSkemaDataPribadiStructure {

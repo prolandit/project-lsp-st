@@ -276,7 +276,7 @@ const PengajuanSkemaDataPribadi: React.FC = () => {
         <div className="flex items-center gap-6 px-4 lg:gap-16 lg:px-12 justify-start">
           <div className="flex justify-start items-center">
             <ButtonLink
-              to={`/ajukan-assesment`}
+              to={`/pengajuan-skema-assesment-list`}
               className="flex items-center gap-3 bg-green-500 hover:bg-green-600"
             >
               <span>Kembali</span>

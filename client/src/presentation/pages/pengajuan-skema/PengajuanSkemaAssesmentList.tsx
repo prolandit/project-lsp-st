@@ -1,102 +1,186 @@
-import { useState, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { faker } from "@faker-js/faker";
-import { PengajuanSkemaAssesmentListStructure } from "../../../data/models/PengajuanSkemaDao";
-import DataTable from "../../components/Elements/DataTable";
-import { FaPenToSquare, FaCirclePlus } from "react-icons/fa6";
+import { ColumnDef } from "@tanstack/react-table";
+import ExpandingDataTable from "../../components/Elements/ExpandingDataTable";
 import ButtonLink from "../../components/Elements/ButtonLink";
+import { PengajuanSkemaAssesmentListStructure } from "../../../data/models/PengajuanSkemaDao";
 import {
-  Column,
-  Table,
-  ColumnDef,
-  useReactTable,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  flexRender,
-  RowData,
-} from "@tanstack/react-table";
-import Button from "../../components/Elements/Button";
-const totalData = 100;
+  FaRegSquarePlus,
+  FaRegSquareMinus,
+  FaCirclePlus,
+} from "react-icons/fa6";
+
+const DummyData = (): PengajuanSkemaAssesmentListStructure => {
+  return {
+    id: faker.datatype.number(),
+    kodeSkema: faker.lorem.words(5),
+    namaSkema: faker.lorem.words(5),
+    kodeUnit: faker.lorem.words(5),
+    namaUnitKompetensi: faker.lorem.words(3),
+    subRows: Array.from(Array(3)).map(() => ({
+      id: faker.datatype.number(),
+      kodeUnit: faker.lorem.words(5),
+      namaUnitKompetensi: faker.lorem.words(3),
+    })),
+  };
+};
 
 const PengajuanSkemaAssesmentList: React.FC = () => {
-  const [{ pageIndex, pageSize }, setPagination] = useState({
-    pageIndex: 1,
-    pageSize: 10,
-  });
-
   const [data, setData] = useState<PengajuanSkemaAssesmentListStructure[]>([]);
+  const [pageCount, setPageCount] = useState(10);
 
   useEffect(() => {
-    setData(Array.from(Array(pageSize)).map(() => DummyData()));
+    setData(Array.from(Array(10)).map(() => DummyData()));
   }, []);
 
-  useEffect(() => {
-    setData(Array.from(Array(pageSize)).map(() => DummyData()));
-  }, [pageIndex]);
-
-  const DummyData = (): PengajuanSkemaAssesmentListStructure => {
-    return {
-      id: faker.number.int(),
-      kodeSkema: faker.lorem.words(5),
-      namaSkema: faker.lorem.words(5),
-    };
-  };
-
-  const columns: ColumnDef<PengajuanSkemaAssesmentListStructure>[] = [
-    {
-      accessorKey: "kodeSkema",
-      header: "Kode Skema",
-    },
-    {
-      accessorKey: "namaSkema",
-      header: "Nama Skema",
-    },
-    {
-      accessorKey: "action",
-      header: "Aksi",
-      cell: ({ row }) => (
-        <div className="flex flex-row gap-3">
-          <ButtonLink
-            to={`/${row.original.id}`}
-            className="flex items-center gap-3 bg-green-500 hover:bg-green-600"
+  const columns = useMemo<ColumnDef<PengajuanSkemaAssesmentListStructure>[]>(
+    () => [
+      {
+        accessorKey: "kodeSkema",
+        header: "Kode Skema",
+        cell: ({ row, getValue }) => (
+          <div
+            style={{
+              paddingLeft: `${row.depth * 2}rem`,
+              display: "flex",
+              alignItems: "center",
+            }}
           >
-            {/* <FaPenToSquare className="text-2xl text-green-600" /> */}
-            <span className="text-white-600">Ajukan</span>
-          </ButtonLink>
-        </div>
-      ),
-    },
-  ];
+            <div style={{ marginLeft: "1.5rem" }}>
+              {row.getCanExpand() ? (
+                <button
+                  {...{
+                    onClick: row.getToggleExpandedHandler(),
+                    style: {
+                      cursor: "pointer",
+                      fontSize: "1.2rem",
+                      color: "lightblue",
+                    },
+                  }}
+                >
+                  {row.getIsExpanded() ? (
+                    <FaRegSquareMinus />
+                  ) : (
+                    <FaRegSquarePlus />
+                  )}
+                </button>
+              ) : null}
+            </div>
+            <div style={{ marginLeft: "1.5rem" }}>
+              {getValue() as React.ReactNode}
+            </div>
+          </div>
+        ),
+      },
+      {
+        accessorKey: "namaSkema",
+        header: "Nama Skema",
+        cell: ({ getValue }) => (
+          <div style={{ marginLeft: "1.5rem" }}>
+            {getValue() as React.ReactNode}
+          </div>
+        ),
+      },
+      {
+        accessorKey: "action",
+        header: "Aksi",
+        cell: ({ row }) =>
+          row.depth === 0 ? (
+            <div className="flex flex-row gap-3">
+              <ButtonLink
+                to={`/pengajuan-skema/ajukan/${row.original.id}`}
+                className="flex items-center gap-3 bg-green-500 hover:bg-green-600"
+              >
+                <span className="text-white-600">Ajukan</span>
+              </ButtonLink>
+            </div>
+          ) : null,
+      },
+    ],
+    []
+  );
 
-  const handlePaginate = (page: number, newPageSize: number) => {
-    setPagination({ pageIndex: page, pageSize: newPageSize });
+  const handlePaginate = (page: number, pageSize: number) => {
+    setData(Array.from(Array(pageSize)).map(() => DummyData()));
+    setPageCount(page);
   };
 
   const handleSorting = (states: any[]) => {
     console.log(states);
   };
 
-  const onSearch = () => {};
+  const onSearch = (query: string) => {
+    console.log("Search query:", query);
+  };
+
+  const expandableConfig = {
+    renderExpandedContent: (row: any) => (
+      <ExpandingDataTable
+        data={row.original.subRows || []}
+        columns={[
+          {
+            accessorKey: "kodeUnit",
+            header: "Kode Unit",
+            cell: ({ row }) => (
+              <div style={{ paddingLeft: "1.4rem" }}>
+                {row.original.kodeUnit}
+              </div>
+            ),
+          },
+          {
+            accessorKey: "namaUnitKompetensi",
+            header: "Nama Unit Kompetensi",
+            cell: ({ row }) => (
+              <div style={{ paddingLeft: "1.4rem" }}>
+                {row.original.namaUnitKompetensi}
+              </div>
+            ),
+          },
+        ]}
+        className="bg-white rounded-t-lg"
+        disablePagination={true}
+        disableSearch={true}
+      />
+    ),
+  };
 
   return (
     <>
-      <div className="flex flex-col mx-3 my-6 bg-white rounded-t-lg lg:mx-8">
+      <div className="flex flex-col mx-3 my-1 bg-white rounded-t-lg lg:mx-8">
         <div className="flex flex-col px-4 py-4 lg:px-6">
           <div className="flex justify-between items-center">
-            <span className="text-2xl font-semibold">Pengajuan Assesment</span>
+            <span className="text-2xl font-semibold">Data Skema</span>
           </div>
 
-          <DataTable
+          <div className="flex justify-end items-center">
+            <ButtonLink
+              to={`/ajukan-assesment`}
+              className="flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:text-gray-300 lg:text-base bg-blue-500 rounded-xl text-white px-4 py-2 transition-colors"
+            >
+              <FaCirclePlus className="text-xl" />
+              <span>Ajukan Assesment</span>
+            </ButtonLink>
+          </div>
+          <ExpandingDataTable
             data={data}
             columns={columns}
+            className="bg-white rounded-t-lg"
+            pageCount={pageCount}
             searchFn={onSearch}
-            pageCount={Math.ceil(totalData / 10)}
             paginateFn={handlePaginate}
             sortingFn={handleSorting}
             disablePagination={true}
+            expandableConfig={expandableConfig}
           />
-
-          <div className="flex items-center justify-between px-4 lg:px-1">
+          <div
+            className="mt-2 text-sm text-gray-500"
+            style={{ textAlign: "right" }}
+          >
+            {/* <b>
+              <i>Total: {totalData} data entries</i>
+            </b> */}
+          </div>
+          <div className="flex items-center gap-6 px-4 lg:gap-16 lg:px-0 justify-start">
             <div className="flex justify-start items-center">
               <ButtonLink
                 to={`/ajukan-assesment`}
