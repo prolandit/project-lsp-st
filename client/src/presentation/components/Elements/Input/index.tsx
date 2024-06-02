@@ -60,6 +60,7 @@ const Input = ({
                                 ? 'ps-4 pe-4'
                                 : 'ps-12 pe-4'
                         }`,
+                        disabled ? 'bg-gray-100 border-gray-500' : 'bg-white border border-gray-300',
                         className
                     )}
                     placeholder={placeholder}

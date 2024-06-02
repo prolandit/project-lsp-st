@@ -27,6 +27,7 @@ type Props<TData, TValue> = {
     paginateFn?: (page: number, pageSize: number) => void;
     sortingFn?: (states: SortingState) => void;
     disablePagination?: boolean;
+    disableEntries?: boolean;
 };
 
 const DataTable = <TData, TValue>({
@@ -38,6 +39,7 @@ const DataTable = <TData, TValue>({
     paginateFn,
     sortingFn,
     disablePagination = false,
+    disableEntries = false,
 }: Props<TData, TValue>) => {
     const [isMobileScreen, setIsMobileScreen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -113,27 +115,26 @@ const DataTable = <TData, TValue>({
     return (
         <div className='flex flex-col gap-4 py-4'>
             <div className='flex flex-col justify-between gap-4 lg:items-center lg:flex-row'>
-                <div className='flex flex-row items-center gap-2'>
-                    <span className='text-sm'>Show</span>
-                    <div className='relative bg-gray-100 rounded-md'>
-                        <select
-                            className='w-16 px-3 py-1 text-sm bg-gray-100 rounded-md appearance-none'
-                            value={table.getState().pagination.pageSize}
-                            onChange={handleNumEntries}
-                        >
-                            {[10, 20, 30, 40, 50].map((pageSize) => (
-                                <option
-                                    key={pageSize}
-                                    value={pageSize}
-                                >
-                                    {pageSize}
-                                </option>
-                            ))}
-                        </select>
-                        <IoIosArrowDown className='absolute right-0 text-sm -translate-y-1/2 top-1/2 me-2' />
-                    </div>
-                    <span className='text-sm'>entries</span>
-                </div>
+            {!disableEntries && (
+          <div className="flex flex-row items-center gap-2">
+            <span className="text-sm">Show</span>
+            <div className="relative bg-gray-100 rounded-md">
+              <select
+                className="w-16 px-3 py-1 text-sm bg-gray-100 rounded-md appearance-none"
+                value={table.getState().pagination.pageSize}
+                onChange={handleNumEntries}
+              >
+                {[10, 20, 30, 40, 50].map((pageSize) => (
+                  <option key={pageSize} value={pageSize}>
+                    {pageSize}
+                  </option>
+                ))}
+              </select>
+              <IoIosArrowDown className="absolute right-0 text-sm -translate-y-1/2 top-1/2 me-2" />
+            </div>
+            <span className="text-sm">entries</span>
+          </div>
+        )}
                 <div className='flex-row justify-end lg:flex'>
                     <Input
                         type='search'

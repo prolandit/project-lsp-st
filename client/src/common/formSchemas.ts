@@ -175,6 +175,26 @@ export const pengelolaanSuratSchema = Yup.object().shape({
     .required("Template Dokumen harus diupload"),
 });
 
+export const databaseAsesiAlumniSchema = Yup.object().shape({
+  noRegistrasiProduksi: Yup.string().required(
+    "No Registrasi Produksi wajib diisi"
+  ),
+  tanggalBerlaku: Yup.date()
+    .typeError("Tanggal tidak valid")
+    .required("Tanggal berlaku wajib diisi"),
+  noRegistrasi: Yup.string().required("No Registrasi wajib diisi"),
+  noSertifikat: Yup.string().required("No Sertifikat wajib diisi"),
+  noBlanko: Yup.string().required("No Blanko wajib diisi"),
+  file: Yup.mixed<File>()
+    .required("File wajib di upload")
+    .test(
+      "fileSize",
+      "Ukuran file terlalu besar. Maksimal 5MB",
+      (value: File | undefined) => !value || value.size <= 5242880
+    )
+    .nullable(),
+});
+
 export const fileInputSchema = Yup.object().shape({
   fileUpload: Yup.mixed<File>()
     .test(
