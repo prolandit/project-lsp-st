@@ -26,7 +26,20 @@ export interface PemohonPortofolioStructure {
   file: string | null;
 }
 
-export interface PersyaratanPendaftaranStructure {
+export interface PengelolaanSuratStructure {
+  id: number;
+  name: string;
+  date: Date;
+  file: string | null;
+}
+
+export interface PengelolaanSuratStructure {
+  id: number;
+  name: string;
+  file: string | null;
+}
+
+export interface PersyaratanPortofolioStructure {
   name: string;
   formType: string;
   file: string | null;

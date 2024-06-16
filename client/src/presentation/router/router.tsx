@@ -1,7 +1,16 @@
 import { Route, Routes } from "react-router-dom";
-import ListPemohon from "../pages/pemohon/list";
+import ListPemohon from "../pages/pemohon/List";
 import MainLayout from "../components/Layouts/MainLayout";
 import PersyaratanUmum from "../pages/pemohon/persyaratan-umum";
+import PengelolaanSurat from "../pages/pengelolaan-surat/PengelolaanSurat";
+import CreatePengelolaanSurat from "../pages/pengelolaan-surat/CreatePengelolaanSurat";
+import PersyaratanPendaftaran from "../pages/persyaratan/persyaratan-pendaftaran";
+import EditPengelolaanSurat from "../pages/pengelolaan-surat/EditPengelolaanSurat";
+import PengajuanSkemaTab from "../pages/pengajuan-skema/PengajuanSkemaTab";
+import PengajuanSkemaDataList from "../pages/pengajuan-skema/PengajuanSkemaDataList";
+import PengajuanSkemaAssesmentList from "../pages/pengajuan-skema/PengajuanSkemaAssesmentList";
+import SkemaSertifikatList from "../pages/skema-sertifikat/List";
+import SkemaCreate from "../pages/skema-sertifikat/Create";
 
 interface RouteParam {
   path: string;
@@ -10,7 +19,42 @@ interface RouteParam {
 
 const routes: RouteParam[] = [
   { path: "/pemohon", component: (user: any) => <ListPemohon /> },
-  { path: "/pemohon/berkas/:id", component: (user: any) => <PersyaratanUmum /> },
+  {
+    path: "/pemohon/berkas/:id",
+    component: (user: any) => <PersyaratanUmum />,
+  },
+  {
+    path: "/pengelolaan-surat",
+    component: (user: any) => <PengelolaanSurat />,
+  },
+  {
+    path: "/tambah-pengelolaan-surat",
+    component: (user: any) => <CreatePengelolaanSurat />,
+  },
+  {
+    path: "/edit-pengelolaan-surat/:id",
+    component: (user: any) => <EditPengelolaanSurat />,
+  },
+  {
+    path: "/pengajuan-skema-data-list",
+    component: (user: any) => <PengajuanSkemaDataList />,
+  },
+  {
+    path: "/pengajuan-skema-assesment-list",
+    component: (user: any) => <PengajuanSkemaAssesmentList />,
+  },
+  {
+    path: "/pengajuan-skema/ajukan/:id",
+    component: (user: any) => <PengajuanSkemaTab />,
+  },
+  {
+    path: "/skema-sertifikat",
+    component: (user: any) => <SkemaSertifikatList />,
+  },
+  {
+    path: "/skema-sertifikat/create",
+    component: (user: any) => <SkemaCreate />,
+  },
 ];
 
 const RenderRouter = () => {

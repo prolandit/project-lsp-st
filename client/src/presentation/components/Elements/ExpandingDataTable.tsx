@@ -1,20 +1,19 @@
+import React, { useState, useEffect, useMemo } from "react";
 import {
   ColumnDef,
-  PaginationState,
-  SortingState,
-  flexRender,
-  getCoreRowModel,
   useReactTable,
+  getCoreRowModel,
+  getExpandedRowModel,
+  SortingState,
+  ExpandedState,
+  flexRender,
 } from "@tanstack/react-table";
-import { useEffect, useMemo, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
-import { FaSortDown } from "react-icons/fa";
-import { FaSort, FaSortUp } from "react-icons/fa6";
-import { IoIosArrowDown } from "react-icons/io";
+import { FaSortDown, FaSort, FaSortUp } from "react-icons/fa6";
+// import { IoIosArrowDown } from "react-icons/io";
 import ReactPaginate from "react-paginate";
 import { twMerge } from "tailwind-merge";
-import { SortDirection } from "../../../common/enum";
 import useDebounce from "../../../common/hooks/useDebounce";
 import Input from "./Input";
 
@@ -27,9 +26,13 @@ type Props<TData, TValue> = {
   paginateFn?: (page: number, pageSize: number) => void;
   sortingFn?: (states: SortingState) => void;
   disablePagination?: boolean;
+  disableSearch?: boolean;
+  expandableConfig?: {
+    renderExpandedContent: (row: any) => React.ReactNode;
+  };
 };
 
-const DataTable = <TData, TValue>({
+const ExpandingDataTable = <TData, TValue>({
   data,
   columns,
   className,
@@ -38,18 +41,19 @@ const DataTable = <TData, TValue>({
   paginateFn,
   sortingFn,
   disablePagination = false,
+  disableSearch = false,
+  expandableConfig,
 }: Props<TData, TValue>) => {
   const [isMobileScreen, setIsMobileScreen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
+  const [{ pageIndex, pageSize }, setPagination] = useState({
     pageIndex: 1,
     pageSize: 10,
   });
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [expanded, setExpanded] = useState<ExpandedState>({});
 
   const pagination = useMemo(() => ({ pageIndex, pageSize }), [pageIndex, pageSize]);
-
   const debounceSearch = useDebounce(searchQuery);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,15 +88,20 @@ const DataTable = <TData, TValue>({
     state: {
       pagination,
       sorting,
+      expanded,
     },
     onPaginationChange: setPagination,
     onSortingChange: setSorting,
+    onExpandedChange: setExpanded,
+    //@ts-expect-error
+    getSubRows: (row) => row.subRows,
     pageCount: pageCount,
     manualSorting: true,
     manualPagination: true,
     manualFiltering: true,
     enableMultiSort: true,
     getCoreRowModel: getCoreRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
   });
 
   const handlePageClick = (selectedItem: { selected: number }) => {
@@ -108,7 +117,7 @@ const DataTable = <TData, TValue>({
   return (
     <div className="flex flex-col gap-4 py-4">
       <div className="flex flex-col justify-between gap-4 lg:items-center lg:flex-row">
-        <div className="flex flex-row items-center gap-2">
+        {/* <div className="flex flex-row items-center gap-2">
           <span className="text-sm">Show</span>
           <div className="relative bg-gray-100 rounded-md">
             <select
@@ -125,18 +134,20 @@ const DataTable = <TData, TValue>({
             <IoIosArrowDown className="absolute right-0 text-sm -translate-y-1/2 top-1/2 me-2" />
           </div>
           <span className="text-sm">entries</span>
-        </div>
-        <div className="flex-row justify-end lg:flex">
-          <Input
-            type="search"
-            name="search"
-            placeholder="Search..."
-            className="border border-gray-100 bg-gray-50 lg:w-64"
-            value={searchQuery}
-            prefix={<BiSearch className="text-gray-500" />}
-            onChange={handleSearch}
-          />
-        </div>
+        </div> */}
+        {!disableSearch && (
+          <div className="flex-row justify-end lg:flex">
+            <Input
+              type="search"
+              name="search"
+              placeholder="Search..."
+              className="border border-gray-100 bg-gray-50 lg:w-64"
+              value={searchQuery}
+              prefix={<BiSearch className="text-gray-500" />}
+              onChange={handleSearch}
+            />
+          </div>
+        )}
       </div>
       <div className={twMerge("flex flex-col overflow-auto rounded-lg shadow", className)}>
         <table className="w-full">
@@ -164,9 +175,9 @@ const DataTable = <TData, TValue>({
                         }}
                       >
                         {header.column.getCanSort() ? (
-                          header.column.getIsSorted() === SortDirection.ASC ? (
+                          header.column.getIsSorted() === "asc" ? (
                             <FaSortUp className="text-xs text-blue-500" />
-                          ) : header.column.getIsSorted() === SortDirection.DESC ? (
+                          ) : header.column.getIsSorted() === "desc" ? (
                             <FaSortDown className="text-xs text-blue-500" />
                           ) : (
                             <FaSort className="text-xs text-gray-400" />
@@ -182,16 +193,28 @@ const DataTable = <TData, TValue>({
           <tbody>
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className=" odd:bg-white even:bg-gray-50">
-                  {row.getVisibleCells().map((cell) => (
-                    <td
-                      key={cell.id}
-                      className="w-24 px-5 py-4 text-sm text-gray-700 whitespace-nowrap"
-                    >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
-                  ))}
-                </tr>
+                <React.Fragment key={row.id}>
+                  <tr className="odd:bg-white even:bg-gray-50">
+                    {row.getVisibleCells().map((cell) => (
+                      <td
+                        key={cell.id}
+                        className="w-24 px-5 py-4 text-sm text-gray-700 whitespace-nowrap"
+                        style={{ paddingLeft: row.depth * 2 + "rem" }}
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                    ))}
+                  </tr>
+                  {row.getIsExpanded() &&
+                    expandableConfig &&
+                    expandableConfig.renderExpandedContent && (
+                      <tr>
+                        <td colSpan={columns.length} style={{ paddingLeft: "2rem" }}>
+                          {expandableConfig.renderExpandedContent(row)}
+                        </td>
+                      </tr>
+                    )}
+                </React.Fragment>
               ))
             ) : (
               <tr>
@@ -233,4 +256,4 @@ const DataTable = <TData, TValue>({
   );
 };
 
-export default DataTable;
+export default ExpandingDataTable;
