@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "jest --coverage=true  --forceExit"
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "jest --coverage=true  --forceExit",
+    "migrate": "sequelize-cli db:migrate",
+    "migrate:fresh": "sequelize-cli db:migrate:undo:all && sequelize-cli db:migrate"
   },
   "author": "",
   "license": "ISC",

@@ -1,42 +1,16 @@
-const Router = require('express').Router();
+/**
+ *
+ * @param {Awaited<ReturnType<import("./../use-cases/auth")>>} authUsecase
+ * @returns
+ */
+const AuthController = (authUsecase) => {
+  const register = async (req, res) => {
+    res.send(authUsecase.authRegister(req.body));
+  };
 
-const AuthHelper = require('../helpers/authHelper');
-const GeneralHelper = require('../helpers/generalHelper');
-const ValidationHelper = require('../helpers/validationHelper');
+  const login = async (req, rep) => {};
 
-const fileName = 'server/api/auth.js';  
+  return { register, login };
+};
 
-const register = async ( req, rep ) => {
-    try {
-        ValidationHelper.registerValidation(req.body);
-
-        const { email, fullName, password, role } = req.body;
-
-        const response = await AuthHelper.registerUser({ email, fullName, password, role });
-
-        return rep.send(response);
-    } catch (error) {
-        console.log([fileName, 'register', 'ERROR'], { info: `${error}` });
-        return rep.send(GeneralHelper.errorResponse(error));    
-    }
-}
-
-const login = async ( req, rep ) => {
-    try {
-        ValidationHelper.loginValidation(req.body);
-
-        const { email, password } = req.body;
-
-        const response = await AuthHelper.loginUser({ email, password });
-
-        return rep.send(response)
-    } catch (error) {
-        console.log([fileName, 'login', 'ERROR'], { info: `${error}` });
-        return rep.send(GeneralHelper.errorResponse(error));    
-    }
-}
-
-Router.post('/register', register);
-Router.post('/login', login);
-
-module.exports = Router;
+module.exports = AuthController;

@@ -5,8 +5,8 @@ const { DataTypes } = require("sequelize");
  * @param {import("sequelize").Sequelize} sequelize
  * @returns
  */
-const UserModel = (sequelize) =>
-  sequelize.define(
+const UserModel = (sequelize) => {
+  const model = sequelize.define(
     "tb_user",
     {
       email: { type: DataTypes.STRING },
@@ -42,5 +42,10 @@ const UserModel = (sequelize) =>
       // Other model options go here
     }
   );
+
+  model.initRelation = (models) => {};
+
+  return model;
+};
 
 module.exports = UserModel;

@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const mainRouter = require("./router");
 /**
  *
  * @param {import("express").Express} app
@@ -15,6 +16,8 @@ const expressSetup = (app, port, controllers) => {
   app.use(bodyParser.urlencoded({ extended: true }));
 
   // start middleware
+
+  app.use(mainRouter(controllers));
 
   // end middlware
   app.use((error, req, res, next) => {

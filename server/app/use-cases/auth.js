@@ -5,7 +5,6 @@ const { createSignToken } = require("../utils/jwt");
 /**
  *
  * @param {{userModel : ReturnType<import('../../models/user')>,token : ReturnType<import('../../models/token')>,}} param0
- * @returns
  */
 const AuthUseCases = ({ userModel, tokenModel }) => {
   const authRegister = async (payload) => {
