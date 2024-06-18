@@ -12,7 +12,7 @@ const createConnection = ({ host, username, password, dbname, dialect }) => {
 
   try {
     connection.authenticate();
-
+    console.log("DB : ", dbname);
     console.log("database connection established");
   } catch (err) {
     console.error("failed to connect database", err);

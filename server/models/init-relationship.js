@@ -1,6 +1,6 @@
 /**
  * @param {ReturnType<import("./index")>} models
- * @returns {<ReturnType<import("./index")>}
+ * @returns {ReturnType<import("./index")>}
  */
 const sequilizeRelationInit = (models) => {
   // initate all models and relationships
