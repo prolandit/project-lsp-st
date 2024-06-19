@@ -7,43 +7,30 @@ const { DataTypes } = require("sequelize");
  */
 const UserModel = (sequelize) => {
   const model = sequelize.define(
-    "tb_user",
+    "users",
     {
       email: { type: DataTypes.STRING },
       password: { type: DataTypes.STRING },
-      fullName: { type: DataTypes.STRING },
-      role: { type: DataTypes.STRING },
-      ktpPassport: { type: DataTypes.STRING },
-      met: { type: DataTypes.STRING },
-      birthPlace: { type: DataTypes.STRING },
-      birthDate: { type: DataTypes.DATE },
-      nationality: { type: DataTypes.STRING },
-      address: { type: DataTypes.STRING },
-      province: { type: DataTypes.STRING },
-      city: { type: DataTypes.STRING },
-      posCode: { type: DataTypes.STRING },
-      telp: { type: DataTypes.STRING },
-      phone: { type: DataTypes.STRING },
-      lastEducation: { type: DataTypes.STRING },
-      signUpload: { type: DataTypes.STRING },
-      tuk: { type: DataTypes.STRING },
-      institution: { type: DataTypes.STRING },
-      company: { type: DataTypes.STRING },
-      fund: { type: DataTypes.STRING },
-      job: { type: DataTypes.STRING },
-      position: { type: DataTypes.STRING },
-      companyAddress: { type: DataTypes.STRING },
-      telpCompany: { type: DataTypes.STRING },
-      companyPosCode: { type: DataTypes.STRING },
-      fax: { type: DataTypes.STRING },
-      companyEmail: { type: DataTypes.STRING },
+      username: { type: DataTypes.STRING, unique: true },
+      active: { type: DataTypes.BOOLEAN },
     },
     {
+      tableName: "users",
       // Other model options go here
     }
   );
 
-  model.initRelation = (models) => {};
+  // adding this if you want custom relationships
+  /**
+   * this function will call after all models are loaded so you can add custom relationships freely from this file
+   * @param {ReturnType<import("./index")>} models
+   */
+  model.initRelation = (models) => {
+    model.hasOne(models.profile, {
+      foreignKey: "userId",
+      as: "Profile",
+    });
+  };
 
   return model;
 };

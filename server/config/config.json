@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "",
-    "database": "em",
+    "password": "localhost",
+    "database": "lsp",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

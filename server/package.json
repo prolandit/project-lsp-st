@@ -7,8 +7,8 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "test": "jest --coverage=true  --forceExit",
-    "migrate": "sequelize-cli db:migrate",
-    "migrate:fresh": "sequelize-cli db:migrate:undo:all && sequelize-cli db:migrate"
+    "migrate": "sequelize-cli db:migrate --config ./config/config.json",
+    "migrate:fresh": "sequelize-cli db:migrate:undo:all --config ./config/config.json && sequelize-cli db:migrate --config ./config/config.json"
   },
   "author": "",
   "license": "ISC",
