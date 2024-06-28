@@ -12,6 +12,9 @@ import TuksPage from './presentation/pages/Tuks/TuksPage';
 import CreateUserPage from './presentation/pages/Users/CreateUserPage';
 import EditUserPage from './presentation/pages/Users/EditUserPage';
 import UsersPage from './presentation/pages/Users/UsersPage';
+import AsesorPage from './presentation/pages/Asesor/AsesorPage';
+import CreateAsesorPage from './presentation/pages/Asesor/CreateAsesorPage';
+import EditAsesorPage from './presentation/pages/Asesor/EditAsesorPage';
 
 const App = () => {
     return (
@@ -60,6 +63,21 @@ const App = () => {
                         key='edit-tuk'
                         path='/tuks/edit/:id'
                         element={<EditTukPage />}
+                    />
+                    <Route
+                        key='asesor'
+                        path='/asesor'
+                        element={<AsesorPage />}
+                    />
+                    <Route
+                        key='asesor'
+                        path='/asesor/create'
+                        element={<CreateAsesorPage />}
+                    />
+                    <Route
+                        key='asesor'
+                        path='/asesor/edit/:id'
+                        element={<EditAsesorPage />}
                     />
                 </Route>
                 <Route

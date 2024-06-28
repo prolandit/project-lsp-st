@@ -126,6 +126,24 @@ export type TukValues = {
     address: string;
 };
 
+export type AsesorValues = {
+    [key: string]: any;
+    photo?: File;
+    role?: string;
+    birthPlace?: string;
+    birthDate?: string;
+    username?: string;
+    email?: string;
+    gender?: string;
+    nik?: string;
+    education?: String;
+    fullName?: string;
+    religion?: string;
+    phone?: string;
+    work?: String;
+    noreg?: number;
+};
+
 export type ChangePasswordValues = {
     oldPassword: string;
     newPassword: string;
@@ -173,6 +191,14 @@ export type TukPayload = {
     validDate: Date;
     areaAddress: string;
     address: string;
+};
+
+export type AsesorPaylAsoad = {
+    id: number;
+    photo: string;
+    noRegAsesor: string;
+    name: string;
+    telp?: string;
 };
 
 export type MenuType = {

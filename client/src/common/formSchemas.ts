@@ -159,3 +159,43 @@ export const createNewUserSchema = Yup.object().shape({
         .oneOf(Constants.dummyRoles.map((role) => role.value))
         .required('Role tidak boleh kosong'),
 });
+
+export const AsesorInputSchema = Yup.object().shape({
+    photo: Yup.mixed<File>()
+        .test(
+            'fileSize',
+            'Ukuran file terlalu besar. Maksimal 5MB',
+            (value: File | undefined) => !value || value.size <= 5242880
+        )
+        .optional(),
+    role: Yup.string().required('Peran tidak boleh kosong'),
+    birthPlace: Yup.string().required('Tempat Lahir tidak boleh kosong'),
+    birthDate: Yup.string().required('Tanggal Lahir tidak boleh kosong'),
+    username: Yup.string().required('Username tidak boleh kosong'),
+    email: Yup.string().required('Email tidak boleh kosong'),
+    gender: Yup.string()
+        .oneOf(Constants.genderOptions.map((gender) => gender.value))
+        .required('Jenis Kelamin tidak boleh kosong'),
+    nik: Yup.string()
+        .length(16, 'NIK harus terdiri dari 16 karakter')
+        .matches(/^[0-9]+$/, 'NIK hanya boleh terdiri dari angka')
+        .required('NIK tidak boleh kosong'),
+    education: Yup.string().required('Pendidikan tidak boleh kosong'),
+    fullName: Yup.string().required('Nama Lengkap tidak boleh kosong'),
+    religion: Yup.string().required('Agama tidak boleh kosong'),
+    phone: Yup.number().required('No HP tidak boleh kosong'),
+    work: Yup.string().required('Pekerjaan Lengkap tidak boleh kosong'),
+    noreg: Yup.number().required('Nomor Registerasi tidak boleh kosong'),
+    signExplanation: Yup.string(),
+    signUpload: Yup.mixed<File>()
+        .when('signExplanation', {
+            is: (explanation: string) =>
+                !explanation || explanation.trim().length === 0,
+            then: (schema) => schema.required('Tanda Tangan harus diisi'),
+        })
+        .test(
+            'fileSize',
+            'Ukuran file terlalu besar. Maksimal 5MB',
+            (value: File | undefined) => !value || value.size <= 5242880
+        ),
+});
