@@ -193,7 +193,7 @@ export type TukPayload = {
     address: string;
 };
 
-export type AsesorPaylAsoad = {
+export type AsesorPayload = {
     id: number;
     photo: string;
     noRegAsesor: string;
