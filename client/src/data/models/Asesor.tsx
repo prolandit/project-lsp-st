@@ -1,4 +1,4 @@
-import { AsesorPaylAsoad } from '../../common/types';
+import { AsesorPayload } from '../../common/types';
 
 export default class Asesor {
     public id: number;
@@ -7,7 +7,7 @@ export default class Asesor {
     public name: string;
     public telp?: string;
 
-    constructor(payload: AsesorPaylAsoad) {
+    constructor(payload: AsesorPayload) {
         this.id = payload.id;
         this.photo = payload.photo;
         this.noRegAsesor = payload.noRegAsesor;

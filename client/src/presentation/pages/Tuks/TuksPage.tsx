@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BiEdit } from 'react-icons/bi';
 import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -7,26 +7,41 @@ import Tuk from '../../../data/models/Tuk';
 import Button from '../../components/Elements/Button';
 import DataTable from '../../components/Elements/DataTable';
 import DeleteTukModal from '../../components/Fragments/Tuks/DeleteTukModal';
+import TukRemoteDataSource from '../../../data/datasources/TukRemoteDataSource';
 
 const TuksPage = () => {
     const navigate = useNavigate();
 
+    const [tukData, setTukData] = useState<Tuk[]>([]);
     const [{ pageIndex, pageSize }, setPagination] = useState({
         pageIndex: 1,
         pageSize: 10,
     });
 
+    useEffect(() => {
+        getAllDataTuk();
+    }, []);
+
+    const getAllDataTuk = async () => {
+        try {
+            const dataFromRemote = await TukRemoteDataSource.getTukData();
+            setTukData(dataFromRemote);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
     const columns: ColumnDef<Tuk>[] = [
         {
-            accessorKey: 'name',
+            accessorKey: 'nama_tuk',
             header: 'Nama TUK',
         },
         {
-            accessorKey: 'address',
+            accessorKey: 'alamat',
             header: 'Alamat',
         },
         {
-            accessorKey: 'type',
+            accessorKey: 'tipe_tuk',
             header: 'Tipe TUK',
         },
         {
@@ -47,22 +62,19 @@ const TuksPage = () => {
     ];
 
     const generateData = (skip: number, pageSize: number): Tuk[] => {
-        const personDataList: Tuk[] = [];
+        const tukDataList: Tuk[] = [];
         const endIndex = skip + pageSize;
 
-        for (let i = skip; i < endIndex && i < 50; i++) {
+        for (let i = skip; i < endIndex && i < tukData.length; i++) {
             const tuks = new Tuk({
-                id: i + 1,
-                name: `TUK ${i + 1}`,
-                code: `Kode TUK ${i + 1}`,
-                type: 'Tipe TUK',
-                validDate: new Date(),
-                address: 'Jalan Jalan',
-                areaAddress: 'Jalan Jalan',
+                id: tukData[i].id,
+                nama_tuk: tukData[i].nama_tuk,
+                tipe_tuk: tukData[i].tipe_tuk,
+                alamat: tukData[i].alamat,
             });
-            personDataList.push(tuks);
+            tukDataList.push(tuks);
         }
-        return personDataList;
+        return tukDataList;
     };
 
     const data: Tuk[] = generateData(pageIndex * pageSize - pageSize, pageSize);
@@ -70,6 +82,9 @@ const TuksPage = () => {
     const onSearch = (query: string) => {
         console.log(query);
     };
+
+    const totalDataCount = tukData.length;
+    const showPagination = totalDataCount > pageSize;
 
     return (
         <div className='flex flex-col mx-3 my-6 bg-white rounded-t-lg lg:mx-8'>
@@ -92,13 +107,13 @@ const TuksPage = () => {
                     data={data}
                     columns={columns}
                     searchFn={onSearch}
-                    pageCount={Math.ceil(50 / pageSize)}
-                    paginateFn={(page, pageSize) => {
+                    pageCount={showPagination ? Math.ceil(totalDataCount / pageSize) : 1}
+                    paginateFn={showPagination ? (page, pageSize) => {
                         setPagination({ pageIndex: page, pageSize });
                         console.log(page, pageSize);
-                    }}
+                    } : undefined}
                     sortingFn={(states) => {
-                        console.log(states);
+                        console.log("state: ", states);
                     }}
                 />
             </div>

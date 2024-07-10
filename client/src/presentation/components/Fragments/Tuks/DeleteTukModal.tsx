@@ -3,16 +3,20 @@
 import { useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import Modal from '../../Elements/Modal';
+import LoadingSpinner from '../../Elements/LoadingSpinner';
+// import TukRemoteDataSource from '../../../../data/datasources/TukRemoteDataSource';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     id: number;
 };
 
 const DeleteTukModal = ({ id }: Props) => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [modal, setModal] = useState(false);
 
-    // const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleClose = () => {
         setModal(!modal);
@@ -20,6 +24,26 @@ const DeleteTukModal = ({ id }: Props) => {
 
     const handleDelete = async () => {
         console.log(`Delete data with id: ${id}`);
+        setIsLoading(true);
+        try {
+            const numericId = parseInt(id.toString(), 10);
+            if (!isNaN(numericId)) {
+                // await TukRemoteDataSource.deleteTukData(numericId);
+                toast.success('TUK berhasil dihapus', {
+                    position: 'top-center',
+                    hideProgressBar: true,
+                });
+
+                navigate('/tuks');
+            }
+        } catch (error) {
+            toast.error((error as Error).message, {
+                position: 'top-center',
+                hideProgressBar: true,
+            });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -40,7 +64,7 @@ const DeleteTukModal = ({ id }: Props) => {
                 <span className='mx-4 my-1 font-medium'>
                     Anda yakin ingin menghapus data ini?
                 </span>
-                {/* <LoadingSpinner show={isLoading} /> */}
+                <LoadingSpinner show={isLoading} />
             </Modal>
         </div>
     );

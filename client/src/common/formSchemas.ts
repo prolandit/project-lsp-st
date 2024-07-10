@@ -101,21 +101,15 @@ export const userEditSchema = Yup.object().shape({
 });
 
 export const tukInputSchema = Yup.object().shape({
-    name: Yup.string().required('Nama TUK harus diisi'),
-    code: Yup.string().required('Kode TUK harus diisi'),
-    type: Yup.string().required('Tipe TUK harus diisi'),
-    validDate: Yup.date().required('Tanggal Berlaku harus diisi'),
-    areaAddress: Yup.string().required('Alamat Wilayah harus diisi'),
-    address: Yup.string().required('Alamat harus diisi'),
+    nama_tuk: Yup.string().required('Nama TUK harus diisi'),
+    alamat: Yup.string().required('Alamat harus diisi'),
+    tipe_tuk: Yup.string().required('Tipe TUK harus diisi'),
 });
 
 export const tukEditSchema = Yup.object().shape({
-    name: Yup.string().optional(),
-    code: Yup.string().optional(),
-    type: Yup.string().optional(),
-    validDate: Yup.date().optional(),
-    areaAddress: Yup.string().optional(),
-    address: Yup.string().optional(),
+    nama_tuk: Yup.string().optional(),
+    alamat: Yup.string().optional(),
+    tipe_tuk: Yup.string().optional(),
 });
 
 export const fileInputSchema = Yup.object().shape({

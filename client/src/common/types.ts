@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+export type TukValues = {
+    nama_tuk: string;
+    alamat: string;
+    tipe_tuk: string;
+};
+
 export type AssesmentSchedulePayload = {
     id: number;
     status: string;
@@ -117,15 +123,6 @@ export type UserValues = {
     signExplanation?: string;
 };
 
-export type TukValues = {
-    name: string;
-    code: string;
-    type: string;
-    validDate: string;
-    areaAddress: string;
-    address: string;
-};
-
 export type AsesorValues = {
     [key: string]: any;
     photo?: File;
@@ -185,12 +182,9 @@ export type UserPayload = {
 
 export type TukPayload = {
     id: number;
-    name: string;
-    code: string;
-    type: string;
-    validDate: Date;
-    areaAddress: string;
-    address: string;
+    nama_tuk: string;
+    tipe_tuk: string;
+    alamat: string;
 };
 
 export type AsesorPayload = {

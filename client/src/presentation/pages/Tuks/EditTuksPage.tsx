@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { tukEditSchema } from '../../../common/formSchemas';
 import { TukValues } from '../../../common/types';
@@ -9,67 +9,76 @@ import Button from '../../components/Elements/Button';
 import Input from '../../components/Elements/Input';
 import Label from '../../components/Elements/Input/Label';
 import Textarea from '../../components/Elements/Textarea';
-import UploadSignModal from '../../components/Fragments/SignUpload/UploadSignModal';
+import TukRemoteDataSource from '../../../data/datasources/TukRemoteDataSource';
+import LoadingSpinner from '../../components/Elements/LoadingSpinner';
+import { toast } from 'react-toastify';
 
 const EditTukPage = () => {
     const { id } = useParams();
-    console.log(id);
 
-    const [isShowModal, setIsShowModal] = useState(false);
-    // const [isLoading, setIsLoading] = useState(false);
+    const [tukData, setTukData] = useState({
+        nama_tuk: '',
+        alamat: '',
+        tipe_tuk: ''
+    });
+    const [isLoading, setIsLoading] = useState(false);
 
-    const onEdit = async (profile: TukValues) => {
-        console.log(profile);
-        // setIsLoading(true);
+    useEffect(() => {
+        getDatabyId();
+    }, []);
 
-        // try {
-        //     const token = localStorage.getItem('token') ?? '';
-
-        //     await UserRemoteDataSource.changeProfile(token, profile);
-        //     toast.success('Profile berhasil diubah', {
-        //         position: 'top-center',
-        //         hideProgressBar: true,
-        //     });
-        // } catch (error) {
-        //     toast.error((error as Error).message, {
-        //         position: 'top-center',
-        //         hideProgressBar: true,
-        //     });
-        // } finally {
-        //     setIsLoading(false);
-        // }
+    const getDatabyId = async () => {
+        try {
+            if (id) {
+                const numericId = parseInt(id, 10);
+                if (!isNaN(numericId)) {
+                    const dataFromRemote = await TukRemoteDataSource.getTukDataById(numericId);
+                    setTukData(dataFromRemote);
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     };
 
-    const {
-        errors,
-        touched,
-        values,
-        handleChange,
-        handleSubmit,
-        setFieldValue,
-    } = useFormik({
+    const onEdit = async (tuk: TukValues) => {
+        setIsLoading(true);
+
+        try {
+            // const token = localStorage.getItem('token') ?? '';
+            if (id) {
+                const numericId = parseInt(id, 10);
+                if (!isNaN(numericId)) {
+                    await TukRemoteDataSource.updateTukData(numericId, tuk);
+                }
+            }
+
+            toast.success('TUK berhasil diubah', {
+                position: 'top-center',
+                hideProgressBar: true,
+            });
+        } catch (error) {
+            toast.error((error as Error).message, {
+                position: 'top-center',
+                hideProgressBar: true,
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const formik = useFormik({
         initialValues: {
-            name: '',
-            code: '',
-            type: '',
-            validDate: '',
-            areaAddress: '',
-            address: '',
+            nama_tuk: tukData.nama_tuk,
+            alamat: tukData.alamat,
+            tipe_tuk: tukData.tipe_tuk,
         },
         validationSchema: tukEditSchema,
         onSubmit: onEdit,
+        enableReinitialize: true,
     });
 
-    // const signUploadFile = useCallback(async () => {
-    //     if (user?.signUpload) {
-    //         const file = await downloadFile(user.signUpload);
-    //         setFieldValue('signUpload', file);
-    //     }
-    // }, [user?.signUpload, setFieldValue]);
-
-    // useEffect(() => {
-    //     signUploadFile();
-    // }, [signUploadFile]);
+    const { errors, touched, values, handleChange, handleSubmit } = formik;
 
     return (
         <>
@@ -88,40 +97,20 @@ const EditTukPage = () => {
                             <div className='flex flex-col w-full gap-6 lg:gap-4 lg:grid lg:grid-cols-4 lg:gap-y-8'>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='name'
+                                        htmlFor='nama_tuk'
                                         className='w-36'
                                     >
                                         Nama TUK
                                     </Label>
                                     <Input
                                         type='text'
-                                        name='name'
-                                        value={values.name}
+                                        name='nama_tuk'
+                                        value={values.nama_tuk}
                                         onChange={handleChange}
                                     />
-                                    {errors.name && touched.name ? (
+                                    {errors.nama_tuk && touched.nama_tuk ? (
                                         <Alert
-                                            message={errors.name}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='code'
-                                        className='w-36'
-                                    >
-                                        Kode TUK
-                                    </Label>
-                                    <Input
-                                        type='text'
-                                        name='code'
-                                        value={values.code}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.code && touched.code ? (
-                                        <Alert
-                                            message={errors.code}
+                                            message={errors.nama_tuk}
                                             type='error'
                                         />
                                     ) : null}
@@ -135,72 +124,32 @@ const EditTukPage = () => {
                                     </Label>
                                     <Input
                                         type='text'
-                                        name='type'
-                                        value={values.type}
+                                        name='tipe_tuk'
+                                        value={values.tipe_tuk}
                                         onChange={handleChange}
                                     />
-                                    {errors.type && touched.type ? (
+                                    {errors.tipe_tuk && touched.tipe_tuk ? (
                                         <Alert
-                                            message={errors.type}
+                                            message={errors.tipe_tuk}
                                             type='error'
                                         />
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='validDate'
-                                        className='w-36'
-                                    >
-                                        Tanggal Berlaku
-                                    </Label>
-                                    <Input
-                                        type='date'
-                                        name='validDate'
-                                        value={values.validDate}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.validDate && touched.validDate ? (
-                                        <Alert
-                                            message={errors.validDate}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='areaAddress'
-                                        className='w-36'
-                                    >
-                                        Alamat Wilayah
-                                    </Label>
-                                    <Textarea
-                                        name='areaAddress'
-                                        value={values.areaAddress}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.areaAddress &&
-                                    touched.areaAddress ? (
-                                        <Alert
-                                            message={errors.areaAddress}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='address'
+                                        htmlFor='alamat'
                                         className='w-36'
                                     >
                                         Alamat
                                     </Label>
                                     <Textarea
-                                        name='address'
-                                        value={values.address}
+                                        name='alamat'
+                                        value={values.alamat}
                                         onChange={handleChange}
                                     />
-                                    {errors.address && touched.address ? (
+                                    {errors.alamat && touched.alamat ? (
                                         <Alert
-                                            message={errors.address}
+                                            message={errors.alamat}
                                             type='error'
                                         />
                                     ) : null}
@@ -215,16 +164,8 @@ const EditTukPage = () => {
                         </div>
                     </div>
                 </div>
-                <UploadSignModal
-                    show={isShowModal}
-                    closeModal={() => setIsShowModal(false)}
-                    onChange={(file, exp) => {
-                        setFieldValue('signUpload', file);
-                        setFieldValue('signExplanation', exp);
-                    }}
-                />
             </form>
-            {/* <LoadingSpinner show={isLoading} /> */}
+            <LoadingSpinner show={isLoading} />
         </>
     );
 };
