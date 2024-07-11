@@ -50,10 +50,10 @@ const Modal = ({
                         ) : (
                             <Button
                                 type='button'
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    onConfirm();
-                                }}
+                                // onClick={(e) => {
+                                //     e.preventDefault();
+                                //     onConfirm();
+                                // }}
                             >
                                 Ya
                             </Button>

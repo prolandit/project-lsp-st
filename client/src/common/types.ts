@@ -164,20 +164,20 @@ export type Position = {
 
 export type UserPayload = {
     id: number;
-    photo: string;
-    role: string;
-    birthPlace: string;
-    birthDate: Date;
-    username: string;
     email: string;
-    gender: string;
-    fullName: string;
-    religion: string;
-    nik: string;
-    address: string;
-    phone: string;
-    sign: string;
-    signExplanation: string;
+    username: string;
+    foto: string;
+    name: string;
+    role: string;
+    // birthPlace: string;
+    // birthDate: Date;
+    // gender: string;
+    // religion: string;
+    // nik: string;
+    // address: string;
+    // phone: string;
+    // sign: string;
+    // signExplanation: string;
 };
 
 export type TukPayload = {

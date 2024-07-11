@@ -80,6 +80,25 @@ const UserRemoteDataSource = {
             }
         }
     },
+
+    getAllUserData: async (): Promise<string> => {
+        // const url = import.meta.env.VITE_API_URL;
+        const url = 'http://103.245.39.44:3000';
+        const endpoint = `${url}/api/v1/user?page=1&limit=1`;
+
+        try {
+            const response = await axios.get(endpoint);
+            return response.data.data;
+        } catch (error) {
+            const axiosError = error as AxiosError<ErrorResponse>;
+
+            if (axiosError.response) {
+                throw new Error(axiosError.response.data.message);
+            } else {
+                throw new Error('Network Error: Terjadi kesalahan pada server');
+            }
+        }
+    },
 };
 
 export default UserRemoteDataSource;

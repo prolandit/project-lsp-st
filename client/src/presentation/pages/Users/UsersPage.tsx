@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BiEdit } from 'react-icons/bi';
 import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -7,19 +7,43 @@ import User from '../../../data/models/User';
 import Button from '../../components/Elements/Button';
 import DataTable from '../../components/Elements/DataTable';
 import DeleteUserModal from '../../components/Fragments/Users/DeleteUserModal';
+import UserRemoteDataSource from '../../../data/datasources/UserRemoteDataSource';
 
 const UsersPage = () => {
     const navigate = useNavigate();
 
+    const [usersData, setUsersData] = useState<User[]>([]);
     const [{ pageIndex, pageSize }, setPagination] = useState({
         pageIndex: 1,
         pageSize: 10,
     });
 
+    useEffect(() => {
+        getAllUserData();
+    }, []);
+
+    const getAllUserData = async () => {
+        try {
+            const data = await UserRemoteDataSource.getAllUserData();
+            setUsersData(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    console.log(usersData);
+
     const columns: ColumnDef<User>[] = [
         {
-            accessorKey: 'photo',
+            accessorKey: 'foto',
             header: 'Foto',
+            cell: ({ row }) => (
+                <img
+                    src={row.original.foto}
+                    alt="User Foto"
+                    style={{ width: 50, height: 50 }}
+                />
+            ),
         },
         {
             accessorKey: 'username',
@@ -30,7 +54,7 @@ const UsersPage = () => {
             header: 'Email',
         },
         {
-            accessorKey: 'fullName',
+            accessorKey: 'name',
             header: 'Nama Lengkap',
         },
         {
@@ -58,23 +82,23 @@ const UsersPage = () => {
         const personDataList: User[] = [];
         const endIndex = skip + pageSize;
 
-        for (let i = skip; i < endIndex && i < 50; i++) {
+        for (let i = skip; i < endIndex && i < usersData.length; i++) {
             const user = new User({
-                id: i + 1,
-                photo: `Foto ${i + 1}`,
-                role: 'Peran',
-                birthPlace: 'Tempat Lahir',
-                birthDate: new Date(),
-                username: 'Username',
-                email: 'example@ex.com',
-                gender: 'Gender',
-                fullName: 'Full Name',
-                religion: 'Religion',
-                nik: '2134567890',
-                address: 'Address',
-                phone: '21345678',
-                sign: 'Sign',
-                signExplanation: 'Sign Explanation',
+                id: usersData[i].id,
+                email: usersData[i].email,
+                username: usersData[i].username,
+                foto: usersData[i].foto,
+                name: usersData[i].name,
+                role: usersData[i].role,
+                // birthPlace: 'Tempat Lahir',
+                // birthDate: new Date(),
+                // gender: 'Gender',
+                // religion: 'Religion',
+                // nik: '2134567890',
+                // address: 'Address',
+                // phone: '21345678',
+                // sign: 'Sign',
+                // signExplanation: 'Sign Explanation',
             });
             personDataList.push(user);
         }

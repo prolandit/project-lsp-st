@@ -4,16 +4,16 @@ import { useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import Modal from '../../Elements/Modal';
 import LoadingSpinner from '../../Elements/LoadingSpinner';
-// import TukRemoteDataSource from '../../../../data/datasources/TukRemoteDataSource';
+import TukRemoteDataSource from '../../../../data/datasources/TukRemoteDataSource';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 type Props = {
     id: number;
+    onDeleteSuccess: () => void;
 };
 
-const DeleteTukModal = ({ id }: Props) => {
-    const navigate = useNavigate();
+const DeleteTukModal = ({ id, onDeleteSuccess }: Props) => {
     const [modal, setModal] = useState(false);
 
     const [isLoading, setIsLoading] = useState(false);
@@ -28,13 +28,13 @@ const DeleteTukModal = ({ id }: Props) => {
         try {
             const numericId = parseInt(id.toString(), 10);
             if (!isNaN(numericId)) {
-                // await TukRemoteDataSource.deleteTukData(numericId);
+                await TukRemoteDataSource.deleteTukData(numericId);
                 toast.success('TUK berhasil dihapus', {
                     position: 'top-center',
                     hideProgressBar: true,
                 });
-
-                navigate('/tuks');
+                onDeleteSuccess();
+                handleClose();
             }
         } catch (error) {
             toast.error((error as Error).message, {

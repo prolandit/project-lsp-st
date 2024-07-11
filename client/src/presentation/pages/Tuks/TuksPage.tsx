@@ -24,11 +24,15 @@ const TuksPage = () => {
 
     const getAllDataTuk = async () => {
         try {
-            const dataFromRemote = await TukRemoteDataSource.getTukData();
-            setTukData(dataFromRemote);
+            const data = await TukRemoteDataSource.getTukData();
+            setTukData(data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
+    };
+
+    const handleDeleteSuccess = () => {
+        getAllDataTuk(); // Refresh data after deletion
     };
 
     const columns: ColumnDef<Tuk>[] = [
@@ -55,7 +59,7 @@ const TuksPage = () => {
                             navigate(`/tuks/edit/${row.original.id}`)
                         }
                     />
-                    <DeleteTukModal id={row.original.id} />
+                    <DeleteTukModal id={row.original.id} onDeleteSuccess={handleDeleteSuccess} />
                 </div>
             ),
         },
