@@ -25,79 +25,64 @@ export const registerSchema = Yup.object().shape({
 });
 
 export const userInputSchema = Yup.object().shape({
-    photo: Yup.mixed<File>()
+    foto: Yup.mixed<File>()
         .test(
             'fileSize',
             'Ukuran file terlalu besar. Maksimal 5MB',
             (value: File | undefined) => !value || value.size <= 5242880
         )
         .required('Foto Profil harus diisi'),
-    role: Yup.string().required('Peran tidak boleh kosong'),
+    tempatLahir: Yup.string().required('Tempat Lahir tidak boleh kosong'),
+    tanggalLahir: Yup.string().required('Tanggal Lahir tidak boleh kosong'),
     username: Yup.string().required('Username tidak boleh kosong'),
-    fullName: Yup.string().required('Nama Lengkap tidak boleh kosong'),
-    religion: Yup.string().required('Agama tidak boleh kosong'),
+    jenisKelamin: Yup.string()
+        .oneOf(Constants.genderOptions.map((gender) => gender.value))
+        .required('Jenis Kelamin tidak boleh kosong'),
+    namaLengkap: Yup.string().required('Nama Lengkap tidak boleh kosong'),
+    agama: Yup.string().required('Agama tidak boleh kosong'),
     nik: Yup.string()
         .length(16, 'NIK harus terdiri dari 16 karakter')
         .matches(/^[0-9]+$/, 'NIK hanya boleh terdiri dari angka')
         .required('NIK tidak boleh kosong'),
-    birthPlace: Yup.string().required('Tempat Lahir tidak boleh kosong'),
-    birthDate: Yup.string().required('Tanggal Lahir tidak boleh kosong'),
-    gender: Yup.string()
-        .oneOf(Constants.genderOptions.map((gender) => gender.value))
-        .required('Jenis Kelamin tidak boleh kosong'),
-    address: Yup.string().required('Alamat tidak boleh kosong'),
-    phone: Yup.number().required('No HP tidak boleh kosong'),
+    noTelp: Yup.number().required('No HP tidak boleh kosong'),
+    alamat: Yup.string().required('Alamat tidak boleh kosong'),
     email: Yup.string().required('Email tidak boleh kosong'),
-    signExplanation: Yup.string(),
-    signUpload: Yup.mixed<File>()
-        .when('signExplanation', {
-            is: (explanation: string) =>
-                !explanation || explanation.trim().length === 0,
-            then: (schema) => schema.required('Tanda Tangan harus diisi'),
-        })
-        .test(
-            'fileSize',
-            'Ukuran file terlalu besar. Maksimal 5MB',
-            (value: File | undefined) => !value || value.size <= 5242880
-        ),
-});
-
-export const userEditSchema = Yup.object().shape({
-    photo: Yup.mixed<File>()
+    tandaTangan: Yup.mixed<File>()
         .test(
             'fileSize',
             'Ukuran file terlalu besar. Maksimal 5MB',
             (value: File | undefined) => !value || value.size <= 5242880
         )
-        .optional(),
-    role: Yup.string().optional(),
-    username: Yup.string().optional(),
-    fullName: Yup.string().optional(),
-    religion: Yup.string().optional(),
-    nik: Yup.string()
-        .length(16, 'NIK harus terdiri dari 16 karakter')
-        .matches(/^[0-9]+$/, 'NIK hanya boleh terdiri dari angka')
-        .optional(),
-    birthPlace: Yup.string().optional(),
-    birthDate: Yup.string().optional(),
-    gender: Yup.string()
-        .oneOf(Constants.genderOptions.map((gender) => gender.value))
-        .optional(),
-    address: Yup.string().optional(),
-    phone: Yup.number().optional(),
-    email: Yup.string().optional(),
-    signExplanation: Yup.string(),
-    signUpload: Yup.mixed<File>()
-        .when('signExplanation', {
-            is: (explanation: string) =>
-                !explanation || explanation.trim().length === 0,
-            then: (schema) => schema.required('Tanda Tangan harus diisi'),
-        })
+        .required('Tanda tangan harus diisi'),
+});
+
+export const userEditSchema = Yup.object().shape({
+    foto: Yup.mixed<File>()
         .test(
             'fileSize',
             'Ukuran file terlalu besar. Maksimal 5MB',
             (value: File | undefined) => !value || value.size <= 5242880
-        ),
+        )
+        .required('Foto Profil harus diisi'),
+    tempatLahir: Yup.string().required('Tempat Lahir tidak boleh kosong'),
+    tanggalLahir: Yup.string().required('Tanggal Lahir tidak boleh kosong'),
+    email: Yup.string().required('Email tidak boleh kosong'),
+    username: Yup.string().required('Username tidak boleh kosong'),
+    namaLengkap: Yup.string().required('Nama Lengkap tidak boleh kosong'),
+    agama: Yup.string().required('Agama tidak boleh kosong'),
+    nik: Yup.string()
+        .length(16, 'NIK harus terdiri dari 16 karakter')
+        .matches(/^[0-9]+$/, 'NIK hanya boleh terdiri dari angka')
+        .required('NIK tidak boleh kosong'),
+    noTelp: Yup.number().required('No HP tidak boleh kosong'),
+    tandaTangan: Yup.mixed<File>()
+        .test(
+            'fileSize',
+            'Ukuran file terlalu besar. Maksimal 5MB',
+            (value: File | undefined) => !value || value.size <= 5242880
+        )
+        .required('Tanda tangan harus diisi'),
+    role: Yup.string().required('Peran tidak boleh kosong'),
 });
 
 export const tukInputSchema = Yup.object().shape({
@@ -155,41 +140,32 @@ export const createNewUserSchema = Yup.object().shape({
 });
 
 export const AsesorInputSchema = Yup.object().shape({
-    photo: Yup.mixed<File>()
+    foto: Yup.mixed<File>()
         .test(
             'fileSize',
             'Ukuran file terlalu besar. Maksimal 5MB',
             (value: File | undefined) => !value || value.size <= 5242880
         )
         .optional(),
-    role: Yup.string().required('Peran tidak boleh kosong'),
-    birthPlace: Yup.string().required('Tempat Lahir tidak boleh kosong'),
-    birthDate: Yup.string().required('Tanggal Lahir tidak boleh kosong'),
-    username: Yup.string().required('Username tidak boleh kosong'),
-    email: Yup.string().required('Email tidak boleh kosong'),
-    gender: Yup.string()
-        .oneOf(Constants.genderOptions.map((gender) => gender.value))
-        .required('Jenis Kelamin tidak boleh kosong'),
+    nama: Yup.string().required('Nama Lengkap tidak boleh kosong'),
     nik: Yup.string()
         .length(16, 'NIK harus terdiri dari 16 karakter')
         .matches(/^[0-9]+$/, 'NIK hanya boleh terdiri dari angka')
         .required('NIK tidak boleh kosong'),
-    education: Yup.string().required('Pendidikan tidak boleh kosong'),
-    fullName: Yup.string().required('Nama Lengkap tidak boleh kosong'),
-    religion: Yup.string().required('Agama tidak boleh kosong'),
+    alamat: Yup.string().required('Alamat tidak boleh kosong'),
+    tempatLahir: Yup.string().required('Tempat Lahir tidak boleh kosong'),
+    tanggalLahir: Yup.string().required('Tanggal Lahir tidak boleh kosong'),
+    jenisKelamin: Yup.string()
+        .oneOf(Constants.genderOptions.map((gender) => gender.value))
+        .required('Jenis Kelamin tidak boleh kosong'),
+    agama: Yup.string().required('Agama tidak boleh kosong'),
     phone: Yup.number().required('No HP tidak boleh kosong'),
-    work: Yup.string().required('Pekerjaan Lengkap tidak boleh kosong'),
-    noreg: Yup.number().required('Nomor Registerasi tidak boleh kosong'),
-    signExplanation: Yup.string(),
-    signUpload: Yup.mixed<File>()
-        .when('signExplanation', {
-            is: (explanation: string) =>
-                !explanation || explanation.trim().length === 0,
-            then: (schema) => schema.required('Tanda Tangan harus diisi'),
-        })
+    no_registrasi: Yup.number().required('No registrasi tidak boleh kosong'),
+    tandaTangan: Yup.mixed<File>()
         .test(
             'fileSize',
             'Ukuran file terlalu besar. Maksimal 5MB',
             (value: File | undefined) => !value || value.size <= 5242880
-        ),
+        )
+        .optional(),
 });

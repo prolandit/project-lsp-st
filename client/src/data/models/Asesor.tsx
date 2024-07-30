@@ -2,16 +2,14 @@ import { AsesorPayload } from '../../common/types';
 
 export default class Asesor {
     public id: number;
-    public photo: string;
-    public noRegAsesor: string;
+    public foto: string;
+    public noRegistration: string;
     public name: string;
-    public telp?: string;
 
     constructor(payload: AsesorPayload) {
         this.id = payload.id;
-        this.photo = payload.photo;
-        this.noRegAsesor = payload.noRegAsesor;
+        this.foto = payload.foto;
+        this.noRegistration = payload.noRegistration;
         this.name = payload.name;
-        this.telp = payload.telp;
     }
 }

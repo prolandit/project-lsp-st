@@ -3,8 +3,7 @@ import { ErrorResponse, TukValues } from '../../common/types';
 
 const TukRemoteDataSource = {
     getTukData: async (): Promise<string> => {
-        // const url = import.meta.env.VITE_API_URL;
-        const url = 'http://103.245.39.44:3000';
+        const url = import.meta.env.VITE_API_URL;
         const endpoint = `${url}/api/v1/tuk/get_tuk?page=1&limit=10`;
 
         try {
@@ -22,8 +21,7 @@ const TukRemoteDataSource = {
     },
 
     createTukData: async (payload: TukValues) => {
-        // const url = import.meta.env.VITE_API_URL;
-        const url = 'http://103.245.39.44:3000';
+        const url = import.meta.env.VITE_API_URL;
         const endpoint = `${url}/api/v1/tuk/create_tuk`;
 
         try {
@@ -40,8 +38,7 @@ const TukRemoteDataSource = {
     },
 
     getTukDataById: async (id: number): Promise<string> => {
-        // const url = import.meta.env.VITE_API_URL;
-        const url = 'http://103.245.39.44:3000';
+        const url = import.meta.env.VITE_API_URL;
         const endpoint = `${url}/api/v1/tuk/get_tuk/${id}`;
 
         try {
@@ -59,8 +56,7 @@ const TukRemoteDataSource = {
     },
 
     updateTukData: async (id: number, payload: TukValues) => {
-        // const url = import.meta.env.VITE_API_URL;
-        const url = 'http://103.245.39.44:3000';
+        const url = import.meta.env.VITE_API_URL;
         const endpoint = `${url}/api/v1/tuk/update_tuk/${id}`;
 
         try {
@@ -77,8 +73,7 @@ const TukRemoteDataSource = {
     },
 
     deleteTukData: async (id: number) => {
-        // const url = import.meta.env.VITE_API_URL;
-        const url = 'http://103.245.39.44:3000';
+        const url = import.meta.env.VITE_API_URL;
         const endpoint = `${url}/api/v1/tuk/delete_tuk/${id}`;
 
         try {

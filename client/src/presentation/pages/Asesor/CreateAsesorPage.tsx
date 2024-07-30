@@ -10,14 +10,34 @@ import { useFormik } from 'formik';
 import { AsesorInputSchema } from '../../../common/formSchemas';
 import Alert from '../../components/Elements/Alert';
 import { AsesorValues } from '../../../common/types';
-
-// image & sign still not config validation
+import LoadingSpinner from '../../components/Elements/LoadingSpinner';
+import AsesorRemoteDataSource from '../../../data/datasources/AsesorRemoteDataSource';
+import { toast } from 'react-toastify';
 
 const CreateAsesorPage = () => {
     const [isShowModal, setIsShowModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const onSaveAsesor = async (asesor: AsesorValues) => {
         console.log(asesor);
+        setIsLoading(true);
+
+        try {
+            // const token = localStorage.getItem('token') ?? '';
+ 
+            await AsesorRemoteDataSource.createAsesorData(asesor);
+            toast.success('Pengguna berhasil ditambahkan', {
+                position: 'top-center',
+                hideProgressBar: true,
+            });
+        } catch (error) {
+            toast.error((error as Error).message, {
+                position: 'top-center',
+                hideProgressBar: true,
+            });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const {
@@ -29,22 +49,18 @@ const CreateAsesorPage = () => {
         setFieldValue,
     } = useFormik({
         initialValues: {
-            photo: undefined,
-            role: '',
-            birthPlace: '',
-            birthDate: '',
-            username: '',
-            email: '',
-            gender: '',
+            userId: "1",
+            nama: '',
             nik: '',
-            education: '',
-            fullName: '',
-            religion: '',
+            alamat: '',
+            tempatLahir: '',
+            tanggalLahir: '',
+            jenisKelamin: '',
+            agama: '',
             phone: '',
-            work: '',
-            noreg: undefined,
-            signUpload: undefined,
-            signExplanation: '',
+            foto: undefined,
+            tandaTangan: undefined,
+            no_registrasi: '',
         },
         validationSchema: AsesorInputSchema,
         onSubmit: onSaveAsesor,
@@ -65,17 +81,17 @@ const CreateAsesorPage = () => {
                         <hr className='my-4' />
                         <div className='flex flex-col items-center gap-6 px-4 lg:gap-16 lg:px-16'>
                             <div className='flex flex-col items-center gap-4'>
-                                {values.photo ? (
+                                {values.foto ? (
                                     <img
-                                        src={URL.createObjectURL(values.photo)}
+                                        src={URL.createObjectURL(values.foto)}
                                         className='object-cover rounded-md h-52 w-52'
                                     />
                                 ) : (
                                     <>
                                         <ImagePlaceholder className='rounded-md h-52 w-52' />
-                                        {errors.photo && touched.photo ? (
+                                        {errors.foto && touched.foto ? (
                                             <Alert
-                                                message={errors.photo}
+                                                message={errors.foto}
                                                 type='error'
                                             />
                                         ) : null}
@@ -95,7 +111,7 @@ const CreateAsesorPage = () => {
                                         onChange={(e) => {
                                             const file =
                                                 e.currentTarget.files?.[0];
-                                            setFieldValue('photo', file);
+                                            setFieldValue('foto', file);
                                         }}
                                         hidden
                                     />
@@ -104,118 +120,20 @@ const CreateAsesorPage = () => {
                             <div className='flex flex-col w-full gap-6 lg:gap-16 lg:grid lg:grid-cols-4 lg:gap-y-10'>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='role'
+                                        htmlFor='nama'
                                         className='w-36'
                                     >
-                                        Peran
+                                        Nama
                                     </Label>
                                     <Input
                                         type='text'
-                                        name='role'
-                                        value={values.role}
+                                        name='nama'
+                                        value={values.nama}
                                         onChange={handleChange}
                                     />
-                                    {errors.role && touched.role ? (
+                                    {errors.nama && touched.nama ? (
                                         <Alert
-                                            message={errors.role}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='birthPlace'
-                                        className='w-36'
-                                    >
-                                        Tempat Lahir
-                                    </Label>
-                                    <Input
-                                        type='text'
-                                        name='birthPlace'
-                                        value={values.birthPlace}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.birthPlace && touched.birthPlace ? (
-                                        <Alert
-                                            message={errors.birthPlace}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='birthDate'
-                                        className='w-36'
-                                    >
-                                        Tanggal Lahir
-                                    </Label>
-                                    <Input
-                                        type='date'
-                                        name='birthDate'
-                                        value={values.birthDate}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.birthDate && touched.birthDate ? (
-                                        <Alert
-                                            message={errors.birthDate}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='username'
-                                        className='w-36'
-                                    >
-                                        Username
-                                    </Label>
-                                    <Input
-                                        type='text'
-                                        name='username'
-                                        value={values.username}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.username && touched.username ? (
-                                        <Alert
-                                            message={errors.username}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='email'
-                                        className='w-36'
-                                    >
-                                        Email
-                                    </Label>
-                                    <Input
-                                        type='text'
-                                        name='email'
-                                        value={values.email}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.email && touched.email ? (
-                                        <Alert
-                                            message={errors.email}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label htmlFor='gender'>
-                                        Jenis Kelamin
-                                    </Label>
-                                    <ComboBox
-                                        name='gender'
-                                        items={Constants.genderOptions}
-                                        value={values.gender}
-                                        placeholder='Pilih Jenis Kelamin'
-                                        onChange={handleChange}
-                                    />
-                                    {errors.gender && touched.gender ? (
-                                        <Alert
-                                            message={errors.gender}
+                                            message={errors.nama}
                                             type='error'
                                         />
                                     ) : null}
@@ -242,61 +160,99 @@ const CreateAsesorPage = () => {
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='nik'
+                                        htmlFor='alamat'
                                         className='w-36'
                                     >
-                                        Pendidikan
+                                        Alamat
                                     </Label>
                                     <Input
                                         type='text'
-                                        name='education'
-                                        value={values.education}
+                                        name='alamat'
+                                        value={values.alamat}
                                         onChange={handleChange}
                                     />
-                                    {errors.education && touched.education ? (
+                                    {errors.alamat && touched.alamat ? (
                                         <Alert
-                                            message={errors.education}
+                                            message={errors.alamat}
                                             type='error'
                                         />
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='fullName'
+                                        htmlFor='tempatLahir'
                                         className='w-36'
                                     >
-                                        Nama Lengkap
+                                        Tempat Lahir
                                     </Label>
                                     <Input
                                         type='text'
-                                        name='fullName'
-                                        value={values.fullName}
+                                        name='tempatLahir'
+                                        value={values.tempatLahir}
                                         onChange={handleChange}
                                     />
-                                    {errors.fullName && touched.fullName ? (
+                                    {errors.tempatLahir && touched.tempatLahir ? (
                                         <Alert
-                                            message={errors.fullName}
+                                            message={errors.tempatLahir}
                                             type='error'
                                         />
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='religion'
+                                        htmlFor='tanggalLahir'
+                                        className='w-36'
+                                    >
+                                        Tanggal Lahir
+                                    </Label>
+                                    <Input
+                                        type='date'
+                                        name='tanggalLahir'
+                                        value={values.tanggalLahir}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.tanggalLahir && touched.tanggalLahir ? (
+                                        <Alert
+                                            message={errors.tanggalLahir}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label htmlFor='jenisKelamin'>
+                                        Jenis Kelamin
+                                    </Label>
+                                    <ComboBox
+                                        name='jenisKelamin'
+                                        items={Constants.genderOptions}
+                                        value={values.jenisKelamin}
+                                        placeholder='Pilih Jenis Kelamin'
+                                        onChange={handleChange}
+                                    />
+                                    {errors.jenisKelamin && touched.jenisKelamin ? (
+                                        <Alert
+                                            message={errors.jenisKelamin}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
+                                        htmlFor='agama'
                                         className='w-36'
                                     >
                                         Agama
                                     </Label>
                                     <ComboBox
-                                        name='religion'
+                                        name='agama'
                                         items={Constants.religions}
-                                        value=''
-                                        placeholder='Pilih Jenis Kelamin'
+                                        value={values.agama}
+                                        placeholder='Pilih Agama'
                                         onChange={handleChange}
                                     />
-                                    {errors.religion && touched.religion ? (
+                                    {errors.agama && touched.agama ? (
                                         <Alert
-                                            message={errors.religion}
+                                            message={errors.agama}
                                             type='error'
                                         />
                                     ) : null}
@@ -323,64 +279,38 @@ const CreateAsesorPage = () => {
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='work'
-                                        className='w-36'
-                                    >
-                                        Pekerjaan
-                                    </Label>
-                                    <Input
-                                        type='text'
-                                        name='work'
-                                        value={values.work}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.work && touched.work ? (
-                                        <Alert
-                                            message={errors.work}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='noreg'
+                                        htmlFor='no_registrasi'
                                         className='w-36'
                                     >
                                         Nomor Registerasi
                                     </Label>
                                     <Input
-                                        type='number'
-                                        name='noreg'
-                                        value={values.noreg}
+                                        type='text'
+                                        name='no_registrasi'
+                                        value={values.no_registrasi}
                                         onChange={handleChange}
                                     />
-                                    {errors.noreg && touched.noreg ? (
+                                    {errors.no_registrasi && touched.no_registrasi ? (
                                         <Alert
-                                            message={errors.noreg}
+                                            message={errors.no_registrasi}
                                             type='error'
                                         />
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label htmlFor='signUpload'>
+                                    <Label htmlFor='tandaTangan'>
                                         Tanda tangan
                                     </Label>
-                                    {values.signUpload ? (
+                                    {values.tandaTangan ? (
                                         <div className='flex flex-col'>
                                             <img
                                                 src={URL.createObjectURL(
-                                                    values.signUpload
+                                                    values.tandaTangan
                                                 )}
                                                 alt='Tanda Tangan'
                                                 className='object-contain h-32 bg-gray-50 rounded-t-md'
                                             />
                                             <div className='flex flex-row gap-1 p-4 bg-white shadow rounded-b-md'>
-                                                {values.signExplanation && (
-                                                    <span className='text-sm'>
-                                                        {values.signExplanation}
-                                                        .
-                                                    </span>
-                                                )}
                                                 <span
                                                     className='text-sm text-blue-700 cursor-pointer'
                                                     onClick={() =>
@@ -402,10 +332,10 @@ const CreateAsesorPage = () => {
                                             >
                                                 Upload
                                             </Button>
-                                            {errors.signUpload &&
-                                                touched.signUpload ? (
+                                            {errors.tandaTangan &&
+                                                touched.tandaTangan ? (
                                                 <Alert
-                                                    message={errors.signUpload}
+                                                    message={errors.tandaTangan}
                                                     type='error'
                                                 />
                                             ) : null}
@@ -425,13 +355,12 @@ const CreateAsesorPage = () => {
                 <UploadSignModal
                     show={isShowModal}
                     closeModal={() => setIsShowModal(false)}
-                    onChange={(file, exp) => {
-                        setFieldValue('signUpload', file);
-                        setFieldValue('signExplanation', exp);
+                    onChange={(file) => {
+                        setFieldValue('tandaTangan', file);
                     }}
                 />
             </form>
-            {/* <LoadingSpinner show={isLoading} /> */}
+            <LoadingSpinner show={isLoading} />
         </>
     );
 }

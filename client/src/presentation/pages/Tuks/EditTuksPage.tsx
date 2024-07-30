@@ -33,7 +33,11 @@ const EditTukPage = () => {
                 const numericId = parseInt(id, 10);
                 if (!isNaN(numericId)) {
                     const dataFromRemote = await TukRemoteDataSource.getTukDataById(numericId);
-                    setTukData(dataFromRemote);
+                    if (typeof dataFromRemote === 'object' && dataFromRemote !== null) {
+                        setTukData(dataFromRemote);
+                    } else {
+                        console.error('Data format is incorrect');
+                    }
                 }
             }
         } catch (error) {

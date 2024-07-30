@@ -6,9 +6,10 @@ import Modal from '../../Elements/Modal';
 
 type Props = {
     id: number;
+    onDeleteSuccess: () => void;
 };
 
-const DeleteAsesorModal = ({ id }: Props) => {
+const DeleteAsesorModal = ({ id, onDeleteSuccess }: Props) => {
     // const navigate = useNavigate();
     const [modal, setModal] = useState(false);
 
@@ -20,6 +21,7 @@ const DeleteAsesorModal = ({ id }: Props) => {
 
     const handleDelete = async () => {
         console.log(`Delete data with id: ${id}`);
+        onDeleteSuccess();
     };
 
     return (

@@ -106,39 +106,35 @@ export type ErrorResponse = {
 
 export type UserValues = {
     [key: string]: any;
-    photo?: File;
-    role?: string;
-    birthPlace?: string;
-    birthDate?: string;
+    foto?: File;
+    tempatLahir?: string;
+    tanggalLahir?: string;
     username?: string;
-    password?: string;
     email?: string;
-    gender?: string;
-    fullName?: string;
-    religion?: string;
+    jenisKelamin?: string;
+    namaLengkap?: string;
+    agama?: string;
     nik?: string;
-    address?: string;
-    phone?: string;
-    signUpload?: File;
-    signExplanation?: string;
+    noTelp?: string;
+    alamat?: string;
+    tandaTangan?: File;
+    role?: string
 };
 
 export type AsesorValues = {
     [key: string]: any;
-    photo?: File;
-    role?: string;
-    birthPlace?: string;
-    birthDate?: string;
-    username?: string;
-    email?: string;
-    gender?: string;
+    foto?: File;
+    userId?: string
+    nama?: string
     nik?: string;
-    education?: String;
-    fullName?: string;
-    religion?: string;
+    alamat?: string;
+    tanggalLahir?: string;
+    tempatLahir?: string;
+    jenisKelamin?: string;
+    agama?: string;
     phone?: string;
-    work?: String;
-    noreg?: number;
+    tandaTangan?: File;
+    no_registrasi?: string;
 };
 
 export type ChangePasswordValues = {
@@ -150,6 +146,7 @@ export type ChangePasswordValues = {
 export type OptionType = {
     key: string;
     value: string;
+    label: string;
 };
 
 export type FileUpload = {
@@ -164,20 +161,20 @@ export type Position = {
 
 export type UserPayload = {
     id: number;
-    email: string;
-    username: string;
-    foto: string;
-    name: string;
+    foto?: string;
+    tempatLahir?: string;
+    tanggalLahir?: string;
+    username?: string;
+    email?: string;
+    jenisKelamin?: string;
+    namaLengkap?: string;
+    agama?: string;
+    nik?: string;
+    noTelp?: string;
+    alamat?: string;
+    tandaTangan?: File;
     role: string;
-    // birthPlace: string;
-    // birthDate: Date;
-    // gender: string;
-    // religion: string;
-    // nik: string;
-    // address: string;
-    // phone: string;
-    // sign: string;
-    // signExplanation: string;
+    name: string;
 };
 
 export type TukPayload = {
@@ -189,10 +186,9 @@ export type TukPayload = {
 
 export type AsesorPayload = {
     id: number;
-    photo: string;
-    noRegAsesor: string;
+    foto: string;
+    noRegistration: string;
     name: string;
-    telp?: string;
 };
 
 export type MenuType = {

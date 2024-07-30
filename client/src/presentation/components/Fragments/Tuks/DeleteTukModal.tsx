@@ -6,7 +6,6 @@ import Modal from '../../Elements/Modal';
 import LoadingSpinner from '../../Elements/LoadingSpinner';
 import TukRemoteDataSource from '../../../../data/datasources/TukRemoteDataSource';
 import { toast } from 'react-toastify';
-// import { useNavigate } from 'react-router-dom';
 
 type Props = {
     id: number;
@@ -23,7 +22,6 @@ const DeleteTukModal = ({ id, onDeleteSuccess }: Props) => {
     };
 
     const handleDelete = async () => {
-        console.log(`Delete data with id: ${id}`);
         setIsLoading(true);
         try {
             const numericId = parseInt(id.toString(), 10);

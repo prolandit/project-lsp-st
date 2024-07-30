@@ -3,23 +3,46 @@
 import { useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import Modal from '../../Elements/Modal';
+import { toast } from 'react-toastify';
+import LoadingSpinner from '../../Elements/LoadingSpinner';
+import UserRemoteDataSource from '../../../../data/datasources/UserRemoteDataSource';
 
 type Props = {
     id: number;
+    onDeleteSuccess: () => void;
 };
 
-const DeleteUserModal = ({ id }: Props) => {
+const DeleteUserModal = ({ id, onDeleteSuccess }: Props) => {
     // const navigate = useNavigate();
     const [modal, setModal] = useState(false);
 
-    // const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleClose = () => {
         setModal(!modal);
     };
 
     const handleDelete = async () => {
-        console.log(`Delete data with id: ${id}`);
+        setIsLoading(true);
+        try {
+            const numericId = parseInt(id.toString(), 10);
+            if (!isNaN(numericId)) {
+                await UserRemoteDataSource.deleteUser(numericId);
+                toast.success('Pengguna berhasil dihapus', {
+                    position: 'top-center',
+                    hideProgressBar: true,
+                });
+                onDeleteSuccess();
+                handleClose();
+            }
+        } catch (error) {
+            toast.error((error as Error).message, {
+                position: 'top-center',
+                hideProgressBar: true,
+            });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -42,7 +65,7 @@ const DeleteUserModal = ({ id }: Props) => {
                 <span className='mx-4 my-1 font-medium'>
                     Anda yakin ingin menghapus data ini?
                 </span>
-                {/* <LoadingSpinner show={isLoading} /> */}
+                <LoadingSpinner show={isLoading} />
             </Modal>
         </div>
     );

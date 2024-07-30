@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BiEdit } from 'react-icons/bi';
 import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -7,31 +7,58 @@ import Asesor from '../../../data/models/Asesor';
 import Button from '../../components/Elements/Button';
 import DataTable from '../../components/Elements/DataTable';
 import DeleteAsesorModal from '../../components/Fragments/Assesor/DeleteAsesorModal';
+import AsesorRemoteDataSource from '../../../data/datasources/AsesorRemoteDataSource';
 
 const AsesorPage = () => {
     const navigate = useNavigate();
 
+    const [asesorsData, setAsesorsData] = useState<Asesor[]>([]);
     const [{ pageIndex, pageSize }, setPagination] = useState({
         pageIndex: 1,
         pageSize: 10,
     });
 
+    useEffect(() => {
+        getAllAsesorsData();
+    }, []);
+
+    const getAllAsesorsData = async () => {
+        try {
+            const data = await AsesorRemoteDataSource.getAsesorData();
+            console.log("data: ", data);
+            if (typeof data === 'object' && data !== null) {
+                setAsesorsData(data);
+            } else {
+                console.error('Data format is incorrect');
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    const handleDeleteSuccess = () => {
+        getAllAsesorsData(); // Refresh data after deletion
+    };
+
     const columns: ColumnDef<Asesor>[] = [
         {
             accessorKey: 'photo',
             header: 'Foto',
+            cell: ({ row }) => (
+                <img
+                    src={row.original.foto}
+                    alt="User Foto"
+                    style={{ width: 50, height: 50 }}
+                />
+            ),
         },
         {
-            accessorKey: 'noRegAsesor',
+            accessorKey: 'noRegistration',
             header: 'No. Reg Asesor',
         },
         {
             accessorKey: 'name',
             header: 'Nama',
-        },
-        {
-            accessorKey: 'telp',
-            header: 'No. Telp',
         },
         {
             header: 'Aksi',
@@ -44,7 +71,7 @@ const AsesorPage = () => {
                             navigate(`/asesor/edit/${row.original.id}`)
                         }
                     />
-                    <DeleteAsesorModal id={row.original.id} />
+                    <DeleteAsesorModal id={row.original.id} onDeleteSuccess={handleDeleteSuccess} />
                 </div>
             ),
         },
@@ -54,13 +81,12 @@ const AsesorPage = () => {
         const personDataList: Asesor[] = [];
         const endIndex = skip + pageSize;
 
-        for (let i = skip; i < endIndex && i < 50; i++) {
+        for (let i = skip; i < endIndex && i < asesorsData.length; i++) {
             const asesor = new Asesor({
-                id: i + 1,
-                photo: `photo ${i + 1}`,
-                noRegAsesor: `asesor${i + 1}`,
-                name: `Asesor ${i + 1}`,
-                telp: '1234567',
+                id: asesorsData[i].id,
+                foto: asesorsData[i].foto,
+                noRegistration: asesorsData[i].noRegistration,
+                name: asesorsData[i].name,
             });
             personDataList.push(asesor);
         }

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Constants from '../../../common/constants';
-import { userInputSchema } from '../../../common/formSchemas';
+import { userEditSchema } from '../../../common/formSchemas';
 import { UserValues } from '../../../common/types';
 import Alert from '../../components/Elements/Alert';
 import Button from '../../components/Elements/Button';
@@ -11,71 +11,120 @@ import ImagePlaceholder from '../../components/Elements/ImagePlaceholder';
 import Input from '../../components/Elements/Input';
 import Label from '../../components/Elements/Input/Label';
 import UploadSignModal from '../../components/Fragments/SignUpload/UploadSignModal';
+import UserRemoteDataSource from '../../../data/datasources/UserRemoteDataSource';
+import { toast } from 'react-toastify';
+import LoadingSpinner from '../../components/Elements/LoadingSpinner';
+import { downloadFile } from '../../../common/utils';
 
 const ProfilePage = () => {
+    const id = "1";
+
+    const [profileData, setProfileData] = useState({
+        email: '',
+        username: '',
+        foto: undefined,
+        tandaTangan: undefined,
+        name: '',
+        role: '',
+        tempatLahir: '',
+        tanggalLahir: '',
+        agama: '',
+        nik: '',
+        noTelp: '',
+    });
     const [isShowModal, setIsShowModal] = useState(false);
-    // const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const onSaveProfile = async (profile: UserValues) => {
-        console.log(profile);
-        // setIsLoading(true);
+    useEffect(() => {
+        getDatabyId();
+    }, []);
 
-        // try {
-        //     const token = localStorage.getItem('token') ?? '';
-
-        //     await UserRemoteDataSource.changeProfile(token, profile);
-        //     toast.success('Profile berhasil diubah', {
-        //         position: 'top-center',
-        //         hideProgressBar: true,
-        //     });
-        // } catch (error) {
-        //     toast.error((error as Error).message, {
-        //         position: 'top-center',
-        //         hideProgressBar: true,
-        //     });
-        // } finally {
-        //     setIsLoading(false);
-        // }
+    const getDatabyId = async () => {
+        try {
+            if (id) {
+                const numericId = parseInt(id, 10);
+                if (!isNaN(numericId)) {
+                    const dataFromRemote = await UserRemoteDataSource.getProfileById(numericId);
+                    if (typeof dataFromRemote === 'object' && dataFromRemote !== null) {
+                        setProfileData(dataFromRemote);
+                    } else {
+                        console.error('Data format is incorrect');
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     };
 
-    const {
-        errors,
-        touched,
-        values,
-        handleChange,
-        handleSubmit,
-        setFieldValue,
-    } = useFormik({
+    const onSaveProfile = async (profile: UserValues) => {
+        setIsLoading(true);
+
+        try {
+            // const token = localStorage.getItem('token') ?? '';
+            if (id) {
+                const numericId = parseInt(id, 10);
+                if (!isNaN(numericId)) {
+                    await UserRemoteDataSource.changeProfile(numericId, profile);
+                }
+            }
+
+            toast.success('Profile berhasil diubah', {
+                position: 'top-center',
+                hideProgressBar: true,
+            });
+        } catch (error) {
+            toast.error((error as Error).message, {
+                position: 'top-center',
+                hideProgressBar: true,
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const formik = useFormik({
         initialValues: {
-            photo: undefined,
-            role: '',
-            birthPlace: '',
-            birthDate: '',
-            username: '',
-            email: '',
-            gender: '',
-            fullName: '',
-            religion: '',
-            nik: '',
-            address: '',
-            phone: '',
-            signUpload: undefined,
-            signExplanation: '',
+            namaLengkap: profileData.name,
+            email: profileData.email,
+            username: profileData.username,
+            foto: profileData.foto,
+            tandaTangan: profileData.tandaTangan,
+            role: profileData.role,
+            tempatLahir: profileData.tempatLahir,
+            tanggalLahir: profileData.tanggalLahir,
+            agama: profileData.agama,
+            nik: profileData.nik,
+            noTelp: profileData.noTelp,
         },
-        validationSchema: userInputSchema,
+        validationSchema: userEditSchema,
         onSubmit: onSaveProfile,
+        enableReinitialize: true,
     });
 
-    // const signUploadFile = useCallback(async () => {
-    //     if (user?.signUpload) {
-    //         const file = await downloadFile(user.signUpload);
-    //         setFieldValue('signUpload', file);
-    //     }
-    // }, [user?.signUpload, setFieldValue]);
+    const { errors, touched, values, handleChange, handleSubmit, setFieldValue } = formik;
 
-    // useEffect(() => {
-    //     signUploadFile();
-    // }, [signUploadFile]);
+    const fotoUploadFile = useCallback(async () => {
+        if (profileData.foto) {
+            const file = await downloadFile(profileData.foto);
+            setFieldValue('foto', file);
+        }
+    }, [profileData.foto, setFieldValue]);
+
+    const tandaTanganUploadFile = useCallback(async () => {
+        if (profileData.tandaTangan) {
+            const file = await downloadFile(profileData.tandaTangan); // Mengunduh file
+            setFieldValue('tandaTangan', file); // Mengatur nilai formik dengan file yang diunduh
+        }
+    }, [profileData.tandaTangan, setFieldValue]);
+
+    useEffect(() => {
+        fotoUploadFile();
+    }, [fotoUploadFile]);
+
+    useEffect(() => {
+        tandaTanganUploadFile();
+    }, [tandaTanganUploadFile]);
 
     return (
         <>
@@ -92,17 +141,26 @@ const ProfilePage = () => {
                         <hr className='my-4' />
                         <div className='flex flex-col items-center gap-6 px-4 lg:gap-16 lg:px-16'>
                             <div className='flex flex-col items-center gap-4'>
-                                {values.photo ? (
-                                    <img
-                                        src={URL.createObjectURL(values.photo)}
-                                        className='object-cover rounded-md h-52 w-52'
-                                    />
+                                {values.foto ? (
+                                    typeof values.foto === 'string' ? (
+                                        <img
+                                            src={values.foto}
+                                            className='object-cover rounded-md h-52 w-52'
+                                            alt='Uploaded Preview'
+                                        />
+                                    ) : (
+                                        <img
+                                            src={URL.createObjectURL(values.foto)}
+                                            className='object-cover rounded-md h-52 w-52'
+                                            alt='Uploaded Preview'
+                                        />
+                                    )
                                 ) : (
                                     <>
                                         <ImagePlaceholder className='rounded-md h-52 w-52' />
-                                        {errors.photo && touched.photo ? (
+                                        {errors.foto && touched.foto ? (
                                             <Alert
-                                                message={errors.photo}
+                                                message={errors.foto}
                                                 type='error'
                                             />
                                         ) : null}
@@ -122,7 +180,7 @@ const ProfilePage = () => {
                                         onChange={(e) => {
                                             const file =
                                                 e.currentTarget.files?.[0];
-                                            setFieldValue('photo', file);
+                                            setFieldValue('foto', file);
                                         }}
                                         hidden
                                     />
@@ -136,10 +194,11 @@ const ProfilePage = () => {
                                     >
                                         Peran
                                     </Label>
-                                    <Input
-                                        type='text'
+                                    <ComboBox
                                         name='role'
+                                        items={Constants.dummyRoles}
                                         value={values.role}
+                                        placeholder='Pilih Peran'
                                         onChange={handleChange}
                                     />
                                     {errors.role && touched.role ? (
@@ -151,40 +210,60 @@ const ProfilePage = () => {
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='birthPlace'
+                                        htmlFor='email'
                                         className='w-36'
                                     >
-                                        Tempat Lahir
+                                        Email
                                     </Label>
                                     <Input
                                         type='text'
-                                        name='birthPlace'
-                                        value={values.birthPlace}
+                                        name='email'
+                                        value={values.email}
                                         onChange={handleChange}
                                     />
-                                    {errors.birthPlace && touched.birthPlace ? (
+                                    {errors.email && touched.email ? (
                                         <Alert
-                                            message={errors.birthPlace}
+                                            message={errors.email}
                                             type='error'
                                         />
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='birthDate'
+                                        htmlFor='tempatLahir'
+                                        className='w-36'
+                                    >
+                                        Tempat Lahir
+                                    </Label>
+                                    <Input
+                                        type='text'
+                                        name='tempatLahir'
+                                        value={values.tempatLahir}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.tempatLahir && touched.tempatLahir ? (
+                                        <Alert
+                                            message={errors.tempatLahir}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
+                                        htmlFor='tanggalLahir'
                                         className='w-36'
                                     >
                                         Tanggal Lahir
                                     </Label>
                                     <Input
                                         type='date'
-                                        name='birthDate'
-                                        value={values.birthDate}
+                                        name='tanggalLahir'
+                                        value={values.tanggalLahir}
                                         onChange={handleChange}
                                     />
-                                    {errors.birthDate && touched.birthDate ? (
+                                    {errors.tanggalLahir && touched.tanggalLahir ? (
                                         <Alert
-                                            message={errors.birthDate}
+                                            message={errors.tanggalLahir}
                                             type='error'
                                         />
                                     ) : null}
@@ -211,79 +290,41 @@ const ProfilePage = () => {
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='email'
-                                        className='w-36'
-                                    >
-                                        Email
-                                    </Label>
-                                    <Input
-                                        type='text'
-                                        name='email'
-                                        value={values.email}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.email && touched.email ? (
-                                        <Alert
-                                            message={errors.email}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label htmlFor='gender'>
-                                        Jenis Kelamin
-                                    </Label>
-                                    <ComboBox
-                                        name='gender'
-                                        items={Constants.genderOptions}
-                                        value={values.gender}
-                                        placeholder='Pilih Jenis Kelamin'
-                                        onChange={handleChange}
-                                    />
-                                    {errors.gender && touched.gender ? (
-                                        <Alert
-                                            message={errors.gender}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='fullName'
+                                        htmlFor='namaLengkap'
                                         className='w-36'
                                     >
                                         Nama Lengkap
                                     </Label>
                                     <Input
                                         type='text'
-                                        name='fullName'
-                                        value={values.fullName}
+                                        name='namaLengkap'
+                                        value={values.namaLengkap}
                                         onChange={handleChange}
                                     />
-                                    {errors.fullName && touched.fullName ? (
+                                    {errors.namaLengkap && touched.namaLengkap ? (
                                         <Alert
-                                            message={errors.fullName}
+                                            message={errors.namaLengkap}
                                             type='error'
                                         />
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='religion'
+                                        htmlFor='agama'
                                         className='w-36'
                                     >
                                         Agama
                                     </Label>
                                     <ComboBox
-                                        name='religion'
+                                        name='agama'
                                         items={Constants.religions}
-                                        value={values.religion}
-                                        placeholder='Pilih Jenis Kelamin'
+                                        value={values.agama}
+                                        placeholder='Pilih Agama'
                                         onChange={handleChange}
                                     />
-                                    {errors.religion && touched.religion ? (
+                                    {errors.agama && touched.agama ? (
                                         <Alert
-                                            message={errors.religion}
+                                            message={errors.agama}
                                             type='error'
                                         />
                                     ) : null}
@@ -310,64 +351,44 @@ const ProfilePage = () => {
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='phone'
+                                        htmlFor='noTelp'
                                         className='w-36'
                                     >
                                         No.Telepon
                                     </Label>
                                     <Input
                                         type='text'
-                                        name='phone'
-                                        value={values.phone}
+                                        name='noTelp'
+                                        value={values.noTelp}
                                         onChange={handleChange}
                                     />
-                                    {errors.phone && touched.phone ? (
+                                    {errors.noTelp && touched.noTelp ? (
                                         <Alert
-                                            message={errors.phone}
+                                            message={errors.noTelp}
                                             type='error'
                                         />
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='address'
-                                        className='w-36'
-                                    >
-                                        Alamat
-                                    </Label>
-                                    <Input
-                                        type='text'
-                                        name='address'
-                                        value={values.address}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.address && touched.address ? (
-                                        <Alert
-                                            message={errors.address}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label htmlFor='signUpload'>
+                                    <Label htmlFor='tandaTangan'>
                                         Tanda tangan
                                     </Label>
-                                    {values.signUpload ? (
+                                    {values.tandaTangan ? (
                                         <div className='flex flex-col'>
-                                            <img
-                                                src={URL.createObjectURL(
-                                                    values.signUpload
-                                                )}
-                                                alt='Tanda Tangan'
-                                                className='object-contain h-32 bg-gray-50 rounded-t-md'
-                                            />
+                                            {typeof values.tandaTangan === 'string' ? (
+                                                <img
+                                                    src={values.tandaTangan}
+                                                    alt='Tanda Tangan'
+                                                    className='object-contain h-32 bg-gray-50 rounded-t-md'
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={URL.createObjectURL(values.tandaTangan)}
+                                                    alt='Tanda Tangan'
+                                                    className='object-contain h-32 bg-gray-50 rounded-t-md'
+                                                />
+                                            )}
                                             <div className='flex flex-row gap-1 p-4 bg-white shadow rounded-b-md'>
-                                                {values.signExplanation && (
-                                                    <span className='text-sm'>
-                                                        {values.signExplanation}
-                                                        .
-                                                    </span>
-                                                )}
                                                 <span
                                                     className='text-sm text-blue-700 cursor-pointer'
                                                     onClick={() =>
@@ -389,10 +410,10 @@ const ProfilePage = () => {
                                             >
                                                 Upload
                                             </Button>
-                                            {errors.signUpload &&
-                                            touched.signUpload ? (
+                                            {errors.tandaTangan &&
+                                                touched.tandaTangan ? (
                                                 <Alert
-                                                    message={errors.signUpload}
+                                                    message={errors.tandaTangan}
                                                     type='error'
                                                 />
                                             ) : null}
@@ -418,7 +439,7 @@ const ProfilePage = () => {
                     }}
                 />
             </form>
-            {/* <LoadingSpinner show={isLoading} /> */}
+            <LoadingSpinner show={isLoading} />
         </>
     );
 };

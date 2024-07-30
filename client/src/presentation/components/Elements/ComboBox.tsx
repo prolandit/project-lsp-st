@@ -49,7 +49,7 @@ const ComboBox = ({
                         value={item.value}
                         className='text-ellipsis'
                     >
-                        {item.value}
+                        {item.label}
                     </option>
                 ))}
             </select>

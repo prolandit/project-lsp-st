@@ -25,7 +25,11 @@ const TuksPage = () => {
     const getAllDataTuk = async () => {
         try {
             const data = await TukRemoteDataSource.getTukData();
-            setTukData(data);
+            if (typeof data === 'object' && data !== null) {
+                setTukData(data);
+            } else {
+                console.error('Data format is incorrect');
+            }
         } catch (error) {
             console.error('Error fetching data:', error);
         }

@@ -25,13 +25,19 @@ const UsersPage = () => {
     const getAllUserData = async () => {
         try {
             const data = await UserRemoteDataSource.getAllUserData();
-            setUsersData(data);
+            if (typeof data === 'object' && data !== null) {
+                setUsersData(data);
+            } else {
+                console.error('Data format is incorrect');
+            }
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
-    console.log(usersData);
+    const handleDeleteSuccess = () => {
+        getAllUserData(); // Refresh data after deletion
+    };
 
     const columns: ColumnDef<User>[] = [
         {
@@ -72,7 +78,7 @@ const UsersPage = () => {
                             navigate(`/users/edit/${row.original.id}`)
                         }
                     />
-                    <DeleteUserModal id={row.original.id} />
+                    <DeleteUserModal id={row.original.id} onDeleteSuccess={handleDeleteSuccess} />
                 </div>
             ),
         },
@@ -85,9 +91,9 @@ const UsersPage = () => {
         for (let i = skip; i < endIndex && i < usersData.length; i++) {
             const user = new User({
                 id: usersData[i].id,
+                foto: usersData[i].foto,
                 email: usersData[i].email,
                 username: usersData[i].username,
-                foto: usersData[i].foto,
                 name: usersData[i].name,
                 role: usersData[i].role,
                 // birthPlace: 'Tempat Lahir',
@@ -97,7 +103,7 @@ const UsersPage = () => {
                 // nik: '2134567890',
                 // address: 'Address',
                 // phone: '21345678',
-                // sign: 'Sign',
+                // tandaTangan: usersData[i].tandaTangan,
                 // signExplanation: 'Sign Explanation',
             });
             personDataList.push(user);

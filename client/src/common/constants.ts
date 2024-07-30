@@ -4,51 +4,62 @@ const Constants = {
     genderOptions: [
         {
             key: 'pria',
-            value: 'Pria',
+            value: "1",
+            label: 'Pria'
         },
         {
             key: 'wanita',
-            value: 'Wanita',
+            value: "2",
+            label: 'Wanita'
         },
     ],
     religions: [
         {
             key: 'islam',
-            value: 'Islam',
+            value: '1',
+            label: 'Islam',
         },
         {
             key: 'protestan',
-            value: 'Kristen Protestan',
+            value: '2',
+            label: 'Kristen Protestan',
         },
         {
             key: 'katolik',
-            value: 'Kristen Katolik',
+            value: '3',
+            label: 'Kristen Katolik',
         },
         {
             key: 'hindu',
-            value: 'Hindu',
+            value: '4',
+            label: 'Hindu',
         },
         {
             key: 'buddha',
-            value: 'Buddha',
+            value: '5',
+            label: 'Buddha',
         },
         {
             key: 'khonghucu',
-            value: 'Khonghucu',
+            value: '6',
+            label: 'Khonghucu',
         },
     ],
     dummyRoles: [
         {
             key: 'adminLsp',
-            value: 'Admin LSP',
+            value: '1',
+            label: 'Admin LSP',
         },
         {
             key: 'asesi',
-            value: 'Asesi',
+            value: '2',
+            label: 'Asesi',
         },
         {
             key: 'asesor',
-            value: 'Asesor',
+            value: '3',
+            label: 'Asesor',
         },
     ],
 };
