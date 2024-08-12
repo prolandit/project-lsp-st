@@ -56,7 +56,7 @@ const AsesorPage = () => {
             header: 'No. Reg Asesor',
         },
         {
-            accessorKey: 'nameLengkap',
+            accessorKey: 'namaLengkap',
             header: 'Nama',
         },
         {

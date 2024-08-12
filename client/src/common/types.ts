@@ -137,6 +137,7 @@ export type UserValues = {
 
 export type AsesorValues = {
     [key: string]: any;
+    username?: string;
     role?: string;
     foto?: File;
     nama?: string;

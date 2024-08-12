@@ -29,7 +29,7 @@ const AsesorRemoteDataSource = {
 
         const formData = new FormData();
 
-        // if (payload.foto) formData.append('foto', payload.foto); 
+        if (payload.foto) formData.append('foto', payload.foto); 
         if (payload.userId) formData.append('userId', payload.userId);
         if (payload.nama) formData.append('nama', payload.nama);
         if (payload.alamat) formData.append('alamat', payload.alamat);
@@ -39,7 +39,7 @@ const AsesorRemoteDataSource = {
         if (payload.jenisKelamin) formData.append('jenisKelamin', payload.jenisKelamin);
         if (payload.agama) formData.append('agama', payload.agama);
         if (payload.phone) formData.append('phone', payload.phone);
-        // if (payload.tandaTangan) formData.append('tandaTangan', payload.tandaTangan);
+        if (payload.tandaTangan) formData.append('tandaTangan', payload.tandaTangan);
         if (payload.no_registrasi) formData.append('no_registrasi', payload.no_registrasi);
 
         try {
@@ -92,15 +92,15 @@ const AsesorRemoteDataSource = {
         if (payload.username) formData.append('username', payload.username);
         if (payload.foto) formData.append('foto', payload.foto);
         if (payload.tandaTangan) formData.append('tandaTangan', payload.tandaTangan);
-        if (payload.namaLengkap) formData.append('namaLengkap', payload.namaLengkap);
+        if (payload.nama) formData.append('nama', payload.nama);
         if (payload.jenisKelamin) formData.append('jenisKelamin', payload.jenisKelamin);
         if (payload.agama) formData.append('agama', payload.agama);
         if (payload.tanggalLahir) formData.append('tanggalLahir', payload.tanggalLahir);
         if (payload.tempatLahir) formData.append('tempatLahir', payload.tempatLahir);
-        if (payload.noTelp) formData.append('noTelp', payload.noTelp);
+        if (payload.phone) formData.append('phone', payload.phone);
         if (payload.alamat) formData.append('alamat', payload.alamat);
         if (payload.nik) formData.append('nik', payload.nik);
-        if (payload.noRegistration) formData.append('noRegistration', payload.noRegistration);
+        if (payload.no_registrasi) formData.append('no_registrasi', payload.no_registrasi);
 
         try {
             await axios.put(endpoint, formData, {

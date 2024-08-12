@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AsesorValues } from "../../../common/types";
 import { AsesorEditSchema } from "../../../common/formSchemas";
@@ -14,6 +14,7 @@ import UploadSignModal from "../../components/Fragments/SignUpload/UploadSignMod
 import AsesorRemoteDataSource from "../../../data/datasources/AsesorRemoteDataSource";
 import { toast } from "react-toastify";
 import LoadingSpinner from "../../components/Elements/LoadingSpinner";
+import { downloadFile } from "../../../common/utils";
 
 const EditAsesorPage = () => {
     const { id } = useParams();
@@ -59,11 +60,10 @@ const EditAsesorPage = () => {
         }
     };
 
-    console.log(asesorData);
-
 
     const onSaveAsesor = async (asesor: AsesorValues) => {
         setIsLoading(true);
+
 
         try {
             // const token = localStorage.getItem('token') ?? '';
@@ -97,25 +97,23 @@ const EditAsesorPage = () => {
     var day = ('0' + date.getDate()).slice(-2);
     var tanggalLahir = `${year}-${month}-${day}`;
 
-    console.log(tanggalLahir);
-
 
     const formik = useFormik({
         initialValues: {
-            role: asesorData.role,
             email: asesorData.email,
             username: asesorData.username,
             foto: asesorData.foto,
             tandaTangan: asesorData.tandaTangan,
-            namaLengkap: asesorData.namaLengkap,
+            nama: asesorData.namaLengkap,
             jenisKelamin: asesorData.jenisKelamin,
             agama: asesorData.agama,
             tanggalLahir: tanggalLahir,
             tempatLahir: asesorData.tempatLahir,
-            noTelp: asesorData.noTelp,
+            phone: asesorData.noTelp,
             alamat: asesorData.alamat,
+            role: asesorData.role,
             nik: asesorData.nik,
-            noRegistration: asesorData.noRegistration,
+            no_registrasi: asesorData.noRegistration,
         },
         validationSchema: AsesorEditSchema,
         onSubmit: onSaveAsesor,
@@ -123,6 +121,28 @@ const EditAsesorPage = () => {
     });
 
     const { errors, touched, values, handleChange, handleSubmit, setFieldValue } = formik;
+
+    const fotoUploadFile = useCallback(async () => {
+        if (asesorData.foto) {
+            const file = await downloadFile(asesorData.foto);
+            setFieldValue('foto', file);
+        }
+    }, [asesorData.foto, setFieldValue]);
+
+    const tandaTanganUploadFile = useCallback(async () => {
+        if (asesorData.tandaTangan) {
+            const file = await downloadFile(asesorData.tandaTangan); // Mengunduh file
+            setFieldValue('tandaTangan', file); // Mengatur nilai formik dengan file yang diunduh
+        }
+    }, [asesorData.tandaTangan, setFieldValue]);
+
+    useEffect(() => {
+        fotoUploadFile();
+    }, [fotoUploadFile]);
+
+    useEffect(() => {
+        tandaTanganUploadFile();
+    }, [tandaTanganUploadFile]);
 
     return (
         <>
@@ -164,6 +184,25 @@ const EditAsesorPage = () => {
                                         ) : null}
                                     </>
                                 )}
+                                <>
+                                    <Label
+                                        htmlFor='photo-upload'
+                                        className='px-4 py-2 text-sm font-medium text-blue-700 bg-blue-100 rounded-md cursor-pointer hover:bg-blue-200'
+                                    >
+                                        Upload Foto
+                                    </Label>
+                                    <input
+                                        id='photo-upload'
+                                        type='file'
+                                        accept='image/*'
+                                        onChange={(e) => {
+                                            const file =
+                                                e.currentTarget.files?.[0];
+                                            setFieldValue('foto', file);
+                                        }}
+                                        hidden
+                                    />
+                                </>
                             </div>
                             <div className='flex flex-col w-full gap-6 lg:gap-16 lg:grid lg:grid-cols-4 lg:gap-y-10'>
                                 <div className='flex flex-col gap-3'>
@@ -233,13 +272,13 @@ const EditAsesorPage = () => {
                                     </Label>
                                     <Input
                                         type='text'
-                                        name='namaLengkap'
-                                        value={values.namaLengkap}
+                                        name='nama'
+                                        value={values.nama}
                                         onChange={handleChange}
                                     />
-                                    {errors.namaLengkap && touched.namaLengkap ? (
+                                    {errors.nama && touched.nama ? (
                                         <Alert
-                                            message={errors.namaLengkap}
+                                            message={errors.nama}
                                             type='error'
                                         />
                                     ) : null}
@@ -365,40 +404,40 @@ const EditAsesorPage = () => {
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='noTelp'
+                                        htmlFor='phone'
                                         className='w-36'
                                     >
                                         No.Telepon
                                     </Label>
                                     <Input
                                         type='text'
-                                        name='noTelp'
-                                        value={values.noTelp}
+                                        name='phone'
+                                        value={values.phone}
                                         onChange={handleChange}
                                     />
-                                    {errors.noTelp && touched.noTelp ? (
+                                    {errors.phone && touched.phone ? (
                                         <Alert
-                                            message={errors.noTelp}
+                                            message={errors.phone}
                                             type='error'
                                         />
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='noRegistration'
+                                        htmlFor='no_registrasi'
                                         className='w-36'
                                     >
                                         Nomor Registerasi
                                     </Label>
                                     <Input
                                         type='text'
-                                        name='noRegistration'
-                                        value={values.noRegistration}
+                                        name='no_registrasi'
+                                        value={values.no_registrasi}
                                         onChange={handleChange}
                                     />
-                                    {errors.noRegistration && touched.noRegistration ? (
+                                    {errors.no_registrasi && touched.no_registrasi ? (
                                         <Alert
-                                            message={errors.noRegistration}
+                                            message={errors.no_registrasi}
                                             type='error'
                                         />
                                     ) : null}
