@@ -4,6 +4,7 @@ import {
     AsesorProfileValues,
     ChangePasswordValues,
     ErrorResponse,
+    getUserALl,
     UserType,
     UserValues,
 } from '../../common/types';
@@ -198,14 +199,16 @@ const UserRemoteDataSource = {
         }
     },
 
-    getAllUserData: async (): Promise<string> => {
-        // const url = import.meta.env.VITE_API_URL;
-        const url = 'http://103.245.39.44:3000';
-        const endpoint = `${url}/api/v1/user?page=1&limit=10`;
+    getAllUserData: async (
+        page: number,
+        limit: number,
+    ): Promise<getUserALl> => {
+        const url = import.meta.env.VITE_API_URL;
+        const endpoint = `${url}/api/v1/user?page=${page}&limit=${limit}`;
 
         try {
             const response = await axios.get(endpoint);
-            return response.data.data;
+            return response.data;
         } catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
 

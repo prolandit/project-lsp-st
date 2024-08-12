@@ -47,19 +47,24 @@ const Constants = {
     ],
     dummyRoles: [
         {
-            key: 'adminLsp',
-            value: '1',
-            label: 'Admin LSP',
-        },
-        {
-            key: 'asesi',
-            value: '2',
-            label: 'Asesi',
+            key: 'admin',
+            value: 'Admin',
+            label: 'Admin',
         },
         {
             key: 'asesor',
-            value: '3',
-            label: 'Asesor',
+            value: 'Assesor',
+            label: 'Assesor',
+        },
+        {
+            key: 'asesi',
+            value: 'asesi',
+            label: 'asesi',
+        },
+        {
+            key: 'ketuaLSP',
+            value: 'Ketua LSP',
+            label: 'Ketua LSP',
         },
     ],
 };

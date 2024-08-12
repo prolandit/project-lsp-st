@@ -31,6 +31,8 @@ const ProfilePage = () => {
         agama: '',
         nik: '',
         noTelp: '',
+        namaLengkap: '',
+        jenisKelamin: '',
     });
     const [isShowModal, setIsShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -60,6 +62,9 @@ const ProfilePage = () => {
     const onSaveProfile = async (profile: UserValues) => {
         setIsLoading(true);
 
+        console.log(profile);
+        
+
         try {
             // const token = localStorage.getItem('token') ?? '';
             if (id) {
@@ -83,19 +88,29 @@ const ProfilePage = () => {
         }
     };
 
+    var birtdate = profileData.tanggalLahir;
+
+    // Format YYYY-MM-DD
+    var date = new Date(birtdate);
+    var year = date.getFullYear();
+    var month = ('0' + (date.getMonth() + 1)).slice(-2); 
+    var day = ('0' + date.getDate()).slice(-2);
+    var tanggalLahir = `${year}-${month}-${day}`;
+
     const formik = useFormik({
         initialValues: {
-            namaLengkap: profileData.name,
+            namaLengkap: profileData.namaLengkap,
             email: profileData.email,
             username: profileData.username,
             foto: profileData.foto,
             tandaTangan: profileData.tandaTangan,
             role: profileData.role,
             tempatLahir: profileData.tempatLahir,
-            tanggalLahir: profileData.tanggalLahir,
+            tanggalLahir: tanggalLahir,
             agama: profileData.agama,
             nik: profileData.nik,
             noTelp: profileData.noTelp,
+            jenisKelamin: profileData.jenisKelamin,
         },
         validationSchema: userEditSchema,
         onSubmit: onSaveProfile,
@@ -289,6 +304,24 @@ const ProfilePage = () => {
                                     ) : null}
                                 </div>
                                 <div className='flex flex-col gap-3'>
+                                    <Label htmlFor='jenisKelamin'>
+                                        Jenis Kelamin
+                                    </Label>
+                                    <ComboBox
+                                        name='jenisKelamin'
+                                        items={Constants.genderOptions}
+                                        value={values.jenisKelamin}
+                                        placeholder='Pilih Jenis Kelamin'
+                                        onChange={handleChange}
+                                    />
+                                    {errors.jenisKelamin && touched.jenisKelamin ? (
+                                        <Alert
+                                            message={errors.jenisKelamin}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
                                     <Label
                                         htmlFor='namaLengkap'
                                         className='w-36'
@@ -433,9 +466,10 @@ const ProfilePage = () => {
                 <UploadSignModal
                     show={isShowModal}
                     closeModal={() => setIsShowModal(false)}
-                    onChange={(file, exp) => {
-                        setFieldValue('signUpload', file);
-                        setFieldValue('signExplanation', exp);
+                    // onChange={(file, exp) => {
+                    onChange={(file) => {
+                        setFieldValue('tandaTangan', file);
+                        // setFieldValue('signExplanation', exp);
                     }}
                 />
             </form>

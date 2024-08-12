@@ -19,14 +19,13 @@ const CreateAsesorPage = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const onSaveAsesor = async (asesor: AsesorValues) => {
-        console.log(asesor);
         setIsLoading(true);
 
         try {
             // const token = localStorage.getItem('token') ?? '';
- 
+
             await AsesorRemoteDataSource.createAsesorData(asesor);
-            toast.success('Pengguna berhasil ditambahkan', {
+            toast.success('Asesor berhasil ditambahkan', {
                 position: 'top-center',
                 hideProgressBar: true,
             });
@@ -49,7 +48,6 @@ const CreateAsesorPage = () => {
         setFieldValue,
     } = useFormik({
         initialValues: {
-            userId: "1",
             nama: '',
             nik: '',
             alamat: '',
@@ -355,8 +353,10 @@ const CreateAsesorPage = () => {
                 <UploadSignModal
                     show={isShowModal}
                     closeModal={() => setIsShowModal(false)}
+                    // onChange={(file, exp) => {
                     onChange={(file) => {
                         setFieldValue('tandaTangan', file);
+                        // setFieldValue('signExplanation', exp);
                     }}
                 />
             </form>

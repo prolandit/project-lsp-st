@@ -14,7 +14,7 @@ export default class User {
     public alamat?: string;
     public tandaTangan?: File;
     public role: string;
-    public name: string;
+    public nameLengkap: string;
 
     constructor(payload: UserPayload) {
         this.id = payload.id;
@@ -30,6 +30,6 @@ export default class User {
         this.alamat = payload.alamat;
         this.tandaTangan = payload.tandaTangan;
         this.role = payload.role;
-        this.name = payload.name;
+        this.nameLengkap = payload.nameLengkap;
     }
 }

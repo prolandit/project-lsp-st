@@ -13,20 +13,20 @@ const UsersPage = () => {
     const navigate = useNavigate();
 
     const [usersData, setUsersData] = useState<User[]>([]);
-    const [{ pageIndex, pageSize }, setPagination] = useState({
-        pageIndex: 1,
-        pageSize: 10,
-    });
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
+    const [totalCount, setTotalCount] = useState<number>(0);
 
     useEffect(() => {
-        getAllUserData();
-    }, []);
+        getAllUserData(page, limit);
+    }, [page, limit]);
 
-    const getAllUserData = async () => {
+    const getAllUserData = async (page: number, limit: number) => {
         try {
-            const data = await UserRemoteDataSource.getAllUserData();
+            const data = await UserRemoteDataSource.getAllUserData(page, limit);
             if (typeof data === 'object' && data !== null) {
-                setUsersData(data);
+                setUsersData(data.data);
+                setTotalCount(data.meta.total || 0);
             } else {
                 console.error('Data format is incorrect');
             }
@@ -36,7 +36,7 @@ const UsersPage = () => {
     };
 
     const handleDeleteSuccess = () => {
-        getAllUserData(); // Refresh data after deletion
+        getAllUserData(page, limit); // Refresh data after deletion
     };
 
     const columns: ColumnDef<User>[] = [
@@ -60,7 +60,7 @@ const UsersPage = () => {
             header: 'Email',
         },
         {
-            accessorKey: 'name',
+            accessorKey: 'namaLengkap',
             header: 'Nama Lengkap',
         },
         {
@@ -84,40 +84,20 @@ const UsersPage = () => {
         },
     ];
 
-    const generateData = (skip: number, pageSize: number): User[] => {
-        const personDataList: User[] = [];
-        const endIndex = skip + pageSize;
-
-        for (let i = skip; i < endIndex && i < usersData.length; i++) {
-            const user = new User({
-                id: usersData[i].id,
-                foto: usersData[i].foto,
-                email: usersData[i].email,
-                username: usersData[i].username,
-                name: usersData[i].name,
-                role: usersData[i].role,
-                // birthPlace: 'Tempat Lahir',
-                // birthDate: new Date(),
-                // gender: 'Gender',
-                // religion: 'Religion',
-                // nik: '2134567890',
-                // address: 'Address',
-                // phone: '21345678',
-                // tandaTangan: usersData[i].tandaTangan,
-                // signExplanation: 'Sign Explanation',
-            });
-            personDataList.push(user);
-        }
-        return personDataList;
-    };
-
-    const data: User[] = generateData(
-        pageIndex * pageSize - pageSize,
-        pageSize
-    );
-
     const onSearch = (query: string) => {
         console.log(query);
+    };
+
+    const paginateFn = (pageIndex: number, pageSize: number) => {
+        // Reset page to 1 if the page size changes
+        if (pageSize !== limit) {
+            setLimit(pageSize);
+            setPage(1); // Reset page to 1 when page size changes
+        } else {
+            setPage(pageIndex + 1); // Convert 0-based index to 1-based page number
+        }
+        console.log('Current page (1-based):', pageIndex + 1);
+        console.log('Page size:', pageSize);
     };
 
     return (
@@ -138,14 +118,11 @@ const UsersPage = () => {
             <hr />
             <div className='px-4 py-4 lg:px-6'>
                 <DataTable
-                    data={data}
+                    data={usersData} // Use usersData directly
                     columns={columns}
                     searchFn={onSearch}
-                    pageCount={Math.ceil(50 / pageSize)}
-                    paginateFn={(page, pageSize) => {
-                        setPagination({ pageIndex: page, pageSize });
-                        console.log(page, pageSize);
-                    }}
+                    pageCount={Math.ceil(totalCount / limit)}
+                    paginateFn={paginateFn}
                     sortingFn={(states) => {
                         console.log(states);
                     }}

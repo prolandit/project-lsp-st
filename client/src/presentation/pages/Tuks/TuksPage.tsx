@@ -13,20 +13,20 @@ const TuksPage = () => {
     const navigate = useNavigate();
 
     const [tukData, setTukData] = useState<Tuk[]>([]);
-    const [{ pageIndex, pageSize }, setPagination] = useState({
-        pageIndex: 1,
-        pageSize: 10,
-    });
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
+    const [totalCount, setTotalCount] = useState<number>(0);
 
     useEffect(() => {
-        getAllDataTuk();
-    }, []);
+        getAllDataTuk(page, limit);
+    }, [page, limit]);
 
-    const getAllDataTuk = async () => {
+    const getAllDataTuk = async (page: number, limit: number) => {
         try {
-            const data = await TukRemoteDataSource.getTukData();
+            const data = await TukRemoteDataSource.getTukData(page, limit);
             if (typeof data === 'object' && data !== null) {
-                setTukData(data);
+                setTukData(data.data);
+                setTotalCount(data.meta.total || 0);
             } else {
                 console.error('Data format is incorrect');
             }
@@ -36,7 +36,7 @@ const TuksPage = () => {
     };
 
     const handleDeleteSuccess = () => {
-        getAllDataTuk(); // Refresh data after deletion
+        getAllDataTuk(page, limit); // Refresh data after deletion
     };
 
     const columns: ColumnDef<Tuk>[] = [
@@ -69,30 +69,21 @@ const TuksPage = () => {
         },
     ];
 
-    const generateData = (skip: number, pageSize: number): Tuk[] => {
-        const tukDataList: Tuk[] = [];
-        const endIndex = skip + pageSize;
-
-        for (let i = skip; i < endIndex && i < tukData.length; i++) {
-            const tuks = new Tuk({
-                id: tukData[i].id,
-                nama_tuk: tukData[i].nama_tuk,
-                tipe_tuk: tukData[i].tipe_tuk,
-                alamat: tukData[i].alamat,
-            });
-            tukDataList.push(tuks);
-        }
-        return tukDataList;
-    };
-
-    const data: Tuk[] = generateData(pageIndex * pageSize - pageSize, pageSize);
-
     const onSearch = (query: string) => {
         console.log(query);
     };
 
-    const totalDataCount = tukData.length;
-    const showPagination = totalDataCount > pageSize;
+    const paginateFn = (pageIndex: number, pageSize: number) => {
+        // Reset page to 1 if the page size changes
+        if (pageSize !== limit) {
+            setLimit(pageSize);
+            setPage(1); // Reset page to 1 when page size changes
+        } else {
+            setPage(pageIndex + 1); // Convert 0-based index to 1-based page number
+        }
+        console.log('Current page (1-based):', pageIndex + 1);
+        console.log('Page size:', pageSize);
+    };
 
     return (
         <div className='flex flex-col mx-3 my-6 bg-white rounded-t-lg lg:mx-8'>
@@ -111,17 +102,14 @@ const TuksPage = () => {
             </div>
             <hr />
             <div className='px-4 py-4 lg:px-6'>
-                <DataTable
-                    data={data}
+            <DataTable
+                    data={tukData} // Use usersData directly
                     columns={columns}
                     searchFn={onSearch}
-                    pageCount={showPagination ? Math.ceil(totalDataCount / pageSize) : 1}
-                    paginateFn={showPagination ? (page, pageSize) => {
-                        setPagination({ pageIndex: page, pageSize });
-                        console.log(page, pageSize);
-                    } : undefined}
+                    pageCount={Math.ceil(totalCount / limit)}
+                    paginateFn={paginateFn}
                     sortingFn={(states) => {
-                        console.log("state: ", states);
+                        console.log(states);
                     }}
                 />
             </div>

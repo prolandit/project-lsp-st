@@ -41,7 +41,7 @@ const DataTable = <TData, TValue>({
     const [searchQuery, setSearchQuery] = useState('');
 
     const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
-        pageIndex: 1,
+        pageIndex: 0,
         pageSize: 10,
     });
     const [sorting, setSorting] = useState<SortingState>([]);
@@ -97,8 +97,8 @@ const DataTable = <TData, TValue>({
     });
 
     const handlePageClick = (selectedItem: { selected: number }) => {
-        table.setPageIndex(selectedItem.selected + 1);
-        paginateFn?.(selectedItem.selected + 1, pageSize);
+        table.setPageIndex(selectedItem.selected);
+        paginateFn?.(selectedItem.selected, pageSize);
     };
 
     const handleNumEntries = (

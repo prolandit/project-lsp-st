@@ -7,10 +7,10 @@ import './index.css';
 import store from './presentation/redux/store';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <Provider store={store}>
             <App />
             <ToastContainer />
         </Provider>
-    </React.StrictMode>
+    // </React.StrictMode>
 );

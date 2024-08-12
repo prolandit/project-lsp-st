@@ -52,6 +52,20 @@ export type ErrorResponse = {
     message: string;
 };
 
+export type metaPayload = {
+    total: number,
+}
+
+export type getUserALl = {
+    data: UserPayload[];
+    meta: metaPayload;
+};
+
+export type getTukALl = {
+    data: TukPayload[];
+    meta: metaPayload;
+};
+
 // export type AsesiProfileValues = {
 //     [key: string]: any;
 //     fullName?: string;
@@ -106,6 +120,7 @@ export type ErrorResponse = {
 
 export type UserValues = {
     [key: string]: any;
+    role?: string;
     foto?: File;
     tempatLahir?: string;
     tanggalLahir?: string;
@@ -118,14 +133,14 @@ export type UserValues = {
     noTelp?: string;
     alamat?: string;
     tandaTangan?: File;
-    role?: string
 };
 
 export type AsesorValues = {
     [key: string]: any;
+    role?: string;
     foto?: File;
-    userId?: string
-    nama?: string
+    nama?: string;
+    email?: string;
     nik?: string;
     alamat?: string;
     tanggalLahir?: string;
@@ -174,7 +189,7 @@ export type UserPayload = {
     alamat?: string;
     tandaTangan?: File;
     role: string;
-    name: string;
+    nameLengkap: string;
 };
 
 export type TukPayload = {
@@ -188,7 +203,7 @@ export type AsesorPayload = {
     id: number;
     foto: string;
     noRegistration: string;
-    name: string;
+    nameLengkap: string;
 };
 
 export type MenuType = {

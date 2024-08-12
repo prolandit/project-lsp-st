@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import Modal from '../../Elements/Modal';
+import LoadingSpinner from '../../Elements/LoadingSpinner';
+import { toast } from 'react-toastify';
+import AsesorRemoteDataSource from '../../../../data/datasources/AsesorRemoteDataSource';
 
 type Props = {
     id: number;
@@ -13,15 +16,33 @@ const DeleteAsesorModal = ({ id, onDeleteSuccess }: Props) => {
     // const navigate = useNavigate();
     const [modal, setModal] = useState(false);
 
-    // const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleClose = () => {
         setModal(!modal);
     };
 
     const handleDelete = async () => {
-        console.log(`Delete data with id: ${id}`);
-        onDeleteSuccess();
+        setIsLoading(true);
+        try {
+            const numericId = parseInt(id.toString(), 10);
+            if (!isNaN(numericId)) {
+                await AsesorRemoteDataSource.deleteAsesor(numericId);
+                toast.success('Asesor berhasil dihapus', {
+                    position: 'top-center',
+                    hideProgressBar: true,
+                });
+                onDeleteSuccess();
+                handleClose();
+            }
+        } catch (error) {
+            toast.error((error as Error).message, {
+                position: 'top-center',
+                hideProgressBar: true,
+            });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -42,7 +63,7 @@ const DeleteAsesorModal = ({ id, onDeleteSuccess }: Props) => {
                 <span className='mx-4 my-1 font-medium'>
                     Anda yakin ingin menghapus data ini?
                 </span>
-                {/* <LoadingSpinner show={isLoading} /> */}
+                <LoadingSpinner show={isLoading} />
             </Modal>
         </div>
     );

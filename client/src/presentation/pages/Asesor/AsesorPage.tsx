@@ -13,21 +13,20 @@ const AsesorPage = () => {
     const navigate = useNavigate();
 
     const [asesorsData, setAsesorsData] = useState<Asesor[]>([]);
-    const [{ pageIndex, pageSize }, setPagination] = useState({
-        pageIndex: 1,
-        pageSize: 10,
-    });
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
+    const [totalCount, setTotalCount] = useState<number>(0);
 
     useEffect(() => {
-        getAllAsesorsData();
-    }, []);
+        getAllAsesorsData(page, limit);
+    }, [page, limit]);
 
-    const getAllAsesorsData = async () => {
+    const getAllAsesorsData = async (page: number, limit: number) => {
         try {
-            const data = await AsesorRemoteDataSource.getAsesorData();
-            console.log("data: ", data);
+            const data = await AsesorRemoteDataSource.getAsesorData(page, limit);
             if (typeof data === 'object' && data !== null) {
-                setAsesorsData(data);
+                setAsesorsData(data.data);
+                setTotalCount(data.meta.total || 0);
             } else {
                 console.error('Data format is incorrect');
             }
@@ -37,7 +36,7 @@ const AsesorPage = () => {
     };
 
     const handleDeleteSuccess = () => {
-        getAllAsesorsData(); // Refresh data after deletion
+        getAllAsesorsData(page, limit); // Refresh data after deletion
     };
 
     const columns: ColumnDef<Asesor>[] = [
@@ -57,7 +56,7 @@ const AsesorPage = () => {
             header: 'No. Reg Asesor',
         },
         {
-            accessorKey: 'name',
+            accessorKey: 'nameLengkap',
             header: 'Nama',
         },
         {
@@ -77,26 +76,20 @@ const AsesorPage = () => {
         },
     ];
 
-    const generateData = (skip: number, pageSize: number): Asesor[] => {
-        const personDataList: Asesor[] = [];
-        const endIndex = skip + pageSize;
-
-        for (let i = skip; i < endIndex && i < asesorsData.length; i++) {
-            const asesor = new Asesor({
-                id: asesorsData[i].id,
-                foto: asesorsData[i].foto,
-                noRegistration: asesorsData[i].noRegistration,
-                name: asesorsData[i].name,
-            });
-            personDataList.push(asesor);
-        }
-        return personDataList;
-    };
-
-    const data: Asesor[] = generateData(pageIndex * pageSize - pageSize, pageSize);
-
     const onSearch = (query: string) => {
         console.log(query);
+    };
+
+    const paginateFn = (pageIndex: number, pageSize: number) => {
+        // Reset page to 1 if the page size changes
+        if (pageSize !== limit) {
+            setLimit(pageSize);
+            setPage(1); // Reset page to 1 when page size changes
+        } else {
+            setPage(pageIndex + 1); // Convert 0-based index to 1-based page number
+        }
+        console.log('Current page (1-based):', pageIndex + 1);
+        console.log('Page size:', pageSize);
     };
 
     return (
@@ -117,14 +110,11 @@ const AsesorPage = () => {
             <hr />
             <div className='px-4 py-4 lg:px-6'>
                 <DataTable
-                    data={data}
+                    data={asesorsData} // Use usersData directly
                     columns={columns}
                     searchFn={onSearch}
-                    pageCount={Math.ceil(50 / pageSize)}
-                    paginateFn={(page, pageSize) => {
-                        setPagination({ pageIndex: page, pageSize });
-                        console.log(page, pageSize);
-                    }}
+                    pageCount={Math.ceil(totalCount / limit)}
+                    paginateFn={paginateFn}
                     sortingFn={(states) => {
                         console.log(states);
                     }}

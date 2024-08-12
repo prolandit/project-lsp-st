@@ -21,17 +21,19 @@ const EditUserPage = () => {
     const { id } = useParams();
 
     const [profileData, setProfileData] = useState({
+        role: '',
         email: '',
         username: '',
         foto: undefined,
         tandaTangan: undefined,
         name: '',
-        role: '',
         tempatLahir: '',
         tanggalLahir: '',
         agama: '',
         nik: '',
         noTelp: '',
+        namaLengkap: '',
+        jenisKelamin: '',
     });
     const [isShowModal, setIsShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -48,6 +50,7 @@ const EditUserPage = () => {
                     const dataFromRemote = await UserRemoteDataSource.getProfileById(numericId);
                     if (typeof dataFromRemote === 'object' && dataFromRemote !== null) {
                         setProfileData(dataFromRemote);
+                        console.log(dataFromRemote);
                     } else {
                         console.error('Data format is incorrect');
                     }
@@ -57,6 +60,7 @@ const EditUserPage = () => {
             console.error('Error fetching data:', error);
         }
     };
+
 
 
     const onEdit = async (profile: UserValues) => {
@@ -85,19 +89,29 @@ const EditUserPage = () => {
         }
     };
 
+    var birtdate = profileData.tanggalLahir;
+
+    // Format YYYY-MM-DD
+    var date = new Date(birtdate);
+    var year = date.getFullYear();
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+    var day = ('0' + date.getDate()).slice(-2);
+    var tanggalLahir = `${year}-${month}-${day}`;
+
     const formik = useFormik({
         initialValues: {
-            namaLengkap: profileData.name,
+            role: profileData.role,
+            namaLengkap: profileData.namaLengkap,
             email: profileData.email,
             username: profileData.username,
             foto: profileData.foto,
             tandaTangan: profileData.tandaTangan,
-            role: profileData.role,
             tempatLahir: profileData.tempatLahir,
-            tanggalLahir: profileData.tanggalLahir,
+            tanggalLahir: tanggalLahir,
             agama: profileData.agama,
             nik: profileData.nik,
             noTelp: profileData.noTelp,
+            jenisKelamin: profileData.jenisKelamin,
         },
         validationSchema: userEditSchema,
         onSubmit: onEdit,
@@ -190,17 +204,14 @@ const EditUserPage = () => {
                             </div>
                             <div className='flex flex-col w-full gap-6 lg:gap-16 lg:grid lg:grid-cols-4 lg:gap-y-10'>
                                 <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='role'
-                                        className='w-36'
-                                    >
-                                        Peran
+                                    <Label htmlFor='role'>
+                                        peran
                                     </Label>
                                     <ComboBox
                                         name='role'
                                         items={Constants.dummyRoles}
                                         value={values.role}
-                                        placeholder='Pilih Peran'
+                                        placeholder='Pilih Jenis Kelamin'
                                         onChange={handleChange}
                                     />
                                     {errors.role && touched.role ? (
@@ -286,6 +297,24 @@ const EditUserPage = () => {
                                     {errors.username && touched.username ? (
                                         <Alert
                                             message={errors.username}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label htmlFor='jenisKelamin'>
+                                        Jenis Kelamin
+                                    </Label>
+                                    <ComboBox
+                                        name='jenisKelamin'
+                                        items={Constants.genderOptions}
+                                        value={values.jenisKelamin}
+                                        placeholder='Pilih Jenis Kelamin'
+                                        onChange={handleChange}
+                                    />
+                                    {errors.jenisKelamin && touched.jenisKelamin ? (
+                                        <Alert
+                                            message={errors.jenisKelamin}
                                             type='error'
                                         />
                                     ) : null}

@@ -1,14 +1,17 @@
 import axios, { AxiosError } from 'axios';
-import { ErrorResponse, TukValues } from '../../common/types';
+import { ErrorResponse, getTukALl, TukValues } from '../../common/types';
 
 const TukRemoteDataSource = {
-    getTukData: async (): Promise<string> => {
+    getTukData: async (
+        page: number,
+        limit: number,
+    ): Promise<getTukALl> => {
         const url = import.meta.env.VITE_API_URL;
-        const endpoint = `${url}/api/v1/tuk/get_tuk?page=1&limit=10`;
+        const endpoint = `${url}/api/v1/tuk/get_tuk?page=${page}&limit=${limit}`;
 
         try {
             const response = await axios.get(endpoint);
-            return response.data.data;
+            return response.data;
         } catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
 
