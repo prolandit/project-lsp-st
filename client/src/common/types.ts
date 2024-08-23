@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+export type loginPayload = {
+    message: string,
+    token: string
+};
+
 export type TukValues = {
     nama_tuk: string;
     alamat: string;
@@ -29,11 +34,12 @@ export type AssesmentDataPayload = {
 };
 
 export type LoginValues = {
-    email: string;
+    identifier: string;
     password: string;
 };
 export type RegisterValues = {
-    fullName: string;
+    username: string;
+    namaLengkap: string;
     email: string;
     password: string;
     passwordConfirmation: string;

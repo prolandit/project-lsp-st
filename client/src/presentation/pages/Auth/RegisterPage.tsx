@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Constants from '../../../common/constants';
@@ -11,6 +11,14 @@ import AuthLayout from '../../components/Layouts/AuthLayout';
 const RegisterPage = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+
+    const isAuthenticated = Boolean(localStorage.getItem('token'));
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/');
+        }
+    }, [isAuthenticated, navigate]);
 
     const onRegister = async (payload: RegisterValues) => {
         setIsLoading(true);

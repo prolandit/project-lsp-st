@@ -20,8 +20,6 @@ const CreateUserPage = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const onSave = async (profile: UserValues) => {
-        console.log('profile: ', profile);
-        
         setIsLoading(true);
 
         try {

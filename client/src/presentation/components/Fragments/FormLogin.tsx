@@ -3,18 +3,20 @@ import { CiLock, CiMail } from 'react-icons/ci';
 import { LoginValues } from '../../../common/types';
 import Button from '../Elements/Button';
 import InputForm from '../Elements/InputForm';
+import { loginSchema } from '../../../common/formSchemas';
+import Alert from '../Elements/Alert';
 
 type Props = {
     onLogin: (payload: LoginValues) => void;
 };
 
 const FormLogin = ({ onLogin }: Props) => {
-    const { values, handleChange, handleSubmit } = useFormik({
+    const { errors, touched, values, handleChange, handleSubmit } = useFormik({
         initialValues: {
-            email: '',
+            identifier: '',
             password: '',
         },
-        // validationSchema: loginSchema,
+        validationSchema: loginSchema,
         onSubmit: onLogin,
     });
 
@@ -25,19 +27,19 @@ const FormLogin = ({ onLogin }: Props) => {
         >
             <InputForm
                 type='email'
-                name='email'
-                value={values.email}
+                name='identifier'
+                value={values.identifier}
                 onChange={handleChange}
                 placeholder='Masukkan Email Anda'
-                text='Email'
+                text='identifier'
                 prefix={<CiMail className='text-lg text-black me-3' />}
             />
-            {/* {errors.email && touched.email ? (
+            {errors.identifier && touched.identifier ? (
                 <Alert
-                    message={errors.email}
+                    message={errors.identifier}
                     type='error'
                 />
-            ) : null} */}
+            ) : null}
             <InputForm
                 type='password'
                 name='password'
@@ -47,12 +49,12 @@ const FormLogin = ({ onLogin }: Props) => {
                 text='Password'
                 prefix={<CiLock className='text-lg text-black me-3' />}
             />
-            {/* {errors.password && touched.password ? (
+            {errors.password && touched.password ? (
                 <Alert
                     message={errors.password}
                     type='error'
                 />
-            ) : null} */}
+            ) : null}
             <Button
                 type='submit'
                 className='mt-5 h-[45px] bg-blue-500 hover:bg-blue-700'

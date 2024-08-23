@@ -14,8 +14,9 @@ type Props = {
 const FormRegister = ({ onRegister }: Props) => {
     const { errors, touched, values, handleChange, handleSubmit } = useFormik({
         initialValues: {
+            username: '',
             email: '',
-            fullName: '',
+            namaLengkap: '',
             password: '',
             passwordConfirmation: '',
         },
@@ -28,6 +29,21 @@ const FormRegister = ({ onRegister }: Props) => {
             className='flex flex-col gap-5'
             onSubmit={handleSubmit}
         >
+            <InputForm
+                type='text'
+                name='username'
+                value={values.username}
+                onChange={handleChange}
+                placeholder='Masukkan Username Anda'
+                text='Username'
+                prefix={<IoPersonOutline className='text-lg text-black me-3' />}
+            />
+            {errors.username && touched.username ? (
+                <Alert
+                    message={errors.username}
+                    type='error'
+                />
+            ) : null}
             <InputForm
                 type='email'
                 name='email'
@@ -44,17 +60,17 @@ const FormRegister = ({ onRegister }: Props) => {
                 />
             ) : null}
             <InputForm
-                type='fullName'
-                name='fullName'
-                value={values.fullName}
+                type='text'
+                name='namaLengkap'
+                value={values.namaLengkap}
                 onChange={handleChange}
                 placeholder='Masukkan Nama Lengkap Anda'
                 text='Nama Lengkap'
                 prefix={<IoPersonOutline className='text-lg text-black me-3' />}
             />
-            {errors.fullName && touched.fullName ? (
+            {errors.namaLengkap && touched.namaLengkap ? (
                 <Alert
-                    message={errors.fullName}
+                    message={errors.namaLengkap}
                     type='error'
                 />
             ) : null}

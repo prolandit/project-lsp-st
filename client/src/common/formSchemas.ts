@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import Constants from './constants';
 
 export const loginSchema = Yup.object().shape({
-    email: Yup.string()
+    identifier: Yup.string()
         .email('Email tidak valid')
         .required('Email tidak boleh kosong'),
     password: Yup.string()
@@ -15,7 +15,8 @@ export const registerSchema = Yup.object().shape({
     email: Yup.string()
         .email('Email tidak valid')
         .required('Email tidak boleh kosong'),
-    fullName: Yup.string().required('Nama Lengkap tidak boleh kosong'),
+    username: Yup.string().required('Nama Lengkap tidak boleh kosong'),
+    namaLengkap: Yup.string().required('Nama Lengkap tidak boleh kosong'),
     password: Yup.string()
         .min(6, 'Password minimal 6 karakter')
         .required('Password tidak boleh kosong'),

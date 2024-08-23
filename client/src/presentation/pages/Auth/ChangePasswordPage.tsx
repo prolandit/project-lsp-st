@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CiLock } from 'react-icons/ci';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -16,6 +16,14 @@ import AnimationContainer from '../../components/Fragments/AnimationContainer';
 const ChangePasswordPage = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+
+    const isAuthenticated = Boolean(localStorage.getItem('token'));
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/');
+        }
+    }, [isAuthenticated, navigate]);
 
     const onChangePassword = async (payload: ChangePasswordValues) => {
         setIsLoading(true);

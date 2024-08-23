@@ -16,79 +16,134 @@ import AsesorPage from './presentation/pages/Asesor/AsesorPage';
 import CreateAsesorPage from './presentation/pages/Asesor/CreateAsesorPage';
 import EditAsesorPage from './presentation/pages/Asesor/EditAsesorPage';
 
+// middleware
+import RequireAuth from './data/middleware/RequireAuth';
+
 const App = () => {
     return (
         <BrowserRouter basename='/'>
             <Routes>
                 <Route
                     path='/'
-                    element={<MainLayout />}
+                    element={
+                        <RequireAuth>
+                            <MainLayout />
+                        </RequireAuth>
+                    }
                 >
                     <Route
                         index
                         key='index'
-                        element={<BerandaLayout />}
+                        element={
+                            <RequireAuth>
+                                <BerandaLayout />
+                            </RequireAuth>
+                        }
                     />
                     <Route
                         key='profile'
                         path='/profile'
-                        element={<ProfilePage />}
+                        element={
+                            <RequireAuth>
+                                <ProfilePage />
+                            </RequireAuth>
+                        }
                     />
                     <Route
                         key='users'
                         path='/users'
-                        element={<UsersPage />}
+                        element={
+                            <RequireAuth>
+                                <UsersPage />
+                            </RequireAuth>
+                        }
                     />
                     <Route
                         key='create-user'
                         path='/users/create'
-                        element={<CreateUserPage />}
+                        element={
+                            <RequireAuth>
+                                <CreateUserPage />
+                            </RequireAuth>
+                        }
                     />
                     <Route
                         key='edit-user'
                         path='/users/edit/:id'
-                        element={<EditUserPage />}
+                        element={
+                            <RequireAuth>
+                                <EditUserPage />
+                            </RequireAuth>
+                        }
                     />
                     <Route
                         key='tuks'
                         path='/tuks'
-                        element={<TuksPage />}
+                        element={
+                            <RequireAuth>
+                                <TuksPage />
+                            </RequireAuth>
+                        }
                     />
                     <Route
                         key='create-tuk'
                         path='/tuks/create'
-                        element={<CreateTukPage />}
+                        element={
+                            <RequireAuth>
+                                <CreateTukPage />
+                            </RequireAuth>
+                        }
                     />
                     <Route
                         key='edit-tuk'
                         path='/tuks/edit/:id'
-                        element={<EditTukPage />}
+                        element={
+                            <RequireAuth>
+                                <EditTukPage />
+                            </RequireAuth>
+                        }
                     />
                     <Route
                         key='asesor'
                         path='/asesor'
-                        element={<AsesorPage />}
+                        element={
+                            <RequireAuth>
+                                <AsesorPage />
+                            </RequireAuth>
+                        }
                     />
                     <Route
                         key='asesor'
                         path='/asesor/create'
-                        element={<CreateAsesorPage />}
+                        element={
+                            <RequireAuth>
+                                <CreateAsesorPage />
+                            </RequireAuth>
+                        }
                     />
                     <Route
                         key='asesor'
                         path='/asesor/edit/:id'
-                        element={<EditAsesorPage />}
+                        element={
+                            <RequireAuth>
+                                <EditAsesorPage />
+                            </RequireAuth>
+                        }
                     />
                 </Route>
                 <Route
                     key='login'
-                    path='/login'
-                    element={<LoginPage />}
+                    path="/login"
+                    element={
+                        <LoginPage />
+                    }
                 />
                 <Route
                     key='register'
-                    path='/register'
-                    element={<RegisterPage />}
+                    path="/register"
+                    element={
+                        <RegisterPage />
+                    }
                 />
                 <Route
                     key='ubah-password'

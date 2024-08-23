@@ -1,16 +1,13 @@
 import axios, { AxiosError } from 'axios';
 import {
-    AsesiProfileValues,
-    AsesorProfileValues,
     ChangePasswordValues,
     ErrorResponse,
     getUserALl,
-    UserType,
     UserValues,
 } from '../../common/types';
 
 const UserRemoteDataSource = {
-    getLoggedUser: async (token: string): Promise<UserType> => {
+    getLoggedUser: async (token: string): Promise<string> => {
         const url = import.meta.env.VITE_API_URL;
         const endpoint = `${url}/api-em/user/profile`;
 
