@@ -18,6 +18,8 @@ const CreateTukPage = () => {
     const onSave = async (tuk: TukValues) => {
         setIsLoading(true);
 
+        console.log(tuk);
+
         try {
             await TukRemoteDataSource.createTukData(tuk);
             toast.success('TUK berhasil ditambahkan', {
@@ -45,9 +47,15 @@ const CreateTukPage = () => {
             nama_tuk: '',
             alamat: '',
             tipe_tuk: '',
+            kode_tuk: '',
+            tanggal_berlaku: '',
+            no_telepon: '',
+            alamat_wilayah: '',
+            alamat_tuk: '',
         },
         validationSchema: tukInputSchema,
         onSubmit: onSave,
+        enableReinitialize: true,
     });
 
     return (
@@ -60,7 +68,7 @@ const CreateTukPage = () => {
                 <div className='flex flex-col gap-4 mx-3 lg:flex-row lg:mx-8'>
                     <div className='w-full pt-4 bg-white rounded-md shadow-sm pb-7 drop-shadow-sm'>
                         <span className='px-4 py-6 text-base font-semibold text-blue-600 lg:px-6'>
-                            Tambah Tempat Uji Kompetensi (TUK)
+                            Edit Tempat Uji Kompetensi (TUK)
                         </span>
                         <hr className='my-4' />
                         <div className='flex flex-col items-center gap-6 px-4 lg:gap-16 lg:px-6'>
@@ -87,7 +95,7 @@ const CreateTukPage = () => {
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='tipe_tuk'
+                                        htmlFor='type'
                                         className='w-36'
                                     >
                                         Tipe TUK
@@ -107,12 +115,73 @@ const CreateTukPage = () => {
                                 </div>
                                 <div className='flex flex-col gap-3'>
                                     <Label
+                                        htmlFor='kode_tuk'
+                                        className='w-36'
+                                    >
+                                        Kode TUK
+                                    </Label>
+                                    <Input
+                                        type='text'
+                                        name='kode_tuk'
+                                        value={values.kode_tuk}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.kode_tuk && touched.kode_tuk ? (
+                                        <Alert
+                                            message={errors.kode_tuk}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
+                                        htmlFor='tanggal_berlaku'
+                                        className='w-36'
+                                    >
+                                        Tanggal Berlaku
+                                    </Label>
+                                    <Input
+                                        type='date'
+                                        name='tanggal_berlaku'
+                                        value={values.tanggal_berlaku}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.tanggal_berlaku && touched.tanggal_berlaku ? (
+                                        <Alert
+                                            message={errors.tanggal_berlaku}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
+                                        htmlFor='no_telepon'
+                                        className='w-36'
+                                    >
+                                        No.Telepon
+                                    </Label>
+                                    <Input
+                                        type='number'
+                                        name='no_telepon'
+                                        value={values.no_telepon}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.no_telepon && touched.no_telepon ? (
+                                        <Alert
+                                            message={errors.no_telepon}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
                                         htmlFor='alamat'
                                         className='w-36'
                                     >
                                         Alamat
                                     </Label>
-                                    <Textarea
+                                    <Input
+                                        type='text'
                                         name='alamat'
                                         value={values.alamat}
                                         onChange={handleChange}
@@ -120,6 +189,44 @@ const CreateTukPage = () => {
                                     {errors.alamat && touched.alamat ? (
                                         <Alert
                                             message={errors.alamat}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
+                                        htmlFor='alamat_wilayah'
+                                        className='w-36'
+                                    >
+                                        Alamat Wilayah
+                                    </Label>
+                                    <Textarea
+                                        name='alamat_wilayah'
+                                        value={values.alamat_wilayah}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.alamat_wilayah && touched.alamat_wilayah ? (
+                                        <Alert
+                                            message={errors.alamat_wilayah}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
+                                        htmlFor='alamat_tuk'
+                                        className='w-36'
+                                    >
+                                        Alamat TUK
+                                    </Label>
+                                    <Textarea
+                                        name='alamat_tuk'
+                                        value={values.alamat_tuk}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.alamat_tuk && touched.alamat_tuk ? (
+                                        <Alert
+                                            message={errors.alamat_tuk}
                                             type='error'
                                         />
                                     ) : null}

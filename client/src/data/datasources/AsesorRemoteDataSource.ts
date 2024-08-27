@@ -29,18 +29,20 @@ const AsesorRemoteDataSource = {
 
         const formData = new FormData();
 
-        if (payload.foto) formData.append('foto', payload.foto); 
         if (payload.userId) formData.append('userId', payload.userId);
-        if (payload.nama) formData.append('nama', payload.nama);
-        if (payload.alamat) formData.append('alamat', payload.alamat);
+        if (payload.username) formData.append('username', payload.username);
+        if (payload.email) formData.append('email', payload.email);
+        if (payload.namaLengkap) formData.append('namaLengkap', payload.namaLengkap);
         if (payload.nik) formData.append('nik', payload.nik);
+        if (payload.alamat) formData.append('alamat', payload.alamat);
         if (payload.tempatLahir) formData.append('tempatLahir', payload.tempatLahir);
         if (payload.tanggalLahir) formData.append('tanggalLahir', payload.tanggalLahir);
         if (payload.jenisKelamin) formData.append('jenisKelamin', payload.jenisKelamin);
         if (payload.agama) formData.append('agama', payload.agama);
         if (payload.phone) formData.append('phone', payload.phone);
+        if (payload.foto) formData.append('foto', payload.foto); 
         if (payload.tandaTangan) formData.append('tandaTangan', payload.tandaTangan);
-        if (payload.no_registrasi) formData.append('no_registrasi', payload.no_registrasi);
+        // if (payload.no_registrasi) formData.append('no_registrasi', payload.no_registrasi);
 
         try {
             await axios.post(endpoint, formData, {

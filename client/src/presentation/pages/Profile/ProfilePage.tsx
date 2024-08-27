@@ -17,8 +17,7 @@ import LoadingSpinner from '../../components/Elements/LoadingSpinner';
 import { downloadFile } from '../../../common/utils';
 
 const ProfilePage = () => {
-    const id = "1";
-
+    
     const [profileData, setProfileData] = useState({
         email: '',
         username: '',
@@ -34,25 +33,24 @@ const ProfilePage = () => {
         namaLengkap: '',
         jenisKelamin: '',
     });
+    
+    const [id, setId] = useState<number | null>(null); 
     const [isShowModal, setIsShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        getDatabyId();
+        getUserByToken();
     }, []);
 
-    const getDatabyId = async () => {
+    const getUserByToken = async () => {
         try {
-            if (id) {
-                const numericId = parseInt(id, 10);
-                if (!isNaN(numericId)) {
-                    const dataFromRemote = await UserRemoteDataSource.getProfileById(numericId);
-                    if (typeof dataFromRemote === 'object' && dataFromRemote !== null) {
-                        setProfileData(dataFromRemote);
-                    } else {
-                        console.error('Data format is incorrect');
-                    }
-                }
+            const token = localStorage.getItem('token') ?? '';
+            const data = await UserRemoteDataSource.getLoggedUser(token);
+            if (typeof data === 'object' && data !== null) {
+                setId(parseInt(data.id.toString(), 10));
+                setProfileData(data);
+            } else {
+                console.error('Data format is incorrect');
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -62,13 +60,10 @@ const ProfilePage = () => {
     const onSaveProfile = async (profile: UserValues) => {
         setIsLoading(true);
 
-        console.log(profile);
-        
-
         try {
             // const token = localStorage.getItem('token') ?? '';
-            if (id) {
-                const numericId = parseInt(id, 10);
+            if (id !== null) {
+                const numericId = parseInt(id.toString(), 10);
                 if (!isNaN(numericId)) {
                     await UserRemoteDataSource.changeProfile(numericId, profile);
                 }
@@ -87,6 +82,9 @@ const ProfilePage = () => {
             setIsLoading(false);
         }
     };
+
+    console.log(profileData);
+    
 
     var birtdate = profileData.tanggalLahir;
 

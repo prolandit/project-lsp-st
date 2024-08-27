@@ -9,6 +9,11 @@ export type TukValues = {
     nama_tuk: string;
     alamat: string;
     tipe_tuk: string;
+    kode_tuk: string;
+    tanggal_berlaku: string;
+    no_telepon: string;
+    alamat_wilayah: string;
+    alamat_tuk: string;
 };
 
 export type AssesmentSchedulePayload = {
@@ -71,6 +76,30 @@ export type getTukALl = {
     data: TukPayload[];
     meta: metaPayload;
 };
+
+export type getLoggedUsers = {
+    id: number;
+    foto?: string;
+    tempatLahir?: string;
+    tanggalLahir?: string;
+    username: string;
+    email?: string;
+    jenisKelamin?: string;
+    namaLengkap: string;
+    agama?: string;
+    nik?: string;
+    noTelp?: string;
+    alamat?: string;
+    tandaTangan?: File;
+    role: string;
+    nameLengkap: string;
+    name: string;
+};
+
+export type getLoggedUser = {
+    username: string;
+};
+
 
 // export type AsesiProfileValues = {
 //     [key: string]: any;
@@ -144,10 +173,8 @@ export type UserValues = {
 export type AsesorValues = {
     [key: string]: any;
     username?: string;
-    role?: string;
-    foto?: File;
-    nama?: string;
     email?: string;
+    namaLengkap?: string;
     nik?: string;
     alamat?: string;
     tanggalLahir?: string;
@@ -155,8 +182,8 @@ export type AsesorValues = {
     jenisKelamin?: string;
     agama?: string;
     phone?: string;
+    foto?: File;
     tandaTangan?: File;
-    no_registrasi?: string;
 };
 
 export type ChangePasswordValues = {

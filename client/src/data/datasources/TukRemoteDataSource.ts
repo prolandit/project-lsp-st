@@ -27,8 +27,10 @@ const TukRemoteDataSource = {
         const url = import.meta.env.VITE_API_URL;
         const endpoint = `${url}/api/v1/tuk/create_tuk`;
 
+        const jsonPayload = JSON.stringify(payload);
+
         try {
-            await axios.post(endpoint, payload);
+            await axios.post(endpoint, jsonPayload);
         } catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
 

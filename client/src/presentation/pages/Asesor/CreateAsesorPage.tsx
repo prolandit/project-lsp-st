@@ -48,7 +48,10 @@ const CreateAsesorPage = () => {
         setFieldValue,
     } = useFormik({
         initialValues: {
-            nama: '',
+            userId: 1,
+            username: '',
+            email: '',
+            namaLengkap: '',
             nik: '',
             alamat: '',
             tempatLahir: '',
@@ -58,7 +61,6 @@ const CreateAsesorPage = () => {
             phone: '',
             foto: undefined,
             tandaTangan: undefined,
-            no_registrasi: '',
         },
         validationSchema: AsesorInputSchema,
         onSubmit: onSaveAsesor,
@@ -118,20 +120,60 @@ const CreateAsesorPage = () => {
                             <div className='flex flex-col w-full gap-6 lg:gap-16 lg:grid lg:grid-cols-4 lg:gap-y-10'>
                                 <div className='flex flex-col gap-3'>
                                     <Label
-                                        htmlFor='nama'
+                                        htmlFor='username'
                                         className='w-36'
                                     >
-                                        Nama
+                                        Username
                                     </Label>
                                     <Input
                                         type='text'
-                                        name='nama'
-                                        value={values.nama}
+                                        name='username'
+                                        value={values.username}
                                         onChange={handleChange}
                                     />
-                                    {errors.nama && touched.nama ? (
+                                    {errors.username && touched.username ? (
                                         <Alert
-                                            message={errors.nama}
+                                            message={errors.username}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
+                                        htmlFor='email'
+                                        className='w-36'
+                                    >
+                                        Email
+                                    </Label>
+                                    <Input
+                                        type='text'
+                                        name='email'
+                                        value={values.email}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.email && touched.email ? (
+                                        <Alert
+                                            message={errors.email}
+                                            type='error'
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className='flex flex-col gap-3'>
+                                    <Label
+                                        htmlFor='namaLengkap'
+                                        className='w-36'
+                                    >
+                                        Nama Lengkap
+                                    </Label>
+                                    <Input
+                                        type='text'
+                                        name='namaLengkap'
+                                        value={values.namaLengkap}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.namaLengkap && touched.namaLengkap ? (
+                                        <Alert
+                                            message={errors.namaLengkap}
                                             type='error'
                                         />
                                     ) : null}
@@ -271,26 +313,6 @@ const CreateAsesorPage = () => {
                                     {errors.phone && touched.phone ? (
                                         <Alert
                                             message={errors.phone}
-                                            type='error'
-                                        />
-                                    ) : null}
-                                </div>
-                                <div className='flex flex-col gap-3'>
-                                    <Label
-                                        htmlFor='no_registrasi'
-                                        className='w-36'
-                                    >
-                                        Nomor Registerasi
-                                    </Label>
-                                    <Input
-                                        type='text'
-                                        name='no_registrasi'
-                                        value={values.no_registrasi}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.no_registrasi && touched.no_registrasi ? (
-                                        <Alert
-                                            message={errors.no_registrasi}
                                             type='error'
                                         />
                                     ) : null}

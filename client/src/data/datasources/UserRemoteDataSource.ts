@@ -2,14 +2,15 @@ import axios, { AxiosError } from 'axios';
 import {
     ChangePasswordValues,
     ErrorResponse,
+    getLoggedUsers,
     getUserALl,
     UserValues,
 } from '../../common/types';
 
 const UserRemoteDataSource = {
-    getLoggedUser: async (token: string): Promise<string> => {
+    getLoggedUser: async (token: string): Promise<getLoggedUsers> => {
         const url = import.meta.env.VITE_API_URL;
-        const endpoint = `${url}/api-em/user/profile`;
+        const endpoint = `${url}/api/v1/auth/user/token`;
 
         try {
             const response = await axios.get(endpoint, {
@@ -17,7 +18,7 @@ const UserRemoteDataSource = {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            return response.data.data;
+            return response.data;
         } catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
 

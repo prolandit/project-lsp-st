@@ -285,7 +285,7 @@ const CreateUserPage = () => {
                                         No.Telepon
                                     </Label>
                                     <Input
-                                        type='text'
+                                        type='number'
                                         name='noTelp'
                                         value={values.noTelp}
                                         onChange={handleChange}
