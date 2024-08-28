@@ -78,22 +78,20 @@ export type getTukALl = {
 };
 
 export type getLoggedUsers = {
-    id: number;
-    foto?: string;
-    tempatLahir?: string;
-    tanggalLahir?: string;
-    username: string;
+    id: string,
     email?: string;
-    jenisKelamin?: string;
+    username: string;
+    foto?: File | string;
+    tandaTangan?: File | string;
     namaLengkap: string;
+    jenisKelamin?: string;
     agama?: string;
-    nik?: string;
+    tanggalLahir?: string;
+    tempatLahir?: string;
     noTelp?: string;
     alamat?: string;
-    tandaTangan?: File;
+    nik?: string;
     role: string;
-    nameLengkap: string;
-    name: string;
 };
 
 export type getLoggedUser = {

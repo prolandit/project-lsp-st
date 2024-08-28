@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { useCallback, useEffect, useState } from 'react';
 import Constants from '../../../common/constants';
 import { userEditSchema } from '../../../common/formSchemas';
-import { UserValues } from '../../../common/types';
+import { getLoggedUsers } from '../../../common/types';
 import Alert from '../../components/Elements/Alert';
 import Button from '../../components/Elements/Button';
 import ComboBox from '../../components/Elements/ComboBox';
@@ -17,24 +17,24 @@ import LoadingSpinner from '../../components/Elements/LoadingSpinner';
 import { downloadFile } from '../../../common/utils';
 
 const ProfilePage = () => {
-    
+
     const [profileData, setProfileData] = useState({
         email: '',
         username: '',
-        foto: undefined,
-        tandaTangan: undefined,
-        name: '',
-        role: '',
-        tempatLahir: '',
-        tanggalLahir: '',
-        agama: '',
-        nik: '',
-        noTelp: '',
+        foto: undefined as File | string | undefined,
+        tandaTangan: undefined as File | string | undefined,
         namaLengkap: '',
         jenisKelamin: '',
+        agama: '',
+        tanggalLahir: '',
+        tempatLahir: '',
+        noTelp: '',
+        alamat: '',
+        nik: '',
+        role: '',
     });
-    
-    const [id, setId] = useState<number | null>(null); 
+
+    const [id, setId] = useState<number | null>(null);
     const [isShowModal, setIsShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -48,7 +48,21 @@ const ProfilePage = () => {
             const data = await UserRemoteDataSource.getLoggedUser(token);
             if (typeof data === 'object' && data !== null) {
                 setId(parseInt(data.id.toString(), 10));
-                setProfileData(data);
+                setProfileData({
+                    email: data.email ?? '',
+                    username: data.username ?? '',
+                    foto: data.foto,
+                    tandaTangan: data.tandaTangan,
+                    namaLengkap: data.namaLengkap ?? '',
+                    jenisKelamin: data.jenisKelamin ?? '',
+                    agama: data.agama ?? '',
+                    tanggalLahir: data.tanggalLahir ?? '',
+                    tempatLahir: data.tempatLahir ?? '',
+                    noTelp: data.noTelp ?? '',
+                    alamat: data.noTelp ?? '',
+                    role: data.role ?? '',
+                    nik: data.nik ?? '',
+                });
             } else {
                 console.error('Data format is incorrect');
             }
@@ -57,7 +71,7 @@ const ProfilePage = () => {
         }
     };
 
-    const onSaveProfile = async (profile: UserValues) => {
+    const onSaveProfile = async (profile: getLoggedUsers) => {
         setIsLoading(true);
 
         try {
@@ -83,20 +97,19 @@ const ProfilePage = () => {
         }
     };
 
-    console.log(profileData);
-    
 
     var birtdate = profileData.tanggalLahir;
 
     // Format YYYY-MM-DD
     var date = new Date(birtdate);
     var year = date.getFullYear();
-    var month = ('0' + (date.getMonth() + 1)).slice(-2); 
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
     var day = ('0' + date.getDate()).slice(-2);
     var tanggalLahir = `${year}-${month}-${day}`;
 
     const formik = useFormik({
         initialValues: {
+            id: '',
             namaLengkap: profileData.namaLengkap,
             email: profileData.email,
             username: profileData.username,
@@ -119,15 +132,19 @@ const ProfilePage = () => {
 
     const fotoUploadFile = useCallback(async () => {
         if (profileData.foto) {
-            const file = await downloadFile(profileData.foto);
-            setFieldValue('foto', file);
+            if (typeof profileData.foto === 'string') {
+                const file = await downloadFile(profileData.foto);
+                setFieldValue('foto', file);
+            }
         }
     }, [profileData.foto, setFieldValue]);
 
     const tandaTanganUploadFile = useCallback(async () => {
         if (profileData.tandaTangan) {
-            const file = await downloadFile(profileData.tandaTangan); // Mengunduh file
-            setFieldValue('tandaTangan', file); // Mengatur nilai formik dengan file yang diunduh
+            if (typeof profileData.tandaTangan === 'string') {
+                const file = await downloadFile(profileData.tandaTangan);
+                setFieldValue('tandaTangan', file);
+            }
         }
     }, [profileData.tandaTangan, setFieldValue]);
 

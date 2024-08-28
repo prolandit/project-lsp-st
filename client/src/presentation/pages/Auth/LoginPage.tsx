@@ -32,8 +32,8 @@ const LoginPage = () => {
             const data = await AuthRemoteDataSource.login(payload);
             localStorage.setItem('token', data.token);
             
-            // const user = await UserRemoteDataSource.getLoggedUser(data.token);
-            // dispatch(setUser(user));
+            const user = await UserRemoteDataSource.getLoggedUser(data.token);
+            dispatch(setUser(user));
             
             navigate('/');
         } catch (error) {

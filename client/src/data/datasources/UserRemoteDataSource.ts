@@ -106,7 +106,7 @@ const UserRemoteDataSource = {
 
     changeProfile: async (
         id: number,
-        payload: UserValues
+        payload: UserValues | getLoggedUsers
     ): Promise<void> => {
         const url = import.meta.env.VITE_API_URL;
         const endpoint = `${url}/api/v1/user/${id}`;
